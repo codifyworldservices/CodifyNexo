@@ -47,7 +47,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
      header img {
-    width: 100px;  /* Define a largura como 130px */
+    width: 150px;  /* Define a largura como 130px */
     height: 150px; /* Define a altura como 130px, IGUAL à largura */
     pointer-events: none;
     border-radius: 150%; /* Use 50% para um círculo perfeito de um quadrado */
@@ -56,7 +56,12 @@
         nav {
             margin-top: 10px;
              gap: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 10px;
         }
+        
        nav a {
             color: #FFFFFF;
             margin: 0 15px;
@@ -65,9 +70,9 @@
             border: 1px solid var(--primary-blue); /* Mantém a borda azul, visível no fundo azul escuro */
             padding: 8px 30px;
             border-radius: 5px;
-            display: inline-block;
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição para box-shadow */
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Sombra branca inicial */
+            white-space: nowrap;/* Impede que o texto dos botões quebre em várias linhas */
         }
 
         nav a:hover {
@@ -147,6 +152,20 @@
 #backToTop:hover {
     background-color: var(--secondary-blue); /* Cor de fundo ao passar o mouse */
 }
+        /* --- MEDIA QUERY PARA MOBILE --- */
+    @media (max-width: 768px) { /* Aplica para telas com largura máxima de 768px (tablets e celulares) */
+        nav {
+            flex-direction: column; /* Em vez de linha, organiza os botões em uma coluna */
+            align-items: center; /* Centraliza os botões na coluna */
+            gap: 10px; /* Reduz um pouco o espaço vertical entre os botões em mobile */
+        }
+
+        nav a {
+            width: calc(100% - 40px); /* Ocupa quase 100% da largura, com padding */
+            max-width: 250px; /* Limita a largura máxima para não ficar muito largo em tablets */
+            text-align: center; /* Centraliza o texto dentro do botão */
+        }
+    }
     </style>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -264,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <a href="#" id="backToTop" title="Voltar ao Topo">&#x2191;</a>
     <footer>
-        <p>Codify World | <a href="https://www.codifyworld.com.br" style="color: var(--primary-blue);">www.codifyworld.com.br</a> | © 2025 Codify Tech Labs</p>
+        <p> <a href="https://www.codifyworld.com.br" style="color: var(--primary-blue);">www.codifyworld.com.br</a> | © 2025 Codify World|Tech Labs</p>
         <p style="margin-top: 10px; font-size: 0.85rem;">
             Conteúdo sob Licença <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank" style="color: var(--primary-blue);">CC BY-NC-ND 4.0</a>. Direitos preservados. Não vender, Nao usar comercialmente sem autorização prescrita legal sob pena Jurídica.
         </p>

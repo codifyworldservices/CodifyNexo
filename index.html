@@ -38,6 +38,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            padding-top: 0; /* Reset para o padding do banner */
         }
         header {
             background-color: var(--primary-blue);
@@ -290,6 +291,50 @@
             color: #FFFFFF;
         }
 
+        /* --- ESTILOS PARA O BANNER DE INSTALAÇÃO --- */
+        #installAppBanner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--secondary-blue);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 0.95em;
+            position: sticky; /* Fica fixo no topo ao rolar */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100; /* Garante que fique acima de outros elementos */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+            gap: 15px;
+        }
+        #installAppBanner p {
+            margin: 0;
+            flex-grow: 1;
+            user-select: text; /* Permite selecionar o texto do banner */
+        }
+        #installAppBanner button {
+            background-color: #FFFFFF;
+            color: var(--secondary-blue);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+        #installAppBanner button:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+        /* Esconder o banner por padrão e mostrar com JS */
+        #installAppBanner.hidden {
+            display: none;
+        }
+
         /* --- MEDIA QUERY PARA MOBILE --- */
         @media (max-width: 768px) {
             nav {
@@ -360,6 +405,17 @@
                 font-size: 1.5em; /* Reduz ligeiramente para mobile */
                 margin-top: 40px;
                 margin-bottom: 20px;
+            }
+
+            /* Ajustes para o banner em mobile */
+            #installAppBanner {
+                flex-direction: column; /* Empilha o texto e o botão */
+                padding: 10px;
+                gap: 5px;
+            }
+            #installAppBanner button {
+                width: 100%; /* Botão ocupa a largura total */
+                box-sizing: border-box;
             }
         }
     </style>
@@ -457,10 +513,76 @@
                     dropdownContainer.classList.remove('active');
                 }
             });
+
+            // --- LÓGICA DO BANNER DE INSTALAÇÃO ---
+            const installBanner = document.getElementById('installAppBanner');
+            const closeBannerBtn = document.getElementById('closeBanner');
+            const installLinkFooter = document.getElementById('installAppFooterLink');
+            const installModal = document.getElementById('installAppModal');
+            const closeModalBtn = document.getElementById('closeModal');
+
+            // Verifica se o banner já foi fechado antes
+            if (localStorage.getItem('installBannerClosed') === 'true') {
+                installBanner.classList.add('hidden');
+            } else {
+                installBanner.classList.remove('hidden');
+            }
+
+            // Fecha o banner e salva no localStorage
+            closeBannerBtn.addEventListener('click', function() {
+                installBanner.classList.add('hidden');
+                localStorage.setItem('installBannerClosed', 'true');
+            });
+
+            // Abre o modal de instruções ao clicar no link do footer ou no botão do banner
+            installLinkFooter.addEventListener('click', function(e) {
+                e.preventDefault();
+                installModal.style.display = 'block';
+            });
+            // Adicionado para o botão do banner também abrir o modal
+            const installBannerButton = document.querySelector('#installAppBanner button');
+            if (installBannerButton) {
+                installBannerButton.addEventListener('click', function() {
+                    installModal.style.display = 'block';
+                });
+            }
+
+
+            // Fecha o modal
+            closeModalBtn.addEventListener('click', function() {
+                installModal.style.display = 'none';
+            });
+
+            // Fecha o modal se clicar fora dele
+            window.addEventListener('click', function(event) {
+                if (event.target == installModal) {
+                    installModal.style.display = 'none';
+                }
+            });
         });
     </script>
 </head>
 <body>
+    <div id="installAppBanner">
+        <p>Gostaria de instalar o **CodifyNews** como um aplicativo em seu celular para não perder nenhuma notícia? <br> Clique em "Instalar App" para ver as instruções!</p>
+        <button>Instalar App</button>
+        <button id="closeBanner">X</button>
+    </div>
+
+    <div id="installAppModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6);">
+        <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; border-radius: 8px; position: relative;">
+            <span id="closeModal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h3 style="color: var(--primary-blue); text-align: center;">Como Instalar o CodifyNews como App</h3>
+            <p>Para adicionar o **CodifyNews** à sua tela inicial e acessá-lo como um aplicativo, siga os passos abaixo:</p>
+            <ol>
+                <li>No seu navegador (Chrome, Safari, etc.), procure o ícone de "Compartilhar" ou "Menu" (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Share_icon_ios.svg/120px-Share_icon_ios.svg.png" alt="Ícone de Compartilhar iOS" style="height: 1.2em; vertical-align: middle; margin: 0 5px;"> ou <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Android_share_icon.svg/120px-Android_share_icon.svg.png" alt="Ícone de Compartilhar Android" style="height: 1.2em; vertical-align: middle; margin: 0 5px;">).</li>
+                <li>Toque na opção **"Adicionar à Tela Inicial"** ou **"Instalar aplicativo"**.</li>
+                <li>Confirme a adição. Pronto! O ícone do CodifyNews aparecerá na sua tela inicial.</li>
+            </ol>
+            <p style="font-size: 0.9em; color: #666; text-align: center;">(Os passos podem variar ligeiramente dependendo do seu navegador e sistema operacional.)</p>
+        </div>
+    </div>
+
     <header>
         <img src="img/logo_codi.png" alt="Codify World">
         <nav>
@@ -644,6 +766,9 @@
         <p> <a href="https://www.codifyworld.com.br">www.codifyworld.com.br</a> <br> © 2025 Codify World|Tech Labs</p>
         <p style="margin-top: 10px; font-size: 0.85rem;">
             Conteúdo sob Licença <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank">CC BY-NC-ND 4.0</a>. Direitos preservados. Não vender, Nao usar comercialmente sem autorização prescrita legal sob pena Jurídica.
+        </p>
+        <p style="margin-top: 10px;">
+            <a href="#" id="installAppFooterLink" style="color: var(--primary-blue); text-decoration: underline; font-weight: bold;">Instalar CodifyNews como App</a>
         </p>
     </footer>
 </body>

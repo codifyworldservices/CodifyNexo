@@ -61,7 +61,7 @@
             gap: 20px;
             flex-wrap: wrap;
             padding: 0 10px;
-            align-items: center; /* Adicionado para alinhar verticalmente os itens */
+            align-items: center;
         }
 
         nav a {
@@ -101,14 +101,16 @@
             user-select: none;
             font-size: 1.5em;
         }
-
-        /* O h3 foi removido do HTML, então esta regra não é mais necessária */
-        /* h3 {
-            color: var(--primary-blue);
+        
+        h3 {
+            color: var(--dark-gray);
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1em;
+            font-weight: normal;
+            line-height: 1.4;
             user-select: none;
-            font-size: 2.0em;
-            margin-top: -10px;
-        } */
+        }
 
         p, ul {
             margin-bottom: 15px;
@@ -129,6 +131,20 @@
             border-top: 1px solid var(--secondary-blue);
             user-select: none;
         }
+        footer p {
+            margin: 0;
+            line-height: 1.4;
+        }
+        footer a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+
         .signature {
             margin-top: 40px;
             font-style: italic;
@@ -157,13 +173,34 @@
             background-color: var(--secondary-blue);
         }
 
-        /* Estilos para o Dropdown (agora para CodifyNews) */
+        /* Estilos para o Dropdown */
         .dropdown {
             position: relative;
             display: inline-block;
-            margin-top: 0; /* Garante alinhamento vertical com outros botões */
+            margin-top: 0;
         }
-
+        .dropbtn {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--primary-blue);
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .dropbtn:hover {
+            background-color: #FFFFFF;
+            color: var(--primary-blue);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+        }
         .dropdown-content {
             display: none;
             position: absolute;
@@ -177,7 +214,6 @@
             transform: translateX(-50%);
             overflow: hidden;
         }
-
         .dropdown-content a {
             color: var(--primary-blue);
             padding: 12px 16px;
@@ -189,136 +225,103 @@
             box-shadow: none;
             margin: 0;
             white-space: normal;
-            /* Linha azul de separação entre os itens do submenu */
             border-bottom: 1px solid var(--primary-blue);
         }
-
         .dropdown-content a:last-child {
-            border-bottom: none; /* Remove a linha divisória do último item */
+            border-bottom: none;
         }
-
         .dropdown-content a:hover {
             background-color: var(--light-blue);
             color: var(--primary-blue);
         }
-
-        /* Mostra o submenu quando o mouse passa sobre o .dropdown */
         .dropdown:hover .dropdown-content {
             display: block;
         }
-        /* Estilo específico para o botão "CodifyNews" */
-.dropbtn {
-    /* Herda todos os estilos de nav a */
-    color: #FFFFFF;
-    text-decoration: none;
-    font-weight: 600;
-    border: 1px solid var(--primary-blue);
-    padding: 8px 30px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-    white-space: nowrap;
-    /* Para garantir que ele se comporte como um item flexível na nav */
-    display: flex; /* Usar flex para centralizar o texto se ele tiver mais espaço */
-    align-items: center; /* Centraliza verticalmente o texto */
-    justify-content: center; /* Centraliza horizontalmente o texto */
-    height: 100%; /* Garante que o botão ocupe toda a altura disponível do nav se ele for um flex container */
-}
 
-.dropbtn:hover {
-    background-color: #FFFFFF;
-    color: var(--primary-blue);
-    border-color: #FFFFFF;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-}
+        /* Classes para controlar a visibilidade dos menus */
+        .desktop-only {
+            display: inline-block;
+        }
+        .mobile-only {
+            display: none;
+        }
 
         /* --- MEDIA QUERY PARA MOBILE --- */
-       @media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    nav a {
-        width: calc(100% - 40px);
-        max-width: 250px;
-        text-align: center;
-        /* Adicionado para garantir que o height seja consistente em mobile */
-        /* Isso é crucial se os outros links tiverem um padding que afete sua altura implícita */
-        height: auto; /* Deixe que o conteúdo defina a altura, mas garanta que seja flexível */
-        box-sizing: border-box; /* Garante que padding e border não adicionem ao width/height total */
-    }
-
-    /* Ajustes para o dropdown em mobile */
-    .dropdown {
-        width: calc(100% - 40px); /* Ocupa a mesma largura que os outros botões */
-        max-width: 250px; /* Limita a largura máxima como os outros botões */
-        text-align: center;
-        margin-top: 0;
-        /* Adicionado para garantir que o .dropdown se comporte como um item de coluna */
-        display: flex; /* Transforma o dropdown em um flex container para seu conteúdo */
-        justify-content: center; /* Centraliza o dropbtn dentro dele */
-        align-items: center; /* Alinha verticalmente */
-        height: auto; /* Permite que o height se ajuste ao conteúdo, como os outros botões */
-        box-sizing: border-box; /* Consistência no modelo de caixa */
-    }
-
-    /* O dropbtn precisa das mesmas propriedades de tamanho dos nav a em mobile */
-    .dropbtn {
-        width: 100%; /* Faz o dropbtn preencher a largura do .dropdown */
-        /* Herda os estilos de nav a, mas reforce aqui para mobile */
-        padding: 8px 30px; /* Assegura o padding como os outros botões */
-        border: 1px solid var(--primary-blue); /* Assegura a borda */
-        border-radius: 5px; /* Assegura o border-radius */
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Assegura a sombra */
-        /* Remova display: flex, align-items, justify-content, height: 100% daqui,
-           pois o .dropdown já é um flex container e o width: 100% fará o trabalho */
-        display: block; /* Para que ele ocupe o espaço e seja fácil de estilizar como um bloco */
-        box-sizing: border-box; /* Garante que padding e border não adicionem ao width/height total */
-    }
-
-    .dropdown-content {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        border-top: 1px solid var(--primary-blue);
-        transform: none;
-        left: auto;
-        min-width: unset;
-        /* Adicionado para garantir que o dropdown-content se expanda corretamente */
-        display: none; /* Ainda escondido por padrão */
-        margin-top: 0; /* Remove qualquer margem extra no topo */
-    }
-
-    .dropdown-content a {
-        padding: 8px 10px;
-        text-align: center;
-        width: 100%; /* Faz os itens do submenu ocuparem a largura total */
-        box-sizing: border-box; /* Inclui padding e borda no tamanho */
-    }
-
-    /* Regra para mostrar o submenu em mobile */
-    .dropdown:hover .dropdown-content,
-    .dropdown:active .dropdown-content { /* Adicionado :active para melhor compatibilidade com toque */
-        display: block;
-    }
-
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            nav a {
+                width: calc(100% - 40px);
+                max-width: 250px;
+                text-align: center;
+                height: auto;
+                box-sizing: border-box;
+            }
+            .desktop-only {
+                display: none;
+            }
+            .mobile-only {
+                display: block;
+            }
+            .dropdown {
+                width: calc(100% - 40px);
+                max-width: 250px;
+                text-align: center;
+                margin-top: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: auto;
+                box-sizing: border-box;
+            }
+            .dropbtn {
+                width: 100%;
+                padding: 8px 30px;
+                border: 1px solid var(--primary-blue);
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+                display: block;
+                box-sizing: border-box;
+            }
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border-top: 1px solid var(--primary-blue);
+                transform: none;
+                left: auto;
+                min-width: unset;
+                display: none;
+                margin-top: 0;
+            }
+            .dropdown-content a {
+                padding: 8px 10px;
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
         }
     </style>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || (e.key === 'C' || e.key === 'K'))) || (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault();
             }
         });
 
-        // JavaScript para o botão "Voltar ao Topo"
         document.addEventListener('DOMContentLoaded', function() {
             var backToTopButton = document.getElementById("backToTop");
 
-            // Mostra ou esconde o botão ao rolar a página
             window.onscroll = function() {
                 if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                     backToTopButton.style.display = "block";
@@ -327,13 +330,73 @@
                 }
             };
 
-            // Quando o usuário clica no botão, rola para o topo da página
             backToTopButton.addEventListener('click', function(e) {
-                e.preventDefault(); // Impede o comportamento padrão do link
+                e.preventDefault();
                 window.scrollTo({
                     top: 0,
-                    behavior: "smooth" // Rola suavemente
+                    behavior: "smooth"
                 });
+            });
+
+            const dropdownBtn = document.querySelector('.dropbtn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropdownContainer = document.querySelector('.dropdown');
+
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+
+            dropdownBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                dropdownContainer.classList.toggle('active');
+                event.stopPropagation();
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!dropdownContainer.contains(event.target) && dropdownContainer.classList.contains('active')) {
+                    dropdownContainer.classList.remove('active');
+                }
+            });
+
+            // Adiciona um listener para todos os links dentro do dropdown-content para rolagem suave
+            dropdownContent.querySelectorAll('a').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#')) { // Se for um link de âncora (ex: #contato)
+                        e.preventDefault(); // Impede o comportamento padrão
+                        const targetId = href.substring(1); // Pega o ID sem o #
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' }); // Rola suavemente
+                        }
+                    }
+                    // Fecha o dropdown após o clique, com um pequeno atraso para UX
+                    setTimeout(() => {
+                        dropdownContainer.classList.remove('active');
+                    }, 100);
+                });
+            });
+
+
+            dropdownContainer.addEventListener('mouseenter', function() {
+                if (!isMobile()) {
+                    this.classList.add('active');
+                }
+            });
+
+            dropdownContainer.addEventListener('mouseleave', function() {
+                if (!isMobile()) {
+                    dropdownContainer.classList.remove('active');
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                if (!isMobile() && dropdownContainer.classList.contains('active')) {
+                    dropdownContainer.classList.remove('active');
+                }
+                if (isMobile() && dropdownContainer.matches(':hover')) {
+                    dropdownContainer.classList.remove('active');
+                }
             });
         });
     </script>
@@ -345,60 +408,58 @@
             <div class="dropdown">
                 <a href="#" class="dropbtn">CodifyNews</a>
                 <div class="dropdown-content">
-                    <a href="#contexto">Contexto Econômico Global e Nacional</a>
-                    <a href="#selic">Taxa Selic, Inflação e Perfil do Investidor Brasileiro</a>
-                    <a href="#xrp">XRP, Volatilidade Cambial e Uso em Pagamentos</a>
-                    <a href="#etf">ETF XRPH11: Exclusividade e Liquidez</a>
-                    <a href="#tarifa">Impactos da Tarifa de 50% dos EUA em Criptoativos</a>
-                    <a href="#fiscal">Mudanças Fiscais Recentes no Brasil (Jun/2025)</a>
-                    <a href="#conclusao">Considerações Finais</a>
+                    <a href="#relatorio-atual">Relatório Atual</a>
+                    <a href="#relatorios-arquivados">Relatórios Arquivados</a>
                 </div>
             </div>
-            <a href="#parceiros">Parceiros</a>
-            <a href="#sobre-nos">Sobre nós</a>
-            <a href="#contato">Contato</a>
-            <a href="#redes-sociais">Redes Sociais</a>
+            <a href="#parceiros" class="desktop-only">Parceiros</a>
+            <a href="#sobre-nos" class="desktop-only">Sobre nós</a>
+            <a href="#contato" class="desktop-only">Contato</a>
+            <a href="#redes-sociais" class="desktop-only">Redes Sociais</a>
         </nav>
     </header>
     <div class="container">
-        <h1>Análise Profunda do XRP – Julho 2025</h1>
+        <h3>Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 style="text-align: center; margin-bottom: 25px;"><strong>Análise Profunda do XRP – Julho 2025</strong></h2>
+
+        <h2 id="relatorio-atual">Relatório Atual</h2>
         <h2 id="contexto">1. Contexto Econômico Global e Nacional</h2>
-        <p>Em 9 de julho de 2025, o presidente dos Estados Unidos, Donald Trump, enviou uma carta ao presidente Luiz Inácio Lula da Silva anunciando a imposição de <strong>tarifa de 50%</strong> sobre todos os produtos exportados do Brasil para os EUA, com vigência a partir de <strong>1º de agosto de 2025</strong>. Na justificativa, Trump citou supostas restrições à liberdade de expressão decorrentes de decisões do STF e o tratamento dado ao ex‑presidente Jair Bolsonaro, classificando-o como “caça às bruxas”.</p>
+        <p>Em 9 de julho de 2025, o presidente dos Estados Unidos, Donald Trump, enviou uma carta ao presidente Luiz Inácio Lula da Silva anunciando a imposição de **tarifa de 50%** sobre todos os produtos exportados do Brasil para os EUA, com vigência a partir de **1º de agosto de 2025**. Na justificativa, Trump citou supostas restrições à liberdade de expressão decorrentes de decisões do STF e o tratamento dado ao ex‑presidente Jair Bolsonaro, classificando-o como “caça às bruxas”.</p>
         <p>Essa tarifa, muito acima das alíquotas convencionais (10–25%), pode gerar custos adicionais para setores-chave (café, carne, suco de laranja, manufaturados) e obrigar empresas brasileiras a reajustar preços ou buscar novos mercados. Em retaliação, o governo brasileiro sinalizou a aplicação de tarifas recíprocas, conforme previsto em lei de intercâmbio comercial.</p>
         <h2 id="selic">2. Taxa Selic, Inflação e Perfil do Investidor Brasileiro</h2>
         <ul>
-            <li><strong>Selic:</strong> 15% a.a. (jun/2025) – nível mais alto desde 2006.</li>
-            <li><strong>IPCA:</strong> ~5% a.a.</li>
-            <li><strong>Comportamento:</strong> embora renda fixa esteja atrativa, cerca de 28% dos investidores mantêm &gt;50% da carteira em criptoativos, em busca de diversificação e proteção contra inflação.</li>
+            <li>**Selic:** 15% a.a. (jun/2025) – nível mais alto desde 2006.</li>
+            <li>**IPCA:** ~5% a.a.</li>
+            <li>**Comportamento:** embora renda fixa esteja atrativa, cerca de 28% dos investidores mantêm >50% da carteira em criptoativos, em busca de diversificação e proteção contra inflação.</li>
         </ul>
         <h2 id="xrp">3. XRP, Volatilidade Cambial e Uso em Pagamentos</h2>
         <ul>
-            <li><strong>On‑Demand Liquidity (ODL):</strong> converte BRL→XRP→moeda destino em segundos, sem conta pré‑financiada em dólar.</li>
-            <li><strong>Câmbio:</strong> com o real a R$5,50–5,70/US$, ODL reduz custos de remessas e facilita comércio exterior.</li>
-            <li><strong>Adoção:</strong> bancos e fintechs (Mercado Bitcoin, Travelex Bank) já utilizam XRP para operações internacionais.</li>
+            <li>**On‑Demand Liquidity (ODL):** converte BRL→XRP→moeda destino em segundos, sem conta pré‑financiada em dólar.</li>
+            <li>**Câmbio:** com o real a R$5,50–5,70/US$, ODL reduz custos de remessas e facilita comércio exterior.</li>
+            <li>**Adoção:** bancos e fintechs (Mercado Bitcoin, Travelex Bank) já utilizam XRP para operações internacionais.</li>
         </ul>
         <h2 id="etf">4. ETF XRPH11: Exclusividade e Liquidez</h2>
         <ul>
-            <li><strong>Lançamento:</strong> abril/2025, Hashdex + Genial Investimentos.</li>
-            <li><strong>Código:</strong> XRPH11 (B3).</li>
-            <li><strong>Aprovação:</strong> CVM em 19/02/2025.</li>
-            <li><strong>Diferencial:</strong> primeiro ETF spot de XRP no mundo e único disponível no Brasil, oferecendo exposição regulamentada, transparência de índice (Nasdaq XRP Reference Price) e alta liquidez.</li>
+            <li>**Lançamento:** abril/2025, Hashdex + Genial Investimentos.</li>
+            <li>**Código:** XRPH11 (B3).</li>
+            <li>**Aprovação:** CVM em 19/02/2025.</li>
+            <li>**Diferencial:** primeiro ETF spot de XRP no mundo e único disponível no Brasil, oferecendo exposição regulamentada, transparência de índice (Nasdaq XRP Reference Price) e alta liquidez.</li>
         </ul>
         <h2 id="tarifa">5. Impactos da Tarifa de 50% dos EUA em Criptoativos</h2>
         <ul>
-            <li><strong>Migração de Capital:</strong> potencial realocação de recursos de investidores americanos para jurisdições com menor carga tributária e ambiente mais estável — inclusive o Brasil.</li>
-            <li><strong>Oportunidades para Ripple:
+            <li>**Migração de Capital:** potencial realocação de recursos de investidores americanos para jurisdições com menor carga tributária e ambiente mais estável — inclusive o Brasil.</li>
+            <li>**Oportunidades para Ripple:**
                 <ul>
                     <li>Adoção institucional pode crescer no Brasil, beneficiando parcerias locais e uso de ODL.</li>
                     <li>XRPH11 poderá ver aumento de demanda à medida que investidores busquem proteção e diversificação.</li>
                 </ul>
             </li>
-            <li><strong>Efeito Global:</strong> tensões comerciais tendem a reforçar o papel dos criptoativos como “ativo de fronteira”, usado para movimentar capital entre mercados sem restrições alfandegárias.</li>
+            <li>**Efeito Global:** tensões comerciais tendem a reforçar o papel dos criptoativos como “ativo de fronteira”, usado para movimentar capital entre mercados sem restrições alfandegárias.</li>
         </ul>
-        <h2 id="fiscal">6. Mudanças Fiscais Recentemente no Brasil (Jun/2025)</h2>
+        <h2 id="fiscal">6. Mudanças Fiscais Recentes no Brasil (Jun/2025)</h2>
         <ul>
-            <li><strong>Isenção Mensal:</strong> vendas de até R$ 35 000 continuam isentas de IR sobre ganho de capital.</li>
-            <li><strong>Alíquotas Progressivas (lucros acima de R$ 35 000):</strong>
+            <li>**Isenção Mensal:** vendas de até R$ 35 000 continuam isentas de IR sobre ganho de capital.</li>
+            <li>**Alíquotas Progressivas (lucros acima de R$ 35 000):**
                 <ul>
                     <li>Até R$ 5 mi → 15%</li>
                     <li>R$ 5–10 mi → 17,5%</li>
@@ -406,7 +467,7 @@
                     <li>Acima de R$ 30 mi → 22,5%</li>
                 </ul>
             </li>
-            <li><strong>Novas Regras:</strong>
+            <li>**Novas Regras:**
                 <ul>
                     <li>Exchanges nacionais devem reportar em tempo real vendas mensais por CPF.</li>
                     <li>Projeto de lei em tramitação propõe revogar isenção e instituir retenção na fonte pelas exchanges.</li>
@@ -417,20 +478,67 @@
         <p>O Brasil combina elevada taxa de juros e inflação com um ambiente regulatório progressista para criptoativos: aprovação de ETFs, marco legal do BC/CVM e parcerias institucionais. A tarifa de 50% dos EUA, ainda que voltada a comércio físico, pode acelerar fluxos de capital para ativos digitais, especialmente XRP via XRPH11.</p>
         <p>Essa conjuntura oferece oportunidades e desafios:</p>
         <ul>
-            <li><strong>Oportunidades:</strong> diversificação, proteção cambial e expansão institucional do XRP no Brasil.</li>
-            <li><strong>Desafios:</strong> cenário fiscal em mutação e necessidade de compliance robusto por parte de investidores e exchanges.</li>
+            <li>**Oportunidades:** diversificação, proteção cambial e expansão institucional do XRP no Brasil.</li>
+            <li>**Desafios:** cenário fiscal em mutação e necessidade de compliance robusto por parte de investidores e exchanges.</li>
         </ul>
         <div class="signature">
             <p>Atenciosamente,</p>
-            <p><strong>Weslei Romano</strong><br> Engenheiro de Software<br>Codify World | Tech Labs</p>
+            <p>**Weslei Romano**<br> Engenheiro de Software<br>Codify World | Tech Labs</p>
         </div>
-        <p><em>Nota: Este relatório é meramente informativo e não constitui recomendação de investimento.</em></p>
+        <p>_Nota: Este relatório é meramente informativo e não constitui recomendação de investimento._</p>
+
+        ---
+
+        <h2 id="relatorios-arquivados">Relatórios Arquivados</h2>
+        <h3>Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 style="text-align: center; margin-bottom: 25px;">**Acesse Documentos Técnicos Passados**</h2>
+        
+        <p style="text-align: center; margin-bottom: 30px;">Os relatórios arquivados estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com nossa equipe através dos canais oficiais da Codify World.</p>
+        
+        <p style="margin-top: 30px; text-align: center;">**Entre em contato conosco para saber mais!**</p>
+
+        ---
+
+        <h2 id="contato">Contato</h2>
+        <p>**CodifyWorld**<br>
+        Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
+        Rio de Janeiro, Brasil</p>
+        <p>Tel: <a href="tel:+244927944541" style="color: var(--primary-blue); text-decoration: underline;">+244 927 944 541</a> / <a href="tel:+5522997323458" style="color: var(--primary-blue); text-decoration: underline;">+55 22 997 323 458</a></p>
+        <p>Email: <a href="mailto:codifyworldservices@gmail.com" style="color: var(--primary-blue); text-decoration: underline;">codifyworldservices@gmail.com</a></p>
+
+        ---
+
+        <h2 id="redes-sociais">Redes Sociais</h2>
+        <p>Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
+        <ul>
+            <li><a href="https://www.instagram.com/codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">Instagram: @codifyworld</a></li>
+            <li><a href="https://x.com/codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">X (Twitter): @codifyworld</a></li>
+            <li><a href="https://linkedin.com/company/codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">LinkedIn: CodifyWorld</a></li>
+            <li><a href="https://www.tiktok.com/@codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">TikTok: @codifyworld</a></li>
+            <li><a href="https://www.youtube.com/@codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">YouTube: @codifyworld</a></li>
+            <li><a href="https://www.codifyworld.com.br" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">Site: www.codifyworld.com.br</a></li>
+        </ul>
+
+        ---
+
+        <h2 id="sobre-nos">Sobre nós</h2>
+        <p>Na Codify World, acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
+        <p>Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
+        <p>Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
+        <p>A Codify World é feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital. Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
+        
+        ---
+
+        <h2 id="parceiros">Parceiros</h2>
+        <p>Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
+        <p>Interessado em se tornar um parceiro da Codify World? Entre em contato conosco para explorar oportunidades de colaboração.</p>
+
     </div>
-    <a href="#" id="backToTop" title="Voltar ao Topo">&#x2191;</a>
+    <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
     <footer>
-        <p> <a href="https://www.codifyworld.com.br" style="color: var(--primary-blue);">www.codifyworld.com.br</a> | © 2025 Codify World|Tech Labs</p>
+        <p> <a href="https://www.codifyworld.com.br">www.codifyworld.com.br</a> <br> © 2025 Codify World|Tech Labs</p>
         <p style="margin-top: 10px; font-size: 0.85rem;">
-            Conteúdo sob Licença <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank" style="color: var(--primary-blue);">CC BY-NC-ND 4.0</a>. Direitos preservados. Não vender, Nao usar comercialmente sem autorização prescrita legal sob pena Jurídica.
+            Conteúdo sob Licença <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank">CC BY-NC-ND 4.0</a>. Direitos preservados. Não vender, Nao usar comercialmente sem autorização prescrita legal sob pena Jurídica.
         </p>
     </footer>
 </body>

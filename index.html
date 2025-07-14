@@ -138,7 +138,7 @@
             if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault();
             }
-
+        });
             // ... seu JavaScript existente para bloquear cópia ...
 
 // JavaScript para o botão "Voltar ao Topo"
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             backToTopButton.style.display = "none";
         }
-    };
+   };
 
     // Quando o usuário clica no botão, rola para o topo da página
     backToTopButton.addEventListener('click', function(e) {

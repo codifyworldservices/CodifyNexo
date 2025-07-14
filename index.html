@@ -233,41 +233,77 @@
 }
 
         /* --- MEDIA QUERY PARA MOBILE --- */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
+       @media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
 
-            nav a {
-                width: calc(100% - 40px);
-                max-width: 250px;
-                text-align: center;
-            }
+    nav a {
+        width: calc(100% - 40px);
+        max-width: 250px;
+        text-align: center;
+        /* Adicionado para garantir que o height seja consistente em mobile */
+        /* Isso é crucial se os outros links tiverem um padding que afete sua altura implícita */
+        height: auto; /* Deixe que o conteúdo defina a altura, mas garanta que seja flexível */
+        box-sizing: border-box; /* Garante que padding e border não adicionem ao width/height total */
+    }
 
-            /* Ajustes para o dropdown em mobile */
-            .dropdown {
-                width: calc(100% - 40px);
-                max-width: 250px;
-                text-align: center;
-                margin-top: 0;
-            }
+    /* Ajustes para o dropdown em mobile */
+    .dropdown {
+        width: calc(100% - 40px); /* Ocupa a mesma largura que os outros botões */
+        max-width: 250px; /* Limita a largura máxima como os outros botões */
+        text-align: center;
+        margin-top: 0;
+        /* Adicionado para garantir que o .dropdown se comporte como um item de coluna */
+        display: flex; /* Transforma o dropdown em um flex container para seu conteúdo */
+        justify-content: center; /* Centraliza o dropbtn dentro dele */
+        align-items: center; /* Alinha verticalmente */
+        height: auto; /* Permite que o height se ajuste ao conteúdo, como os outros botões */
+        box-sizing: border-box; /* Consistência no modelo de caixa */
+    }
 
-            .dropdown-content {
-                position: static;
-                width: 100%;
-                box-shadow: none;
-                border-top: 1px solid var(--primary-blue); /* Linha azul em mobile também */
-                transform: none;
-                left: auto;
-                min-width: unset;
-            }
+    /* O dropbtn precisa das mesmas propriedades de tamanho dos nav a em mobile */
+    .dropbtn {
+        width: 100%; /* Faz o dropbtn preencher a largura do .dropdown */
+        /* Herda os estilos de nav a, mas reforce aqui para mobile */
+        padding: 8px 30px; /* Assegura o padding como os outros botões */
+        border: 1px solid var(--primary-blue); /* Assegura a borda */
+        border-radius: 5px; /* Assegura o border-radius */
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Assegura a sombra */
+        /* Remova display: flex, align-items, justify-content, height: 100% daqui,
+           pois o .dropdown já é um flex container e o width: 100% fará o trabalho */
+        display: block; /* Para que ele ocupe o espaço e seja fácil de estilizar como um bloco */
+        box-sizing: border-box; /* Garante que padding e border não adicionem ao width/height total */
+    }
 
-            .dropdown-content a {
-                padding: 8px 10px;
-                text-align: center;
-            }
+    .dropdown-content {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-top: 1px solid var(--primary-blue);
+        transform: none;
+        left: auto;
+        min-width: unset;
+        /* Adicionado para garantir que o dropdown-content se expanda corretamente */
+        display: none; /* Ainda escondido por padrão */
+        margin-top: 0; /* Remove qualquer margem extra no topo */
+    }
+
+    .dropdown-content a {
+        padding: 8px 10px;
+        text-align: center;
+        width: 100%; /* Faz os itens do submenu ocuparem a largura total */
+        box-sizing: border-box; /* Inclui padding e borda no tamanho */
+    }
+
+    /* Regra para mostrar o submenu em mobile */
+    .dropdown:hover .dropdown-content,
+    .dropdown:active .dropdown-content { /* Adicionado :active para melhor compatibilidade com toque */
+        display: block;
+    }
+
         }
     </style>
     <script>

@@ -15,11 +15,6 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Codify World | Tech Labs">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Relatório Técnico Codify World: Análise XRP">
-    <meta name="twitter:description" content="Análise detalhada do cenário econômico global, XRP, ETFs e impactos fiscais no Brasil.">
-    <meta name="twitter:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
-
     <link rel="manifest" href="manifest.json">
 
     <link rel="apple-touch-icon" href="img/logo_codi_192.png"> <link rel="apple-touch-icon" sizes="180x180" href="img/logo_codi_180.png"> <meta name="apple-mobile-web-app-capable" content="yes">
@@ -401,6 +396,20 @@
             cursor: pointer;
         }
 
+        /* --- SEPARADOR MAIS FORTE ENTRE RELATÓRIO E OUTRAS SEÇÕES --- */
+        .major-separator {
+            border: none;
+            border-top: 4px dotted var(--primary-blue); /* Linha pontilhada azul mais grossa */
+            margin: 80px auto; /* Mais espaçamento */
+            width: 70%; /* Ocupa menos largura para parecer um "divisor" */
+            max-width: 400px;
+        }
+        /* Espaçamento para as seções de conteúdo (após o relatório) */
+        .content-section {
+            margin-top: 60px; /* Garante que cada nova seção comece com bom espaçamento */
+        }
+
+
         /* --- MEDIA QUERIES (RESPONSIVIDADE PARA CELULARES) --- */
         @media (max-width: 768px) {
             nav {
@@ -484,6 +493,14 @@
             #installAppModal > div {
                 margin: 5% auto;
                 padding: 20px;
+            }
+
+            .major-separator {
+                margin: 60px auto;
+                width: 90%;
+            }
+            .content-section {
+                margin-top: 40px;
             }
         }
         /* Animação para o modal (fadeIn) */
@@ -757,7 +774,9 @@
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
         </div>
+    </div> <hr class="major-separator">
 
+    <div class="container content-section">
         <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
         <h2 class="subtitle">**Acesse Documentos Técnicos Passados**</h2>
         <p style="text-align: center; margin-bottom: 30px;">Os relatórios arquivados estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com nossa equipe através dos canais oficiais da Codify World.</p>
@@ -770,7 +789,7 @@
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
         </div>
-
+    </div> <div class="container content-section">
         <h2 id="contato" class="section-heading">Contato</h2>
         <h2 class="subtitle">Informações de Contato</h2>
         <p>**CodifyWorld**<br>
@@ -786,26 +805,63 @@
             <a href="#sobre-nos">Sobre nós</a>
             <a href="#redes-sociais">Redes Sociais</a>
         </div>
-
+    </div> <div class="container content-section">
         <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
         <h2 class="subtitle">Conecte-se Conosco</h2>
         <p>Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
-        <ul>
-            <li><a href="https://www.instagram.com/codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">Instagram: @codifyworld</a></li>
-            <li><a href="https://x.com/codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">X (Twitter): @codifyworld</a></li>
-            <li><a href="https://linkedin.com/company/codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">LinkedIn: CodifyWorld</a></li>
-            <li><a href="https://www.tiktok.com/@codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">TikTok: @codifyworld</a></li>
-            <li><a href="https://www.youtube.com/@codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">YouTube: @codifyworld</a></li>
-            <li><a href="https://www.codifyworld.com.br" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">Site: www.codifyworld.com.br</a></li>
+        <ul style="list-style: none; padding: 0; text-align: center;">
+            <li style="display: inline-block; margin: 0 10px 15px;">
+                <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram">
+                    <img src="img/icon-instagram.png" alt="Instagram" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 8px;">
+                    <br><span style="font-size: 0.9em; color: var(--primary-blue); text-decoration: none; display: block; margin-top: 5px;">Instagram</span>
+                </a>
+            </li>
+            <li style="display: inline-block; margin: 0 10px 15px;">
+                <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)">
+                    <img src="img/icon-x.png" alt="X (Twitter)" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 8px;">
+                    <br><span style="font-size: 0.9em; color: var(--primary-blue); text-decoration: none; display: block; margin-top: 5px;">X (Twitter)</span>
+                </a>
+            </li>
+            <li style="display: inline-block; margin: 0 10px 15px;">
+                <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub">
+                    <img src="img/icon-github.png" alt="GitHub" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 8px;">
+                    <br><span style="font-size: 0.9em; color: var(--primary-blue); text-decoration: none; display: block; margin-top: 5px;">GitHub</span>
+                </a>
+            </li>
+            <li style="display: inline-block; margin: 0 10px 15px;">
+                <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn">
+                    <img src="img/icon-linkedin.png" alt="LinkedIn" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 8px;">
+                    <br><span style="font-size: 0.9em; color: var(--primary-blue); text-decoration: none; display: block; margin-top: 5px;">LinkedIn</span>
+                </a>
+            </li>
+            <li style="display: inline-block; margin: 0 10px 15px;">
+                <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok">
+                    <img src="img/icon-tiktok.png" alt="TikTok" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 8px;">
+                    <br><span style="font-size: 0.9em; color: var(--primary-blue); text-decoration: none; display: block; margin-top: 5px;">TikTok</span>
+                </a>
+            </li>
+            <li style="display: inline-block; margin: 0 10px 15px;">
+                <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube">
+                    <img src="img/icon-youtube.png" alt="YouTube" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 8px;">
+                    <br><span style="font-size: 0.9em; color: var(--primary-blue); text-decoration: none; display: block; margin-top: 5px;">YouTube</span>
+                </a>
+            </li>
+            <li style="display: inline-block; margin: 0 10px 15px;">
+                <a href="https://www.codifyworld.com.br" target="_blank" aria-label="Site Oficial">
+                    <img src="img/icon-website.png" alt="Site Oficial" style="width: 40px; height: 40px; vertical-align: middle; border-radius: 8px;">
+                    <br><span style="font-size: 0.9em; color: var(--primary-blue); text-decoration: none; display: block; margin-top: 5px;">Site Oficial</span>
+                </a>
+            </li>
         </ul>
 
         <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
             <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
         </div>
-
+    </div> <div class="container content-section">
         <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
         <h2 class="subtitle">Nossa Missão e Visão</h2>
         <p>Na Codify World, acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
@@ -820,15 +876,13 @@
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
         </div>
-
+    </div> <div class="container content-section">
         <h2 id="parceiros" class="section-heading">Parceiros</h2>
         <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
         <p>Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
         <p>Interessado em se tornar um parceiro da Codify World? Entre em contato conosco para explorar oportunidades de colaboração.</p>
 
-    </div>
-
-    <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
+    </div> <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
 
     <footer>
         <p> <a href="https://www.codifyworld.com.br">www.codifyworld.com.br</a> <br> © 2025 Codify World|Tech Labs</p>

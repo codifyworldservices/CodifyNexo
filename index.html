@@ -90,27 +90,47 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        h2 {
+
+        /* Novas regras para os títulos */
+        .main-title { /* Para "Codify World Relatórios Técnicos..." */
+            color: var(--primary-blue);
+            user-select: none;
+            font-size: 1.5em; /* Tamanho maior */
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .subtitle { /* Para "Análise Profunda do XRP..." */
+            color: var(--dark-gray);
+            user-select: none;
+            font-size: 1.15em; /* Tamanho menor */
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+        
+        /* Títulos das sub-seções do relatório (1. Contexto, 2. Taxa Selic, etc.) */
+        h2 { 
             color: var(--primary-blue);
             user-select: none;
             font-size: 1.15em;
+            margin-top: 30px; /* Adiciona espaçamento superior para separar */
+            margin-bottom: 15px;
         }
 
-        h1 {
-            color: var(--primary-blue);
-            user-select: none;
-            font-size: 1.5em;
-        }
-        
-        h3 {
-            color: var(--dark-gray);
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1em;
-            font-weight: normal;
-            line-height: 1.4;
+        /* Estilo para os títulos das seções de navegação (Relatórios Arquivados, Contato, etc.) */
+        .section-heading {
+            color: var(--primary-blue); /* Mesma cor principal */
+            font-size: 1.8em; /* Maior para se destacar como nova seção */
+            text-align: center; /* Centralizado */
+            margin-top: 50px; /* Mais espaçamento superior */
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-blue); /* Linha sutil para diferenciar */
             user-select: none;
         }
+
 
         p, ul {
             margin-bottom: 15px;
@@ -143,7 +163,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
 
         .signature {
             margin-top: 40px;
@@ -240,10 +259,35 @@
 
         /* Classes para controlar a visibilidade dos menus */
         .desktop-only {
-            display: inline-block;
+            display: inline-block; /* Visível em desktop */
         }
         .mobile-only {
-            display: none;
+            display: none; /* Escondido em desktop */
+        }
+
+        /* Nova classe para os separadores de seção com navegação */
+        .section-separator-nav {
+            margin: 40px auto; /* Espaçamento acima e abaixo */
+            border-top: 1px dashed var(--secondary-blue); /* Linha tracejada */
+            padding-top: 30px; /* Espaçamento após a linha */
+            text-align: center; /* Centraliza os links */
+            max-width: 600px; /* Limita a largura da linha e dos botões */
+        }
+        .section-separator-nav a {
+            display: inline-block; /* Faz os links ficarem lado a lado */
+            margin: 5px 10px; /* Espaçamento entre os links */
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 5px 15px;
+            border: 1px solid var(--primary-blue);
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+        .section-separator-nav a:hover {
+            background-color: var(--primary-blue);
+            color: #FFFFFF;
         }
 
         /* --- MEDIA QUERY PARA MOBILE --- */
@@ -253,22 +297,13 @@
                 align-items: center;
                 gap: 10px;
             }
-            nav a {
-                width: calc(100% - 40px);
-                max-width: 250px;
-                text-align: center;
-                height: auto;
-                box-sizing: border-box;
-            }
-            .desktop-only {
+            /* Apenas o dropdown é visível na nav principal em mobile */
+            nav .desktop-only {
                 display: none;
             }
-            .mobile-only {
-                display: block;
-            }
-            .dropdown {
-                width: calc(100% - 40px);
-                max-width: 250px;
+            nav .dropdown {
+                width: auto; /* Deixa o dropdown se ajustar ao conteúdo */
+                max-width: unset;
                 text-align: center;
                 margin-top: 0;
                 display: flex;
@@ -277,18 +312,17 @@
                 height: auto;
                 box-sizing: border-box;
             }
+            /* Ajuste para o botão do dropdown em mobile para ser mais compacto */
             .dropbtn {
-                width: 100%;
-                padding: 8px 30px;
-                border: 1px solid var(--primary-blue);
-                border-radius: 5px;
-                box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-                display: block;
+                width: auto; /* Se ajusta ao texto */
+                min-width: 150px; /* Largura mínima para o botão */
+                padding: 8px 20px; /* Padding ajustado */
                 box-sizing: border-box;
+                margin: 0 auto; /* Centraliza */
             }
             .dropdown-content {
                 position: static;
-                width: 100%;
+                width: 100%; /* Ocupa a largura total do container */
                 box-shadow: none;
                 border-top: 1px solid var(--primary-blue);
                 transform: none;
@@ -304,10 +338,28 @@
                 box-sizing: border-box;
             }
             .dropdown:hover .dropdown-content {
-                display: none;
+                display: none; /* Desativa hover em mobile */
             }
             .dropdown.active .dropdown-content {
-                display: block;
+                display: block; /* Ativa clique em mobile */
+            }
+
+            .section-separator-nav {
+                margin: 30px auto;
+                padding-top: 20px;
+                max-width: 90%;
+            }
+            .section-separator-nav a {
+                display: block; /* Empilha os links em mobile */
+                width: calc(100% - 20px);
+                margin: 5px auto; /* Centraliza os links em mobile */
+            }
+
+            /* Ajustes para os títulos em mobile, se necessário para espaçamento */
+            .section-heading {
+                font-size: 1.5em; /* Reduz ligeiramente para mobile */
+                margin-top: 40px;
+                margin-bottom: 20px;
             }
         }
     </style>
@@ -349,31 +401,36 @@
             dropdownBtn.addEventListener('click', function(event) {
                 event.preventDefault();
                 dropdownContainer.classList.toggle('active');
-                event.stopPropagation();
+                event.stopPropagation(); // Impede que o clique se propague para o document
             });
 
             document.addEventListener('click', function(event) {
+                // Fecha o dropdown se o clique for fora do container do dropdown e ele estiver ativo
                 if (!dropdownContainer.contains(event.target) && dropdownContainer.classList.contains('active')) {
                     dropdownContainer.classList.remove('active');
                 }
             });
 
-            // Adiciona um listener para todos os links dentro do dropdown-content para rolagem suave
-            dropdownContent.querySelectorAll('a').forEach(item => {
-                item.addEventListener('click', function(e) {
+            // Adiciona um listener para todos os links internos para rolagem suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
                     const href = this.getAttribute('href');
-                    if (href.startsWith('#')) { // Se for um link de âncora (ex: #contato)
-                        e.preventDefault(); // Impede o comportamento padrão
-                        const targetId = href.substring(1); // Pega o ID sem o #
-                        const targetElement = document.getElementById(targetId);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth' }); // Rola suavemente
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        e.preventDefault(); // Impede o comportamento padrão apenas para âncoras internas
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+
+                        // Fecha o dropdown se estiver aberto (para mobile)
+                        if (isMobile() && dropdownContainer.classList.contains('active')) {
+                            setTimeout(() => {
+                                dropdownContainer.classList.remove('active');
+                            }, 100);
                         }
                     }
-                    // Fecha o dropdown após o clique, com um pequeno atraso para UX
-                    setTimeout(() => {
-                        dropdownContainer.classList.remove('active');
-                    }, 100);
                 });
             });
 
@@ -386,14 +443,16 @@
 
             dropdownContainer.addEventListener('mouseleave', function() {
                 if (!isMobile()) {
-                    dropdownContainer.classList.remove('active');
+                    this.classList.remove('active');
                 }
             });
 
             window.addEventListener('resize', function() {
-                if (!isMobile() && dropdownContainer.classList.contains('active')) {
+                // Ao redimensionar, se não for mobile, garanta que o dropdown não esteja ativo por causa do hover
+                if (!isMobile() && dropdownContainer.classList.contains('active') && !dropdownContainer.matches(':hover')) {
                     dropdownContainer.classList.remove('active');
                 }
+                // Se voltar a ser mobile e o mouse não estiver em cima (para evitar que fique aberto se o usuário redimensionou de desktop com o mouse em cima)
                 if (isMobile() && dropdownContainer.matches(':hover')) {
                     dropdownContainer.classList.remove('active');
                 }
@@ -410,6 +469,10 @@
                 <div class="dropdown-content">
                     <a href="#relatorio-atual">Relatório Atual</a>
                     <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                    <a href="#parceiros">Parceiros</a>
+                    <a href="#sobre-nos">Sobre nós</a>
+                    <a href="#contato">Contato</a>
+                    <a href="#redes-sociais">Redes Sociais</a>
                 </div>
             </div>
             <a href="#parceiros" class="desktop-only">Parceiros</a>
@@ -419,8 +482,8 @@
         </nav>
     </header>
     <div class="container">
-        <h3>Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
-        <h2 style="text-align: center; margin-bottom: 25px;"><strong>Análise Profunda do XRP – Julho 2025</strong></h2>
+        <h3 class="main-title">Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 class="subtitle"><strong>Análise Profunda do XRP – Julho 2025</strong></h2>
 
         <h2 id="relatorio-atual">Relatório Atual</h2>
         <h2 id="contexto">1. Contexto Econômico Global e Nacional</h2>
@@ -487,28 +550,52 @@
         </div>
         <p>_Nota: Este relatório é meramente informativo e não constitui recomendação de investimento._</p>
 
-        ---
+        <div class="section-separator-nav">
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
 
-        <h2 id="relatorios-arquivados">Relatórios Arquivados</h2>
-        <h3>Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
-        <h2 style="text-align: center; margin-bottom: 25px;">**Acesse Documentos Técnicos Passados**</h2>
+        <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
+        <h3 class="main-title">Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 class="subtitle">**Acesse Documentos Técnicos Passados**</h2>
         
         <p style="text-align: center; margin-bottom: 30px;">Os relatórios arquivados estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com nossa equipe através dos canais oficiais da Codify World.</p>
         
         <p style="margin-top: 30px; text-align: center;">**Entre em contato conosco para saber mais!**</p>
 
-        ---
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
 
-        <h2 id="contato">Contato</h2>
+        <h2 id="contato" class="section-heading">Contato</h2>
+        <h3 class="main-title">Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 class="subtitle">Informações de Contato</h2>
+
         <p>**CodifyWorld**<br>
         Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
         Rio de Janeiro, Brasil</p>
         <p>Tel: <a href="tel:+244927944541" style="color: var(--primary-blue); text-decoration: underline;">+244 927 944 541</a> / <a href="tel:+5522997323458" style="color: var(--primary-blue); text-decoration: underline;">+55 22 997 323 458</a></p>
         <p>Email: <a href="mailto:codifyworldservices@gmail.com" style="color: var(--primary-blue); text-decoration: underline;">codifyworldservices@gmail.com</a></p>
 
-        ---
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
 
-        <h2 id="redes-sociais">Redes Sociais</h2>
+        <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
+        <h3 class="main-title">Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 class="subtitle">Conecte-se Conosco</h2>
+
         <p>Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
         <ul>
             <li><a href="https://www.instagram.com/codifyworld" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">Instagram: @codifyworld</a></li>
@@ -519,17 +606,35 @@
             <li><a href="https://www.codifyworld.com.br" target="_blank" style="color: var(--primary-blue); text-decoration: underline;">Site: www.codifyworld.com.br</a></li>
         </ul>
 
-        ---
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+        </div>
 
-        <h2 id="sobre-nos">Sobre nós</h2>
+        <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
+        <h3 class="main-title">Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 class="subtitle">Nossa Missão e Visão</h2>
+
         <p>Na Codify World, acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
         <p>Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
         <p>Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
         <p>A Codify World é feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital. Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
         
-        ---
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
 
-        <h2 id="parceiros">Parceiros</h2>
+        <h2 id="parceiros" class="section-heading">Parceiros</h2>
+        <h3 class="main-title">Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
+
         <p>Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
         <p>Interessado em se tornar um parceiro da Codify World? Entre em contato conosco para explorar oportunidades de colaboração.</p>
 

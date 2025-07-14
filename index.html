@@ -47,31 +47,33 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
      header img {
-    width: 130px;  /* Define a largura como 130px */
-    height: 130px; /* Define a altura como 130px, IGUAL à largura */
+    width: 140px;  /* Define a largura como 130px */
+    height: 140px; /* Define a altura como 130px, IGUAL à largura */
     pointer-events: none;
-    border-radius: 50%; /* Use 50% para um círculo perfeito de um quadrado */
+    border-radius: 70%; /* Use 50% para um círculo perfeito de um quadrado */
     object-fit: cover;
 }
         nav {
             margin-top: 10px;
         }
-        nav a {
+       nav a {
             color: #FFFFFF;
             margin: 0 15px;
             text-decoration: none;
             font-weight: 600;
-            border: 1px solid var(--primary-blue); /* Borda azul, visível no fundo azul escuro */
+            border: 1px solid var(--primary-blue); /* Mantém a borda azul, visível no fundo azul escuro */
             padding: 8px 15px;
             border-radius: 5px;
             display: inline-block;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição para box-shadow */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Sombra branca inicial */
         }
 
         nav a:hover {
             background-color: #FFFFFF; /* Fundo branco ao passar o mouse */
             color: var(--primary-blue); /* Texto azul ao passar o mouse */
             border-color: #FFFFFF; /* Borda branca ao passar o mouse, para contraste */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1); /* Aumenta a sombra ao passar o mouse */
         }
         .container {
             max-width: 800px;

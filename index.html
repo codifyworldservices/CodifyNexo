@@ -8,7 +8,7 @@
     <link rel="icon" href="img/logo_codi.png" type="image/png">
     <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
 
-    <meta property="og:title" content="Relatório Técnico: Análise Profunda do XRP">
+    <meta property="og:title" content="Relatório Técnico Codify World: Análise Profunda do XRP">
     <meta property="og:description" content="Análise detalhada do cenário econômico global, XRP, ETFs e impactos fiscais no Brasil. Por Codify World | Tech Labs.">
     <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
     <meta property="og:url" content="https://codifyworldservices.github.io/CodifyNews/">
@@ -60,8 +60,8 @@
             width: 150px;
             height: 150px;
             pointer-events: none; /* Impede que a imagem seja clicável ou arrastável */
-            /* AQUI: bordas arredondadas para a logo quadrada */
-            border-radius: 15px; /* Deixa as bordas arredondadas */
+            /* AQUI: bordas arredondadas para a logo quadrada - AUMENTADO PARA 25px */
+            border-radius: 25px; /* Deixa as bordas mais arredondadas */
             object-fit: cover;
             border: 15px solid var(--primary-blue);
             display: block; /* Garante que a imagem se comporte como um bloco para mx-auto */
@@ -426,6 +426,15 @@
             margin: 0 10px 15px; /* Espaçamento entre os ícones */
             display: inline-block; /* Mantém-os em linha, mas flexbox já cuida disso */
         }
+        /* AQUI: Ajustes para garantir que os ícones funcionem com Tailwind */
+        .social-icons-list li a img {
+            display: inline-block !important; /* Força o display */
+            width: 40px !important; /* Força largura */
+            height: 40px !important; /* Força altura */
+            vertical-align: middle !important; /* Força alinhamento vertical */
+            margin: 0 4px !important; /* Força margem horizontal */
+        }
+
 
         /* --- MEDIA QUERIES (RESPONSIVIDADE PARA CELULARES) --- */
         @media (max-width: 768px) {
@@ -689,7 +698,7 @@
                 <li>Em outros navegadores, procure por opções como <strong>"Adicionar à Tela Inicial"</strong> ou <strong>"Instalar aplicativo"</strong> no menu principal.</li>
                 <li>Confirme a adição. Pronto! O ícone do CodifyNews aparecerá na sua tela inicial.</li>
             </ol>
-            <p class="text-sm text-gray-600 text-center">(Os passos podem variar ligeiramente dependendo do seu navegador e sistema operacional.)</p>
+            <p class="text-sm text-gray-600 text-center">(Os passos podem variar ligeiramente dependendo do seu telemóvel navegador e sistema operacional.)</p>
             <p class="text-sm text-blue-700 text-center font-bold">Recomendamos usar Google Chrome no Android e Safari no iOS para a melhor experiência de instalação.</p>
         </div>
     </div>
@@ -716,7 +725,7 @@
     </header>
 
     <div class="container">
-        <h3 class="main-title">Codify World Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
+        <h3 class="main-title">Relatórios Técnicos <br>Tecnologias digitais | Finanças | Atualidade </h3>
         <h2 class="subtitle"><strong>Análise Profunda do XRP – Julho 2025</strong></h2>
 
         <h2 id="relatorio-atual">Relatório Atual</h2>
@@ -896,7 +905,7 @@
     </div> <div class="container content-section">
         <h2 id="parceiros" class="section-heading">Parceiros</h2>
         <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
-        <p>Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
+        <p>Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p><br>
         <p>Interessado em se tornar um parceiro da Codify World? Entre em contato conosco para explorar oportunidades de colaboração.</p>
 
     </div> <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>

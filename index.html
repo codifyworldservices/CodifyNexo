@@ -439,6 +439,39 @@
             max-width: 640px; /* Largura máxima original fornecida */
         }
 
+        /* --- NOVOS ESTILOS PARA OCULTAR/MOSTRAR O FORMULÁRIO --- */
+        #formContainer {
+            display: none; /* Inicialmente oculto */
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid var(--light-blue);
+            border-radius: 8px;
+            background-color: var(--light-gray);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        #toggleFormBtn {
+            display: block; /* Garante que o botão ocupe sua própria linha */
+            margin: 20px auto; /* Centraliza o botão */
+            padding: 12px 25px;
+            background-color: var(--secondary-blue);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: 600;
+        }
+        #toggleFormBtn:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px); /* Pequeno efeito de elevação */
+        }
+        #toggleFormBtn:active {
+            transform: translateY(0); /* Volta ao normal no clique */
+        }
+
+
         /* --- MEDIA QUERIES (RESPONSIVIDADE PARA CELULARES) --- */
         @media (max-width: 768px) {
             nav {
@@ -691,6 +724,25 @@
                     installModal.style.display = 'none';
                 }
             });
+
+            // --- NOVA LÓGICA: OCULTAR/MOSTRAR FORMULÁRIO DE ASSINATURA ---
+            const toggleFormBtn = document.getElementById('toggleFormBtn');
+            const formContainer = document.getElementById('formContainer');
+
+            // Verifica se os elementos existem antes de adicionar o event listener
+            if (toggleFormBtn && formContainer) {
+                toggleFormBtn.addEventListener('click', function() {
+                    if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                        formContainer.style.display = 'block';
+                        toggleFormBtn.textContent = 'Ocultar Formulário'; // Altera o texto do botão
+                        // Opcional: rolar para o formulário após abri-lo
+                        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        formContainer.style.display = 'none';
+                        toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura'; // Altera o texto do botão
+                    }
+                });
+            }
         });
     </script>
 </head>
@@ -850,22 +902,24 @@
     </div> <div class="container content-section">
         <h2 id="assinatura" class="section-heading">📊 Assinatura</h2>
         <h2 class="subtitle">Inscreva-se para Acessar Nossos Relatórios Profissionais!</h2>
-        <p class="text-center mb-8">Preencha o formulário abaixo para escolher seu plano de assinatura e ter acesso a análises especializadas, visão estratégica e informações atualizadas sobre tecnologia, inovação, mercado financeiro, IA e tendências digitais.</p>
+        <p class="text-center mb-8">Clique no botão abaixo para preencher o formulário de assinatura e ter acesso a análises especializadas, visão estratégica e informações atualizadas sobre tecnologia, inovação, mercado financeiro, IA e tendências digitais.</p>
 
-        <div class="flex justify-center items-center">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" 
-                    width="640" 
-                    height="2455" 
-                    frameborder="0" 
-                    marginheight="0" 
-                    marginwidth="0"
-                    class="google-form-embed">Carregando…</iframe>
-        </div>
+        <button id="toggleFormBtn">Mostrar Formulário de Assinatura</button>
 
-        <p class="text-center mt-8 text-red-700 font-bold">⚠️ Relatórios Arquivados</p>
-        <p class="text-center mb-8">Os relatórios arquivados (anteriores ao período da sua assinatura) estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com a equipe da Codify World por nossos canais oficiais.</p>
+        <div id="formContainer">
+            <div class="flex justify-center items-center">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" 
+                        width="640" 
+                        height="2455" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0"
+                        class="google-form-embed">Carregando…</iframe>
+            </div>
 
-        <div class="section-separator-nav">
+            <p class="text-center mt-8 text-red-700 font-bold">⚠️ Relatórios Arquivados</p>
+            <p class="text-center mb-8">Os relatórios arquivados (anteriores ao período da sua assinatura) estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com a equipe da Codify World por nossos canais oficiais.</p>
+        </div> <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
             <a href="#parceiros">Parceiros</a>

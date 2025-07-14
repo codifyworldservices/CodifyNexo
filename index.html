@@ -52,28 +52,24 @@
             pointer-events: none;
             border-radius: 50%;
             object-fit: cover;
-            /* Borda azul da foto - ajustado para 15px de espessura conforme sua última instrução */
             border: 15px solid var(--primary-blue);
         }
         nav {
             margin-top: 10px;
-            /* Removido 'gap: 20px;' duplicado */
             display: flex;
             justify-content: center;
-            gap: 20px; /* Espaço entre os botões */
+            gap: 20px;
             flex-wrap: wrap;
             padding: 0 10px;
         }
 
         nav a {
             color: #FFFFFF;
-            /* Removido 'margin: 0 15px;' - 'gap' já cuida do espaçamento */
             text-decoration: none;
             font-weight: 600;
             border: 1px solid var(--primary-blue);
             padding: 8px 30px;
             border-radius: 5px;
-            /* Removido 'display: inline-block;' - não é necessário com flexbox no pai */
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
             white-space: nowrap;
@@ -105,12 +101,14 @@
             font-size: 1.5em;
         }
 
-        h3 {
+        /* Removido o h3 pois o "Codify News" agora será um item de menu com submenu */
+        /* h3 {
             color: var(--primary-blue);
             user-select: none;
             font-size: 2.0em;
-            margin-top: -10px; /* Movido para cima conforme solicitado */
-        }
+            margin-top: -10px;
+        } */
+
         p, ul {
             margin-bottom: 15px;
             user-select: none;
@@ -158,7 +156,7 @@
             background-color: var(--secondary-blue);
         }
 
-        /* Estilos para o Dropdown (Sumário Geral) */
+        /* Estilos para o Dropdown (agora para CodifyNews) */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -279,15 +277,8 @@
     <header>
         <img src="img/logo_codi.png" alt="Codify World">
         <nav>
-            <a href="#contexto">Contexto</a>
-            <a href="#selic">Selic</a>
-            <a href="#xrp">XRP</a>
-            <a href="#etf">ETF</a>
-            <a href="#tarifa">Tarifa</a>
-            <a href="#fiscal">Fiscal</a>
-            <a href="#conclusao">Conclusão</a>
             <div class="dropdown">
-                <a href="#" class="dropbtn">Sumário Geral</a>
+                <a href="#" class="dropbtn">CodifyNews</a>
                 <div class="dropdown-content">
                     <a href="#contexto">Contexto Econômico Global e Nacional</a>
                     <a href="#selic">Taxa Selic, Inflação e Perfil do Investidor Brasileiro</a>
@@ -298,10 +289,13 @@
                     <a href="#conclusao">Considerações Finais</a>
                 </div>
             </div>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
         </nav>
     </header>
     <div class="container">
-        <h3><strong>Codify News – Relatório Informativo</strong></h3>
         <h1>Análise Profunda do XRP – Julho 2025</h1>
         <h2 id="contexto">1. Contexto Econômico Global e Nacional</h2>
         <p>Em 9 de julho de 2025, o presidente dos Estados Unidos, Donald Trump, enviou uma carta ao presidente Luiz Inácio Lula da Silva anunciando a imposição de <strong>tarifa de 50%</strong> sobre todos os produtos exportados do Brasil para os EUA, com vigência a partir de <strong>1º de agosto de 2025</strong>. Na justificativa, Trump citou supostas restrições à liberdade de expressão decorrentes de decisões do STF e o tratamento dado ao ex‑presidente Jair Bolsonaro, classificando-o como “caça às bruxas”.</p>

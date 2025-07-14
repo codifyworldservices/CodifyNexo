@@ -1,221 +1,376 @@
-<style>
-    :root {
-        --primary-blue: #0055A4;
-        --secondary-blue: #007ACC;
-        --light-blue: #E6F2FF;
-        --dark-gray: #333333;
-        --light-gray: #F5F5F5;
-        --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-        margin: 0;
-        font-family: var(--font-base);
-        background-color: var(--light-gray);
-        color: var(--dark-gray);
-        line-height: 1.6;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-    header {
-        background-color: var(--primary-blue);
-        padding: 20px;
-        text-align: center;
-        color: #FFFFFF;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    header img {
-        width: 150px;
-        height: 150px;
-        pointer-events: none;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 15px solid var(--primary-blue);
-    }
-    nav {
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-        padding: 0 10px;
-        /* ADICIONADO: Alinha os itens verticalmente no centro do container flex */
-        align-items: center;
-    }
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Técnico Codify World</title>
+    <link rel="icon" href="img/logo_codi.png" type="image/png">
+    <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
 
-    nav a {
-        color: #FFFFFF;
-        text-decoration: none;
-        font-weight: 600;
-        border: 1px solid var(--primary-blue);
-        padding: 8px 30px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-        white-space: nowrap;
-    }
+    <meta property="og:title" content="Relatório Técnico Codify World: Análise Profunda do XRP">
+    <meta property="og:description" content="Análise detalhada do cenário econômico global, XRP, ETFs e impactos fiscais no Brasil. Por Codify World | Tech Labs.">
+    <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
+    <meta property="og:url" content="https://codifyworldservices.github.io/CodifyNews/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Codify World | Tech Labs">
 
-    nav a:hover {
-        background-color: #FFFFFF;
-        color: var(--primary-blue);
-        border-color: #FFFFFF;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-    }
-    .container {
-        max-width: 800px;
-        margin: 30px auto;
-        background-color: #FFFFFF;
-        padding: 40px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    h2 {
-        color: var(--primary-blue);
-        user-select: none;
-        font-size: 1.15em;
-    }
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Relatório Técnico Codify World: Análise XRP">
+    <meta name="twitter:description" content="Análise detalhada do cenário econômico global, XRP, ETFs e impactos fiscais no Brasil.">
+    <meta name="twitter:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
 
-    h1 {
-        color: var(--primary-blue);
-        user-select: none;
-        font-size: 1.5em;
-    }
-
-    p, ul {
-        margin-bottom: 15px;
-        user-select: none;
-    }
-    ul {
-        padding-left: 20px;
-    }
-    ul li {
-        margin-bottom: 8px;
-    }
-    footer {
-        text-align: center;
-        padding: 20px;
-        background-color: var(--light-blue);
-        color: var(--primary-blue);
-        font-size: 0.9rem;
-        border-top: 1px solid var(--secondary-blue);
-        user-select: none;
-    }
-    .signature {
-        margin-top: 40px;
-        font-style: italic;
-        text-align: left;
-        user-select: none;
-    }
-    #backToTop {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 30px;
-        z-index: 99;
-        border: none;
-        outline: none;
-        background-color: var(--primary-blue);
-        color: white;
-        cursor: pointer;
-        padding: 10px 15px;
-        border-radius: 50%;
-        font-size: 24px;
-        transition: background-color 0.3s, opacity 0.3s;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    #backToTop:hover {
-        background-color: var(--secondary-blue);
-    }
-
-    /* Estilos para o Dropdown (agora para CodifyNews) */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-        /* ADICIONADO: Ajusta a margem superior para compensar qualquer desalinhamento */
-        /* Pode ser necessário ajustar este valor (-5px, -10px, etc.) dependendo do navegador e fontes */
-        margin-top: 0; /* Comece com 0 e ajuste se necessário */
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 250px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-        border-radius: 5px;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        overflow: hidden;
-    }
-
-    .dropdown-content a {
-        color: var(--primary-blue);
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-        font-weight: normal;
-        border: none;
-        box-shadow: none;
-        margin: 0;
-        white-space: normal;
-        /* AJUSTADO: Linha azul de separação entre os botões brancos do submenu */
-        border-bottom: 1px solid var(--primary-blue); /* Ou var(--secondary-blue) para uma cor diferente */
-    }
-
-    .dropdown-content a:last-child {
-        border-bottom: none; /* Remove a linha divisória do último item */
-    }
-
-    .dropdown-content a:hover {
-        background-color: var(--light-blue);
-        color: var(--primary-blue);
-    }
-
-    /* Mostra o submenu quando o mouse passa sobre o .dropdown */
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    /* --- MEDIA QUERY PARA MOBILE --- */
-    @media (max-width: 768px) {
+    <style>
+        :root {
+            --primary-blue: #0055A4;
+            --secondary-blue: #007ACC;
+            --light-blue: #E6F2FF;
+            --dark-gray: #333333;
+            --light-gray: #F5F5F5;
+            --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            margin: 0;
+            font-family: var(--font-base);
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        header {
+            background-color: var(--primary-blue);
+            padding: 20px;
+            text-align: center;
+            color: #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header img {
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 15px solid var(--primary-blue);
+        }
         nav {
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 0 10px;
+            align-items: center; /* Adicionado para alinhar verticalmente os itens */
         }
 
         nav a {
-            width: calc(100% - 40px);
-            max-width: 250px;
-            text-align: center;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--primary-blue);
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
         }
 
-        /* Ajustes para o dropdown em mobile */
-        .dropdown {
-            width: calc(100% - 40px);
-            max-width: 250px;
+        nav a:hover {
+            background-color: #FFFFFF;
+            color: var(--primary-blue);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #FFFFFF;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: var(--primary-blue);
+            user-select: none;
+            font-size: 1.15em;
+        }
+
+        h1 {
+            color: var(--primary-blue);
+            user-select: none;
+            font-size: 1.5em;
+        }
+
+        /* O h3 foi removido do HTML, então esta regra não é mais necessária */
+        /* h3 {
+            color: var(--primary-blue);
+            user-select: none;
+            font-size: 2.0em;
+            margin-top: -10px;
+        } */
+
+        p, ul {
+            margin-bottom: 15px;
+            user-select: none;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        footer {
             text-align: center;
-            margin-top: 0; /* Garante que não haja margem extra em mobile */
+            padding: 20px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--secondary-blue);
+            user-select: none;
+        }
+        .signature {
+            margin-top: 40px;
+            font-style: italic;
+            text-align: left;
+            user-select: none;
+        }
+        #backToTop {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--primary-blue);
+            color: white;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: background-color 0.3s, opacity 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        #backToTop:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        /* Estilos para o Dropdown (agora para CodifyNews) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-top: 0; /* Garante alinhamento vertical com outros botões */
         }
 
         .dropdown-content {
-            position: static;
-            width: 100%;
-            box-shadow: none;
-            border-top: 1px solid var(--primary-blue); /* Linha azul em mobile também */
-            transform: none;
-            left: auto;
-            min-width: unset;
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
         }
 
         .dropdown-content a {
-            padding: 8px 10px;
-            text-align: center;
+            color: var(--primary-blue);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-weight: normal;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            white-space: normal;
+            /* Linha azul de separação entre os itens do submenu */
+            border-bottom: 1px solid var(--primary-blue);
         }
-    }
-</style>
+
+        .dropdown-content a:last-child {
+            border-bottom: none; /* Remove a linha divisória do último item */
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        /* Mostra o submenu quando o mouse passa sobre o .dropdown */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* --- MEDIA QUERY PARA MOBILE --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            nav a {
+                width: calc(100% - 40px);
+                max-width: 250px;
+                text-align: center;
+            }
+
+            /* Ajustes para o dropdown em mobile */
+            .dropdown {
+                width: calc(100% - 40px);
+                max-width: 250px;
+                text-align: center;
+                margin-top: 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border-top: 1px solid var(--primary-blue); /* Linha azul em mobile também */
+                transform: none;
+                left: auto;
+                min-width: unset;
+            }
+
+            .dropdown-content a {
+                padding: 8px 10px;
+                text-align: center;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
+        // JavaScript para o botão "Voltar ao Topo"
+        document.addEventListener('DOMContentLoaded', function() {
+            var backToTopButton = document.getElementById("backToTop");
+
+            // Mostra ou esconde o botão ao rolar a página
+            window.onscroll = function() {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    backToTopButton.style.display = "block";
+                } else {
+                    backToTopButton.style.display = "none";
+                }
+            };
+
+            // Quando o usuário clica no botão, rola para o topo da página
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault(); // Impede o comportamento padrão do link
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth" // Rola suavemente
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <img src="img/logo_codi.png" alt="Codify World">
+        <nav>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">CodifyNews</a>
+                <div class="dropdown-content">
+                    <a href="#contexto">Contexto Econômico Global e Nacional</a>
+                    <a href="#selic">Taxa Selic, Inflação e Perfil do Investidor Brasileiro</a>
+                    <a href="#xrp">XRP, Volatilidade Cambial e Uso em Pagamentos</a>
+                    <a href="#etf">ETF XRPH11: Exclusividade e Liquidez</a>
+                    <a href="#tarifa">Impactos da Tarifa de 50% dos EUA em Criptoativos</a>
+                    <a href="#fiscal">Mudanças Fiscais Recentes no Brasil (Jun/2025)</a>
+                    <a href="#conclusao">Considerações Finais</a>
+                </div>
+            </div>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Análise Profunda do XRP – Julho 2025</h1>
+        <h2 id="contexto">1. Contexto Econômico Global e Nacional</h2>
+        <p>Em 9 de julho de 2025, o presidente dos Estados Unidos, Donald Trump, enviou uma carta ao presidente Luiz Inácio Lula da Silva anunciando a imposição de <strong>tarifa de 50%</strong> sobre todos os produtos exportados do Brasil para os EUA, com vigência a partir de <strong>1º de agosto de 2025</strong>. Na justificativa, Trump citou supostas restrições à liberdade de expressão decorrentes de decisões do STF e o tratamento dado ao ex‑presidente Jair Bolsonaro, classificando-o como “caça às bruxas”.</p>
+        <p>Essa tarifa, muito acima das alíquotas convencionais (10–25%), pode gerar custos adicionais para setores-chave (café, carne, suco de laranja, manufaturados) e obrigar empresas brasileiras a reajustar preços ou buscar novos mercados. Em retaliação, o governo brasileiro sinalizou a aplicação de tarifas recíprocas, conforme previsto em lei de intercâmbio comercial.</p>
+        <h2 id="selic">2. Taxa Selic, Inflação e Perfil do Investidor Brasileiro</h2>
+        <ul>
+            <li><strong>Selic:</strong> 15% a.a. (jun/2025) – nível mais alto desde 2006.</li>
+            <li><strong>IPCA:</strong> ~5% a.a.</li>
+            <li><strong>Comportamento:</strong> embora renda fixa esteja atrativa, cerca de 28% dos investidores mantêm &gt;50% da carteira em criptoativos, em busca de diversificação e proteção contra inflação.</li>
+        </ul>
+        <h2 id="xrp">3. XRP, Volatilidade Cambial e Uso em Pagamentos</h2>
+        <ul>
+            <li><strong>On‑Demand Liquidity (ODL):</strong> converte BRL→XRP→moeda destino em segundos, sem conta pré‑financiada em dólar.</li>
+            <li><strong>Câmbio:</strong> com o real a R$5,50–5,70/US$, ODL reduz custos de remessas e facilita comércio exterior.</li>
+            <li><strong>Adoção:</strong> bancos e fintechs (Mercado Bitcoin, Travelex Bank) já utilizam XRP para operações internacionais.</li>
+        </ul>
+        <h2 id="etf">4. ETF XRPH11: Exclusividade e Liquidez</h2>
+        <ul>
+            <li><strong>Lançamento:</strong> abril/2025, Hashdex + Genial Investimentos.</li>
+            <li><strong>Código:</strong> XRPH11 (B3).</li>
+            <li><strong>Aprovação:</strong> CVM em 19/02/2025.</li>
+            <li><strong>Diferencial:</strong> primeiro ETF spot de XRP no mundo e único disponível no Brasil, oferecendo exposição regulamentada, transparência de índice (Nasdaq XRP Reference Price) e alta liquidez.</li>
+        </ul>
+        <h2 id="tarifa">5. Impactos da Tarifa de 50% dos EUA em Criptoativos</h2>
+        <ul>
+            <li><strong>Migração de Capital:</strong> potencial realocação de recursos de investidores americanos para jurisdições com menor carga tributária e ambiente mais estável — inclusive o Brasil.</li>
+            <li><strong>Oportunidades para Ripple:
+                <ul>
+                    <li>Adoção institucional pode crescer no Brasil, beneficiando parcerias locais e uso de ODL.</li>
+                    <li>XRPH11 poderá ver aumento de demanda à medida que investidores busquem proteção e diversificação.</li>
+                </ul>
+            </li>
+            <li><strong>Efeito Global:</strong> tensões comerciais tendem a reforçar o papel dos criptoativos como “ativo de fronteira”, usado para movimentar capital entre mercados sem restrições alfandegárias.</li>
+        </ul>
+        <h2 id="fiscal">6. Mudanças Fiscais Recentemente no Brasil (Jun/2025)</h2>
+        <ul>
+            <li><strong>Isenção Mensal:</strong> vendas de até R$ 35 000 continuam isentas de IR sobre ganho de capital.</li>
+            <li><strong>Alíquotas Progressivas (lucros acima de R$ 35 000):</strong>
+                <ul>
+                    <li>Até R$ 5 mi → 15%</li>
+                    <li>R$ 5–10 mi → 17,5%</li>
+                    <li>R$ 10–30 mi → 20%</li>
+                    <li>Acima de R$ 30 mi → 22,5%</li>
+                </ul>
+            </li>
+            <li><strong>Novas Regras:</strong>
+                <ul>
+                    <li>Exchanges nacionais devem reportar em tempo real vendas mensais por CPF.</li>
+                    <li>Projeto de lei em tramitação propõe revogar isenção e instituir retenção na fonte pelas exchanges.</li>
+                </ul>
+            </li>
+        </ul>
+        <h2 id="conclusao">7. Considerações Finais</h2>
+        <p>O Brasil combina elevada taxa de juros e inflação com um ambiente regulatório progressista para criptoativos: aprovação de ETFs, marco legal do BC/CVM e parcerias institucionais. A tarifa de 50% dos EUA, ainda que voltada a comércio físico, pode acelerar fluxos de capital para ativos digitais, especialmente XRP via XRPH11.</p>
+        <p>Essa conjuntura oferece oportunidades e desafios:</p>
+        <ul>
+            <li><strong>Oportunidades:</strong> diversificação, proteção cambial e expansão institucional do XRP no Brasil.</li>
+            <li><strong>Desafios:</strong> cenário fiscal em mutação e necessidade de compliance robusto por parte de investidores e exchanges.</li>
+        </ul>
+        <div class="signature">
+            <p>Atenciosamente,</p>
+            <p><strong>Weslei Romano</strong><br> Engenheiro de Software<br>Codify World | Tech Labs</p>
+        </div>
+        <p><em>Nota: Este relatório é meramente informativo e não constitui recomendação de investimento.</em></p>
+    </div>
+    <a href="#" id="backToTop" title="Voltar ao Topo">&#x2191;</a>
+    <footer>
+        <p> <a href="https://www.codifyworld.com.br" style="color: var(--primary-blue);">www.codifyworld.com.br</a> | © 2025 Codify World|Tech Labs</p>
+        <p style="margin-top: 10px; font-size: 0.85rem;">
+            Conteúdo sob Licença <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank" style="color: var(--primary-blue);">CC BY-NC-ND 4.0</a>. Direitos preservados. Não vender, Nao usar comercialmente sem autorização prescrita legal sob pena Jurídica.
+        </p>
+    </footer>
+</body>
+</html>

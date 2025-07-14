@@ -23,6 +23,8 @@
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/heroicons@2.1.1/script.js"></script>
+
     <style>
         /* Variáveis CSS para cores e fontes */
         :root {
@@ -425,17 +427,7 @@
         }
         .social-icons-list li {
             margin: 0 10px 15px; /* Espaçamento entre os ícones */
-            /* display: inline-block; <--- Removido, flexbox já cuida disso */
         }
-        /* Ajustes para garantir que os ícones funcionem com Tailwind */
-        /* REMOVIDO ESTILOS QUE CONFLITAVAM AQUI */
-        /* .social-icons-list li a img {
-            display: inline-block !important; 
-            width: 40px !important; 
-            height: 40px !important; 
-            vertical-align: middle !important; 
-            margin: 0 4px !important; 
-        } */
 
 
         /* --- MEDIA QUERIES (RESPONSIVIDADE PARA CELULARES) --- */
@@ -845,43 +837,43 @@
         <ul class="social-icons-list">
             <li>
                 <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-instagram.png" alt="Instagram" class="w-10 h-10 rounded-lg">
+                    <i data-heroicons="instagram" class="h-10 w-10 fill-current rounded-lg"></i>
                     <span class="block mt-1 text-sm">Instagram</span>
                 </a>
             </li>
             <li>
                 <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-x.png" alt="X (Twitter)" class="w-10 h-10 rounded-lg">
+                    <i data-heroicons="twitter" class="h-10 w-10 fill-current rounded-lg"></i>
                     <span class="block mt-1 text-sm">X (Twitter)</span>
                 </a>
             </li>
             <li>
                 <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-github.png" alt="GitHub" class="w-10 h-10 rounded-lg">
+                    <i data-heroicons="github" class="h-10 w-10 fill-current rounded-lg"></i>
                     <span class="block mt-1 text-sm">GitHub</span>
                 </a>
             </li>
             <li>
                 <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-linkedin.png" alt="LinkedIn" class="w-10 h-10 rounded-lg">
+                    <i data-heroicons="linkedin" class="h-10 w-10 fill-current rounded-lg"></i>
                     <span class="block mt-1 text-sm">LinkedIn</span>
                 </a>
             </li>
             <li>
                 <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-tiktok.png" alt="TikTok" class="w-10 h-10 rounded-lg">
+                    <i data-heroicons="musical-note" class="h-10 w-10 fill-current rounded-lg"></i>
                     <span class="block mt-1 text-sm">TikTok</span>
                 </a>
             </li>
             <li>
                 <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-youtube.png" alt="YouTube" class="w-10 h-10 rounded-lg">
+                    <i data-heroicons="play" class="h-10 w-10 fill-current rounded-lg"></i>
                     <span class="block mt-1 text-sm">YouTube</span>
                 </a>
             </li>
             <li>
                 <a href="https://www.codifyworld.com.br" target="_blank" aria-label="Site Oficial" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-website.png" alt="Site Oficial" class="w-10 h-10 rounded-lg">
+                    <i data-heroicons="globe-alt" class="h-10 w-10 fill-current rounded-lg"></i>
                     <span class="block mt-1 text-sm">Site Oficial</span>
                 </a>
             </li>

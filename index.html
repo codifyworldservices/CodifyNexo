@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório Técnico Codify World</title> 
+    <title>Relatório Técnico Codify World</title>
     <link rel="icon" href="img/logo_codi.png" type="image/png">
     <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
 
@@ -45,44 +45,45 @@
             text-align: center;
             color: #FFFFFF;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-             
-}
-        
-     header img {
-    width: 150px;  /* Define a largura como 130px */
-    height: 150px; /* Define a altura como 130px, IGUAL à largura */
-    pointer-events: none;
-    border-radius: 50%; /* Use 50% para um círculo perfeito de um quadrado */
-    object-fit: cover;
-    border: 50px solid var(--primary-blue);
-}
+        }
+        header img {
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
+            border-radius: 50%;
+            object-fit: cover;
+            /* Borda azul da foto - ajustado para 15px de espessura conforme sua última instrução */
+            border: 15px solid var(--primary-blue);
+        }
         nav {
             margin-top: 10px;
-             gap: 20px;
+            /* Removido 'gap: 20px;' duplicado */
             display: flex;
             justify-content: center;
+            gap: 20px; /* Espaço entre os botões */
             flex-wrap: wrap;
             padding: 0 10px;
         }
-        
-       nav a {
+
+        nav a {
             color: #FFFFFF;
-            margin: 0 15px;
+            /* Removido 'margin: 0 15px;' - 'gap' já cuida do espaçamento */
             text-decoration: none;
             font-weight: 600;
-            border: 1px solid var(--primary-blue); /* Mantém a borda azul, visível no fundo azul escuro */
+            border: 1px solid var(--primary-blue);
             padding: 8px 30px;
             border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição para box-shadow */
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Sombra branca inicial */
-            white-space: nowrap;/* Impede que o texto dos botões quebre em várias linhas */
+            /* Removido 'display: inline-block;' - não é necessário com flexbox no pai */
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
         }
 
         nav a:hover {
-            background-color: #FFFFFF; /* Fundo branco ao passar o mouse */
-            color: var(--primary-blue); /* Texto azul ao passar o mouse */
-            border-color: #FFFFFF; /* Borda branca ao passar o mouse, para contraste */
-            box-shadow: 0 0 10px rgba(255, 255, 255, 1); /* Aumenta a sombra ao passar o mouse */
+            background-color: #FFFFFF;
+            color: var(--primary-blue);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
         }
         .container {
             max-width: 800px;
@@ -92,23 +93,23 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-         h2 {
+        h2 {
             color: var(--primary-blue);
             user-select: none;
             font-size: 1.15em;
         }
 
-       h1 {
+        h1 {
             color: var(--primary-blue);
             user-select: none;
             font-size: 1.5em;
         }
-       
-            h3 {
+
+        h3 {
             color: var(--primary-blue);
             user-select: none;
             font-size: 2.0em;
-            margin-top: -10px;
+            margin-top: -10px; /* Movido para cima conforme solicitado */
         }
         p, ul {
             margin-bottom: 15px;
@@ -136,40 +137,111 @@
             user-select: none;
         }
         #backToTop {
-    display: none; /* Esconde a seta por padrão */
-    position: fixed; /* Fixa a seta na tela, mesmo ao rolar */
-    bottom: 20px; /* Distância do fundo da tela */
-    right: 30px; /* Distância da direita da tela */
-    z-index: 99; /* Garante que a seta fique acima de outros elementos */
-    border: none; /* Remove a borda padrão do botão */
-    outline: none; /* Remove o contorno ao focar */
-    background-color: var(--primary-blue); /* Cor de fundo da seta (azul primário) */
-    color: white; /* Cor da seta (branco) */
-    cursor: pointer; /* Muda o cursor para indicar que é clicável */
-    padding: 10px 15px; /* Espaçamento interno */
-    border-radius: 50%; /* Faz o botão ser redondo */
-    font-size: 24px; /* Tamanho da seta */
-    transition: background-color 0.3s, opacity 0.3s; /* Transição suave para o hover e show/hide */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para destacar */
-}
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--primary-blue);
+            color: white;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: background-color 0.3s, opacity 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
 
-#backToTop:hover {
-    background-color: var(--secondary-blue); /* Cor de fundo ao passar o mouse */
-}
+        #backToTop:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        /* Estilos para o Dropdown (Sumário Geral) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--primary-blue);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-weight: normal;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            white-space: normal;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        /* Mostra o submenu quando o mouse passa sobre o .dropdown */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
         /* --- MEDIA QUERY PARA MOBILE --- */
-    @media (max-width: 768px) { /* Aplica para telas com largura máxima de 768px (tablets e celulares) */
-        nav {
-            flex-direction: column; /* Em vez de linha, organiza os botões em uma coluna */
-            align-items: center; /* Centraliza os botões na coluna */
-            gap: 10px; /* Reduz um pouco o espaço vertical entre os botões em mobile */
-        }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
 
-        nav a {
-            width: calc(100% - 40px); /* Ocupa quase 100% da largura, com padding */
-            max-width: 250px; /* Limita a largura máxima para não ficar muito largo em tablets */
-            text-align: center; /* Centraliza o texto dentro do botão */
+            nav a {
+                width: calc(100% - 40px);
+                max-width: 250px;
+                text-align: center;
+            }
+
+            /* Ajustes para o dropdown em mobile */
+            .dropdown {
+                width: calc(100% - 40px);
+                max-width: 250px;
+                text-align: center;
+            }
+
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border-top: 1px solid #eee;
+                transform: none;
+                left: auto;
+                min-width: unset;
+            }
+
+            .dropdown-content a {
+                padding: 8px 10px;
+                text-align: center;
+            }
         }
-    }
     </style>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -178,30 +250,29 @@
                 e.preventDefault();
             }
         });
-            // ... seu JavaScript existente para bloquear cópia ...
 
-// JavaScript para o botão "Voltar ao Topo"
-document.addEventListener('DOMContentLoaded', function() {
-    var backToTopButton = document.getElementById("backToTop");
+        // JavaScript para o botão "Voltar ao Topo"
+        document.addEventListener('DOMContentLoaded', function() {
+            var backToTopButton = document.getElementById("backToTop");
 
-    // Mostra ou esconde o botão ao rolar a página
-    window.onscroll = function() {
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            backToTopButton.style.display = "block";
-        } else {
-            backToTopButton.style.display = "none";
-        }
-   };
+            // Mostra ou esconde o botão ao rolar a página
+            window.onscroll = function() {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    backToTopButton.style.display = "block";
+                } else {
+                    backToTopButton.style.display = "none";
+                }
+            };
 
-    // Quando o usuário clica no botão, rola para o topo da página
-    backToTopButton.addEventListener('click', function(e) {
-        e.preventDefault(); // Impede o comportamento padrão do link
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth" // Rola suavemente
+            // Quando o usuário clica no botão, rola para o topo da página
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault(); // Impede o comportamento padrão do link
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth" // Rola suavemente
+                });
+            });
         });
-    });
-});
     </script>
 </head>
 <body>
@@ -215,12 +286,23 @@ document.addEventListener('DOMContentLoaded', function() {
             <a href="#tarifa">Tarifa</a>
             <a href="#fiscal">Fiscal</a>
             <a href="#conclusao">Conclusão</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Sumário Geral</a>
+                <div class="dropdown-content">
+                    <a href="#contexto">Contexto Econômico Global e Nacional</a>
+                    <a href="#selic">Taxa Selic, Inflação e Perfil do Investidor Brasileiro</a>
+                    <a href="#xrp">XRP, Volatilidade Cambial e Uso em Pagamentos</a>
+                    <a href="#etf">ETF XRPH11: Exclusividade e Liquidez</a>
+                    <a href="#tarifa">Impactos da Tarifa de 50% dos EUA em Criptoativos</a>
+                    <a href="#fiscal">Mudanças Fiscais Recentes no Brasil (Jun/2025)</a>
+                    <a href="#conclusao">Considerações Finais</a>
+                </div>
+            </div>
         </nav>
     </header>
     <div class="container">
-        
-        <h3><strong>Codify News – Relatório Informativo</strong></h3> 
-        <h1>Análise Profunda do XRP – Julho 2025</h1>     
+        <h3><strong>Codify News – Relatório Informativo</strong></h3>
+        <h1>Análise Profunda do XRP – Julho 2025</h1>
         <h2 id="contexto">1. Contexto Econômico Global e Nacional</h2>
         <p>Em 9 de julho de 2025, o presidente dos Estados Unidos, Donald Trump, enviou uma carta ao presidente Luiz Inácio Lula da Silva anunciando a imposição de <strong>tarifa de 50%</strong> sobre todos os produtos exportados do Brasil para os EUA, com vigência a partir de <strong>1º de agosto de 2025</strong>. Na justificativa, Trump citou supostas restrições à liberdade de expressão decorrentes de decisões do STF e o tratamento dado ao ex‑presidente Jair Bolsonaro, classificando-o como “caça às bruxas”.</p>
         <p>Essa tarifa, muito acima das alíquotas convencionais (10–25%), pode gerar custos adicionais para setores-chave (café, carne, suco de laranja, manufaturados) e obrigar empresas brasileiras a reajustar preços ou buscar novos mercados. Em retaliação, o governo brasileiro sinalizou a aplicação de tarifas recíprocas, conforme previsto em lei de intercâmbio comercial.</p>

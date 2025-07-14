@@ -115,7 +115,7 @@
             font-weight: 600;
             line-height: 1.3;
         }
-        .subtitle { /* Subtítulo do relatório */
+        .subtitle { /* Subtítulo do relatório (padrão) */
             color: var(--dark-gray);
             user-select: none;
             font-size: 1.15em;
@@ -153,33 +153,7 @@
         ul li {
             margin-bottom: 8px;
         }
-
-        /* AQUI: CENTRALIZAÇÃO PARA SEÇÕES ESPECÍFICAS */
-        #contato p,
-        #contato ul,
-        #contato ul li,
-        #redes-sociais p,
-        #redes-sociais ul,
-        #redes-sociais ul li,
-        #sobre-nos p,
-        #sobre-nos ul,
-        #sobre-nos ul li {
-            text-align: center; /* Centraliza o texto nessas seções */
-        }
-        /* Remover padding-left para centralização de listas nessas seções */
-        #contato ul,
-        #redes-sociais ul,
-        #sobre-nos ul {
-            padding-left: 0;
-            display: inline-block; /* Para centralizar o bloco da lista */
-        }
-        #redes-sociais .social-icons-list {
-             display: flex; /* Garante que os ícones fiquem em linha */
-             justify-content: center; /* Centraliza os ícones */
-             padding-left: 0; /* Remove padding quebra de alinhamento */
-        }
-
-
+        
         /* Estilos do rodapé (Footer) */
         footer {
             text-align: center;
@@ -451,16 +425,17 @@
         }
         .social-icons-list li {
             margin: 0 10px 15px; /* Espaçamento entre os ícones */
-            display: inline-block; /* Mantém-os em linha, mas flexbox já cuida disso */
+            /* display: inline-block; <--- Removido, flexbox já cuida disso */
         }
         /* Ajustes para garantir que os ícones funcionem com Tailwind */
-        .social-icons-list li a img {
-            display: inline-block !important; /* Força o display */
-            width: 40px !important; /* Força largura */
-            height: 40px !important; /* Força altura */
-            vertical-align: middle !important; /* Força alinhamento vertical */
-            margin: 0 4px !important; /* Força margem horizontal */
-        }
+        /* REMOVIDO ESTILOS QUE CONFLITAVAM AQUI */
+        /* .social-icons-list li a img {
+            display: inline-block !important; 
+            width: 40px !important; 
+            height: 40px !important; 
+            vertical-align: middle !important; 
+            margin: 0 4px !important; 
+        } */
 
 
         /* --- MEDIA QUERIES (RESPONSIVIDADE PARA CELULARES) --- */
@@ -556,11 +531,9 @@
                 margin-top: 40px;
             }
             
-            /* Centraliza as listas para mobile nas seções específicas */
-            #contato ul,
-            #redes-sociais ul,
-            #sobre-nos ul {
-                text-align: center; /* Garante centralização também no mobile */
+            /* Remove o padding-left das listas para que a centralização funcione melhor em mobile */
+            .content-section ul {
+                padding-left: 0; 
             }
         }
         /* Animação para o modal (fadeIn) */
@@ -851,12 +824,12 @@
         </div>
     </div> <div class="container content-section">
         <h2 id="contato" class="section-heading">Contato</h2>
-        <h2 class="subtitle">Informações de Contato</h2>
-        <p><strong>CodifyWorld</strong><br>
+        <h2 class="subtitle text-center">Informações de Contato</h2>
+        <p class="text-center"><strong>CodifyWorld</strong><br>
         Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
         Rio de Janeiro, Brasil</p>
-        <p>Tel: <a href="tel:+244927944541" class="text-blue-700 underline">+244 927 944 541</a> / <a href="tel:+5522997323458" class="text-blue-700 underline">+55 22 997 323 458</a></p>
-        <p>Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
+        <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">+244 927 944 541</a> / <a href="tel:+5522997323458" class="text-blue-700 underline">+55 22 997 323 458</a></p>
+        <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
 
         <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
@@ -867,48 +840,48 @@
         </div>
     </div> <div class="container content-section">
         <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
-        <h2 class="subtitle">Conecte-se Conosco</h2>
-        <p>Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
+        <h2 class="subtitle text-center">Conecte-se Conosco</h2>
+        <p class="text-center">Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
         <ul class="social-icons-list">
             <li>
                 <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-instagram.png" alt="Instagram" class="w-10 h-10 align-middle rounded-lg">
+                    <img src="img/icon-instagram.png" alt="Instagram" class="w-10 h-10 rounded-lg">
                     <span class="block mt-1 text-sm">Instagram</span>
                 </a>
             </li>
             <li>
                 <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-x.png" alt="X (Twitter)" class="w-10 h-10 align-middle rounded-lg">
+                    <img src="img/icon-x.png" alt="X (Twitter)" class="w-10 h-10 rounded-lg">
                     <span class="block mt-1 text-sm">X (Twitter)</span>
                 </a>
             </li>
             <li>
                 <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-github.png" alt="GitHub" class="w-10 h-10 align-middle rounded-lg">
+                    <img src="img/icon-github.png" alt="GitHub" class="w-10 h-10 rounded-lg">
                     <span class="block mt-1 text-sm">GitHub</span>
                 </a>
             </li>
             <li>
                 <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-linkedin.png" alt="LinkedIn" class="w-10 h-10 align-middle rounded-lg">
+                    <img src="img/icon-linkedin.png" alt="LinkedIn" class="w-10 h-10 rounded-lg">
                     <span class="block mt-1 text-sm">LinkedIn</span>
                 </a>
             </li>
             <li>
                 <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-tiktok.png" alt="TikTok" class="w-10 h-10 align-middle rounded-lg">
+                    <img src="img/icon-tiktok.png" alt="TikTok" class="w-10 h-10 rounded-lg">
                     <span class="block mt-1 text-sm">TikTok</span>
                 </a>
             </li>
             <li>
                 <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-youtube.png" alt="YouTube" class="w-10 h-10 align-middle rounded-lg">
+                    <img src="img/icon-youtube.png" alt="YouTube" class="w-10 h-10 rounded-lg">
                     <span class="block mt-1 text-sm">YouTube</span>
                 </a>
             </li>
             <li>
                 <a href="https://www.codifyworld.com.br" target="_blank" aria-label="Site Oficial" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105">
-                    <img src="img/icon-website.png" alt="Site Oficial" class="w-10 h-10 align-middle rounded-lg">
+                    <img src="img/icon-website.png" alt="Site Oficial" class="w-10 h-10 rounded-lg">
                     <span class="block mt-1 text-sm">Site Oficial</span>
                 </a>
             </li>
@@ -923,11 +896,11 @@
         </div>
     </div> <div class="container content-section">
         <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
-        <h2 class="subtitle">Nossa Missão e Visão</h2>
-        <p>Na Codify World, acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
-        <p>Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
-        <p>Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
-        <p>A Codify World é feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital. Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
+        <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
+        <p class="text-center">Na Codify World, acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
+        <p class="text-center">Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
+        <p class="text-center">Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
+        <p class="text-center">A Codify World é feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital. Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
         
         <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
@@ -939,8 +912,8 @@
     </div> <div class="container content-section">
         <h2 id="parceiros" class="section-heading">Parceiros</h2>
         <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
-        <p>Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
-        <p>Interessado em se tornar um parceiro da Codify World? Entre em contato conosco para explorar oportunidades de colaboração.</p>
+        <p class="text-center">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
+        <p class="text-center">Interessado em se tornar um parceiro da Codify World? Entre em contato conosco para explorar oportunidades de colaboração.</p>
 
     </div> <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
 

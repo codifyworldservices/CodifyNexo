@@ -49,7 +49,7 @@
         header img {
             max-height: 130px;
             pointer-events: none;
-            border-radius: 50%;
+            border-radius: 70%;
             object-fit: cover;
         }
         nav {
@@ -110,6 +110,27 @@
             text-align: left;
             user-select: none;
         }
+        #backToTop {
+    display: none; /* Esconde a seta por padrão */
+    position: fixed; /* Fixa a seta na tela, mesmo ao rolar */
+    bottom: 20px; /* Distância do fundo da tela */
+    right: 30px; /* Distância da direita da tela */
+    z-index: 99; /* Garante que a seta fique acima de outros elementos */
+    border: none; /* Remove a borda padrão do botão */
+    outline: none; /* Remove o contorno ao focar */
+    background-color: var(--primary-blue); /* Cor de fundo da seta (azul primário) */
+    color: white; /* Cor da seta (branco) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    padding: 10px 15px; /* Espaçamento interno */
+    border-radius: 50%; /* Faz o botão ser redondo */
+    font-size: 24px; /* Tamanho da seta */
+    transition: background-color 0.3s, opacity 0.3s; /* Transição suave para o hover e show/hide */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para destacar */
+}
+
+#backToTop:hover {
+    background-color: var(--secondary-blue); /* Cor de fundo ao passar o mouse */
+}
     </style>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
@@ -117,7 +138,31 @@
             if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault();
             }
+
+            // ... seu JavaScript existente para bloquear cópia ...
+
+// JavaScript para o botão "Voltar ao Topo"
+document.addEventListener('DOMContentLoaded', function() {
+    var backToTopButton = document.getElementById("backToTop");
+
+    // Mostra ou esconde o botão ao rolar a página
+    window.onscroll = function() {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            backToTopButton.style.display = "block";
+        } else {
+            backToTopButton.style.display = "none";
+        }
+    };
+
+    // Quando o usuário clica no botão, rola para o topo da página
+    backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Impede o comportamento padrão do link
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // Rola suavemente
         });
+    });
+});
     </script>
 </head>
 <body>
@@ -201,6 +246,7 @@
         </div>
         <p><em>Nota: Este relatório é meramente informativo e não constitui recomendação de investimento.</em></p>
     </div>
+    <a href="#" id="backToTop" title="Voltar ao Topo">&#x2191;</a>
     <footer>
         <p>Codify World | <a href="https://www.codifyworld.com.br" style="color: var(--primary-blue);">www.codifyworld.com.br</a> | © 2025 Codify Tech Labs</p>
         <p style="margin-top: 10px; font-size: 0.85rem;">

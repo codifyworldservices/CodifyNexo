@@ -50,11 +50,12 @@
     width: 140px;  /* Define a largura como 130px */
     height: 140px; /* Define a altura como 130px, IGUAL à largura */
     pointer-events: none;
-    border-radius: 70%; /* Use 50% para um círculo perfeito de um quadrado */
+    border-radius: 100%; /* Use 50% para um círculo perfeito de um quadrado */
     object-fit: cover;
 }
         nav {
             margin-top: 10px;
+             gap: 20px;
         }
        nav a {
             color: #FFFFFF;
@@ -62,7 +63,7 @@
             text-decoration: none;
             font-weight: 600;
             border: 1px solid var(--primary-blue); /* Mantém a borda azul, visível no fundo azul escuro */
-            padding: 8px 15px;
+            padding: 8px 30px;
             border-radius: 5px;
             display: inline-block;
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição para box-shadow */
@@ -86,7 +87,13 @@
         h1, h2 {
             color: var(--primary-blue);
             user-select: none;
-            font-size: 1.5em;
+            font-size: 1.0em;
+        }
+        {
+            h3
+            color: var(--primary-blue);
+            user-select: none;
+            font-size: 2.5em;
         }
         p, ul {
             margin-bottom: 15px;
@@ -183,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </header>
     <div class="container">
         
-        <h1><strong>Codify News – Relatório Informativo</strong></h1> 
+        <h3><strong>Codify News – Relatório Informativo</strong></h3> 
         <h2>Análise Profunda do XRP – Julho 2025</h2>     
         <h2 id="contexto">1. Contexto Econômico Global e Nacional</h2>
         <p>Em 9 de julho de 2025, o presidente dos Estados Unidos, Donald Trump, enviou uma carta ao presidente Luiz Inácio Lula da Silva anunciando a imposição de <strong>tarifa de 50%</strong> sobre todos os produtos exportados do Brasil para os EUA, com vigência a partir de <strong>1º de agosto de 2025</strong>. Na justificativa, Trump citou supostas restrições à liberdade de expressão decorrentes de decisões do STF e o tratamento dado ao ex‑presidente Jair Bolsonaro, classificando-o como “caça às bruxas”.</p>

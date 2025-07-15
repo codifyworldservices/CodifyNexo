@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codify News</title>
+    
+    <link rel="icon" href="img/logo_codi.png" type="image/png">
+    <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
+
+    <meta property="og:title" content="Codify News<br> Análise do XRP hoje">
+    <meta property="og:description" content="Análise do cenário econômico global, XRP hoje. Por Codify World | Tech Labs.">
+    <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
+    <meta property="og:url" content="https://codifyworldservices.github.io/CodifyNews/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Codify World | Tech Labs">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="apple-touch-icon" href="img/logo_codi.png"> <link rel="apple-touch-icon" sizes="180x180" href="img/logo_codi.png"> <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CodifyNews">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+    <style>
+        /* Variáveis CSS para cores e fontes */
+        :root {
+            --primary-blue: #0055A4;
+            --secondary-blue: #007ACC;
+            --light-blue: #E6F2FF;
+            --dark-gray: #333333;
+            --light-gray: #F5F5F5;
+            --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Estilos globais do corpo da página */
+        body {
+            margin: 0;
+            font-family: var(--font-base);
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; /* Impede seleção de texto em algumas partes */
+            padding-top: 0; /* Garante que o banner no topo funcione bem */
+        }
+
+        /* Estilos do cabeçalho (Header) */
+        header {
+            background-color: var(--primary-blue);
+            padding: 20px;
+            text-align: center; /* Centraliza o conteúdo, incluindo a imagem */
+            color: #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header img {
+            width: 150px;
+            height: 150px;
+            pointer-events: none; /* Impede que a imagem seja clicável ou arrastável */
+            border-radius: 25px; /* Deixa as bordas mais arredondadas */
+            object-fit: cover;
+            border: 15px solid var(--primary-blue);
+            display: block; /* Garante que a imagem se comporte como um bloco para mx-auto */
+            margin: 0 auto; /* Centraliza a imagem no cabeçalho */
+        }
+
+        /* Estilos da barra de navegação (Nav) */
+        nav {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 0 10px;
+            align-items: center;
+        }
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--primary-blue);
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
+        }
+        nav a:hover {
+            background-color: #FFFFFF;
+            color: var(--primary-blue);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+        }
+
+        /* Estilos do container principal do conteúdo */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #FFFFFF;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* Estilos de Títulos */
+        .main-title { /* Título principal do relatório */
+            color: var(--primary-blue);
+            user-select: none;
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .subtitle { /* Subtítulo do relatório (padrão) */
+            color: var(--dark-gray);
+            user-select: none;
+            font-size: 1.15em;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+        h2 { /* Títulos de sub-seções dentro do relatório */
+            color: var(--primary-blue);
+            user-select: none;
+            font-size: 1.15em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .section-heading { /* Títulos das grandes seções (Arquivados, Contato, etc.) */
+            color: var(--primary-blue);
+            font-size: 1.8em;
+            text-align: center;
+            margin-top: 60px; /* Mais espaçamento superior */
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--secondary-blue); /* Linha mais forte */
+            user-select: none;
+        }
+
+        /* Estilos de Parágrafos e Listas - PADRÃO (relatório) */
+        p, ul {
+            margin-bottom: 15px;
+            user-select: none;
+            text-align: justify; /* Alinha o texto do relatório */
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        
+        /* Estilos do rodapé (Footer) */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--secondary-blue);
+            user-select: none;
+        }
+        footer p {
+            margin: 0;
+            line-height: 1.4;
+            text-align: center; /* Garante que o texto do rodapé também seja centralizado */
+        }
+        footer a {
+            color: var(--primary-blue);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos da Assinatura */
+        .signature {
+            margin-top: 40px;
+            font-style: italic;
+            text-align: left; /* Mantém a assinatura alinhada à esquerda */
+            user-select: none;
+        }
+
+        /* Estilos do botão "Voltar ao Topo" */
+        #backToTop {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--primary-blue);
+            color: white;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: background-color 0.3s, opacity 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        #backToTop:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        /* Estilos do Dropdown Menu (para navegação) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-top: 0;
+        }
+        .dropbtn {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--primary-blue);
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .dropbtn:hover {
+            background-color: #FFFFFF;
+            color: var(--primary-blue);
+            border-color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: var(--primary-blue);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-weight: normal;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            white-space: normal;
+            border-bottom: 1px solid var(--primary-blue);
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Classes para controlar a visibilidade de elementos (Desktop vs Mobile) */
+        .desktop-only {
+            display: inline-block; /* Visível em desktop */
+        }
+        .mobile-only {
+            display: none; /* Escondido em desktop */
+        }
+
+        /* Estilos do Separador de Seção com Links de Navegação */
+        .section-separator-nav {
+            margin: 60px auto; /* Mais espaçamento acima e abaixo */
+            border-top: 3px solid var(--secondary-blue); /* Linha mais forte */
+            padding-top: 30px; /* Espaçamento após a linha */
+            text-align: center;
+            max-width: 600px;
+        }
+        .section-separator-nav a {
+            display: inline-block;
+            margin: 5px 10px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 5px 15px;
+            border: 1px solid var(--primary-blue);
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            white-space: nowrap;
+        }
+        .section-separator-nav a:hover {
+            background-color: var(--primary-blue);
+            color: #FFFFFF;
+        }
+
+        /* --- ESTILOS DO BANNER DE "INSTALAR APP" --- */
+        #installAppBanner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--secondary-blue);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 0.95em;
+            position: sticky; /* Fica fixo no topo ao rolar */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100; /* Garante que fique acima de outros elementos */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+            gap: 15px;
+        }
+        #installAppBanner p {
+            margin: 0;
+            flex-grow: 1;
+            user-select: text;
+        }
+        #installAppBanner button {
+            background-color: #FFFFFF;
+            color: var(--secondary-blue);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+        #installAppBanner button:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        /* --- ESTILOS DO MODAL DE INSTRUÇÕES DE INSTALAÇÃO --- */
+        #installAppModal {
+            display: none; /* Incialmente oculto, mostrado com JS */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        }
+        #installAppModal > div { /* Conteúdo do modal */
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease-out; /* Animação de entrada */
+        }
+        #installAppModal h3 {
+            margin-top: 0;
+            color: var(--primary-blue);
+            text-align: center;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+        #installAppModal ol {
+            padding-left: 25px;
+        }
+        #installAppModal li {
+            margin-bottom: 10px;
+        }
+        #closeModal {
+            color: #aaa;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+        #closeModal:hover,
+        #closeModal:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* --- SEPARADOR MAIS FORTE ENTRE RELATÓRIO E OUTRAS SEÇÕES --- */
+        .major-separator {
+            border: none;
+            border-top: 4px dotted var(--primary-blue); /* Linha pontilhada azul mais grossa */
+            margin: 80px auto; /* Mais espaçamento */
+            width: 70%; /* Ocupa menos largura para parecer um "divisor" */
+            max-width: 400px;
+        }
+        /* Espaçamento para as seções de conteúdo (após o relatório) */
+        .content-section {
+            margin-top: 60px; /* Garante que cada nova seção comece com bom espaçamento */
+        }
+
+        /* --- Estilos para centralizar os ícones de redes sociais --- */
+        .social-icons-list {
+            list-style: none; 
+            padding: 0; 
+            display: flex; /* Habilita flexbox */
+            justify-content: center; /* Centraliza horizontalmente */
+            flex-wrap: wrap; /* Permite que os itens quebrem linha */
+        }
+        .social-icons-list li {
+            margin: 0 10px 15px; /* Espaçamento entre os ícones */
+        }
+
+        /* Estilos para o iframe do Google Forms */
+        .google-form-embed {
+            width: 100%;
+            height: 2455px; /* Altura original fornecida */
+            border: 0;
+            margin: 0 auto;
+            display: block;
+            max-width: 640px; /* Largura máxima original fornecida */
+        }
+
+        /* --- NOVOS ESTILOS PARA OCULTAR/MOSTRAR O FORMULÁRIO --- */
+        #formContainer {
+            display: none; /* Inicialmente oculto */
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid var(--light-blue);
+            border-radius: 8px;
+            background-color: var(--light-gray);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        #toggleFormBtn {
+            display: block; /* Garante que o botão ocupe sua própria linha */
+            margin: 20px auto; /* Centraliza o botão */
+            padding: 12px 25px;
+            background-color: var(--secondary-blue);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: 600;
+        }
+        #toggleFormBtn:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px); /* Pequeno efeito de elevação */
+        }
+        #toggleFormBtn:active {
+            transform: translateY(0); /* Volta ao normal no clique */
+        }
+
+
+        /* --- MEDIA QUERIES (RESPONSIVIDADE PARA CELULARES) --- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            nav .desktop-only {
+                display: none;
+            }
+            nav .dropdown {
+                width: auto;
+                max-width: unset;
+                text-align: center;
+                margin-top: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: auto;
+                box-sizing: border-box;
+            }
+            .dropbtn {
+                width: auto;
+                min-width: 150px;
+                padding: 8px 20px;
+                box-sizing: border-box;
+                margin: 0 auto;
+            }
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border-top: 1px solid var(--primary-blue);
+                transform: none;
+                left: auto;
+                min-width: unset;
+                display: none;
+                margin-top: 0;
+            }
+            .dropdown-content a {
+                padding: 8px 10px;
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .section-separator-nav {
+                margin: 40px auto;
+                padding-top: 25px;
+                max-width: 90%;
+            }
+            .section-separator-nav a {
+                display: block;
+                width: calc(100% - 20px);
+                margin: 5px auto;
+            }
+
+            .section-heading {
+                font-size: 1.5em;
+                margin-top: 50px;
+                margin-bottom: 25px;
+                padding-bottom: 10px;
+            }
+
+            #installAppBanner {
+                flex-direction: column;
+                padding: 10px;
+                gap: 5px;
+            }
+            #installAppBanner button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            #installAppModal > div {
+                margin: 5% auto;
+                padding: 20px;
+            }
+
+            .major-separator {
+                margin: 60px auto;
+                width: 90%;
+            }
+            .content-section {
+                margin-top: 40px;
+            }
+            
+            /* Remove o padding-left das listas para que a centralização funcione melhor em mobile */
+            .content-section ul {
+                padding-left: 0; 
+            }
+            /* Garante que o iframe do Google Forms seja responsivo */
+            .google-form-embed {
+                width: 100%;
+                height: 1000px; /* Ajuste a altura para telas menores se necessário */
+                max-width: 100%;
+            }
+        }
+        /* Animação para o modal (fadeIn) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        // Desabilita o menu de contexto (botão direito do mouse)
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Desabilita as ferramentas de desenvolvedor (F12, Ctrl+Shift+I/J/C/K, Ctrl+U)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || (e.key === 'C' || e.key === 'K'))) || (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
+        // Executa o script quando o DOM estiver completamente carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Lógica do botão "Voltar ao Topo" ---
+            var backToTopButton = document.getElementById("backToTop");
+
+            window.onscroll = function() {
+                // Mostra/esconde o botão de acordo com a posição da rolagem
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    backToTopButton.style.display = "block";
+                } else {
+                    backToTopButton.style.display = "none";
+                }
+            };
+
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault(); // Impede o comportamento padrão do link
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth" // Rolagem suave
+                });
+            });
+
+            // --- Lógica do Dropdown Menu ---
+            const dropdownBtn = document.querySelector('.dropbtn');
+            const dropdownContainer = document.querySelector('.dropdown');
+
+            function isMobile() {
+                return window.innerWidth <= 768; // Define se a tela é mobile
+            }
+
+            // Alterna a classe 'active' no clique (usado para mobile)
+            dropdownBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                dropdownContainer.classList.toggle('active');
+                event.stopPropagation(); // Impede que o clique se propague e feche o dropdown imediatamente
+            });
+
+            // Fecha o dropdown se clicar fora dele
+            document.addEventListener('click', function(event) {
+                if (!dropdownContainer.contains(event.target) && dropdownContainer.classList.contains('active')) {
+                    dropdownContainer.classList.remove('active');
+                }
+            });
+
+            // Adiciona rolagem suave para links internos (#)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+
+                        // Fecha o dropdown após clicar em um link interno (em mobile)
+                        if (isMobile() && dropdownContainer.classList.contains('active')) {
+                            setTimeout(() => {
+                                dropdownContainer.classList.remove('active');
+                            }, 100);
+                        }
+                    }
+                });
+            });
+
+            // Lógica de hover para o dropdown (apenas em desktop)
+            dropdownContainer.addEventListener('mouseenter', function() {
+                if (!isMobile()) {
+                    this.classList.add('active');
+                }
+            });
+            dropdownContainer.addEventListener('mouseleave', function() {
+                if (!isMobile()) {
+                    this.classList.remove('active');
+                }
+            });
+
+            // Ajusta o dropdown ao redimensionar a janela
+            window.addEventListener('resize', function() {
+                if (!isMobile() && dropdownContainer.classList.contains('active') && !dropdownContainer.matches(':hover')) {
+                    dropdownContainer.classList.remove('active');
+                }
+                if (isMobile() && dropdownContainer.matches(':hover')) {
+                    dropdownContainer.classList.remove('active');
+                }
+            });
+
+            // --- Lógica do Banner e Modal de "Instalar App" ---
+            const installBanner = document.getElementById('installAppBanner');
+            const closeBannerBtn = document.getElementById('closeBanner');
+            const installLinkFooter = document.getElementById('installAppFooterLink');
+            const installModal = document.getElementById('installAppModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const installBannerButton = document.querySelector('#installAppBanner button');
+
+            // O banner agora aparece SEMPRE que a página é carregada.
+            // Não há mais verificação de localStorage aqui.
+
+            // Esconde o banner ao clicar no "X" (mas ele reaparecerá na próxima visita)
+            closeBannerBtn.addEventListener('click', function() {
+                installBanner.style.display = 'none';
+            });
+
+            // Abre o modal de instruções ao clicar no link do footer
+            installLinkFooter.addEventListener('click', function(e) {
+                e.preventDefault();
+                installModal.style.display = 'block';
+            });
+            
+            // Abre o modal ao clicar no botão "Instalar App" do banner
+            if (installBannerButton) {
+                installBannerButton.addEventListener('click', function() {
+                    installModal.style.display = 'block';
+                    installBanner.style.display = 'none'; // Esconde o banner ao abrir o modal
+                });
+            }
+
+            // Fecha o modal ao clicar no "X" dentro do modal
+            closeModalBtn.addEventListener('click', function() {
+                installModal.style.display = 'none';
+            });
+
+            // Fecha o modal se o clique for fora da área do modal
+            window.addEventListener('click', function(event) {
+                if (event.target == installModal) {
+                    installModal.style.display = 'none';
+                }
+            });
+
+            // --- NOVA LÓGICA: OCULTAR/MOSTRAR FORMULÁRIO DE ASSINATURA ---
+            const toggleFormBtn = document.getElementById('toggleFormBtn');
+            const formContainer = document.getElementById('formContainer');
+
+            // Verifica se os elementos existem antes de adicionar o event listener
+            if (toggleFormBtn && formContainer) {
+                toggleFormBtn.addEventListener('click', function() {
+                    if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                        formContainer.style.display = 'block';
+                        toggleFormBtn.textContent = 'Ocultar Formulário'; // Altera o texto do botão
+                        // Opcional: rolar para o formulário após abri-lo
+                        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        formContainer.style.display = 'none';
+                        toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura'; // Altera o texto do botão
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="installAppBanner">
+        <p>Gostaria de instalar o <strong>CodifyNews</strong> como um aplicativo em seu celular para não perder nenhuma notícia? <br> Clique em "Instalar App" para ver as instruções!</p>
+        <button>Instalar App</button>
+        <button id="closeBanner">X</button>
+    </div>
+
+    <div id="installAppModal">
+        <div class="modal-content">
+            <span id="closeModal">×</span>
+            <h3 class="text-blue-700 text-center text-2xl mb-5">Como Instalar o CodifyNews como App</h3>
+            <p>Para adicionar o <strong>CodifyNews</strong> à sua tela inicial e acessá-lo como um aplicativo, siga os passos abaixo:</p>
+            <ol>
+                <li>No seu navegador <strong>Google Chrome (Android)</strong>: Toque no ícone de <strong>3 pontos</strong> no canto superior direito e depois em <strong>"Adicionar à tela inicial"</strong>.</li>
+                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Share_icon_ios.svg/120px-Share_icon_ios.svg.png" alt="Ícone de Compartilhar iOS" class="inline-block h-4 w-4 align-middle mx-1">) na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
+                <li>Em outros navegadores, procure por opções como <strong>"Adicionar à Tela Inicial"</strong> ou <strong>"Instalar aplicativo"</strong> no menu principal.</li>
+                <li>Confirme a adição. Pronto! O ícone do CodifyNews aparecerá na sua tela inicial.</li>
+            </ol>
+            <p class="text-sm text-gray-600 text-center">(Os passos podem variar ligeiramente dependendo do seu navegador e sistema operacional.)</p>
+            <p class="text-sm text-blue-700 text-center font-bold">Recomendamos usar Google Chrome no Android e Safari no iOS para a melhor experiência de instalação.</p>
+        </div>
+    </div>
+
+    <header>
+        <img src="img/logo_codi.png" alt="Codify World">
+        <nav>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">CodifyNews</a>
+                <div class="dropdown-content">
+                    <a href="#relatorio-atual">Relatório Atual</a>
+                    <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                    <a href="#parceiros">Parceiros</a>
+                    <a href="#assinatura">Assinatura</a> 
+                    <a href="#sobre-nos">Sobre nós</a>
+                    <a href="#contato">Contato</a>
+                    <a href="#redes-sociais">Redes Sociais</a>
+                </div>
+            </div>
+            <a href="#parceiros" class="desktop-only">Parceiros</a>
+            <a href="#assinatura" class="desktop-only">Assinatura</a> 
+            <a href="#sobre-nos" class="desktop-only">Sobre nós</a>
+            <a href="#contato" class="desktop-only">Contato</a>
+            <a href="#redes-sociais" class="desktop-only">Redes Sociais</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h3 class="main-title">Relatórios Técnicos <br>Tecnologias digitais | Finanças | Jurídico</h3>
+        <h2 class="subtitle"><strong>Análise Profunda do Litígio XRP vs SEC – Julho 2025</strong></h2>
+
+        <h2 id="relatorio-atual">Relatório Atual</h2>
+        <h2 id="contexto">1. Visão Geral do Litígio</h2>
+        <p>Desde dezembro de 2020, a U.S. Securities and Exchange Commission (SEC) acusa a Ripple Labs de ofertar XRP como título não registrado, questionando US$ 728 mi em vendas institucionais. Em 13 de julho de 2023, a juíza Analisa Torres considerou que vendas via exchanges públicas não configuram títulos, mas manteve restrições às vendas direcionadas a investidores qualificados.</p>
+        
+        <h2 id="movimentos">2. Movimentos Recentes</h2>
+        <ul>
+            <li>26 jun/2025: Juíza Torres rejeita proposta de acordo que permitiria à Ripple pagar multa reduzida e levantar bloqueios de ativos.</li>
+            <li>27 jun/2025: Ripple abre mão do cross-appeal, sinalizando disposição mútua de encerrar o litígio.</li>
+            <li>10–12 jul/2025: Rumores sobre acordo durante a Crypto Week são desmentidos; SEC segue votação interna, com prazo estimado de 1–2 meses para decisão final.</li>
+            <li>04 jul/2025: Comissão interna da SEC conclui contagem preliminar de votos para retirada de recurso; aguarda despacho judicial.</li>
+            <li>13 jul/2025: Tribunal “congela” recursos, sinalizando fase final e expectativa de determinação até meados de agosto/2025.</li>
+        </ul>
+
+        <h2 id="ponto-critico">3. Ponto Crítico e Implicações Jurídicas</h2>
+        <ul>
+            <li><strong>Homologação Final:</strong> Com recursos “congelados”, a decisão caberá à juíza Torres sem novas audiências, devendo ocorrer até 15 ago/2025.</li>
+            <li><strong>Precedente Howey Test:</strong> Consolidação da aplicação do teste a ofertas primárias (institucionais) versus secundárias (exchanges).</li>
+            <li><strong>Regulação de Cripto-ETFs:</strong> As diretrizes da SEC sobre disclosure e custódia ganham maior peso, influenciando próximos pedidos de ETFs.</li>
+        </ul>
+        
+        <h2 id="perspectivas-mercado">4. Perspectivas de Mercado</h2>
+        <h3>Spot XRP ETFs:</h3>
+        <ul>
+            <li>Número de pedidos ativos: 7 propostas pendentes em 2025 (incluindo BlackRock, ARK Invest e Fidelity).</li>
+            <li>Mercado Potencial: Estimado em US$ 5 bi em AUM (ativos sob gestão) no primeiro ano, caso aprovado.</li>
+        </ul>
+        <h3>Institucionalização:</h3>
+        <ul>
+            <li>12 grandes corretoras já listam XRP como colateral em produtos de derivativos.</li>
+            <li>Crescimento de 18% no volume mensal médio de OTC para XRP desde abril/2025.</li>
+        </ul>
+        <h3>Riscos:</h3>
+        <ul>
+            <li>Flutuações de preço durante fase de homologação: variação de ±12% observada em ciclos anteriores.</li>
+        </ul>
+        
+        <h2 id="dados-mercado">5. Dados de Mercado e Adoção</h2>
+        <ul>
+            <li>Preço Médio XRP: US$ 0,65 (+22% Variação YTD)</li>
+            <li>Volume 30d (CEX + DEX): US$ 18 bi (+35% Variação YTD)</li>
+            <li>Número de Carteiras Ativas (mensal): 2,8 mi (+14% Variação YTD)</li>
+            <li>OTC Liquidity Providers: 25 (+40% Variação YTD)</li>
+        </ul>
+
+        <h2 id="linha-tempo">6. Linha do Tempo Detalhada</h2>
+        <ul>
+            <li>Dez/2020: SEC ajuíza ação contra Ripple Labs.</li>
+            <li>Jul/2023: Juíza Torres decide vendas em exchanges públicas não são títulos.</li>
+            <li>Fev/2024: SEC publica orientações preliminares sobre custódia de cripto-ETFs.</li>
+            <li>Ago/2024: Primeiro ETF de Bitcoin listado na NYSE Arca; estimula novos pedidos.</li>
+            <li>Mar/2025: Ripple e SEC iniciam negociações de possível acordo, sem avanços definitivos.</li>
+            <li>Jun/2025: Recursos “congelados”; SEC conclui votação interna sobre retirada de apelação.</li>
+            <li>Ago/2025 (prévia): Homologação final esperada pela juíza Torres.</li>
+        </ul>
+
+        <h2 id="estatisticas-litigios">7. Estatísticas de Litígios da SEC (2020–2025)</h2>
+        <ul>
+            <li>Total de ações contra criptoempresas: 32</li>
+            <li>Acordos firmados: 14</li>
+            <li>Precedentes estabelecidos: 5 (incluindo XRP e LBRY)</li>
+            <li>Tempo médio de resolução: 28 meses</li>
+        </ul>
+
+        <h2 id="conclusoes-recomendacoes">8. Conclusões e Recomendações</h2>
+        <ul>
+            <li>Monitorar Despacho: Foco em publicações do tribunal e da SEC até 15 ago/2025.</li>
+            <li>Preparar Estrutura de ETFs: Gestoras devem finalizar documentação de compliance e custódia.</li>
+            <li>Estratégias de Hedge: Considerar contratos futuros e opções para mitigar volatilidade.</li>
+            <li>Parcerias de Custódia: Aumentar colaborações com entidades reguladas (p.ex. grandes bancos).</li>
+        </ul>
+
+        <div class="signature">
+            <p>Atenciosamente,</p>
+            <p><strong>Weslei Romano</strong><br> Engenheiro de Software<br>Codify World | Tech Labs</p>
+             <br><p>_Nota: Este relatório é informativo e não constitui recomendação de investimento._</p>
+        </div>
+       
+
+        <div class="section-separator-nav">
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#assinatura">Assinatura</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
+    </div> <hr class="major-separator">
+
+    <div class="container content-section">
+        <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
+        <h2 class="subtitle"><strong>Acesse Documentos Técnicos Passados</strong></h2>
+        <p class="text-center mb-8">Os relatórios arquivados estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com nossa equipe através dos canais oficiais da Codify World.</p>
+        <p class="mt-8 text-center"><strong>Entre em contato conosco para saber mais!</strong></p>
+
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#assinatura">Assinatura</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
+    </div> <div class="container content-section">
+        <h2 id="parceiros" class="section-heading">Parceiros</h2>
+        <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
+        <p class="text-center">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
+        <p class="text-center">Interessado em se tornar um parceiro da Codify World? Entre em contato conosco para explorar oportunidades de colaboração.</p>
+
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#assinatura">Assinatura</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
+    </div> <div class="container content-section">
+        <h2 id="assinatura" class="section-heading">📊 Assinatura</h2>
+        <h2 class="subtitle">Inscreva-se para Acessar Nossos Relatórios Profissionais!</h2>
+        <p class="text-center mb-8">Clique no botão abaixo para preencher o formulário de assinatura e ter acesso a análises especializadas, visão estratégica e informações atualizadas sobre tecnologia, inovação, mercado financeiro, IA e tendências digitais.</p>
+
+        <button id="toggleFormBtn">Mostrar Formulário de Assinatura</button>
+
+        <div id="formContainer">
+            <div class="flex justify-center items-center">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" 
+                        width="640" 
+                        height="2455" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0"
+                        class="google-form-embed">Carregando…</iframe>
+            </div>
+
+            <p class="text-center mt-8 text-red-700 font-bold">⚠️ Relatórios Arquivados</p>
+            <p class="text-center mb-8">Os relatórios arquivados (anteriores ao período da sua assinatura) estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com a equipe da Codify World por nossos canais oficiais.</p>
+        </div> <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
+    </div> <div class="container content-section">
+        <h2 id="contato" class="section-heading">Contato</h2>
+        <h2 class="subtitle text-center">Fale Conosco ou Deixe Seu Feedback!</h2>
+        
+        <p class="text-center mt-8"><strong>CodifyWorld</strong><br>
+        Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
+        Rio de Janeiro, Brasil</p>
+        <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">+244 927 944 541</a> / <a href="tel:+5522997323458" class="text-blue-700 underline">+55 22 997 323 458</a></p>
+        <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
+
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+            <a href="#assinatura">Assinatura</a>
+        </div>
+    </div> <div class="container content-section">
+        <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
+        <h2 class="subtitle text-center">Conecte-se Conosco</h2>
+        <p class="text-center">Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
+        <ul class="social-icons-list">
+            <li>
+                <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105 flex items-center justify-center p-2 rounded-lg border border-blue-700">
+                    <i data-heroicons="instagram" class="h-6 w-6 fill-current mr-2"></i>
+                    <span>Instagram</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105 flex items-center justify-center p-2 rounded-lg border border-blue-700">
+                    <i data-heroicons="twitter" class="h-6 w-6 fill-current mr-2"></i>
+                    <span>X (Twitter)</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105 flex items-center justify-center p-2 rounded-lg border border-blue-700">
+                    <i data-heroicons="github" class="h-6 w-6 fill-current mr-2"></i>
+                    <span>GitHub</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105 flex items-center justify-center p-2 rounded-lg border border-blue-700">
+                    <i data-heroicons="linkedin" class="h-6 w-6 fill-current mr-2"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105 flex items-center justify-center p-2 rounded-lg border border-blue-700">
+                    <i data-heroicons="musical-note" class="h-6 w-6 fill-current mr-2"></i>
+                    <span>TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105 flex items-center justify-center p-2 rounded-lg border border-blue-700">
+                    <i data-heroicons="play" class="h-6 w-6 fill-current mr-2"></i>
+                    <span>YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.codifyworld.com.br" target="_blank" aria-label="Site Oficial" class="block text-blue-700 no-underline font-semibold transition duration-300 hover:text-blue-900 hover:scale-105 flex items-center justify-center p-2 rounded-lg border border-blue-700">
+                    <i data-heroicons="globe-alt" class="h-6 w-6 fill-current mr-2"></i>
+                    <span>Site Oficial</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#assinatura">Assinatura</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
+    </div> <div class="container content-section">
+        <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
+        <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
+        <p class="text-center">Na Codify World, acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
+        <p class="text-center">Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
+        <p class="text-center">Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
+        <p class="text-center">A Codify World é feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital. Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
+        
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#assinatura">Assinatura</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+        </div>
+    </div> <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
+
+    <footer>
+        <p> <a href="https://www.codifyworld.com.br">www.codifyworld.com.br</a> <br> © 2025 Codify World|Tech Labs</p>
+        <p class="mt-2 text-xs">
+            Conteúdo sob Licença <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank" class="text-blue-700 underline font-bold">CC BY-NC-ND 4.0</a>. Direitos preservados. Não vender, Nao usar comercialmente sem autorização prescrita legal sob pena Jurídica.
+        </p>
+        <p class="mt-2">
+            <a href="#" id="installAppFooterLink" class="text-blue-700 underline font-bold">Instalar CodifyNews como App</a>
+        </p>
+    </footer>
+  </body>           
+</html>

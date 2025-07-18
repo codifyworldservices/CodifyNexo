@@ -314,24 +314,7 @@
         }
 
         /* --- ESTILOS DO BANNER DE "INSTALAR APP" --- */
-        #installAppBanner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--secondary-blue);
-            color: #FFFFFF;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 0.95em;
-            position: sticky; /* Fica fixo no topo ao rolar */
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100; /* Garante que fique acima de outros elementos */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            box-sizing: border-box;
-            gap: 15px;
-        }
+        
         #installAppBanner p {
             margin: 0;
             flex-grow: 1;
@@ -604,15 +587,7 @@
             // --- Lógica do botão "Voltar ao Topo" ---
             var backToTopButton = document.getElementById("backToTop");
 
-            window.onscroll = function() {
-                // Mostra/esconde o botão de acordo com a posição da rolagem
-                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                    backToTopButton.style.display = "block";
-                } else {
-                    backToTopButton.style.display = "none";
-                }
-            };
-
+        
             backToTopButton.addEventListener('click', function(e) {
                 e.preventDefault(); // Impede o comportamento padrão do link
                 window.scrollTo({
@@ -757,10 +732,19 @@
 </head>
 <body>
 
+<!-- Botão rolar para baixo (mais próximo do rodapé) -->
 <button onclick="window.scrollBy({ top: 400, behavior: 'smooth' })"
-        class="fixed bottom-6 left-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50 md:hidden"
+        class="fixed bottom-20 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50 md:hidden"
         aria-label="Role para baixo">
   <i class="fas fa-chevron-down text-lg"></i>
+</button>
+
+<!-- Botão voltar ao topo (acima do botão rolar para baixo) -->
+<button id="backToTop"
+        onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+        class="fixed bottom-32 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 hidden z-50 md:hidden"
+        aria-label="Voltar ao topo">
+  <i class="fas fa-chevron-up text-lg"></i>
 </button>
     
     <div id="installAppBanner">

@@ -20,12 +20,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CodifyNews">
 
-   
-        
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-d9w2+FNaCnTSiW1cGqRMm0qqk5ZVdQeHj+M2ZpoJfOeXFXyYk3UoA1XDRfYZa+CmSWTi7gO9kM4kZm6GgfWimg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -190,35 +186,7 @@
             text-align: left; /* Mantém a assinatura alinhada à esquerda */
             user-select: none;
         }
-
-        /* Estilos do botão "Voltar ao Topo" */
-        #backToTop {
-        display: none;
-        position: fixed;
-        bottom: 20px; 
-        right: 30px;
-        z-index: 99;
-        width: 50px;
-        height: 50px;
-        border: none;
-        outline: none;
-        background-color: var(--primary-blue);
-   color: white;
-   cursor: pointer;
-  border-radius: 50%;
-  font-size: 24px;
-  transition: background-color 0.3s, opacity 0.3s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  text-align: center;
-  line-height: 50px; /* vertical align para ícone ou texto */
-  padding: 0;
-            
-}
-
-        #backToTop:hover {
-            background-color: var(--secondary-blue);
-        }
-
+       
         /* Estilos do Dropdown Menu (para navegação) */
         .dropdown {
             position: relative;
@@ -317,8 +285,18 @@
             color: #FFFFFF;
         }
 
-        /* --- ESTILOS DO BANNER DE "INSTALAR APP" --- */
-        
+        /* --- ESTILOS DO BANNER DE "INSTALAR APP" (CORREÇÃO) --- */
+        #installAppBanner {
+            background-color: var(--secondary-blue); /* Fundo azul restaurado */
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 999;
+        }
         #installAppBanner p {
             margin: 0;
             flex-grow: 1;
@@ -536,8 +514,9 @@
 
             #installAppBanner {
                 flex-direction: column;
+                text-align: center;
                 padding: 10px;
-                gap: 5px;
+                gap: 10px;
             }
             #installAppBanner button {
                 width: 100%;
@@ -557,14 +536,13 @@
                 margin-top: 40px;
             }
             
-            /* Remove o padding-left das listas para que a centralização funcione melhor em mobile */
             .content-section ul {
                 padding-left: 0; 
             }
-            /* Garante que o iframe do Google Forms seja responsivo */
+            
             .google-form-embed {
                 width: 100%;
-                height: 1000px; /* Ajuste a altura para telas menores se necessário */
+                height: 1000px; 
                 max-width: 100%;
             }
         }
@@ -588,17 +566,83 @@
 
         // Executa o script quando o DOM estiver completamente carregado
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Lógica do botão "Voltar ao Topo" ---
-            var backToTopButton = document.getElementById("backToTop");
+            
+            // --- LÓGICA DOS BOTÕES DE ROLAGEM (INCLUINDO ROLAGEM LENTA) ---
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            const scrollDownBtn = document.getElementById('scrollDownBtn');
+            const scrollDownIcon = scrollDownBtn.querySelector('i'); // Pega o ícone dentro do botão
+            
+            let isAutoScrolling = false;
+            let animationFrameId = null;
 
-        
-            backToTopButton.addEventListener('click', function(e) {
-                e.preventDefault(); // Impede o comportamento padrão do link
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth" // Rolagem suave
-                });
+            // Função para PARAR a rolagem automática
+            function stopAutoScroll() {
+                if (isAutoScrolling) {
+                    isAutoScrolling = false;
+                    cancelAnimationFrame(animationFrameId);
+                    // Restaura o ícone para a seta de descer
+                    scrollDownIcon.classList.remove('fa-pause');
+                    scrollDownIcon.classList.add('fa-chevron-down');
+                }
+            }
+
+            // Função para INICIAR a rolagem automática
+            function startAutoScroll() {
+                isAutoScrolling = true;
+                // Altera o ícone para o de pausa
+                scrollDownIcon.classList.remove('fa-chevron-down');
+                scrollDownIcon.classList.add('fa-pause');
+
+                function scrollStep() {
+                    // Se a rolagem foi parada, encerra o loop
+                    if (!isAutoScrolling) return;
+
+                    // Para a rolagem se chegar ao final da página
+                    if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight) {
+                        stopAutoScroll();
+                        return;
+                    }
+
+                    // Move a página 1.5 pixels para baixo
+                    window.scrollBy(0, 1.5); 
+                    // Continua a animação no próximo quadro
+                    animationFrameId = requestAnimationFrame(scrollStep);
+                }
+                // Inicia o loop de animação
+                animationFrameId = requestAnimationFrame(scrollStep);
+            }
+
+            // Mostra/esconde os botões com base na posição da rolagem
+            window.addEventListener('scroll', () => {
+                // Se o usuário rolar manualmente, para a rolagem automática
+                stopAutoScroll(); 
+
+                if (window.scrollY > 100) {
+                    backToTopBtn.classList.remove('hidden');
+                    scrollDownBtn.classList.add('hidden');
+                } else { 
+                    backToTopBtn.classList.add('hidden');
+                    scrollDownBtn.classList.remove('hidden');
+                }
             });
+
+            // Ação de clique para rolar para o topo
+            backToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Ação de clique para a rolagem lenta (play/pause)
+            scrollDownBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (isAutoScrolling) {
+                    stopAutoScroll();
+                } else {
+                    startAutoScroll();
+                }
+            });
+            // --- FIM DA LÓGICA DE ROLAGEM ---
+
 
             // --- Lógica do Dropdown Menu ---
             const dropdownBtn = document.querySelector('.dropbtn');
@@ -608,21 +652,18 @@
                 return window.innerWidth <= 768; // Define se a tela é mobile
             }
 
-            // Alterna a classe 'active' no clique (usado para mobile)
             dropdownBtn.addEventListener('click', function(event) {
                 event.preventDefault();
                 dropdownContainer.classList.toggle('active');
-                event.stopPropagation(); // Impede que o clique se propague e feche o dropdown imediatamente
+                event.stopPropagation();
             });
 
-            // Fecha o dropdown se clicar fora dele
             document.addEventListener('click', function(event) {
                 if (!dropdownContainer.contains(event.target) && dropdownContainer.classList.contains('active')) {
                     dropdownContainer.classList.remove('active');
                 }
             });
 
-            // Adiciona rolagem suave para links internos (#)
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const href = this.getAttribute('href');
@@ -631,11 +672,11 @@
 
                     if (targetElement) {
                         e.preventDefault();
+                        stopAutoScroll(); // Para a rolagem automática se navegar para uma âncora
                         targetElement.scrollIntoView({
                             behavior: 'smooth'
                         });
 
-                        // Fecha o dropdown após clicar em um link interno (em mobile)
                         if (isMobile() && dropdownContainer.classList.contains('active')) {
                             setTimeout(() => {
                                 dropdownContainer.classList.remove('active');
@@ -645,7 +686,6 @@
                 });
             });
 
-            // Lógica de hover para o dropdown (apenas em desktop)
             dropdownContainer.addEventListener('mouseenter', function() {
                 if (!isMobile()) {
                     this.classList.add('active');
@@ -657,7 +697,6 @@
                 }
             });
 
-            // Ajusta o dropdown ao redimensionar a janela
             window.addEventListener('resize', function() {
                 if (!isMobile() && dropdownContainer.classList.contains('active') && !dropdownContainer.matches(':hover')) {
                     dropdownContainer.classList.remove('active');
@@ -675,104 +714,59 @@
             const closeModalBtn = document.getElementById('closeModal');
             const installBannerButton = document.querySelector('#installAppBanner button');
 
-            // O banner agora aparece SEMPRE que a página é carregada.
-            // Não há mais verificação de localStorage aqui.
-
-            // Esconde o banner ao clicar no "X" (mas ele reaparecerá na próxima visita)
             closeBannerBtn.addEventListener('click', function() {
                 installBanner.style.display = 'none';
             });
 
-            // Abre o modal de instruções ao clicar no link do footer
             installLinkFooter.addEventListener('click', function(e) {
                 e.preventDefault();
                 installModal.style.display = 'block';
             });
             
-            // Abre o modal ao clicar no botão "Instalar App" do banner
             if (installBannerButton) {
                 installBannerButton.addEventListener('click', function() {
                     installModal.style.display = 'block';
-                    installBanner.style.display = 'none'; // Esconde o banner ao abrir o modal
+                    installBanner.style.display = 'none';
                 });
             }
 
-            // Fecha o modal ao clicar no "X" dentro do modal
             closeModalBtn.addEventListener('click', function() {
                 installModal.style.display = 'none';
             });
 
-            // Fecha o modal se o clique for fora da área do modal
             window.addEventListener('click', function(event) {
                 if (event.target == installModal) {
                     installModal.style.display = 'none';
                 }
             });
 
-            // --- NOVA LÓGICA: OCULTAR/MOSTRAR FORMULÁRIO DE ASSINATURA ---
+            // --- LÓGICA: OCULTAR/MOSTRAR FORMULÁRIO DE ASSINATURA ---
             const toggleFormBtn = document.getElementById('toggleFormBtn');
             const formContainer = document.getElementById('formContainer');
 
-            // Verifica se os elementos existem antes de adicionar o event listener
             if (toggleFormBtn && formContainer) {
                 toggleFormBtn.addEventListener('click', function() {
                     if (formContainer.style.display === 'none' || formContainer.style.display === '') {
                         formContainer.style.display = 'block';
-                        toggleFormBtn.textContent = 'Ocultar Formulário'; // Altera o texto do botão
-                        // Opcional: rolar para o formulário após abri-lo
+                        toggleFormBtn.textContent = 'Ocultar Formulário';
                         formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     } else {
                         formContainer.style.display = 'none';
-                        toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura'; // Altera o texto do botão
+                        toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura';
                     }
                  });
-
-                
-                
-                // rola ate o topo //-->
-             const backToTop = document.getElementById('backToTop');
-  const scrollDown = document.getElementById('scrollDown');
-
-  // Exibir/esconder os botões baseado na rolagem
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-      backToTop.classList.remove('hidden');
-      scrollDown.classList.add('hidden');
-    } else {
-      backToTop.classList.add('hidden');
-      scrollDown.classList.remove('hidden');
-    }
-  });
-
-  // Scroll suave para o topo
-  backToTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Scroll suave para baixo
-  scrollDown.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollBy({ top: 400, behavior: 'smooth' });
-  });
-// rola ate o topo //-->
-
-
-                
             }
         });
     </script>
 </head>
 <body>
 
-<!-- Botão de descer -->
 <button id="scrollDownBtn"
         class="fixed bottom-20 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50"
-        aria-label="Role para baixo">
+        aria-label="Iniciar rolagem para leitura">
   <i class="fas fa-chevron-down text-lg"></i>
 </button>
 
-<!-- Botão de subir -->
 <button id="backToTopBtn"
         class="fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50 hidden"
         aria-label="Voltar ao topo">
@@ -824,30 +818,25 @@
             <a href="#redes-sociais" class="desktop-only">Redes Sociais</a>
         </nav>
     </header>
-
-
-
-
-
-
-
-
-    
-
-
-
-    
     
    <div class="container">
     <h3 class="main-title"><strong>Relatório técnico<br>Análises multissetoriais"</strong>
         <br>   Economia | Tecnologia <br> Software  | Global 2025</h3>
      
-
-
-       <!-- 1. Contexto Econômico Global e Nacional -->
-     
-  <h3 id="relatorio-atual"><strong>Panorama Global: Conflitos Convergentes e Crise Econômica ℗ 17 Julho de 2025</strong></h3>
+  <h3 id="relatorio-atual"><strong>Panorama Global: Conflitos Convergentes e Crise Econômica ℗ 18 Julho de 2025</strong></h3>
    <br>
+
+
+
+
+
+
+
+
+
+
+
+       
   <p>O cenário internacional atual é marcado pela convergência de múltiplos focos de tensão de alto risco: a prolongada guerra entre Israel e Hamas, a instabilidade na Síria pós-Assad, a iminente crise no Estreito de Ormuz e a escalada da pressão econômica ocidental sobre a Rússia e seus parceiros comerciais.</p>
 
   <h3><strong>1. O Conflito no Levante: Israel, Hamas e Síria</strong></h3>
@@ -880,13 +869,28 @@
 
   <p>O mundo enfrenta um ambiente de altíssimo risco, onde a segurança militar e as políticas econômicas estão intrinsecamente ligadas. As medidas tarifárias contundentes dos EUA demonstram que as cadeias de suprimentos globais se tornaram um campo de batalha geopolítico. A convergência de crises no Levante, a tensão no Golfo Pérsico e a guerra econômica contra a Rússia e seus parceiros colocam o sistema internacional sob forte pressão, exigindo um monitoramento constante dos indicadores de energia, volatilidade cambial e do complexo jogo de alianças.</p>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
   <div class="signature">
     <p><strong>Atenciosamente,</strong><br>
     Weslei Romano<br>
     Engenheiro de Software<br> 
     Codify News | Tech Labs</p>
     <p><em>Nota: Este relatório é apenas informativo e não constitui recomendação de investimento. As análises apresentadas são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
- <li>
+
+      <li>
   <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105">
     <i class="fab fa-whatsapp text-current text-xl mr-2"></i>
     <span>Grupo News aberto para Network no WhatsApp</span>
@@ -906,18 +910,6 @@
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
         </div>
     </div> <hr class="major-separator">
-
-
-
-
-
-
-
-
-
-
-
-
     
     <div class="container content-section">
         <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
@@ -1065,14 +1057,8 @@
     <span>Grupo News aberto para Network no WhatsApp</span>
   </a>
 </li>
-
-      
-
-
-  
   </ul>
                 
-
         <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
@@ -1081,20 +1067,14 @@
             <a href="#assinatura">Assinatura</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
             <a href="#contato">Contato</a>
-            
         </div>
             </div>
 
-
-    
  <div class="container content-section">
         <h2 id="fatos-nao-versoes" class="section-heading">Fatos! não versões</h2>
         <h2 class="subtitle text-center">Visão</h2>
         <p class="text-center"><strong>NaCodify News</strong>, nosso compromisso é com os fatos. <br><p>Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
 
-   
-
-      
      <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
@@ -1105,7 +1085,6 @@
             <a href="#sobre-nos">Sobre nós</a>
     </div>
  </div>
-    
     
     <div class="container content-section">
         <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
@@ -1126,18 +1105,6 @@
         </div>
     </div>
     
-   <a href="#" id="backToTop"
-   title="Voltar ao Topo"
-   class="hidden fixed bottom-6 right-6 w-12 h-12 bg-blue-700 text-white text-xl rounded-full shadow-lg hover:bg-blue-800 transition duration-300 z-50 flex items-center justify-center">
-  ↑
-</a>
-
-    <a href="#" id="scrollDown"
-   title="Role para Baixo"
-   class="fixed bottom-20 right-6 w-12 h-12 bg-blue-700 text-white text-xl rounded-full shadow-lg hover:bg-blue-800 transition duration-300 z-50 flex items-center justify-center">
-  ↓
-</a>
-
     <footer>
         <p>Codify News – Análises e relatórios técnicos multissetoriais, <br> com compromisso jornalístico isento e livre de viés ideológico.</p>
         <p class="mt-2">

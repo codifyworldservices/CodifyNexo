@@ -730,35 +730,30 @@
                 
                 
                 // rola ate o topo //-->
-                
-         document.addEventListener("DOMContentLoaded", function () {
-    const scrollDownBtn = document.getElementById("scrollDownBtn");
-    const backToTopBtn = document.getElementById("backToTopBtn");
+             const backToTop = document.getElementById('backToTop');
+  const scrollDown = document.getElementById('scrollDown');
 
-    // Mostrar/esconder botões baseado na rolagem
-    window.addEventListener("scroll", function () {
-      const scrollY = window.scrollY || window.pageYOffset;
+  // Exibir/esconder os botões baseado na rolagem
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      backToTop.classList.remove('hidden');
+      scrollDown.classList.add('hidden');
+    } else {
+      backToTop.classList.add('hidden');
+      scrollDown.classList.remove('hidden');
+    }
+  });
 
-      if (scrollY < 100) {
-        // No topo: mostrar botão de descer, esconder o de subir
-        scrollDownBtn.classList.remove("hidden");
-        backToTopBtn.classList.add("hidden");
-      } else {
-        // Fora do topo: mostrar botão de subir, esconder o de descer
-        scrollDownBtn.classList.add("hidden");
-        backToTopBtn.classList.remove("hidden");
-      }
-    });
+  // Scroll suave para o topo
+  backToTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-    // Botão de descer
-    scrollDownBtn.addEventListener("click", function () {
-      window.scrollBy({ top: 500, behavior: "smooth" });
-    });
-
-    // Botão de subir
-    backToTopBtn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+  // Scroll suave para baixo
+  scrollDown.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollBy({ top: 400, behavior: 'smooth' });
   });
 // rola ate o topo //-->
 
@@ -1131,9 +1126,16 @@
         </div>
     </div>
     
-    <a href="#" id="backToTop" title="Voltar ao Topo"
-   class="fixed bottom-6 right-6 p-3 bg-blue-700 text-white rounded-full shadow-lg hover:bg-blue-800 transition duration-300 text-2xl z-50">
+   <a href="#" id="backToTop"
+   title="Voltar ao Topo"
+   class="hidden fixed bottom-6 right-6 w-12 h-12 bg-blue-700 text-white text-xl rounded-full shadow-lg hover:bg-blue-800 transition duration-300 z-50 flex items-center justify-center">
   ↑
+</a>
+
+    <a href="#" id="scrollDown"
+   title="Role para Baixo"
+   class="fixed bottom-20 right-6 w-12 h-12 bg-blue-700 text-white text-xl rounded-full shadow-lg hover:bg-blue-800 transition duration-300 z-50 flex items-center justify-center">
+  ↓
 </a>
 
     <footer>

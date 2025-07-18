@@ -192,7 +192,7 @@
             display: none;
             position: fixed;
             bottom: 20px;
-            right: 30px;
+            right: 200px;
             z-index: 99;
             border: none;
             outline: none;
@@ -744,31 +744,14 @@
 
                  const scrollBtn = document.getElementById('scrollToTopBtn');
 
-               // Mostrar botão ao rolar para baixo 100px
-              window.addEventListener('scroll', () => {
-               if (window.pageYOffset > 100) {
-                scrollBtn.classList.remove('hidden');
-             } else {
-               scrollBtn.classList.add('hidden');
-              }
-             });
-
-                // Ao clicar, rola suavemente para o topo
-                scrollBtn.addEventListener('click', () => {
-               window.scrollTo({ top: 0, behavior: 'smooth' });
-                 });
+               
             }
         });
     </script>
 </head>
 <body>
 
-    <button id="scrollToTopBtn" 
-        class="fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 hidden z-50"
-        aria-label="Voltar ao topo">
-  <!-- Ícone de seta para cima (FontAwesome) -->
-  <i class="fas fa-chevron-up text-lg"></i>
-</button> 
+    
     <div id="installAppBanner">
         <p>Gostaria de instalar o <strong>CodifyNews</strong> como um aplicativo em seu celular para não perder nenhuma notícia? <br> Clique em "Instalar App" para ver as instruções!</p>
         <button>Instalar App</button>
@@ -1114,7 +1097,9 @@
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos! não versões</a>
         </div>
-    </div> <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
+    </div>
+    
+    <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
 
     <footer>
         <p>Codify News – Análises e relatórios técnicos multissetoriais, <br> com compromisso jornalístico isento e livre de viés ideológico.</p>

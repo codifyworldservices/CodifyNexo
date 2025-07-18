@@ -15,13 +15,13 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Codify World | Tech Labs">
 
-    <link rel="manifest" href="manifest.json">
+   
     <link rel="apple-touch-icon" href="img/logo_codi.png"> <link rel="apple-touch-icon" sizes="180x180" href="img/logo_codi.png"> <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CodifyNews">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-d9w2+FNaCnTSiW1cGqRMm0qqk5ZVdQeHj+M2ZpoJfOeXFXyYk3UoA1XDRfYZa+CmSWTi7gO9kM4kZm6GgfWimg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -587,54 +587,83 @@
             }
 
             // Função para INICIAR a rolagem automática
-            function startAutoScroll() {
-                isAutoScrolling = true;
-                // Altera o ícone para o de pausa
+            document.addEventListener('DOMContentLoaded', function() {
+        const scrollDownBtn = document.getElementById('scrollDownBtn');
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const scrollDownIcon = scrollDownBtn.querySelector('i'); // Assumindo que o ícone está dentro do botão
+        
+        let scrollInterval;
+        let isScrolling = false; // Estado para controlar se a rolagem está ativa
+
+        // Função para iniciar a rolagem automática
+        function startScrolling() {
+            if (!isScrolling) { // Evita múltiplas chamadas de setInterval
+                isScrolling = true;
                 scrollDownIcon.classList.remove('fa-chevron-down');
                 scrollDownIcon.classList.add('fa-pause');
+                scrollDownBtn.setAttribute('aria-label', 'Pausar rolagem');
 
-                function scrollStep() {
-                    if (!isAutoScrolling) return;
+                scrollInterval = setInterval(() => {
+                    window.scrollBy({ top: 1, behavior: 'auto' }); // Rola suavemente 1 pixel
 
-                    if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight) {
-                        stopAutoScroll();
-                        return;
+                    // Se chegou ao fim da página, para a rolagem
+                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                        stopScrolling();
                     }
-                    
-                    window.scrollBy(0, 1.5); 
-                    animationFrameId = requestAnimationFrame(scrollStep);
-                }
-                animationFrameId = requestAnimationFrame(scrollStep);
+                }, 10); // Ajuste este valor para controlar a velocidade (menor = mais rápido)
+            }
+        }
+
+        // Função para pausar a rolagem automática
+        function stopScrolling() {
+            if (isScrolling) {
+                isScrolling = false;
+                clearInterval(scrollInterval);
+                scrollDownIcon.classList.remove('fa-pause');
+                scrollDownIcon.classList.add('fa-chevron-down');
+                scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
+            }
+        }
+
+        // Event listener para o botão de Descer/Pausar
+        scrollDownBtn.addEventListener('click', function() {
+            if (isScrolling) {
+                stopScrolling();
+            } else {
+                startScrolling();
+            }
+            // Manter o botão de descer/pausar visível quando ativo/pausado, 
+            // e o de subir visível quando o scroll desce.
+            // A visibilidade é mais controlada pelo evento de scroll.
+        });
+
+        // Event listener para o botão de Voltar ao Topo
+        backToTopBtn.addEventListener('click', function() {
+            stopScrolling(); // Garante que a rolagem automática pare ao voltar ao topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Lógica para mostrar/esconder os botões baseada na posição da rolagem
+        window.addEventListener('scroll', function() {
+            // Mostra o botão "Voltar ao Topo" se a página for rolada para baixo
+            if (window.scrollY > 100) { // Mostra quando rolar mais de 100px
+                backToTopBtn.classList.remove('hidden');
+            } else {
+                backToTopBtn.classList.add('hidden');
             }
 
-            // Mostra/esconde os botões com base na posição da rolagem
-            window.addEventListener('scroll', () => {
-                stopAutoScroll(); 
+            // O botão de descer/pausar deve sempre estar visível (a menos que esteja no fim da página)
+            // Se a rolagem estiver no final da página e não estiver em rolagem, esconder o botão de descer/pausar
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !isScrolling) {
+                 scrollDownBtn.classList.add('hidden'); // Esconde se estiver no final E parado
+            } else {
+                 scrollDownBtn.classList.remove('hidden'); // Mostra se não estiver no final ou estiver rolando
+            }
+        });
 
-                if (window.scrollY > 100) {
-                    backToTopBtn.classList.remove('hidden');
-                    scrollDownBtn.classList.add('hidden');
-                } else { 
-                    backToTopBtn.classList.add('hidden');
-                    scrollDownBtn.classList.remove('hidden');
-                }
-            });
-
-            // Ação de clique para rolar para o topo
-            backToTopBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // Ação de clique para a rolagem lenta (play/pause)
-            scrollDownBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (isAutoScrolling) {
-                    stopAutoScroll();
-                } else {
-                    startAutoScroll();
-                }
-            });
+        // Certifica-se de que o botão de descer/pausar está visível inicialmente
+        scrollDownBtn.classList.remove('hidden');
+    });
             // --- FIM DA LÓGICA DE ROLAGEM ---
 
 

@@ -594,27 +594,21 @@
                 scrollDownIcon.classList.add('fa-pause');
 
                 function scrollStep() {
-                    // Se a rolagem foi parada, encerra o loop
                     if (!isAutoScrolling) return;
 
-                    // Para a rolagem se chegar ao final da página
                     if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.offsetHeight) {
                         stopAutoScroll();
                         return;
                     }
-
-                    // Move a página 1.5 pixels para baixo
+                    
                     window.scrollBy(0, 1.5); 
-                    // Continua a animação no próximo quadro
                     animationFrameId = requestAnimationFrame(scrollStep);
                 }
-                // Inicia o loop de animação
                 animationFrameId = requestAnimationFrame(scrollStep);
             }
 
             // Mostra/esconde os botões com base na posição da rolagem
             window.addEventListener('scroll', () => {
-                // Se o usuário rolar manualmente, para a rolagem automática
                 stopAutoScroll(); 
 
                 if (window.scrollY > 100) {
@@ -761,20 +755,21 @@
 </head>
 <body>
 
-<button id="scrollDownBtn"
-        class="fixed bottom-20 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50"
-        aria-label="Iniciar rolagem para leitura">
-  <i class="fas fa-chevron-down text-lg"></i>
-</button>
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-y-4">
+    <button id="scrollDownBtn"
+            class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300"
+            aria-label="Iniciar rolagem para leitura">
+      <i class="fas fa-chevron-down text-lg"></i>
+    </button>
 
-<button id="backToTopBtn"
-        class="fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50 hidden"
-        aria-label="Voltar ao topo">
-  <i class="fas fa-chevron-up text-lg"></i>
-</button>
-    
-    <div id="installAppBanner">
-        <p>Gostaria de instalar o <strong>CodifyNews</strong> como um aplicativo em seu celular para não perder nenhuma notícia? <br> Clique em "Instalar App" para ver as instruções!</p>
+    <button id="backToTopBtn"
+            class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 hidden"
+            aria-label="Voltar ao topo">
+      <i class="fas fa-chevron-up text-lg"></i>
+    </button>
+</div>
+<div id="installAppBanner">
+        <p>Gostaria de instalar o <strong>CodifyNews</strong> em seu celular para não perder nenhuma notícia? <br> Clique em "Instalar App" para ver as instruções!</p>
         <button>Instalar App</button>
         <button id="closeBanner">X</button>
     </div>
@@ -825,18 +820,6 @@
      
   <h3 id="relatorio-atual"><strong>Panorama Global: Conflitos Convergentes e Crise Econômica ℗ 18 Julho de 2025</strong></h3>
    <br>
-
-
-
-
-
-
-
-
-
-
-
-       
   <p>O cenário internacional atual é marcado pela convergência de múltiplos focos de tensão de alto risco: a prolongada guerra entre Israel e Hamas, a instabilidade na Síria pós-Assad, a iminente crise no Estreito de Ormuz e a escalada da pressão econômica ocidental sobre a Rússia e seus parceiros comerciais.</p>
 
   <h3><strong>1. O Conflito no Levante: Israel, Hamas e Síria</strong></h3>
@@ -869,28 +852,13 @@
 
   <p>O mundo enfrenta um ambiente de altíssimo risco, onde a segurança militar e as políticas econômicas estão intrinsecamente ligadas. As medidas tarifárias contundentes dos EUA demonstram que as cadeias de suprimentos globais se tornaram um campo de batalha geopolítico. A convergência de crises no Levante, a tensão no Golfo Pérsico e a guerra econômica contra a Rússia e seus parceiros colocam o sistema internacional sob forte pressão, exigindo um monitoramento constante dos indicadores de energia, volatilidade cambial e do complexo jogo de alianças.</p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
   <div class="signature">
     <p><strong>Atenciosamente,</strong><br>
     Weslei Romano<br>
     Engenheiro de Software<br> 
     Codify News | Tech Labs</p>
     <p><em>Nota: Este relatório é apenas informativo e não constitui recomendação de investimento. As análises apresentadas são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
-
-      <li>
+ <li>
   <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105">
     <i class="fab fa-whatsapp text-current text-xl mr-2"></i>
     <span>Grupo News aberto para Network no WhatsApp</span>

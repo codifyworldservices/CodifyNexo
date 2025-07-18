@@ -724,6 +724,16 @@
                 });
 
                  const scrollBtn = document.getElementById('scrollToTopBtn');
+                
+                 const backToTopBtn = document.getElementById('backToTop');
+
+                     window.addEventListener('scroll', () => {
+                         if (window.pageYOffset > 200) {
+                          backToTopBtn.classList.remove('hidden');
+                         } else {
+                          backToTopBtn.classList.add('hidden');
+    }
+  });
 
                
             }
@@ -739,10 +749,9 @@
   <i class="fas fa-chevron-down text-lg"></i>
 </button>
 
-<!-- Botão voltar ao topo (acima do botão rolar para baixo) -->
 <button id="backToTop"
         onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-        class="fixed bottom-32 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 hidden z-50 md:hidden"
+        class="fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 hidden z-50 md:hidden"
         aria-label="Voltar ao topo">
   <i class="fas fa-chevron-up text-lg"></i>
 </button>

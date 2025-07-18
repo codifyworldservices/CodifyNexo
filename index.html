@@ -727,32 +727,35 @@
                 
                 // rola ate o topo //-->
                 
-           const scrollDownBtn = document.getElementById('scrollDownBtn');
-  const backToTopBtn = document.getElementById('backToTop');
+         document.addEventListener("DOMContentLoaded", function () {
+    const scrollDownBtn = document.getElementById("scrollDownBtn");
+    const backToTopBtn = document.getElementById("backToTopBtn");
 
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 200) {
-      // Mostra botão de subir
-      backToTopBtn.classList.remove('hidden');
-      // Esconde botão de descer
-      scrollDownBtn.classList.add('hidden');
-    } else {
-      // No topo: mostra botão de descer, esconde o de subir
-      scrollDownBtn.classList.remove('hidden');
-      backToTopBtn.classList.add('hidden');
-    }
+    // Mostrar/esconder botões baseado na rolagem
+    window.addEventListener("scroll", function () {
+      const scrollY = window.scrollY || window.pageYOffset;
+
+      if (scrollY < 100) {
+        // No topo: mostrar botão de descer, esconder o de subir
+        scrollDownBtn.classList.remove("hidden");
+        backToTopBtn.classList.add("hidden");
+      } else {
+        // Fora do topo: mostrar botão de subir, esconder o de descer
+        scrollDownBtn.classList.add("hidden");
+        backToTopBtn.classList.remove("hidden");
+      }
+    });
+
+    // Botão de descer
+    scrollDownBtn.addEventListener("click", function () {
+      window.scrollBy({ top: 500, behavior: "smooth" });
+    });
+
+    // Botão de subir
+    backToTopBtn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   });
-
-  // Rolagem suave para baixo
-  scrollDownBtn.addEventListener('click', () => {
-    window.scrollBy({ top: 400, behavior: 'smooth' });
-  });
-
-  // Rolagem suave para o topo
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
 // rola ate o topo //-->
 
 
@@ -763,16 +766,16 @@
 </head>
 <body>
 
-<!-- Botão descer -->
+<!-- Botão de descer -->
 <button id="scrollDownBtn"
         class="fixed bottom-20 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50"
         aria-label="Role para baixo">
   <i class="fas fa-chevron-down text-lg"></i>
 </button>
 
-<!-- Botão subir -->
-<button id="backToTop"
-        class="hidden fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50"
+<!-- Botão de subir -->
+<button id="backToTopBtn"
+        class="fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50 hidden"
         aria-label="Voltar ao topo">
   <i class="fas fa-chevron-up text-lg"></i>
 </button>

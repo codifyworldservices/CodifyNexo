@@ -723,19 +723,13 @@
                     }
                  });
 
-                // Seleciona o elemento
-                 const backToTop = document.getElementById('backToTop');
-
-                 // Adiciona o evento de clique
-                 backToTop.addEventListener('click', function(event) {
-                      event.preventDefault(); // evita o comportamento padrão do link (ir para "#")
-
-                // Rola suavemente para o topo
-                     window.scrollTo({
-                     top: 0,
-                    behavior: 'smooth'
-                         });
-                     });
+                
+                // rola ate o topo //-->
+                const backToTop = document.getElementById('backToTop');
+              backToTop.addEventListener('click', function(event) {
+                  event.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              });
 
                
             }
@@ -1105,7 +1099,10 @@
         </div>
     </div>
     
-    <a href="#" id="backToTop" title="Voltar ao Topo">↑</a>
+    <a href="#" id="backToTop" title="Voltar ao Topo"
+   class="fixed bottom-6 right-6 p-3 bg-blue-700 text-white rounded-full shadow-lg hover:bg-blue-800 transition duration-300 text-2xl z-50">
+  ↑
+</a>
 
     <footer>
         <p>Codify News – Análises e relatórios técnicos multissetoriais, <br> com compromisso jornalístico isento e livre de viés ideológico.</p>

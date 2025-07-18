@@ -723,17 +723,19 @@
                     }
                  });
 
-                
-                   const backToTopBtn = document.getElementById('backToTop');
+                // Seleciona o elemento
+                 const backToTop = document.getElementById('backToTop');
 
-                 window.addEventListener('scroll', () => {
-                      if (window.pageYOffset > 200) {
-                       backToTopBtn.classList.remove('hidden');
-                    } else {
-                 backToTopBtn.classList.add('hidden');
-                     }
-                      });
-                    
+                 // Adiciona o evento de clique
+                 backToTop.addEventListener('click', function(event) {
+                      event.preventDefault(); // evita o comportamento padrão do link (ir para "#")
+
+                // Rola suavemente para o topo
+                     window.scrollTo({
+                     top: 0,
+                    behavior: 'smooth'
+                         });
+                     });
 
                
             }

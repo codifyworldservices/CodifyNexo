@@ -724,30 +724,52 @@
                  });
 
                 
+                
                 // rola ate o topo //-->
-                const backToTop = document.getElementById('backToTop');
-              backToTop.addEventListener('click', function(event) {
-                  event.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              });
+                
+            const scrollDownBtn = document.getElementById('scrollDownBtn');
+  const backToTopBtn = document.getElementById('backToTop');
 
-               
+  // Mostrar/esconder botões conforme posição do scroll
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 200) {
+      backToTopBtn.classList.remove('hidden');
+      scrollDownBtn.classList.add('hidden');
+    } else {
+      backToTopBtn.classList.add('hidden');
+      scrollDownBtn.classList.remove('hidden');
+    }
+  });
+
+  // Ação do botão descer
+  scrollDownBtn.addEventListener('click', () => {
+    window.scrollBy({ top: 400, behavior: 'smooth' });
+  });
+
+  // Ação do botão subir
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+// rola ate o topo //-->
+
+
+                
             }
         });
     </script>
 </head>
 <body>
 
-<!-- Botão rolar para baixo (mais próximo do rodapé) -->
-<button onclick="window.scrollBy({ top: 400, behavior: 'smooth' })"
-        class="fixed bottom-20 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50 md:hidden"
+<button id="scrollDownBtn"
+        class="fixed bottom-20 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50"
         aria-label="Role para baixo">
   <i class="fas fa-chevron-down text-lg"></i>
 </button>
 
+<!-- Botão subir -->
 <button id="backToTop"
-        onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-        class="fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 hidden z-50 md:hidden"
+        class="hidden fixed bottom-6 right-6 p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 z-50"
         aria-label="Voltar ao topo">
   <i class="fas fa-chevron-up text-lg"></i>
 </button>

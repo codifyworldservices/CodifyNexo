@@ -721,19 +721,19 @@
                         formContainer.style.display = 'none';
                         toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura'; // Altera o texto do botão
                     }
-                });
+                 });
 
-                 const scrollBtn = document.getElementById('scrollToTopBtn');
                 
-                 const backToTopBtn = document.getElementById('backToTop');
+                   const backToTopBtn = document.getElementById('backToTop');
 
-                     window.addEventListener('scroll', () => {
-                         if (window.pageYOffset > 200) {
-                          backToTopBtn.classList.remove('hidden');
-                         } else {
-                          backToTopBtn.classList.add('hidden');
-    }
-  });
+                 window.addEventListener('scroll', () => {
+                      if (window.pageYOffset > 200) {
+                       backToTopBtn.classList.remove('hidden');
+                    } else {
+                 backToTopBtn.classList.add('hidden');
+                     }
+                      });
+                    
 
                
             }

@@ -573,17 +573,19 @@
             const backToTopBtn = document.getElementById('backToTopBtn');
             const scrollDownIcon = scrollDownBtn.querySelector('i');
             // Referências aos elementos de velocidade
-            const speedControlContainer = document.getElementById('speedControlContainer'); 
+            const speedControlContainer = document.getElementById('speedControlContainer'); // NOVO ID
             const scrollSpeedSlider = document.getElementById('scrollSpeed');
             const currentSpeedValueSpan = document.getElementById('currentSpeedValue');
             
-            // Referência para o marcador do final do relatório atual
+            // NOVO: Referência para o marcador do final do relatório atual
             const reportEndMarker = document.getElementById('reportEndMarker');
-            const mainContentContainer = document.querySelector('.container'); // O container principal do relatório
+
 
             let scrollInterval;
             let isScrolling = false; // Estado para controlar se a rolagem está ativa
-            let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value); // Pega o valor inicial do slider
+            // Variável para armazenar o tempo de intervalo atual
+            // Pega o valor inicial do slider, que é a base para o intervalo (ms)
+            let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value);
             let hasReachedReportEnd = false; // Flag para controlar se já passou do final do relatório
 
             // Função para iniciar a rolagem automática
@@ -594,29 +596,24 @@
                 scrollDownIcon.classList.add('fa-pause'); // Para pause
                 scrollDownBtn.setAttribute('aria-label', 'Pausar rolagem');
                 
-                // Oculta o quadrado de velocidade, botão de play/pause e botão de subir ao iniciar a rolagem
+                // Oculta o quadrado de velocidade ao iniciar a rolagem
                 speedControlContainer.classList.add('hidden');
-                scrollDownBtn.classList.add('hidden');
-                backToTopBtn.classList.add('hidden');
 
                 scrollInterval = setInterval(() => {
                     window.scrollBy({ top: 1, behavior: 'auto' }); // Rola suavemente 1 pixel
 
-                    // Verifica se atingiu o final do "Relatório Atual"
+                    // NOVO: Verifica se atingiu o final do "Relatório Atual"
                     if (!hasReachedReportEnd && reportEndMarker && (window.scrollY + window.innerHeight >= reportEndMarker.offsetTop)) {
-                        // Ao chegar ao final do relatório, mostra os botões e o controle de velocidade
-                        speedControlContainer.classList.remove('hidden'); 
-                        scrollDownBtn.classList.remove('hidden'); 
-                        backToTopBtn.classList.remove('hidden'); 
+                        speedControlContainer.classList.remove('hidden'); // Reaparece o quadrado de velocidade
                         hasReachedReportEnd = true; // Define a flag para não reaparecer novamente
-                        stopScrolling(); // Para a rolagem ao atingir o final do relatório
                     }
+
 
                     // Se chegou ao fim da página, para a rolagem
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                         stopScrolling();
                         // Oculta o botão de descer se chegou ao final e a rolagem parou
-                        scrollDownBtn.classList.add('hidden'); // Garante que ele fique oculto no final
+                        scrollDownBtn.classList.add('hidden');
                     }
                 }, currentScrollIntervalTime); // Usa o valor ajustável
             }
@@ -630,11 +627,14 @@
                     scrollDownIcon.classList.add('fa-play'); // Para play
                     scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
                     
-                    // Mostra o quadrado de velocidade, botão de play/pause e botão de subir ao pausar
+                    // Mostra o quadrado de velocidade ao pausar
                     speedControlContainer.classList.remove('hidden');
-                    scrollDownBtn.classList.remove('hidden');
-                    backToTopBtn.classList.remove('hidden');
                     hasReachedReportEnd = false; // Reseta a flag ao pausar para que reapareça na próxima rolagem
+
+                    // Garante que o botão de descer/pausar esteja visível ao parar, a menos que esteja no final
+                    if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) {
+                        scrollDownBtn.classList.remove('hidden');
+                    }
                 }
             }
 
@@ -653,75 +653,26 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // Lógica para mostrar/esconder botões e controle de velocidade com base na posição da rolagem
+            // Lógica para mostrar/esconder botões com base na posição da rolagem
             window.addEventListener('scroll', function() {
-                // Verifica se o usuário está na área do relatório principal
-                let isInMainReportArea = false;
-                if (mainContentContainer) {
-                    const containerTop = mainContentContainer.offsetTop;
-                    const containerBottom = containerTop + mainContentContainer.offsetHeight;
-                    const currentScrollPosition = window.scrollY;
-                    const viewportHeight = window.innerHeight;
-
-                    // Considera que está na área do relatório se o topo da viewport está dentro do container
-                    // ou se o final da viewport está dentro do container
-                    if (currentScrollPosition + viewportHeight > containerTop && currentScrollPosition < containerBottom) {
-                        isInMainReportArea = true;
-                    }
+                // Mostra o botão "Voltar ao Topo" se a página for rolada para baixo
+                if (window.scrollY > 100) { // Mostra quando rolar mais de 100px
+                    backToTopBtn.classList.remove('hidden');
+                } else {
+                    backToTopBtn.classList.add('hidden');
                 }
 
-                if (!isScrolling) { // Apenas executa se não estiver em rolagem automática
-                    // Mostra o botão "Voltar ao Topo" se a página for rolada para baixo
-                    if (window.scrollY > 100) { 
-                        backToTopBtn.classList.remove('hidden');
-                    } else {
-                        backToTopBtn.classList.add('hidden');
-                    }
-
-                    // Oculta o botão de descer/pausar se a rolagem estiver no final da página
-                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                         scrollDownBtn.classList.add('hidden');
-                    } else {
-                         scrollDownBtn.classList.remove('hidden');
-                    }
-
-                    // Lógica para o speedControlContainer: visível apenas se estiver na área do relatório principal
-                    if (isInMainReportArea) {
-                        speedControlContainer.classList.remove('hidden');
-                    } else {
-                        speedControlContainer.classList.add('hidden');
-                    }
+                // Oculta o botão de descer/pausar se a rolagem estiver no final da página E não estiver em rolagem automática
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !isScrolling) {
+                     scrollDownBtn.classList.add('hidden');
                 } else {
-                    // Quando isScrolling é true, todos os três elementos devem estar ocultos
-                    speedControlContainer.classList.add('hidden');
-                    scrollDownBtn.classList.add('hidden');
-                    backToTopBtn.classList.add('hidden');
+                     // Mostra o botão de descer/pausar se não estiver no final OU estiver em rolagem automática
+                     scrollDownBtn.classList.remove('hidden');
                 }
             });
 
-            // Certifica-se de que o botão de descer/pausar e o controle de velocidade estão visíveis inicialmente
-            // se a página já estiver na área do relatório ao carregar.
-            // O botão de voltar ao topo deve estar escondido no início.
+            // Certifica-se de que o botão de descer/pausar está visível inicialmente (após carregamento do DOM)
             scrollDownBtn.classList.remove('hidden');
-            backToTopBtn.classList.add('hidden');
-            
-            // Verifica a posição inicial para o controle de velocidade
-            let initialIsInMainReportArea = false;
-            if (mainContentContainer) {
-                const containerTop = mainContentContainer.offsetTop;
-                const containerBottom = containerTop + mainContentContainer.offsetHeight;
-                const currentScrollPosition = window.scrollY;
-                const viewportHeight = window.innerHeight;
-                if (currentScrollPosition + viewportHeight > containerTop && currentScrollPosition < containerBottom) {
-                    initialIsInMainReportArea = true;
-                }
-            }
-            if (initialIsInMainReportArea) {
-                speedControlContainer.classList.remove('hidden');
-            } else {
-                speedControlContainer.classList.add('hidden');
-            }
-
 
             // Event listener para o slider de velocidade
             scrollSpeedSlider.addEventListener('input', function() {
@@ -734,24 +685,6 @@
             });
 
             // --- FIM DA LÓGICA DE ROLAGEM E VELOCIDADE AJUSTÁVEL ---
-
-            // Lógica para parar a rolagem com qualquer clique ou movimento do mouse
-            let lastInteractionTime = 0;
-            const interactionDebounceTime = 100; // Tempo em ms para evitar paradas muito frequentes em movimentos contínuos
-
-            function handleUserInteraction() {
-                const currentTime = Date.now();
-                // Verifica se já está rolando e se passou tempo suficiente desde a última interação para evitar chamadas excessivas
-                if (isScrolling && (currentTime - lastInteractionTime > interactionDebounceTime)) {
-                    stopScrolling(); // Chama stopScrolling para parar a rolagem e reaparecer os botões
-                    lastInteractionTime = currentTime;
-                }
-            }
-
-            // Adiciona ouvintes de evento ao documento para detectar cliques e movimentos do mouse
-            window.addEventListener('click', handleUserInteraction);
-            window.addEventListener('mousemove', handleUserInteraction);
-
 
             // --- Lógica do Dropdown Menu ---
             const dropdownBtn = document.querySelector('.dropbtn');
@@ -927,8 +860,7 @@
     <button id="scrollDownBtn"
             class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300"
             aria-label="Iniciar rolagem para leitura">
-      <i id="scrollDownIcon" class="fas fa-play text-lg"></i> <!-- Ícone de play inicial -->
-    </button>
+      <i id="scrollDownIcon" class="fas fa-play text-lg"></i> </button>
 </div>
 
 <div class="fixed bottom-6 right-6 z-50">
@@ -951,7 +883,7 @@
             <p>Para adicionar o <strong>CodifyNews</strong> à sua tela inicial e acessá-lo como um aplicativo, siga os passos abaixo:</p>
             <ol>
                 <li>No seu navegador <strong>Google Chrome (Android)</strong>: Toque no ícone de <strong>3 pontos</strong> no canto superior direito e depois em <strong>"Adicionar à tela inicial"</strong>.</li>
-                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> () na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
+                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Share_icon_ios.svg/120px-Share_icon_ios.svg.png" alt="Ícone de Compartilhar iOS" class="inline-block h-4 w-4 align-middle mx-1">) na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
                 <li>Em outros navegadores, procure por opções como <strong>"Adicionar à Tela Inicial"</strong> ou <strong>"Instalar aplicativo"</strong> no menu principal.</li>
                 <li>Confirme a adição. Pronto! O ícone do CodifyNews aparecerá na sua tela inicial.</li>
             </ol>
@@ -996,7 +928,7 @@
    <br>
   <p>Guerra Israel-Hamas: Iniciada com o ataque do Hamas em 7 de outubro de 2023, que resultou em cerca de 1.200 mortes em Israel, a guerra entra em seu segundo ano com um custo humano devastador. Até julho de 2025, o número de mortos palestinos confirmados na Faixa de Gaza ultrapassa 70.000, com mais de 1.195 mortes do lado israelense. A infraestrutura de Gaza está em ruínas, e a ONU classifica a crise humanitária como "mais do que catastrófica", com quase 2 milhões de deslocados e uma escassez crítica de alimentos, água e medicamentos.</p>
 
-  <p><strong>Crise na Síria e Intervenção Israelense:</strong> Após a caída do regime de Bashar al-Assad em dezembro de 2024, a Síria mergulhou em um conflito interno. O governo interino de Ahmed al-Sharaa enfrenta uma insurgência de milícias drusas na região de Sweida. Justificando a necessidade de proteger a minoria drusa e prevenir ameaças, Israel realizou ataques aéreos em Damasco e Sweida, incluindo um bombardeio a instalações do Ministério de Defesa sírio em 16 de julho. Essas ações foram condenadas pela Liga Árabe, ONU e União Europeia.</p>
+  <p><strong>Crise na Síria e Intervenção Israelense:</strong> Após a queda do regime de Bashar al-Assad em dezembro de 2024, a Síria mergulhou em um conflito interno. O governo interino de Ahmed al-Sharaa enfrenta uma insurgência de milícias drusas na região de Sweida. Justificando a necessidade de proteger a minoria drusa e prevenir ameaças, Israel realizou ataques aéreos em Damasco e Sweida, incluindo um bombardeio a instalações do Ministério de Defesa sírio em 16 de julho. Essas ações foram condenadas pela Liga Árabe, ONU e União Europeia.</p>
 
   <h3>2. Crise Ucrânia-Rússia e o Ultimato das Sanções Secundárias</h3>
 
@@ -1012,7 +944,7 @@
 
   <p><strong>Aproximação China-Rússia:</strong> Em resposta direta à ameaça de sanções secundárias dos EUA, a China se comprometeu a fortalecer ainda mais sua parceria estratégica com a Rússia. O presidente chinês, Xi Jinping, afirmou que os dois países devem trabalhar juntos para proteger seus interesses e liderar uma reforma da ordem global para uma direção "mais justa e equitativa".</p>
 
-  <p><h3>4. Impacto Econômico e Geopolítico Global</h3></p>
+  <h3>4. Impacto Econômico e Geopolítico Global</h3>
 
   <p><strong>Mercados Globais:</strong> A ameaça de fechamento do Estreito de Ormuz impulsionou o preço do barril de petróleo Brent para US$ 93, pressionando a inflação nas economias avançadas. Nos mercados financeiros, a aversão ao risco é alta, com investidores buscando refúgio em ativos como ouro e títulos do Tesouro dos EUA. O índice de volatilidade VIX atingiu 28 pontos, bem acima da média histórica. O dólar se fortaleceu 4% no último semestre, prejudicando a competitividade das exportações de economias emergentes.</p>
 

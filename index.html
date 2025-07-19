@@ -588,63 +588,65 @@
 
             // Função para iniciar a rolagem automática
             function startScrolling() {
-                if (scrollInterval) clearInterval(scrollInterval); // Limpa qualquer intervalo anterior
+                console.log('Function: startScrolling() called.');
+                if (scrollInterval) {
+                    clearInterval(scrollInterval);
+                    console.log('Cleared previous scroll interval.');
+                }
                 isScrolling = true;
-                scrollDownIcon.classList.remove('fa-play'); // Muda de play
-                scrollDownIcon.classList.add('fa-pause'); // Para pause
+                scrollDownIcon.classList.remove('fa-play');
+                scrollDownIcon.classList.add('fa-pause');
                 scrollDownBtn.setAttribute('aria-label', 'Pausar rolagem');
                 
-                // Oculta o quadrado de velocidade, botão de play/pause e botão de subir ao iniciar a rolagem
                 speedControlContainer.classList.add('hidden');
                 scrollDownBtn.classList.add('hidden');
                 backToTopBtn.classList.add('hidden');
 
                 scrollInterval = setInterval(() => {
-                    window.scrollBy({ top: 1, behavior: 'auto' }); // Rola suavemente 1 pixel
+                    window.scrollBy({ top: 1, behavior: 'auto' });
 
-                    // Verifica se atingiu o final do "Relatório Atual"
                     if (!hasReachedReportEnd && reportEndMarker && (window.scrollY + window.innerHeight >= reportEndMarker.offsetTop)) {
-                        // Ao chegar ao final do relatório, mostra os botões e o controle de velocidade
-                        speedControlContainer.classList.remove('hidden'); 
-                        scrollDownBtn.classList.remove('hidden'); 
-                        backToTopBtn.classList.remove('hidden'); 
-                        hasReachedReportEnd = true; // Define a flag para não reaparecer novamente
-                        stopScrolling(); // Para a rolagem ao atingir o final do relatório
+                        console.log('Condition met: Reached report end marker. Stopping scrolling.');
+                        hasReachedReportEnd = true; // Set flag before stopping
+                        stopScrolling();
+                        updateButtonVisibility(); // Update visibility after stopping
                     }
 
-                    // Se chegou ao fim da página, para a rolagem
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                        console.log('Condition met: Reached end of page. Stopping scrolling.');
                         stopScrolling();
-                        // Oculta o botão de descer se chegou ao final e a rolagem parou
-                        scrollDownBtn.classList.add('hidden'); // Garante que ele fique oculto no final
+                        scrollDownBtn.classList.add('hidden'); // Keep hidden at very end
+                        updateButtonVisibility(); // Update visibility after stopping
                     }
-                }, currentScrollIntervalTime); // Usa o valor ajustável
+                }, currentScrollIntervalTime);
             }
 
             // Função para pausar a rolagem automática
             function stopScrolling() {
+                console.log('Function: stopScrolling() called.');
                 if (isScrolling) {
                     isScrolling = false;
                     clearInterval(scrollInterval);
-                    scrollDownIcon.classList.remove('fa-pause'); // Muda de pause
-                    scrollDownIcon.classList.add('fa-play'); // Para play
+                    scrollDownIcon.classList.remove('fa-pause');
+                    scrollDownIcon.classList.add('fa-play');
                     scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
-                    
-                    // Mostra o quadrado de velocidade, botão de play/pause e botão de subir ao pausar
-                    // A visibilidade do speedControlContainer é controlada pela função updateButtonVisibility
-                    scrollDownBtn.classList.remove('hidden');
-                    backToTopBtn.classList.remove('hidden');
-                    hasReachedReportEnd = false; // Reseta a flag ao pausar para que reapareça na próxima rolagem
+                    hasReachedReportEnd = false; // Reset flag
+                    console.log('Scrolling paused. isScrolling set to false.');
                 }
             }
 
             // Event listener para o botão de Descer/Pausar
             scrollDownBtn.addEventListener('click', function() {
+                console.log('Scroll Down Button Clicked. Current isScrolling state:', isScrolling);
                 if (isScrolling) {
                     stopScrolling();
+                    console.log('Action: Paused scrolling.');
                 } else {
                     startScrolling();
+                    console.log('Action: Attempting to start scrolling.');
                 }
+                // Ensure visibility is updated after the action
+                updateButtonVisibility(); 
             });
 
             // Event listener para o botão de Voltar ao Topo
@@ -655,46 +657,37 @@
 
             // Função para atualizar a visibilidade dos botões e do controle de velocidade
             function updateButtonVisibility() {
-                // Verifica se o usuário está na área do relatório principal
-                let isInMainReportArea = false;
-                if (mainContentContainer) {
-                    const containerTop = mainContentContainer.offsetTop;
-                    const containerBottom = containerTop + mainContentContainer.offsetHeight;
-                    const currentScrollPosition = window.scrollY;
-                    const viewportHeight = window.innerHeight;
+                const containerTop = mainContentContainer.offsetTop;
+                const containerBottom = containerTop + mainContentContainer.offsetHeight;
+                const currentScrollPosition = window.scrollY;
+                const viewportHeight = window.innerHeight;
 
-                    // Considera que está na área do relatório se o topo da viewport está dentro do container
-                    // ou se o final da viewport está dentro do container
-                    if (currentScrollPosition + viewportHeight > containerTop && currentScrollPosition < containerBottom) {
-                        isInMainReportArea = true;
+                let isInMainReportArea = (currentScrollPosition + viewportHeight > containerTop) && (currentScrollPosition < containerBottom);
+                let isAtVeryTop = window.scrollY <= 100;
+
+                if (!isScrolling) { // Se não estiver rolando automaticamente
+                    // Lógica para o botão de Play/Pause e Controle de Velocidade
+                    if (isInMainReportArea || isAtVeryTop) {
+                        scrollDownBtn.classList.remove('hidden');
+                        speedControlContainer.classList.remove('hidden');
+                    } else {
+                        scrollDownBtn.classList.add('hidden');
+                        speedControlContainer.classList.add('hidden');
                     }
-                }
 
-                if (!isScrolling) { // Apenas executa se não estiver em rolagem automática
-                    // Mostra o botão "Voltar ao Topo" se a página for rolada para baixo
+                    // Lógica para o botão de Voltar ao Topo
                     if (window.scrollY > 100) { 
                         backToTopBtn.classList.remove('hidden');
                     } else {
                         backToTopBtn.classList.add('hidden');
                     }
 
-                    // Oculta o botão de descer/pausar se a rolagem estiver no final da página
+                    // Sobrescrita: Se estiver no final da página, esconde o botão de play/pause
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                         scrollDownBtn.classList.add('hidden');
-                    } else {
-                         scrollDownBtn.classList.remove('hidden');
+                        scrollDownBtn.classList.add('hidden');
                     }
 
-                    // Lógica para o speedControlContainer e scrollDownBtn: visível apenas se estiver na área do relatório principal
-                    if (isInMainReportArea) {
-                        speedControlContainer.classList.remove('hidden');
-                        scrollDownBtn.classList.remove('hidden'); // Garante que o play/pause também apareça
-                    } else {
-                        speedControlContainer.classList.add('hidden');
-                        scrollDownBtn.classList.add('hidden'); // Esconde o play/pause se não estiver na área
-                    }
-                } else {
-                    // Quando isScrolling é true, todos os três elementos devem estar ocultos
+                } else { // Se estiver rolando automaticamente, todos os controles devem estar ocultos
                     speedControlContainer.classList.add('hidden');
                     scrollDownBtn.classList.add('hidden');
                     backToTopBtn.classList.add('hidden');
@@ -722,14 +715,14 @@
 
             // Lógica para parar a rolagem com qualquer clique ou movimento do mouse
             let lastInteractionTime = 0;
-            const interactionDebounceTime = 100; // Tempo em ms para evitar paradas muito frequentes em movimentos contínuos
+            const interactionDebounceTime = 500; // Tempo em ms para evitar paradas muito frequentes em movimentos contínuos
 
             function handleUserInteraction() {
                 const currentTime = Date.now();
-                // Verifica se já está rolando e se passou tempo suficiente desde a última interação para evitar chamadas excessivas
                 if (isScrolling && (currentTime - lastInteractionTime > interactionDebounceTime)) {
-                    stopScrolling(); // Chama stopScrolling para parar a rolagem e reaparecer os botões
-                    updateButtonVisibility(); // Atualiza a visibilidade após parar
+                    console.log('User interaction detected. Stopping scrolling via handleUserInteraction.');
+                    stopScrolling();
+                    updateButtonVisibility(); // This will make buttons reappear if in correct area
                     lastInteractionTime = currentTime;
                 }
             }
@@ -937,7 +930,7 @@
             <p>Para adicionar o <strong>CodifyNews</strong> à sua tela inicial e acessá-lo como um aplicativo, siga os passos abaixo:</p>
             <ol>
                 <li>No seu navegador <strong>Google Chrome (Android)</strong>: Toque no ícone de <strong>3 pontos</strong> no canto superior direito e depois em <strong>"Adicionar à tela inicial"</strong>.</li>
-                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> () na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
+                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Share_icon_ios.svg/120px-Share_icon_ios.svg.png" alt="Ícone de Compartilhar iOS" class="inline-block h-4 w-4 align-middle mx-1">) na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
                 <li>Em outros navegadores, procure por opções como <strong>"Adicionar à Tela Inicial"</strong> ou <strong>"Instalar aplicativo"</strong> no menu principal.</li>
                 <li>Confirme a adição. Pronto! O ícone do CodifyNews aparecerá na sua tela inicial.</li>
             </ol>

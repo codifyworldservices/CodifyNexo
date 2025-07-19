@@ -42,10 +42,7 @@
             background-color: var(--light-gray);
             color: var(--dark-gray);
             line-height: 1.6;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none; /* Impede seleção de texto em algumas partes */
+            /* Removido -webkit-user-select, -moz-user-select, -ms-user-select, user-select para permitir zoom */
             padding-top: 0; /* Garante que o banner no topo funcione bem */
         }
 
@@ -110,7 +107,7 @@
         /* Estilos de Títulos */
         .main-title { /* Título principal do relatório */
             color: var(--primary-blue);
-            user-select: none;
+            /* Removido user-select: none; */
             font-size: 1.5em;
             text-align: center;
             margin-bottom: 10px;
@@ -119,7 +116,7 @@
         }
         .subtitle { /* Subtítulo do relatório (padrão) */
             color: var(--dark-gray);
-            user-select: none;
+            /* Removido user-select: none; */
             font-size: 1.15em;
             text-align: center;
             margin-bottom: 25px;
@@ -127,7 +124,7 @@
         }
         h2 { /* Títulos de sub-seções dentro do relatório */
             color: var(--primary-blue);
-            user-select: none;
+            /* Removido user-select: none; */
             font-size: 1.15em;
             margin-top: 30px;
             margin-bottom: 15px;
@@ -140,13 +137,13 @@
             margin-bottom: 30px;
             padding-bottom: 15px;
             border-bottom: 3px solid var(--secondary-blue); /* Linha mais forte */
-            user-select: none;
+            /* Removido user-select: none; */
         }
 
         /* Estilos de Parágrafos e Listas - PADRÃO (relatório) */
         p, ul {
             margin-bottom: 15px;
-            user-select: none;
+            /* Removido user-select: none; */
             text-align: justify; /* Alinha o texto do relatório */
         }
         ul {
@@ -164,7 +161,7 @@
             color: var(--primary-blue);
             font-size: 0.9rem;
             border-top: 1px solid var(--secondary-blue);
-            user-select: none;
+            /* Removido user-select: none; */
         }
         footer p {
             margin: 0;
@@ -185,7 +182,7 @@
             margin-top: 40px;
             font-style: italic;
             text-align: left; /* Mantém a assinatura alinhada à esquerda */
-            user-select: none;
+            /* Removido user-select: none; */
         }
        
         /* Estilos do Dropdown Menu (para navegação) */
@@ -588,7 +585,8 @@
 
             let scrollInterval;
             let isScrolling = false; // Estado para controlar se a rolagem está ativa
-            let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value); // Pega o valor inicial do slider
+            // Valor inicial do slider alterado para 20ms para uma rolagem mais suave
+            let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value); 
             let hasReachedReportEnd = false; // Flag para controlar se já passou do final do relatório
 
             // Função para iniciar a rolagem automática
@@ -606,7 +604,8 @@
                 backToTopBtn.classList.add('hidden');
 
                 scrollInterval = setInterval(() => {
-                    window.scrollBy({ top: 1, behavior: 'auto' });
+                    // Usando behavior: 'smooth' para rolagem mais suave
+                    window.scrollBy({ top: 1, behavior: 'smooth' });
 
                     if (!hasReachedReportEnd && reportEndMarker && (window.scrollY + window.innerHeight >= reportEndMarker.offsetTop)) {
                         hasReachedReportEnd = true; // Set flag before stopping
@@ -923,8 +922,8 @@
 
 <div id="speedControlContainer" class="fixed bottom-[350px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
     <label for="scrollSpeed" class="text-xs mb-1">Velocidade de Rolagem:</label>
-    <input type="range" id="scrollSpeed" min="5" max="100" value="8" class="w-24"> <!-- Valor inicial alterado para 8 -->
-    <span id="currentSpeedValue" class="text-xs mt-1">8 ms</span>
+    <input type="range" id="scrollSpeed" min="5" max="100" value="20" class="w-24"> <!-- Valor inicial alterado para 20 -->
+    <span id="currentSpeedValue" class="text-xs mt-1">20 ms</span>
 </div>
 
 <div class="fixed bottom-60 right-6 z-50">
@@ -955,7 +954,7 @@
             <p>Para adicionar o <strong>CodifyNews</strong> à sua tela inicial e acessá-lo como um aplicativo, siga os passos abaixo:</p>
             <ol>
                 <li>No seu navegador <strong>Google Chrome (Android)</strong>: Toque no ícone de <strong>3 pontos</strong> no canto superior direito e depois em <strong>"Adicionar à tela inicial"</strong>.</li>
-                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> (<Image of Ícone de Compartilhar iOS>) na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
+                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Share_icon_ios.svg/120px-Share_icon_ios.svg.png" alt="Ícone de Compartilhar iOS" class="inline-block h-4 w-4 align-middle mx-1">) na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
                 <li>Em outros navegadores, procure por opções como <strong>"Adicionar à Tela Inicial"</strong> ou <strong>"Instalar aplicativo"</strong> no menu principal.</li>
                 <li>Confirme a adição. Pronto! O ícone do CodifyNews aparecerá na sua tela inicial.</li>
             </ol>

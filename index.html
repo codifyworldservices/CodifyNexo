@@ -572,30 +572,42 @@
             const scrollDownBtn = document.getElementById('scrollDownBtn');
             const backToTopBtn = document.getElementById('backToTopBtn');
             const scrollDownIcon = scrollDownBtn.querySelector('i');
-            // NOVO: Referências aos elementos de velocidade
+            // Referências aos elementos de velocidade
+            const speedControlContainer = document.getElementById('speedControlContainer'); // NOVO ID
             const scrollSpeedSlider = document.getElementById('scrollSpeed');
             const currentSpeedValueSpan = document.getElementById('currentSpeedValue');
-            // NOVOS: Referências aos botões de ajuste fino
-            const decreaseSpeedBtn = document.getElementById('decreaseSpeedBtn');
-            const increaseSpeedBtn = document.getElementById('increaseSpeedBtn');
+            
+            // NOVO: Referência para o marcador do final do relatório atual
+            const reportEndMarker = document.getElementById('reportEndMarker');
+
 
             let scrollInterval;
             let isScrolling = false; // Estado para controlar se a rolagem está ativa
-            // NOVO: Variável para armazenar o tempo de intervalo atual
+            // Variável para armazenar o tempo de intervalo atual
             // Pega o valor inicial do slider, que é a base para o intervalo (ms)
             let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value);
-
+            let hasReachedReportEnd = false; // Flag para controlar se já passou do final do relatório
 
             // Função para iniciar a rolagem automática
             function startScrolling() {
                 if (scrollInterval) clearInterval(scrollInterval); // Limpa qualquer intervalo anterior
                 isScrolling = true;
-                scrollDownIcon.classList.remove('fa-chevron-down');
-                scrollDownIcon.classList.add('fa-pause');
+                scrollDownIcon.classList.remove('fa-play'); // Muda de play
+                scrollDownIcon.classList.add('fa-pause'); // Para pause
                 scrollDownBtn.setAttribute('aria-label', 'Pausar rolagem');
+                
+                // Oculta o quadrado de velocidade ao iniciar a rolagem
+                speedControlContainer.classList.add('hidden');
 
                 scrollInterval = setInterval(() => {
                     window.scrollBy({ top: 1, behavior: 'auto' }); // Rola suavemente 1 pixel
+
+                    // NOVO: Verifica se atingiu o final do "Relatório Atual"
+                    if (!hasReachedReportEnd && reportEndMarker && (window.scrollY + window.innerHeight >= reportEndMarker.offsetTop)) {
+                        speedControlContainer.classList.remove('hidden'); // Reaparece o quadrado de velocidade
+                        hasReachedReportEnd = true; // Define a flag para não reaparecer novamente
+                    }
+
 
                     // Se chegou ao fim da página, para a rolagem
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -611,9 +623,14 @@
                 if (isScrolling) {
                     isScrolling = false;
                     clearInterval(scrollInterval);
-                    scrollDownIcon.classList.remove('fa-pause');
-                    scrollDownIcon.classList.add('fa-chevron-down');
+                    scrollDownIcon.classList.remove('fa-pause'); // Muda de pause
+                    scrollDownIcon.classList.add('fa-play'); // Para play
                     scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
+                    
+                    // Mostra o quadrado de velocidade ao pausar
+                    speedControlContainer.classList.remove('hidden');
+                    hasReachedReportEnd = false; // Reseta a flag ao pausar para que reapareça na próxima rolagem
+
                     // Garante que o botão de descer/pausar esteja visível ao parar, a menos que esteja no final
                     if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) {
                         scrollDownBtn.classList.remove('hidden');
@@ -657,7 +674,7 @@
             // Certifica-se de que o botão de descer/pausar está visível inicialmente (após carregamento do DOM)
             scrollDownBtn.classList.remove('hidden');
 
-            // NOVO: Event listener para o slider de velocidade
+            // Event listener para o slider de velocidade
             scrollSpeedSlider.addEventListener('input', function() {
                 currentScrollIntervalTime = parseInt(this.value); // Atualiza a velocidade
                 currentSpeedValueSpan.textContent = `${currentScrollIntervalTime} ms`; // Atualiza o texto exibido
@@ -665,29 +682,6 @@
                 if (isScrolling) { // Se estiver rolando, reinicia com a nova velocidade
                     startScrolling(); // Chama startScrolling para reiniciar o intervalo com a nova velocidade
                 }
-            });
-
-            // NOVOS: Event listeners para os botões de ajuste fino de velocidade
-            const speedStep = 5; // Define o passo de ajuste (em ms)
-
-            decreaseSpeedBtn.addEventListener('click', function() {
-                let newValue = parseInt(scrollSpeedSlider.value) + speedStep; // Para deixar mais lento, aumenta o ms
-                if (newValue > parseInt(scrollSpeedSlider.max)) {
-                    newValue = parseInt(scrollSpeedSlider.max);
-                }
-                scrollSpeedSlider.value = newValue;
-                // Simula o evento 'input' no slider para que a lógica de atualização seja disparada
-                scrollSpeedSlider.dispatchEvent(new Event('input'));
-            });
-
-            increaseSpeedBtn.addEventListener('click', function() {
-                let newValue = parseInt(scrollSpeedSlider.value) - speedStep; // Para deixar mais rápido, diminui o ms
-                if (newValue < parseInt(scrollSpeedSlider.min)) {
-                    newValue = parseInt(scrollSpeedSlider.min);
-                }
-                scrollSpeedSlider.value = newValue;
-                // Simula o evento 'input' no slider para que a lógica de atualização seja disparada
-                scrollSpeedSlider.dispatchEvent(new Event('input'));
             });
 
             // --- FIM DA LÓGICA DE ROLAGEM E VELOCIDADE AJUSTÁVEL ---
@@ -721,7 +715,8 @@
                     if (targetElement) {
                         e.preventDefault();
                         stopScrolling(); // Para a rolagem automática se navegar para uma âncora
-                        targetElement.scrollIntoView({
+                        window.scrollTo({
+                            top: targetElement.offsetTop, // Usar offsetTop para ir ao topo do elemento
                             behavior: 'smooth'
                         });
 
@@ -855,22 +850,17 @@
 </head>
 <body>
 
-<div class="fixed bottom-[280px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
+<div id="speedControlContainer" class="fixed bottom-[350px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
     <label for="scrollSpeed" class="text-xs mb-1">Velocidade de Rolagem:</label>
     <input type="range" id="scrollSpeed" min="5" max="30" value="15" class="w-24">
     <span id="currentSpeedValue" class="text-xs mt-1">15 ms</span>
-    <div class="flex mt-2">
-        <button id="decreaseSpeedBtn" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 rounded-l mr-px">Lento -</button>
-        <button id="increaseSpeedBtn" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 rounded-r">Rápido +</button>
-    </div>
 </div>
 
 <div class="fixed bottom-60 right-6 z-50">
     <button id="scrollDownBtn"
             class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300"
             aria-label="Iniciar rolagem para leitura">
-      <i id="scrollDownIcon" class="fas fa-chevron-down text-lg"></i>
-    </button>
+      <i id="scrollDownIcon" class="fas fa-play text-lg"></i> </button>
 </div>
 
 <div class="fixed bottom-6 right-6 z-50">
@@ -964,7 +954,7 @@
 
   <p>O mundo enfrenta um ambiente de altíssimo risco, onde a segurança militar e as políticas econômicas estão intrinsecamente ligadas. As medidas tarifárias contundentes dos EUA demonstram que as cadeias de suprimentos globais se tornaram um campo de batalha geopolítico. A convergência de crises no Levante, a tensão no Golfo Pérsico e a guerra econômica contra a Rússia e seus parceiros colocam o sistema internacional sob forte pressão, exigindo um monitoramento constante dos indicadores de energia, volatilidade cambial e do complexo jogo de alianças.</p>
 
-  <div class="signature">
+  <div id="reportEndMarker" class="signature">
     <p><strong>Atenciosamente,</strong><br>
     Weslei Romano<br>
     Engenheiro de Software<br> 
@@ -1145,8 +1135,8 @@
             <a href="#parceiros">Parceiros</a>
             <a href="#sobre-nos">Sobre nós</a>
             <a href="#assinatura">Assinatura</a>
-            <a href="#fatos-nao-versoes">Fatos, não versões</a>
             <a href="#contato">Contato</a>
+            <a href="#fatos-nao-versoes">Fatos, não versões</a>
         </div>
             </div>
 

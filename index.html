@@ -575,6 +575,9 @@
             // NOVO: Referências aos elementos de velocidade
             const scrollSpeedSlider = document.getElementById('scrollSpeed');
             const currentSpeedValueSpan = document.getElementById('currentSpeedValue');
+            // NOVOS: Referências aos botões de ajuste fino
+            const decreaseSpeedBtn = document.getElementById('decreaseSpeedBtn');
+            const increaseSpeedBtn = document.getElementById('increaseSpeedBtn');
 
             let scrollInterval;
             let isScrolling = false; // Estado para controlar se a rolagem está ativa
@@ -662,6 +665,29 @@
                 if (isScrolling) { // Se estiver rolando, reinicia com a nova velocidade
                     startScrolling(); // Chama startScrolling para reiniciar o intervalo com a nova velocidade
                 }
+            });
+
+            // NOVOS: Event listeners para os botões de ajuste fino de velocidade
+            const speedStep = 5; // Define o passo de ajuste (em ms)
+
+            decreaseSpeedBtn.addEventListener('click', function() {
+                let newValue = parseInt(scrollSpeedSlider.value) + speedStep; // Para deixar mais lento, aumenta o ms
+                if (newValue > parseInt(scrollSpeedSlider.max)) {
+                    newValue = parseInt(scrollSpeedSlider.max);
+                }
+                scrollSpeedSlider.value = newValue;
+                // Simula o evento 'input' no slider para que a lógica de atualização seja disparada
+                scrollSpeedSlider.dispatchEvent(new Event('input'));
+            });
+
+            increaseSpeedBtn.addEventListener('click', function() {
+                let newValue = parseInt(scrollSpeedSlider.value) - speedStep; // Para deixar mais rápido, diminui o ms
+                if (newValue < parseInt(scrollSpeedSlider.min)) {
+                    newValue = parseInt(scrollSpeedSlider.min);
+                }
+                scrollSpeedSlider.value = newValue;
+                // Simula o evento 'input' no slider para que a lógica de atualização seja disparada
+                scrollSpeedSlider.dispatchEvent(new Event('input'));
             });
 
             // --- FIM DA LÓGICA DE ROLAGEM E VELOCIDADE AJUSTÁVEL ---
@@ -831,8 +857,12 @@
 
 <div class="fixed bottom-[280px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
     <label for="scrollSpeed" class="text-xs mb-1">Velocidade de Rolagem:</label>
-    <input type="range" id="scrollSpeed" min="5" max="50" value="15" class="w-24">
+    <input type="range" id="scrollSpeed" min="5" max="30" value="15" class="w-24">
     <span id="currentSpeedValue" class="text-xs mt-1">15 ms</span>
+    <div class="flex mt-2">
+        <button id="decreaseSpeedBtn" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 rounded-l mr-px">Lento -</button>
+        <button id="increaseSpeedBtn" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 rounded-r">Rápido +</button>
+    </div>
 </div>
 
 <div class="fixed bottom-60 right-6 z-50">

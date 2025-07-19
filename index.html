@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codify News</title>
     
+    <!-- Favicon e Ícones para Dispositivos Apple -->
     <link rel="icon" href="img/logo_codi.png" type="image/png">
     <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
 
+    <!-- Meta Tags Open Graph para Compartilhamento em Redes Sociais -->
     <meta property="og:title" content="Codify News | Tech Labs ">
     <meta property="og:description" content="Economia | Tecnologia | Software | Global 2025">
     <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
@@ -15,17 +17,22 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Codify World | Tech Labs">
 
-   
-    <link rel="apple-touch-icon" href="img/logo_codi.png"> <link rel="apple-touch-icon" sizes="180x180" href="img/logo_codi.png"> <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Meta Tags para PWA (Progressive Web App) em iOS -->
+    <link rel="apple-touch-icon" href="img/logo_codi.png"> 
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logo_codi.png"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CodifyNews">
 
+    <!-- Links para Font Awesome (Ícones) e Tailwind CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        /* Variáveis CSS para cores e fontes */
+        /* ==========================================================================
+           Variáveis CSS e Estilos Globais
+           ========================================================================== */
         :root {
             --primary-blue: #0055A4;
             --secondary-blue: #007ACC;
@@ -35,18 +42,23 @@
             --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Estilos globais do corpo da página */
         body {
             margin: 0;
             font-family: var(--font-base);
             background-color: var(--light-gray);
             color: var(--dark-gray);
             line-height: 1.6;
-            /* Removido -webkit-user-select, -moz-user-select, -ms-user-select, user-select para permitir zoom */
+            /* Propriedades para impedir seleção de texto e zoom em alguns navegadores móveis (revertido conforme solicitação) */
+            -webkit-user-select: none; 
+            -moz-user-select: none;    
+            -ms-user-select: none;     
+            user-select: none;         
             padding-top: 0; /* Garante que o banner no topo funcione bem */
         }
 
-        /* Estilos do cabeçalho (Header) */
+        /* ==========================================================================
+           Estilos do Cabeçalho (Header)
+           ========================================================================== */
         header {
             background-color: var(--primary-blue);
             padding: 20px;
@@ -65,7 +77,9 @@
             margin: 0 auto; /* Centraliza a imagem no cabeçalho */
         }
 
-        /* Estilos da barra de navegação (Nav) */
+        /* ==========================================================================
+           Estilos da Barra de Navegação (Nav)
+           ========================================================================== */
         nav {
             margin-top: 10px;
             display: flex;
@@ -93,99 +107,9 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 1);
         }
 
-        /* Estilos do container principal do conteúdo */
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            background-color: #FFFFFF;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            box-sizing: border-box; /* Adicionado para incluir padding na largura total */
-        }
-
-        /* Estilos de Títulos */
-        .main-title { /* Título principal do relatório */
-            color: var(--primary-blue);
-            /* Removido user-select: none; */
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 10px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        .subtitle { /* Subtítulo do relatório (padrão) */
-            color: var(--dark-gray);
-            /* Removido user-select: none; */
-            font-size: 1.15em;
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: normal;
-        }
-        h2 { /* Títulos de sub-seções dentro do relatório */
-            color: var(--primary-blue);
-            /* Removido user-select: none; */
-            font-size: 1.15em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .section-heading { /* Títulos das grandes seções (Arquivados, Contato, etc.) */
-            color: var(--primary-blue);
-            font-size: 1.8em;
-            text-align: center;
-            margin-top: 60px; /* Mais espaçamento superior */
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--secondary-blue); /* Linha mais forte */
-            /* Removido user-select: none; */
-        }
-
-        /* Estilos de Parágrafos e Listas - PADRÃO (relatório) */
-        p, ul {
-            margin-bottom: 15px;
-            /* Removido user-select: none; */
-            text-align: justify; /* Alinha o texto do relatório */
-        }
-        ul {
-            padding-left: 20px;
-        }
-        ul li {
-            margin-bottom: 8px;
-        }
-        
-        /* Estilos do rodapé (Footer) */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--light-blue);
-            color: var(--primary-blue);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--secondary-blue);
-            /* Removido user-select: none; */
-        }
-        footer p {
-            margin: 0;
-            line-height: 1.4;
-            text-align: center; /* Garante que o texto do rodapé também seja centralizado */
-        }
-        footer a {
-            color: var(--primary-blue);
-            text-decoration: underline;
-            font-weight: bold;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Estilos da Assinatura */
-        .signature {
-            margin-top: 40px;
-            font-style: italic;
-            text-align: left; /* Mantém a assinatura alinhada à esquerda */
-            /* Removido user-select: none; */
-        }
-       
-        /* Estilos do Dropdown Menu (para navegação) */
+        /* ==========================================================================
+           Estilos do Dropdown Menu (Navegação Mobile)
+           ========================================================================== */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -258,7 +182,108 @@
             display: none; /* Escondido em desktop */
         }
 
-        /* Estilos do Separador de Seção com Links de Navegação */
+        /* ==========================================================================
+           Estilos do Container Principal de Conteúdo
+           ========================================================================== */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #FFFFFF;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-sizing: border-box; /* Adicionado para incluir padding na largura total */
+        }
+
+        /* ==========================================================================
+           Estilos de Títulos e Parágrafos
+           ========================================================================== */
+        .main-title { /* Título principal do relatório */
+            color: var(--primary-blue);
+            user-select: none; /* Revertido */
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .subtitle { /* Subtítulo do relatório (padrão) */
+            color: var(--dark-gray);
+            user-select: none; /* Revertido */
+            font-size: 1.15em;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+        h2 { /* Títulos de sub-seções dentro do relatório */
+            color: var(--primary-blue);
+            user-select: none; /* Revertido */
+            font-size: 1.15em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .section-heading { /* Títulos das grandes seções (Arquivados, Contato, etc.) */
+            color: var(--primary-blue);
+            font-size: 1.8em;
+            text-align: center;
+            margin-top: 60px; /* Mais espaçamento superior */
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--secondary-blue); /* Linha mais forte */
+            user-select: none; /* Revertido */
+        }
+
+        p, ul {
+            margin-bottom: 15px;
+            user-select: none; /* Revertido */
+            text-align: justify; /* Alinha o texto do relatório */
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        
+        /* ==========================================================================
+           Estilos do Rodapé (Footer)
+           ========================================================================== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--secondary-blue);
+            user-select: none; /* Revertido */
+        }
+        footer p {
+            margin: 0;
+            line-height: 1.4;
+            text-align: center; /* Garante que o texto do rodapé também seja centralizado */
+        }
+        footer a {
+            color: var(--primary-blue);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           Estilos da Assinatura
+           ========================================================================== */
+        .signature {
+            margin-top: 40px;
+            font-style: italic;
+            text-align: left; /* Mantém a assinatura alinhada à esquerda */
+            user-select: none; /* Revertido */
+        }
+       
+        /* ==========================================================================
+           Estilos de Separadores de Seção
+           ========================================================================== */
         .section-separator-nav {
             margin: 60px auto; /* Mais espaçamento acima e abaixo */
             border-top: 3px solid var(--secondary-blue); /* Linha mais forte */
@@ -283,7 +308,20 @@
             color: #FFFFFF;
         }
 
-        /* --- ESTILOS DO BANNER DE "INSTALAR APP" (CORREÇÃO) --- */
+        .major-separator {
+            border: none;
+            border-top: 4px dotted var(--primary-blue); /* Linha pontilhada azul mais grossa */
+            margin: 80px auto; /* Mais espaçamento */
+            width: 70%; /* Ocupa menos largura para parecer um "divisor" */
+            max-width: 400px;
+        }
+        .content-section {
+            margin-top: 60px; /* Garante que cada nova seção comece com bom espaçamento */
+        }
+
+        /* ==========================================================================
+           Estilos do Banner de "Instalar App"
+           ========================================================================== */
         #installAppBanner {
             background-color: var(--secondary-blue); /* Fundo azul restaurado */
             color: white;
@@ -298,7 +336,7 @@
         #installAppBanner p {
             margin: 0;
             flex-grow: 1;
-            user-select: text;
+            user-select: text; /* Permite seleção de texto no banner */
         }
         #installAppBanner button {
             background-color: #FFFFFF;
@@ -316,7 +354,9 @@
             color: var(--primary-blue);
         }
 
-        /* --- ESTILOS DO MODAL DE INSTRUÇÕES DE INSTALAÇÃO --- */
+        /* ==========================================================================
+           Estilos do Modal de Instruções de Instalação do App
+           ========================================================================== */
         #installAppModal {
             display: none; /* Incialmente oculto, mostrado com JS */
             position: fixed;
@@ -372,20 +412,9 @@
             cursor: pointer;
         }
 
-        /* --- SEPARADOR MAIS FORTE ENTRE RELATÓRIO E OUTRAS SEÇÕES --- */
-        .major-separator {
-            border: none;
-            border-top: 4px dotted var(--primary-blue); /* Linha pontilhada azul mais grossa */
-            margin: 80px auto; /* Mais espaçamento */
-            width: 70%; /* Ocupa menos largura para parecer um "divisor" */
-            max-width: 400px;
-        }
-        /* Espaçamento para as seções de conteúdo (após o relatório) */
-        .content-section {
-            margin-top: 60px; /* Garante que cada nova seção comece com bom espaçamento */
-        }
-
-        /* --- Estilos para centralizar os ícones de redes sociais --- */
+        /* ==========================================================================
+           Estilos dos Ícones de Redes Sociais
+           ========================================================================== */
         .social-icons-list {
             list-style: none; 
             padding: 0; 
@@ -397,17 +426,21 @@
             margin: 0 10px 15px; /* Espaçamento entre os ícones */
         }
 
-        /* Estilos para o iframe do Google Forms */
+        /* ==========================================================================
+           Estilos do Formulário do Google Forms
+           ========================================================================== */
         .google-form-embed {
-            width: 100%;
-            height: 800px; /* Altura ajustada para ser mais razoável */
+            width: 100%; /* Ocupa 100% da largura do pai */
+            height: 800px; /* Altura padrão para desktop */
             border: 0;
             margin: 0 auto;
             display: block;
-            max-width: 640px; /* Largura máxima original fornecida */
+            /* max-width removido para permitir que ele se expanda até o max-width do container */
         }
 
-        /* --- NOVOS ESTILOS PARA OCULTAR/MOSTRAR O FORMULÁRIO --- */
+        /* ==========================================================================
+           Estilos para Ocultar/Mostrar o Formulário de Assinatura
+           ========================================================================== */
         #formContainer {
             display: none; /* Inicialmente oculto */
             margin-top: 20px;
@@ -440,12 +473,22 @@
         }
 
 
-        /* --- MEDIA QUERIES (RESPONSIVIDADE PARA CELULARES) --- */
+        /* ==========================================================================
+           Media Queries (Responsividade para Celulares)
+           ========================================================================== */
         @media (max-width: 768px) {
+            /* Navegação em mobile: vertical e sticky */
             nav {
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
+                position: sticky; /* Torna a navegação sticky */
+                top: 0; /* Fixa no topo */
+                z-index: 60; /* Garante que fique acima do conteúdo, mas abaixo de modais */
+                background-color: var(--primary-blue); /* Adiciona fundo para não ver conteúdo por baixo */
+                padding-top: 10px; /* Ajuste de padding para o sticky */
+                padding-bottom: 10px; /* Ajuste de padding para o sticky */
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para destacar */
             }
             nav .desktop-only {
                 display: none;
@@ -541,7 +584,6 @@
             .google-form-embed {
                 width: 100%;
                 height: 600px; /* Altura ajustada para mobile */
-                max-width: 100%;
                 box-sizing: border-box;
             }
         }
@@ -553,7 +595,10 @@
     </style>
 
     <script>
-        
+        /* ==========================================================================
+           Scripts JavaScript
+           ========================================================================== */
+
         // Desabilita o menu de contexto (botão direito do mouse)
         document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -567,25 +612,21 @@
         // Executa o script quando o DOM estiver completamente carregado
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- LÓGICA DOS BOTÕES DE ROLAGEM (INCLUINDO ROLAGEM LENTA E VELOCIDADE AJUSTÁVEL) ---
+            /* --- Lógica dos Botões de Rolagem (Incluindo Rolagem Lenta e Velocidade Ajustável) --- */
             const scrollDownBtn = document.getElementById('scrollDownBtn');
             const backToTopBtn = document.getElementById('backToTopBtn');
             const scrollDownIcon = scrollDownBtn.querySelector('i');
-            // Referências aos elementos de velocidade
             const speedControlContainer = document.getElementById('speedControlContainer'); 
             const scrollSpeedSlider = document.getElementById('scrollSpeed');
             const currentSpeedValueSpan = document.getElementById('currentSpeedValue');
             
-            // Referência para o marcador do final do relatório atual
             const reportEndMarker = document.getElementById('reportEndMarker');
             const mainContentContainer = document.querySelector('.container'); // O container principal do relatório
 
-            // Referência para o novo checkbox de ocultar controles
             const hideScrollControlsCheckbox = document.getElementById('hideScrollControls');
 
             let scrollInterval;
             let isScrolling = false; // Estado para controlar se a rolagem está ativa
-            // Valor inicial do slider alterado para 20ms para uma rolagem mais suave
             let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value); 
             let hasReachedReportEnd = false; // Flag para controlar se já passou do final do relatório
 
@@ -604,19 +645,18 @@
                 backToTopBtn.classList.add('hidden');
 
                 scrollInterval = setInterval(() => {
-                    // Usando behavior: 'smooth' para rolagem mais suave
                     window.scrollBy({ top: 1, behavior: 'smooth' });
 
                     if (!hasReachedReportEnd && reportEndMarker && (window.scrollY + window.innerHeight >= reportEndMarker.offsetTop)) {
-                        hasReachedReportEnd = true; // Set flag before stopping
+                        hasReachedReportEnd = true; // Define a flag antes de parar
                         stopScrolling();
-                        updateButtonVisibility(); // Update visibility after stopping
+                        updateButtonVisibility(); // Atualiza a visibilidade após parar
                     }
 
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                         stopScrolling();
-                        scrollDownBtn.classList.add('hidden'); // Keep hidden at very end
-                        updateButtonVisibility(); // Update visibility after stopping
+                        scrollDownBtn.classList.add('hidden'); // Mantém oculto no final da página
+                        updateButtonVisibility(); // Atualiza a visibilidade após parar
                     }
                 }, currentScrollIntervalTime);
             }
@@ -629,19 +669,18 @@
                     scrollDownIcon.classList.remove('fa-pause');
                     scrollDownIcon.classList.add('fa-play');
                     scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
-                    hasReachedReportEnd = false; // Reset flag
+                    hasReachedReportEnd = false; // Reseta a flag
                 }
             }
 
             // Event listener para o botão de Descer/Pausar
             scrollDownBtn.addEventListener('click', function(event) {
-                event.stopPropagation(); // Previne que o clique no botão se propague para window.addEventListener('click')
+                event.stopPropagation(); // Previne que o clique no botão se propague
                 if (isScrolling) {
                     stopScrolling();
                 } else {
                     startScrolling();
                 }
-                // Ensure visibility is updated after the action
                 updateButtonVisibility(); 
             });
 
@@ -661,15 +700,13 @@
                 let isInMainReportArea = (currentScrollPosition + viewportHeight > containerTop) && (currentScrollPosition < containerBottom);
                 let isAtVeryTop = window.scrollY <= 100;
 
-                // Get the current state of the checkbox
                 const isFunctionalityHiddenByUser = hideScrollControlsCheckbox.checked;
 
                 if (!isScrolling) { // Se não estiver rolando automaticamente
-                    // Lógica para o botão de Play/Pause e Controle de Velocidade
-                    if (isFunctionalityHiddenByUser) { // Se o usuário escolheu ocultar
+                    if (isFunctionalityHiddenByUser) { 
                         scrollDownBtn.classList.add('hidden');
                         speedControlContainer.classList.add('hidden');
-                    } else { // Se o usuário NÃO escolheu ocultar, aplica a lógica normal de visibilidade
+                    } else { 
                         if (isInMainReportArea || isAtVeryTop) {
                             scrollDownBtn.classList.remove('hidden');
                             speedControlContainer.classList.remove('hidden');
@@ -679,14 +716,12 @@
                         }
                     }
 
-                    // Lógica para o botão de Voltar ao Topo (independente do checkbox)
                     if (window.scrollY > 100) { 
                         backToTopBtn.classList.remove('hidden');
                     } else {
                         backToTopBtn.classList.add('hidden');
                     }
 
-                    // Sobrescrita: Se estiver no final da página, esconde o botão de play/pause
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                         scrollDownBtn.classList.add('hidden');
                     }
@@ -698,37 +733,31 @@
                 }
             }
 
-            // Event listener para a rolagem
+            // Event listener para a rolagem da janela
             window.addEventListener('scroll', updateButtonVisibility);
 
-            // --- Lógica para o checkbox de ocultar controles ---
-            // Não carrega nem salva a preferência do usuário no localStorage, sempre começa desmarcado.
+            // Lógica para o checkbox de ocultar controles
             hideScrollControlsCheckbox.checked = false; // Garante que comece desmarcado
 
-            // Adiciona um listener para atualizar a visibilidade quando a preferência mudar
             hideScrollControlsCheckbox.addEventListener('change', function() {
-                updateButtonVisibility(); // Reavalia a visibilidade com base na nova preferência
+                updateButtonVisibility(); 
             });
 
-            // Certifica-se de que os botões e o controle de velocidade estão visíveis ou ocultos corretamente no carregamento inicial
-            updateButtonVisibility();
-
+            updateButtonVisibility(); // Garante visibilidade correta no carregamento inicial
 
             // Event listener para o slider de velocidade
             scrollSpeedSlider.addEventListener('input', function() {
-                currentScrollIntervalTime = parseInt(this.value); // Atualiza a velocidade
-                currentSpeedValueSpan.textContent = `${currentScrollIntervalTime} ms`; // Atualiza o texto exibido
+                currentScrollIntervalTime = parseInt(this.value); 
+                currentSpeedValueSpan.textContent = `${currentScrollIntervalTime} ms`; 
 
-                if (isScrolling) { // Se estiver rolando, reinicia com a nova velocidade
-                    startScrolling(); // Chama startScrolling para reiniciar o intervalo com a nova velocidade
+                if (isScrolling) { 
+                    startScrolling(); 
                 }
             });
 
-            // --- FIM DA LÓGICA DE ROLAGEM E VELOCIDADE AJUSTÁVEL ---
-
             // Lógica para parar a rolagem com qualquer clique ou movimento do mouse
             let lastInteractionTime = 0;
-            const interactionDebounceTime = 500; // Tempo em ms para evitar paradas muito frequentes em movimentos contínuos
+            const interactionDebounceTime = 500; 
 
             function handleUserInteraction(event) {
                 // Verifica se o clique não veio de um dos botões de controle de rolagem
@@ -737,15 +766,15 @@
                     event.target === speedControlContainer || speedControlContainer.contains(event.target) ||
                     event.target === scrollSpeedSlider || scrollSpeedSlider.contains(event.target) ||
                     event.target === hideScrollControlsCheckbox || hideScrollControlsCheckbox.contains(event.target) ||
-                    event.target.closest('.dropdown') // Adicionado para evitar que cliques no menu parem a rolagem
+                    event.target.closest('.dropdown') 
                     ) {
-                    return; // Ignora interações que vêm dos próprios controles
+                    return; 
                 }
 
                 const currentTime = Date.now();
                 if (isScrolling && (currentTime - lastInteractionTime > interactionDebounceTime)) {
                     stopScrolling();
-                    updateButtonVisibility(); // Isso fará com que os botões reapareçam se estiverem na área correta
+                    updateButtonVisibility(); 
                     lastInteractionTime = currentTime;
                 }
             }
@@ -755,12 +784,12 @@
             window.addEventListener('mousemove', handleUserInteraction);
 
 
-            // --- Lógica do Dropdown Menu ---
+            /* --- Lógica do Dropdown Menu --- */
             const dropdownBtn = document.querySelector('.dropbtn');
             const dropdownContainer = document.querySelector('.dropdown');
 
             function isMobile() {
-                return window.innerWidth <= 768; // Define se a tela é mobile
+                return window.innerWidth <= 768; 
             }
 
             dropdownBtn.addEventListener('click', function(event) {
@@ -777,16 +806,16 @@
 
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    e.stopPropagation(); // Previne que o clique na âncora se propague para window.addEventListener('click')
+                    e.stopPropagation(); 
                     const href = this.getAttribute('href');
                     const targetId = href.substring(1);
                     const targetElement = document.getElementById(targetId);
 
                     if (targetElement) {
                         e.preventDefault();
-                        stopScrolling(); // Para a rolagem automática se navegar para uma âncora
+                        stopScrolling(); 
                         window.scrollTo({
-                            top: targetElement.offsetTop, // Usar offsetTop para ir ao topo do elemento
+                            top: targetElement.offsetTop, 
                             behavior: 'smooth'
                         });
 
@@ -819,7 +848,7 @@
                 }
             });
 
-            // --- Lógica do Banner e Modal de "Instalar App" ---
+            /* --- Lógica do Banner e Modal de "Instalar App" --- */
             const installBanner = document.getElementById('installAppBanner');
             const closeBannerBtn = document.getElementById('closeBanner');
             const installLinkFooter = document.getElementById('installAppFooterLink');
@@ -853,7 +882,7 @@
                 }
             });
 
-            // --- LÓGICA: OCULTAR/MOSTRAR FORMULÁRIO DE ASSINATURA ---
+            /* --- Lógica: Ocultar/Mostrar Formulário de Assinatura --- */
             const toggleFormBtn = document.getElementById('toggleFormBtn');
             const formContainer = document.getElementById('formContainer');
 
@@ -870,26 +899,26 @@
                  });
             }
 
-            // Seu código de Service Worker e PWA
+            /* --- Código de Service Worker e PWA --- */
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('/CodifyNews/service-worker.js')
                         .then(registration => {
                             console.log('ServiceWorker registered: ', registration);
                             if (installAppFooterLink) {
-                                installAppFooterLink.style.display = 'block'; // Mostra o link se PWAs são suportados
+                                installAppFooterLink.style.display = 'block'; 
                             }
                         })
                         .catch(registrationError => {
                             console.log('ServiceWorker registration failed: ', registrationError);
                             if (installAppFooterLink) {
-                                installAppFooterLink.style.display = 'none'; // Oculta o link se PWAs não são suportados
+                                installAppFooterLink.style.display = 'none'; 
                             }
                         });
                 });
             } else {
                 if (installAppFooterLink) {
-                    installAppFooterLink.style.display = 'none'; // Oculta o link se Service Workers não são suportados
+                    installAppFooterLink.style.display = 'none'; 
                 }
             }
 
@@ -898,7 +927,7 @@
                 e.preventDefault();
                 deferredPrompt = e;
                 if (installAppFooterLink) {
-                    installAppFooterLink.style.display = 'block'; // Mostra o link se a instalação é possível
+                    installAppFooterLink.style.display = 'block'; 
                 }
             });
 
@@ -910,7 +939,7 @@
                         console.log(`User response to the install prompt: ${outcome}`);
                         deferredPrompt = null;
                         if (installAppFooterLink) {
-                            installAppFooterLink.style.display = 'none'; // Oculta o link após a tentativa de instalação
+                            installAppFooterLink.style.display = 'none'; 
                         }
                     }
                 });
@@ -920,13 +949,16 @@
 </head>
 <body>
 
+<!-- ==========================================================================
+     Botões de Rolagem Fixos e Controle de Velocidade
+     ========================================================================== -->
 <div id="speedControlContainer" class="fixed bottom-[350px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
     <label for="scrollSpeed" class="text-xs mb-1">Velocidade de Rolagem:</label>
-    <input type="range" id="scrollSpeed" min="5" max="100" value="20" class="w-24"> <!-- Valor inicial alterado para 20 -->
+    <input type="range" id="scrollSpeed" min="5" max="100" value="20" class="w-24"> 
     <span id="currentSpeedValue" class="text-xs mt-1">20 ms</span>
 </div>
 
-<div class="fixed bottom-60 right-6 z-50">
+<div class="fixed bottom-32 right-6 z-50"> <!-- Ajustado para bottom-32 -->
     <button id="scrollDownBtn"
             class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300"
             aria-label="Iniciar rolagem para leitura">
@@ -941,12 +973,19 @@
       <i class="fas fa-chevron-up text-lg"></i>
     </button>
 </div>
+
+<!-- ==========================================================================
+     Banner de Instalação do App (PWA)
+     ========================================================================== -->
 <div id="installAppBanner">
         <p>Gostaria de instalar o <strong>CodifyNews</strong> em seu celular para não perder nenhuma notícia? <br> Clique em "Instalar App" para ver as instruções!</p>
         <button>Instalar App</button>
         <button id="closeBanner">X</button>
     </div>
 
+<!-- ==========================================================================
+     Modal de Instruções de Instalação do App
+     ========================================================================== -->
     <div id="installAppModal">
         <div class="modal-content">
             <span id="closeModal">×</span>
@@ -987,6 +1026,9 @@
         </nav>
     </header>
     
+   <!-- ==========================================================================
+        Seção: Relatório Atual (Conteúdo Principal)
+        ========================================================================== -->
    <div class="container">
     <h3 class="main-title"><strong>Relatório técnico<br>Análises multissetoriais"</strong>
         <br>   Tecnologia | Economia <br> Software  | Global 2025</h3>
@@ -996,16 +1038,15 @@
        <strong> Panorama: ℗ 19 Julho de 2025</strong>
        </div>
                   <br>
-       <!-- Novo checkbox para ocultar controles de rolagem -->
+       <!-- Checkbox para ocultar controles de rolagem automática -->
           <div class="flex items-center justify-end mb-4 mr-4">
         <input type="checkbox" id="hideScrollControls" class="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-400 rounded">
         <label for="hideScrollControls" class="text-sm text-gray-600 select-none">Ocultar rolagem automática</label>
     </div>
    <br>
 
-                   <!-- relatorio -->
-
-   <h3><strong>Ambas as criptomoedas, Bitcoin e Ethereum (BTC) e Ethereum (ETH)</strong></h3>
+    <!-- Conteúdo do Relatório -->
+    <h3><strong>Ambas as criptomoedas, Bitcoin e Ethereum (BTC) e Ethereum (ETH)</strong></h3>
           <br>
   <p>Este relatório visa apresentar uma análise técnica e neutra sobre o
    Bitcoin (BTC) e o Ethereum (ETH), suas recentes valorizações,
@@ -1014,7 +1055,7 @@
   panorama das regulamentações de criptoativos em diferentes regiões
   globais.</p>
    <br>
-  <h3><li><strong>Bitcoin (BTC) e Ethereum (ETH): Cenário Recente</li></strong></h3>
+  <h3><li><strong>Bitcoin (BTC) e Ethereum (ETH): Cenário Recentemente</li></strong></h3>
    <br>
   <p>Ambas as criptomoedas, Bitcoin e Ethereum, têm demonstrado um desempenho notável nos últimos meses. O Bitcoin, como a criptomoeda de maior capitalização de mercado, muitas vezes atua como um barômetro para o mercado cripto em geral. O Ethereum, por sua vez, é a base para grande parte do ecossistema de finanças descentralizadas (DeFi), tokens não fungíveis (NFTs) e outras aplicações descentralizadas.</p>
 
@@ -1084,12 +1125,9 @@
   <p>Este relatório técnico oferece uma visão geral do cenário atual, dos impulsionadores e da estrutura regulatória. O mercado de criptoativos continua a evoluir rapidamente, e as dinâmicas regulatórias e tecnológicas são aspectos chave a serem monitorados.</p>
 </div>
 
-
-
-                 <!-- fim do relatorio -->
-
-
-    
+<!-- ==========================================================================
+     Seção: Assinatura do Relatório e Links Adicionais
+     ========================================================================== -->
     <div class="container">
     <div id="reportEndMarker" class="signature">
     <p><em><strong>Atenciosamente,</strong><br>
@@ -1112,7 +1150,12 @@
   </div>
 </div>
 
-           </div> <hr class="major-separator">
+<!-- Separador principal entre seções -->
+<hr class="major-separator">
+
+<!-- ==========================================================================
+     Navegação Inferior de Seções
+     ========================================================================== -->
     <div class="section-separator-nav">
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
             <a href="#parceiros">Parceiros</a>
@@ -1123,7 +1166,9 @@
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
         </div>
 
-    
+    <!-- ==========================================================================
+         Seção: Relatórios Arquivados
+         ========================================================================== -->
     <div class="container content-section">
         <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
         <h2 class="subtitle"><strong>Acesse Documentos Técnicos Passados</strong></h2>
@@ -1141,6 +1186,9 @@
         </div>
     </div> 
     
+    <!-- ==========================================================================
+         Seção: Parceiros
+         ========================================================================== -->
     <div class="container content-section">
         <h2 id="parceiros" class="section-heading">Parceiros</h2>
         <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
@@ -1157,6 +1205,10 @@
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
         </div>
     </div>
+
+    <!-- ==========================================================================
+         Seção: Assinatura (com Formulário Google Forms)
+         ========================================================================== -->
     <div class="container content-section">
         <h2 id="assinatura" class="section-heading">📊 Assinatura</h2>
         <h2 class="subtitle">Inscreva-se para Acessar Nossos Relatórios Profissionais!</h2>
@@ -1176,7 +1228,8 @@
             <p class="text-center mt-8 text-red-700 font-bold">⚠️ Relatórios Arquivados</p>
             <p class="text-center mb-8">Os relatórios arquivados (anteriores ao período da sua assinatura) estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com a equipe da Codify World por nossos canais oficiais.</p>
     
-        </div> <div class="section-separator-nav">
+        </div> 
+        <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
             <a href="#parceiros">Parceiros</a>
@@ -1185,7 +1238,12 @@
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
         </div>
-    </div> <div class="container content-section">
+    </div> 
+
+    <!-- ==========================================================================
+         Seção: Contato
+         ========================================================================== -->
+    <div class="container content-section">
         <h2 id="contato" class="section-heading">Contato</h2>
         <h2 class="subtitle text-center">Fale Conosco ou Deixe Seu Feedback!</h2>
         
@@ -1206,7 +1264,10 @@
         </div>
     </div> 
             
-            <div class="container content-section">
+    <!-- ==========================================================================
+         Seção: Redes Sociais
+         ========================================================================== -->
+    <div class="container content-section">
         <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
         <h2 class="subtitle text-center">Conecte-se Conosco</h2>
         <p class="text-center">Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
@@ -1281,6 +1342,9 @@
         </div>
             </div>
 
+<!-- ==========================================================================
+     Seção: Fatos! não versões
+     ========================================================================== -->
  <div class="container content-section">
         <h2 id="fatos-nao-versoes" class="section-heading">Fatos! não versões</h2>
         <h2 class="subtitle text-center"><strong>Visão</strong></h2>
@@ -1299,6 +1363,9 @@
     </div>
  </div>
     
+<!-- ==========================================================================
+     Seção: Sobre Nós
+     ========================================================================== -->
     <div class="container content-section">
         <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
         <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
@@ -1318,6 +1385,9 @@
         </div>
     </div>
     
+<!-- ==========================================================================
+     Rodapé (Footer)
+     ========================================================================== -->
     <footer>
         <p>Codify News – Análises e relatórios técnicos multissetoriais, <br> com compromisso jornalístico isento e livre de viés ideológico.</p>
         <p class="mt-2">

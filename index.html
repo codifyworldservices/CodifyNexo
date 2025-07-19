@@ -477,18 +477,10 @@
            Media Queries (Responsividade para Celulares)
            ========================================================================== */
         @media (max-width: 768px) {
-            /* Navegação em mobile: vertical e sticky */
             nav {
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
-                position: sticky; /* Torna a navegação sticky */
-                top: 0; /* Fixa no topo */
-                z-index: 60; /* Garante que fique acima do conteúdo, mas abaixo de modais */
-                background-color: var(--primary-blue); /* Adiciona fundo para não ver conteúdo por baixo */
-                padding-top: 10px; /* Ajuste de padding para o sticky */
-                padding-bottom: 10px; /* Ajuste de padding para o sticky */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para destacar */
             }
             nav .desktop-only {
                 display: none;
@@ -958,7 +950,7 @@
     <span id="currentSpeedValue" class="text-xs mt-1">20 ms</span>
 </div>
 
-<div class="fixed bottom-32 right-6 z-50"> <!-- Ajustado para bottom-32 -->
+<div class="fixed bottom-60 right-6 z-50">
     <button id="scrollDownBtn"
             class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300"
             aria-label="Iniciar rolagem para leitura">

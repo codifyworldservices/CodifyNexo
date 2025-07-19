@@ -581,6 +581,9 @@
             const reportEndMarker = document.getElementById('reportEndMarker');
             const mainContentContainer = document.querySelector('.container'); // O container principal do relatório
 
+            // Referência para o novo checkbox de ocultar controles
+            const hideScrollControlsCheckbox = document.getElementById('hideScrollControls');
+
             let scrollInterval;
             let isScrolling = false; // Estado para controlar se a rolagem está ativa
             let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value); // Pega o valor inicial do slider
@@ -588,10 +591,8 @@
 
             // Função para iniciar a rolagem automática
             function startScrolling() {
-                console.log('Function: startScrolling() called.');
                 if (scrollInterval) {
                     clearInterval(scrollInterval);
-                    console.log('Cleared previous scroll interval.');
                 }
                 isScrolling = true;
                 scrollDownIcon.classList.remove('fa-play');
@@ -606,14 +607,12 @@
                     window.scrollBy({ top: 1, behavior: 'auto' });
 
                     if (!hasReachedReportEnd && reportEndMarker && (window.scrollY + window.innerHeight >= reportEndMarker.offsetTop)) {
-                        console.log('Condition met: Reached report end marker. Stopping scrolling.');
                         hasReachedReportEnd = true; // Set flag before stopping
                         stopScrolling();
                         updateButtonVisibility(); // Update visibility after stopping
                     }
 
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                        console.log('Condition met: Reached end of page. Stopping scrolling.');
                         stopScrolling();
                         scrollDownBtn.classList.add('hidden'); // Keep hidden at very end
                         updateButtonVisibility(); // Update visibility after stopping
@@ -623,7 +622,6 @@
 
             // Função para pausar a rolagem automática
             function stopScrolling() {
-                console.log('Function: stopScrolling() called.');
                 if (isScrolling) {
                     isScrolling = false;
                     clearInterval(scrollInterval);
@@ -631,20 +629,16 @@
                     scrollDownIcon.classList.add('fa-play');
                     scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
                     hasReachedReportEnd = false; // Reset flag
-                    console.log('Scrolling paused. isScrolling set to false.');
                 }
             }
 
             // Event listener para o botão de Descer/Pausar
             scrollDownBtn.addEventListener('click', function(event) {
                 event.stopPropagation(); // Previne que o clique no botão se propague para window.addEventListener('click')
-                console.log('Scroll Down Button Clicked. Current isScrolling state:', isScrolling);
                 if (isScrolling) {
                     stopScrolling();
-                    console.log('Action: Paused scrolling.');
                 } else {
                     startScrolling();
-                    console.log('Action: Attempting to start scrolling.');
                 }
                 // Ensure visibility is updated after the action
                 updateButtonVisibility(); 
@@ -666,17 +660,25 @@
                 let isInMainReportArea = (currentScrollPosition + viewportHeight > containerTop) && (currentScrollPosition < containerBottom);
                 let isAtVeryTop = window.scrollY <= 100;
 
+                // Get the current state of the checkbox
+                const isFunctionalityHiddenByUser = hideScrollControlsCheckbox.checked;
+
                 if (!isScrolling) { // Se não estiver rolando automaticamente
                     // Lógica para o botão de Play/Pause e Controle de Velocidade
-                    if (isInMainReportArea || isAtVeryTop) {
-                        scrollDownBtn.classList.remove('hidden');
-                        speedControlContainer.classList.remove('hidden');
-                    } else {
+                    if (isFunctionalityHiddenByUser) { // Se o usuário escolheu ocultar
                         scrollDownBtn.classList.add('hidden');
                         speedControlContainer.classList.add('hidden');
+                    } else { // Se o usuário NÃO escolheu ocultar, aplica a lógica normal de visibilidade
+                        if (isInMainReportArea || isAtVeryTop) {
+                            scrollDownBtn.classList.remove('hidden');
+                            speedControlContainer.classList.remove('hidden');
+                        } else {
+                            scrollDownBtn.classList.add('hidden');
+                            speedControlContainer.classList.add('hidden');
+                        }
                     }
 
-                    // Lógica para o botão de Voltar ao Topo
+                    // Lógica para o botão de Voltar ao Topo (independente do checkbox)
                     if (window.scrollY > 100) { 
                         backToTopBtn.classList.remove('hidden');
                     } else {
@@ -698,6 +700,15 @@
             // Event listener para a rolagem
             window.addEventListener('scroll', updateButtonVisibility);
 
+            // --- Lógica para o checkbox de ocultar controles ---
+            // Não carrega nem salva a preferência do usuário no localStorage, sempre começa desmarcado.
+            hideScrollControlsCheckbox.checked = false; // Garante que comece desmarcado
+
+            // Adiciona um listener para atualizar a visibilidade quando a preferência mudar
+            hideScrollControlsCheckbox.addEventListener('change', function() {
+                updateButtonVisibility(); // Reavalia a visibilidade com base na nova preferência
+            });
+
             // Certifica-se de que os botões e o controle de velocidade estão visíveis ou ocultos corretamente no carregamento inicial
             updateButtonVisibility();
 
@@ -718,12 +729,22 @@
             let lastInteractionTime = 0;
             const interactionDebounceTime = 500; // Tempo em ms para evitar paradas muito frequentes em movimentos contínuos
 
-            function handleUserInteraction() {
+            function handleUserInteraction(event) {
+                // Verifica se o clique não veio de um dos botões de controle de rolagem
+                if (event.target === scrollDownBtn || scrollDownBtn.contains(event.target) ||
+                    event.target === backToTopBtn || backToTopBtn.contains(event.target) ||
+                    event.target === speedControlContainer || speedControlContainer.contains(event.target) ||
+                    event.target === scrollSpeedSlider || scrollSpeedSlider.contains(event.target) ||
+                    event.target === hideScrollControlsCheckbox || hideScrollControlsCheckbox.contains(event.target) ||
+                    event.target.closest('.dropdown') // Adicionado para evitar que cliques no menu parem a rolagem
+                    ) {
+                    return; // Ignora interações que vêm dos próprios controles
+                }
+
                 const currentTime = Date.now();
                 if (isScrolling && (currentTime - lastInteractionTime > interactionDebounceTime)) {
-                    console.log('User interaction detected. Stopping scrolling via handleUserInteraction.');
                     stopScrolling();
-                    updateButtonVisibility(); // This will make buttons reappear if in correct area
+                    updateButtonVisibility(); // Isso fará com que os botões reapareçam se estiverem na área correta
                     lastInteractionTime = currentTime;
                 }
             }
@@ -755,6 +776,7 @@
 
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Previne que o clique na âncora se propague para window.addEventListener('click')
                     const href = this.getAttribute('href');
                     const targetId = href.substring(1);
                     const targetElement = document.getElementById(targetId);
@@ -899,8 +921,8 @@
 
 <div id="speedControlContainer" class="fixed bottom-[350px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
     <label for="scrollSpeed" class="text-xs mb-1">Velocidade de Rolagem:</label>
-    <input type="range" id="scrollSpeed" min="5" max="100" value="15" class="w-24">
-    <span id="currentSpeedValue" class="text-xs mt-1">15 ms</span>
+    <input type="range" id="scrollSpeed" min="5" max="100" value="8" class="w-24"> <!-- Valor inicial alterado para 8 -->
+    <span id="currentSpeedValue" class="text-xs mt-1">8 ms</span>
 </div>
 
 <div class="fixed bottom-60 right-6 z-50">
@@ -969,6 +991,11 @@
         <br>   Economia | Tecnologia <br> Software  | Global 2025</h3>
      
   <h3 id="relatorio-atual"><strong>Panorama Global: Conflitos Convergentes e Crise Econômica ℗ 18 Julho de 2025</strong></h3>
+    <!-- Novo checkbox para ocultar controles de rolagem -->
+    <div class="flex items-center justify-end mb-4 mr-4">
+        <input type="checkbox" id="hideScrollControls" class="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="hideScrollControls" class="text-sm text-gray-600 select-none">Ocultar botões de rolagem automática</label>
+    </div>
    <br>
   <p>O cenário internacional atual é marcado pela convergência de múltiplos focos de tensão de alto risco: a prolongada guerra entre Israel e Hamas, a instabilidade na Síria pós-Assad, a iminente crise no Estreito de Ormuz e a escalada da pressão econômica ocidental sobre a Rússia e seus parceiros comerciais.</p>
 
@@ -1018,9 +1045,7 @@
   
   </div>
 </div>
-       
-    </div> <hr class="major-separator">
-     <div class="section-separator-nav">
+        <div class="section-separator-nav">
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
             <a href="#parceiros">Parceiros</a>
             <a href="#assinatura">Assinatura</a>
@@ -1029,6 +1054,8 @@
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
         </div>
+    </div> <hr class="major-separator">
+    
     <div class="container content-section">
         <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
         <h2 class="subtitle"><strong>Acesse Documentos Técnicos Passados</strong></h2>

@@ -636,7 +636,8 @@
             }
 
             // Event listener para o botão de Descer/Pausar
-            scrollDownBtn.addEventListener('click', function() {
+            scrollDownBtn.addEventListener('click', function(event) {
+                event.stopPropagation(); // Previne que o clique no botão se propague para window.addEventListener('click')
                 console.log('Scroll Down Button Clicked. Current isScrolling state:', isScrolling);
                 if (isScrolling) {
                     stopScrolling();

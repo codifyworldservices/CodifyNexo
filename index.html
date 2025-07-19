@@ -554,6 +554,7 @@
     </style>
 
     <script>
+        
         // Desabilita o menu de contexto (botão direito do mouse)
         document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -567,37 +568,24 @@
         // Executa o script quando o DOM estiver completamente carregado
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- LÓGICA DOS BOTÕES DE ROLAGEM (INCLUINDO ROLAGEM LENTA) ---
-            const backToTopBtn = document.getElementById('backToTopBtn');
+            // --- LÓGICA DOS BOTÕES DE ROLAGEM (INCLUINDO ROLAGEM LENTA E VELOCIDADE AJUSTÁVEL) ---
             const scrollDownBtn = document.getElementById('scrollDownBtn');
-            const scrollDownIcon = scrollDownBtn.querySelector('i'); // Pega o ícone dentro do botão
-            
-            let isAutoScrolling = false;
-            let animationFrameId = null;
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            const scrollDownIcon = scrollDownBtn.querySelector('i');
+            // NOVO: Referências aos elementos de velocidade
+            const scrollSpeedSlider = document.getElementById('scrollSpeed');
+            const currentSpeedValueSpan = document.getElementById('currentSpeedValue');
 
-            // Função para PARAR a rolagem automática
-            function stopAutoScroll() {
-                if (isAutoScrolling) {
-                    isAutoScrolling = false;
-                    cancelAnimationFrame(animationFrameId);
-                    // Restaura o ícone para a seta de descer
-                    scrollDownIcon.classList.remove('fa-pause');
-                    scrollDownIcon.classList.add('fa-chevron-down');
-                }
-            }
+            let scrollInterval;
+            let isScrolling = false; // Estado para controlar se a rolagem está ativa
+            // NOVO: Variável para armazenar o tempo de intervalo atual
+            // Pega o valor inicial do slider, que é a base para o intervalo (ms)
+            let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value);
 
-            // Função para INICIAR a rolagem automática
-            document.addEventListener('DOMContentLoaded', function() {
-        const scrollDownBtn = document.getElementById('scrollDownBtn');
-        const backToTopBtn = document.getElementById('backToTopBtn');
-        const scrollDownIcon = scrollDownBtn.querySelector('i'); // Assumindo que o ícone está dentro do botão
-        
-        let scrollInterval;
-        let isScrolling = false; // Estado para controlar se a rolagem está ativa
 
-        // Função para iniciar a rolagem automática
-        function startScrolling() {
-            if (!isScrolling) { // Evita múltiplas chamadas de setInterval
+            // Função para iniciar a rolagem automática
+            function startScrolling() {
+                if (scrollInterval) clearInterval(scrollInterval); // Limpa qualquer intervalo anterior
                 isScrolling = true;
                 scrollDownIcon.classList.remove('fa-chevron-down');
                 scrollDownIcon.classList.add('fa-pause');
@@ -609,63 +597,74 @@
                     // Se chegou ao fim da página, para a rolagem
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                         stopScrolling();
+                        // Oculta o botão de descer se chegou ao final e a rolagem parou
+                        scrollDownBtn.classList.add('hidden');
                     }
-                }, 10); // Ajuste este valor para controlar a velocidade (menor = mais rápido)
-            }
-        }
-
-        // Função para pausar a rolagem automática
-        function stopScrolling() {
-            if (isScrolling) {
-                isScrolling = false;
-                clearInterval(scrollInterval);
-                scrollDownIcon.classList.remove('fa-pause');
-                scrollDownIcon.classList.add('fa-chevron-down');
-                scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
-            }
-        }
-
-        // Event listener para o botão de Descer/Pausar
-        scrollDownBtn.addEventListener('click', function() {
-            if (isScrolling) {
-                stopScrolling();
-            } else {
-                startScrolling();
-            }
-            // Manter o botão de descer/pausar visível quando ativo/pausado, 
-            // e o de subir visível quando o scroll desce.
-            // A visibilidade é mais controlada pelo evento de scroll.
-        });
-
-        // Event listener para o botão de Voltar ao Topo
-        backToTopBtn.addEventListener('click', function() {
-            stopScrolling(); // Garante que a rolagem automática pare ao voltar ao topo
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Lógica para mostrar/esconder os botões baseada na posição da rolagem
-        window.addEventListener('scroll', function() {
-            // Mostra o botão "Voltar ao Topo" se a página for rolada para baixo
-            if (window.scrollY > 100) { // Mostra quando rolar mais de 100px
-                backToTopBtn.classList.remove('hidden');
-            } else {
-                backToTopBtn.classList.add('hidden');
+                }, currentScrollIntervalTime); // Usa o valor ajustável
             }
 
-            // O botão de descer/pausar deve sempre estar visível (a menos que esteja no fim da página)
-            // Se a rolagem estiver no final da página e não estiver em rolagem, esconder o botão de descer/pausar
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !isScrolling) {
-                 scrollDownBtn.classList.add('hidden'); // Esconde se estiver no final E parado
-            } else {
-                 scrollDownBtn.classList.remove('hidden'); // Mostra se não estiver no final ou estiver rolando
+            // Função para pausar a rolagem automática
+            function stopScrolling() {
+                if (isScrolling) {
+                    isScrolling = false;
+                    clearInterval(scrollInterval);
+                    scrollDownIcon.classList.remove('fa-pause');
+                    scrollDownIcon.classList.add('fa-chevron-down');
+                    scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
+                    // Garante que o botão de descer/pausar esteja visível ao parar, a menos que esteja no final
+                    if ((window.innerHeight + window.scrollY) < document.body.offsetHeight) {
+                        scrollDownBtn.classList.remove('hidden');
+                    }
+                }
             }
-        });
 
-        // Certifica-se de que o botão de descer/pausar está visível inicialmente
-        scrollDownBtn.classList.remove('hidden');
-    });
-            // --- FIM DA LÓGICA DE ROLAGEM ---
+            // Event listener para o botão de Descer/Pausar
+            scrollDownBtn.addEventListener('click', function() {
+                if (isScrolling) {
+                    stopScrolling();
+                } else {
+                    startScrolling();
+                }
+            });
 
+            // Event listener para o botão de Voltar ao Topo
+            backToTopBtn.addEventListener('click', function() {
+                stopScrolling(); // Garante que a rolagem automática pare ao voltar ao topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Lógica para mostrar/esconder botões com base na posição da rolagem
+            window.addEventListener('scroll', function() {
+                // Mostra o botão "Voltar ao Topo" se a página for rolada para baixo
+                if (window.scrollY > 100) { // Mostra quando rolar mais de 100px
+                    backToTopBtn.classList.remove('hidden');
+                } else {
+                    backToTopBtn.classList.add('hidden');
+                }
+
+                // Oculta o botão de descer/pausar se a rolagem estiver no final da página E não estiver em rolagem automática
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !isScrolling) {
+                     scrollDownBtn.classList.add('hidden');
+                } else {
+                     // Mostra o botão de descer/pausar se não estiver no final OU estiver em rolagem automática
+                     scrollDownBtn.classList.remove('hidden');
+                }
+            });
+
+            // Certifica-se de que o botão de descer/pausar está visível inicialmente (após carregamento do DOM)
+            scrollDownBtn.classList.remove('hidden');
+
+            // NOVO: Event listener para o slider de velocidade
+            scrollSpeedSlider.addEventListener('input', function() {
+                currentScrollIntervalTime = parseInt(this.value); // Atualiza a velocidade
+                currentSpeedValueSpan.textContent = `${currentScrollIntervalTime} ms`; // Atualiza o texto exibido
+
+                if (isScrolling) { // Se estiver rolando, reinicia com a nova velocidade
+                    startScrolling(); // Chama startScrolling para reiniciar o intervalo com a nova velocidade
+                }
+            });
+
+            // --- FIM DA LÓGICA DE ROLAGEM E VELOCIDADE AJUSTÁVEL ---
 
             // --- Lógica do Dropdown Menu ---
             const dropdownBtn = document.querySelector('.dropbtn');
@@ -695,7 +694,7 @@
 
                     if (targetElement) {
                         e.preventDefault();
-                        stopAutoScroll(); // Para a rolagem automática se navegar para uma âncora
+                        stopScrolling(); // Para a rolagem automática se navegar para uma âncora
                         targetElement.scrollIntoView({
                             behavior: 'smooth'
                         });
@@ -745,7 +744,7 @@
                 e.preventDefault();
                 installModal.style.display = 'block';
             });
-            
+
             if (installBannerButton) {
                 installBannerButton.addEventListener('click', function() {
                     installModal.style.display = 'block';
@@ -779,16 +778,68 @@
                     }
                  });
             }
-        });
+
+            // Seu código de Service Worker e PWA
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/CodifyNews/service-worker.js')
+                        .then(registration => {
+                            console.log('ServiceWorker registered: ', registration);
+                            if (installAppFooterLink) {
+                                installAppFooterLink.style.display = 'block'; // Mostra o link se PWAs são suportados
+                            }
+                        })
+                        .catch(registrationError => {
+                            console.log('ServiceWorker registration failed: ', registrationError);
+                            if (installAppFooterLink) {
+                                installAppFooterLink.style.display = 'none'; // Oculta o link se PWAs não são suportados
+                            }
+                        });
+                });
+            } else {
+                if (installAppFooterLink) {
+                    installAppFooterLink.style.display = 'none'; // Oculta o link se Service Workers não são suportados
+                }
+            }
+
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                if (installAppFooterLink) {
+                    installAppFooterLink.style.display = 'block'; // Mostra o link se a instalação é possível
+                }
+            });
+
+            if (installAppFooterLink) {
+                installAppFooterLink.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        console.log(`User response to the install prompt: ${outcome}`);
+                        deferredPrompt = null;
+                        if (installAppFooterLink) {
+                            installAppFooterLink.style.display = 'none'; // Oculta o link após a tentativa de instalação
+                        }
+                    }
+                });
+            }
+        }); // FIM DO DOMContentLoaded principal
     </script>
 </head>
 <body>
+
+<div class="fixed bottom-[280px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
+    <label for="scrollSpeed" class="text-xs mb-1">Velocidade de Rolagem:</label>
+    <input type="range" id="scrollSpeed" min="5" max="30" value="15" class="w-24">
+    <span id="currentSpeedValue" class="text-xs mt-1">15 ms</span>
+</div>
 
 <div class="fixed bottom-60 right-6 z-50">
     <button id="scrollDownBtn"
             class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300"
             aria-label="Iniciar rolagem para leitura">
-      <i class="fas fa-chevron-down text-lg"></i>
+      <i id="scrollDownIcon" class="fas fa-chevron-down text-lg"></i>
     </button>
 </div>
 
@@ -857,7 +908,7 @@
    <br>
   <p>Guerra Israel-Hamas: Iniciada com o ataque do Hamas em 7 de outubro de 2023, que resultou em cerca de 1.200 mortes em Israel, a guerra entra em seu segundo ano com um custo humano devastador. Até julho de 2025, o número de mortos palestinos confirmados na Faixa de Gaza ultrapassa 70.000, com mais de 1.195 mortes do lado israelense. A infraestrutura de Gaza está em ruínas, e a ONU classifica a crise humanitária como "mais do que catastrófica", com quase 2 milhões de deslocados e uma escassez crítica de alimentos, água e medicamentos.</p>
 
-  <p><strong>Crise na Síria e Intervenção Israelense:</strong> Após a queda do regime de Bashar al-Assad em dezembro de 2024, a Síria mergulhou em um conflito interno. O governo interino de Ahmed al-Sharaa enfrenta uma insurgência de milícias drusas na região de Sweida. Justificando a necessidade de proteger a minoria drusa e prevenir ameaças, Israel realizou ataques aéreos em Damasco e Sweida, incluindo um bombardeio a instalações do Ministério da Defesa sírio em 16 de julho. Essas ações foram condenadas pela Liga Árabe, ONU e União Europeia.</p>
+  <p><strong>Crise na Síria e Intervenção Israelense:</strong> Após a queda do regime de Bashar al-Assad em dezembro de 2024, a Síria mergulhou em um conflito interno. O governo interino de Ahmed al-Sharaa enfrenta uma insurgência de milícias drusas na região de Sweida. Justificando a necessidade de proteger a minoria drusa e prevenir ameaças, Israel realizou ataques aéreos em Damasco e Sweida, incluindo um bombardeio a instalações do Ministério de Defesa sírio em 16 de julho. Essas ações foram condenadas pela Liga Árabe, ONU e União Europeia.</p>
 
   <h3>2. Crise Ucrânia-Rússia e o Ultimato das Sanções Secundárias</h3>
 

@@ -3,815 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codify News</title>
-    
-    <!-- Favicon e Ícones para Dispositivos Apple -->
-    <link rel="icon" href="img/logo_codi.png" type="image/png">
-    <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
-
-    <!-- Meta Tags Open Graph para Compartilhamento em Redes Sociais -->
-    <meta property="og:title" content="Codify News | Tech Labs ">
-    <meta property="og:description" content="Economia | Tecnologia | Software | Global 2025">
-    <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
-    <meta property="og:url" content="https://codifyworldservices.github.io/CodifyNews/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Codify World | Tech Labs">
-
-    <!-- Meta Tags para PWA (Progressive Web App) em iOS -->
-    <link rel="apple-touch-icon" href="img/logo_codi.png"> 
-    <link rel="apple-touch-icon" sizes="180x180" href="img/logo_codi.png"> 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="CodifyNews">
-
-    <!-- Links para Font Awesome (Ícones) e Tailwind CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Relatório Técnico - Cardano</title>
+    <!-- Inclui o CDN do Tailwind CSS para estilização -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <!-- Inclui o CDN do Font Awesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* ==========================================================================
-           Variáveis CSS e Estilos Globais
-           ========================================================================== */
-        :root {
-            --primary-blue: #0055A4;
-            --secondary-blue: #007ACC;
-            --light-blue: #E6F2FF;
-            --dark-gray: #333333;
-            --light-gray: #F5F5F5;
-            --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        /* Define a fonte Inter como padrão para todo o documento */
         body {
-            margin: 0;
-            font-family: var(--font-base);
-            background-color: var(--light-gray);
-            color: var(--dark-gray);
-            line-height: 1.6;
-            /* Propriedades para impedir seleção de texto e zoom em alguns navegadores móveis (revertido conforme solicitação) */
-            -webkit-user-select: none; 
-            -moz-user-select: none;    
-            -ms-user-select: none;     
-            user-select: none;         
-            padding-top: 0; /* Garante que o banner no topo funcione bem */
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Cor de fundo cinza claro */
+            color: #374151; /* Cor de texto padrão */
         }
-
-        /* ==========================================================================
-           Estilos do Cabeçalho (Header)
-           ========================================================================== */
-        header {
-            background-color: var(--primary-blue);
-            padding: 20px;
-            text-align: center; /* Centraliza o conteúdo, incluindo a imagem */
-            color: #FFFFFF;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* Estilo para parágrafos: adiciona recuo na primeira linha */
+        p {
+            text-indent: 20px; /* Recuo de aproximadamente 2cm na primeira linha do parágrafo */
         }
-        header img {
-            width: 150px;
-            height: 150px;
-            pointer-events: none; /* Impede que a imagem seja clicável ou arrastável */
-            border-radius: 25px; /* Deixa as bordas mais arredondadas */
-            object-fit: cover;
-            border: 15px solid var(--primary-blue);
-            display: block; /* Garante que a imagem se comporte como um bloco para mx-auto */
-            margin: 0 auto; /* Centraliza a imagem no cabeçalho */
-        }
-
-        /* ==========================================================================
-           Estilos da Barra de Navegação (Nav)
-           ========================================================================== */
-        nav {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            padding: 0 10px;
-            align-items: center;
-        }
-        nav a {
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid var(--primary-blue);
-            padding: 8px 30px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Aumentado em 10% (0.7 para 0.8) */
-            white-space: nowrap;
-        }
-        nav a:hover {
-            background-color: #FFFFFF;
-            color: var(--primary-blue);
-            border-color: #FFFFFF;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-        }
-
-        /* ==========================================================================
-           Estilos do Dropdown Menu (Navegação Mobile)
-           ========================================================================== */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin-top: 0;
-        }
-        .dropbtn {
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid var(--primary-blue);
-            padding: 8px 30px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Aumentado em 10% (0.7 para 0.8) */
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            box-sizing: border-box;
-        }
-        .dropbtn:hover {
-            background-color: #FFFFFF;
-            color: var(--primary-blue);
-            border-color: #FFFFFF;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 250px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 5px;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            overflow: hidden;
-        }
-        .dropdown-content a {
-            color: var(--primary-blue);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            font-weight: normal;
-            border: none;
-            box-shadow: none;
-            margin: 0;
-            white-space: normal;
-            border-bottom: 1px solid var(--primary-blue);
-        }
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
-        .dropdown-content a:hover {
-            background-color: var(--light-blue);
-            color: var(--primary-blue);
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Classes para controlar a visibilidade de elementos (Desktop vs Mobile) */
-        .desktop-only {
-            display: inline-block; /* Visível em desktop */
-        }
-        .mobile-only {
-            display: none; /* Escondido em desktop */
-        }
-
-        /* ==========================================================================
-           Estilos do Container Principal de Conteúdo
-           ========================================================================== */
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            background-color: #FFFFFF;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            box-sizing: border-box; /* Adicionado para incluir padding na largura total */
-        }
-
-        /* ==========================================================================
-           Estilos de Títulos e Parágrafos
-           ========================================================================== */
-        .main-title { /* Título principal do relatório */
-            color: var(--primary-blue);
-            user-select: none; /* Revertido */
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 10px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        .subtitle { /* Subtítulo do relatório (padrão) */
-            color: var(--dark-gray);
-            user-select: none; /* Revertido */
-            font-size: 1.15em;
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: normal;
-        }
-        h2 { /* Títulos de sub-seções dentro do relatório */
-            color: var(--primary-blue);
-            user-select: none; /* Revertido */
-            font-size: 1.15em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .section-heading { /* Títulos das grandes seções (Arquivados, Contato, etc.) */
-            color: var(--primary-blue);
-            font-size: 1.8em;
-            text-align: center;
-            margin-top: 60px; /* Mais espaçamento superior */
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--secondary-blue); /* Linha mais forte */
-            user-select: none; /* Revertido */
-        }
-
-        p, ul {
-            margin-bottom: 15px;
-            user-select: none; /* Revertido */
-            text-align: justify; /* Alinha o texto do relatório */
-        }
-        ul {
-            padding-left: 20px;
-        }
+        /* Estilo para links de lista para remover o bullet padrão e adicionar espaçamento */
         ul li {
-            margin-bottom: 8px;
+            list-style: none; /* Remove o bullet padrão */
+            margin-bottom: 0.5rem; /* Espaçamento entre os itens da lista */
         }
-        
-        /* ==========================================================================
-           Estilos do Rodapé (Footer)
-           ========================================================================== */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--light-blue);
-            color: var(--primary-blue);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--secondary-blue);
-            user-select: none; /* Revertido */
-        }
-        footer p {
-            margin: 0;
-            line-height: 1.4;
-            text-align: center; /* Garante que o texto do rodapé também seja centralizado */
-        }
-        footer a {
-            color: var(--primary-blue);
-            text-decoration: underline;
+        /* Adiciona um pequeno recuo para os itens de lista para melhor legibilidade */
+        ul li::before {
+            content: "• "; /* Adiciona um bullet personalizado */
+            color: #1d4ed8; /* Cor do bullet */
             font-weight: bold;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* ==========================================================================
-           Estilos da Assinatura
-           ========================================================================== */
-        .signature {
-            margin-top: 40px;
-            font-style: italic;
-            text-align: left; /* Mantém a assinatura alinhada à esquerda */
-            user-select: none; /* Revertido */
-        }
-       
-        /* ==========================================================================
-           Estilos de Separadores de Seção
-           ========================================================================== */
-        .section-separator-nav {
-            margin: 60px auto; /* Mais espaçamento acima e abaixo */
-            border-top: 3px solid var(--secondary-blue); /* Linha mais forte */
-            padding-top: 30px; /* Espaçamento após a linha */
-            text-align: center;
-            max-width: 600px;
-        }
-        .section-separator-nav a {
             display: inline-block;
-            margin: 5px 10px;
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 5px 15px;
-            border: 1px solid var(--primary-blue);
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            white-space: nowrap;
+            width: 1em;
+            margin-left: -1em;
         }
-        .section-separator-nav a:hover {
-            background-color: var(--primary-blue);
-            color: #FFFFFF;
+        /* Ajuste para o primeiro parágrafo após um título, para não ter margem superior extra */
+        h1 + p, h2 + p, h3 + p {
+            margin-top: 0.5rem;
         }
 
-        .major-separator {
-            border: none;
-            border-top: 4px dotted var(--primary-blue); /* Linha pontilhada azul mais grossa */
-            margin: 80px auto; /* Mais espaçamento */
-            width: 70%; /* Ocupa menos largura para parecer um "divisor" */
-            max-width: 400px;
-        }
-        .content-section {
-            margin-top: 60px; /* Garante que cada nova seção comece com bom espaçamento */
+        /* Estilos para as seções colapsáveis */
+        .collapsible-section {
+            margin-bottom: 1.5rem; /* Espaçamento entre as seções colapsáveis */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+            overflow: hidden; /* Garante que o border-radius seja aplicado corretamente */
         }
 
-        /* ==========================================================================
-           Estilos do Banner de "Instalar App"
-           ========================================================================== */
-        #installAppBanner {
-            background-color: var(--secondary-blue); /* Fundo azul restaurado */
-            color: white;
-            padding: 15px;
+        .collapsible-section summary {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            position: relative;
-            z-index: 999;
-        }
-        #installAppBanner p {
-            margin: 0;
-            flex-grow: 1;
-            user-select: text; /* Permite seleção de texto no banner */
-        }
-        #installAppBanner button {
-            background-color: #FFFFFF;
-            color: var(--secondary-blue);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 1rem; /* p-4 */
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s, color 0.3s;
-            white-space: nowrap;
-        }
-        #installAppBanner button:hover {
-            background-color: var(--light-blue);
-            color: var(--primary-blue);
+            background-color: #fff; /* bg-white */
+            transition: background-color 0.2s ease;
+            border-radius: 0.5rem; /* rounded-lg */
+            /* Remover o marcador padrão do details */
+            list-style: none;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none;   /* Safari */
+            -khtml-user-select: none;    /* Konqueror HTML */
+            -moz-user-select: none;      /* Old versions of Firefox */
+            -ms-user-select: none;       /* Internet Explorer/Edge */
+            user-select: none;           /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
         }
 
-        /* ==========================================================================
-           Estilos do Modal de Instruções de Instalação do App
-           ========================================================================== */
-        #installAppModal {
-            display: none; /* Incialmente oculto, mostrado com JS */
+        /* Remover o triângulo padrão do summary */
+        .collapsible-section summary::-webkit-details-marker {
+            display: none;
+        }
+        .collapsible-section summary::marker {
+            display: none;
+        }
+
+        .collapsible-section summary:hover {
+            background-color: #f9fafb; /* hover:bg-gray-50 */
+        }
+
+        .collapsible-section summary .section-title {
+            /* Sobrescrever as margens padrão do h2 para que o summary controle o espaçamento */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding: 0 !important;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+            color: #1d4ed8; /* text-blue-700 */
+        }
+
+        .toggle-button {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem; /* px-4 py-2 */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border: none; /* Remove a borda padrão do botão */
+            cursor: pointer;
+            font-weight: 600; /* Para o texto "Abrir"/"Fechar" */
+        }
+
+        /* Estilos para o estado FECHADO do botão */
+        .collapsible-section:not([open]) .toggle-button {
+            background-color: #1d4ed8; /* blue-700 (azul mais forte) */
+        }
+        .collapsible-section:not([open]) .toggle-button .open-text,
+        .collapsible-section:not([open]) .toggle-button .open-icon {
+            color: #ffffff; /* branco (mais intenso) */
+            display: flex; /* Visível quando fechado */
+        }
+        .collapsible-section:not([open]) .toggle-button .close-text,
+        .collapsible-section:not([open]) .toggle-button .close-icon {
+            display: none; /* Escondido quando fechado */
+        }
+
+        /* Estilos para o estado ABERTO do botão */
+        .collapsible-section[open] .toggle-button {
+            background-color: #dc2626; /* red-600 (vermelho mais forte) */
+        }
+        .collapsible-section[open] .toggle-button .open-text,
+        .collapsible-section[open] .toggle-button .open-icon {
+            display: none; /* Escondido quando aberto */
+        }
+        .collapsible-section[open] .toggle-button .close-text,
+        .collapsible-section[open] .toggle-button .close-icon {
+            color: #7f1d1d; /* red-900 (vermelho bem escuro para contraste) */
+            display: flex; /* Visível quando aberto */
+        }
+
+        .collapsible-content {
+            padding: 1rem; /* p-4 */
+            background-color: #f9fafb; /* gray-50 */
+            border-top: 1px solid #e5e7eb; /* border-gray-200 */
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+
+        /* Estilos para os botões de rolagem */
+        #scrollControlsGroup { /* O grupo que contém os botões de rolagem */
             position: fixed;
+            bottom: 1rem;
+            right: 1rem;
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem; /* Espaçamento entre os botões */
         }
-        #installAppModal > div { /* Conteúdo do modal */
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 30px;
-            border: 1px solid #888;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: fadeIn 0.3s ease-out; /* Animação de entrada */
-        }
-        #installAppModal h3 {
-            margin-top: 0;
-            color: var(--primary-blue);
-            text-align: center;
-            font-size: 1.6em;
-            margin-bottom: 20px;
-        }
-        #installAppModal ol {
-            padding-left: 25px;
-        }
-        #installAppModal li {
-            margin-bottom: 10px;
-        }
-        #closeModal {
-            color: #aaa;
-            float: right;
-            font-size: 32px;
-            font-weight: bold;
+
+        #scrollDownBtn, #backToTopBtn {
+            padding: 0.75rem; /* p-3 */
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            transition: background-color 0.3s ease, transform 0.3s ease;
             cursor: pointer;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-        }
-        #closeModal:hover,
-        #closeModal:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* ==========================================================================
-           Estilos dos Ícones de Redes Sociais
-           ========================================================================== */
-        .social-icons-list {
-            list-style: none; 
-            padding: 0; 
-            display: flex; /* Habilita flexbox */
-            justify-content: center; /* Centraliza horizontalmente */
-            flex-wrap: wrap; /* Permite que os itens quebrem linha */
-        }
-        .social-icons-list li {
-            margin: 0 10px 15px; /* Espaçamento entre os ícones */
-        }
-
-        /* ==========================================================================
-           Estilos do Formulário do Google Forms
-           ========================================================================== */
-        .google-form-embed {
-            width: 100%; /* Ocupa 100% da largura do pai */
-            height: 800px; /* Altura padrão para desktop */
-            border: 0;
-            margin: 0 auto;
-            display: block;
-            /* max-width removido para permitir que ele se expanda até o max-width do container */
-        }
-
-        /* ==========================================================================
-           Estilos para Ocultar/Mostrar o Formulário de Assinatura
-           ========================================================================== */
-        #formContainer {
-            display: none; /* Inicialmente oculto */
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid var(--light-blue);
-            border-radius: 8px;
-            background-color: var(--light-gray);
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-        }
-        #toggleFormBtn {
-            display: block; /* Garante que o botão ocupe sua própria linha */
-            margin: 20px auto; /* Centraliza o botão */
-            padding: 12px 25px;
-            background-color: var(--secondary-blue);
-            color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            font-weight: 600;
-        }
-        #toggleFormBtn:hover {
-            background-color: var(--primary-blue);
-            transform: translateY(-2px); /* Pequeno efeito de elevação */
-        }
-        #toggleFormBtn:active {
-            transform: translateY(0); /* Volta ao normal no clique */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-
-        /* ==========================================================================
-           Media Queries (Responsividade para Celulares)
-           ========================================================================== */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            nav .desktop-only {
-                display: none;
-            }
-            nav .dropdown {
-                width: auto;
-                max-width: unset;
-                text-align: center;
-                margin-top: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: auto;
-                box-sizing: border-box;
-            }
-            .dropbtn {
-                width: auto;
-                min-width: 150px;
-                padding: 8px 20px;
-                box-sizing: border-box;
-                margin: 0 auto;
-            }
-            .dropdown-content {
-                position: static;
-                width: 100%;
-                box-shadow: none;
-                border-top: 1px solid var(--primary-blue);
-                transform: none;
-                left: auto;
-                min-width: unset;
-                display: none;
-                margin-top: 0;
-            }
-            .dropdown-content a {
-                padding: 8px 10px;
-                text-align: center;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .dropdown:hover .dropdown-content {
-                display: none;
-            }
-            .dropdown.active .dropdown-content {
-                display: block;
-            }
-
-            .section-separator-nav {
-                margin: 40px auto;
-                padding-top: 25px;
-                max-width: 90%;
-            }
-            .section-separator-nav a {
-                display: block;
-                width: calc(100% - 20px);
-                margin: 5px auto;
-            }
-
-            .section-heading {
-                font-size: 1.5em;
-                margin-top: 50px;
-                margin-bottom: 25px;
-                padding-bottom: 10px;
-            }
-
-            #installAppBanner {
-                flex-direction: column;
-                text-align: center;
-                padding: 10px;
-                gap: 10px;
-            }
-            #installAppBanner button {
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            #installAppModal > div {
-                margin: 5% auto;
-                padding: 20px;
-            }
-
-            .major-separator {
-                margin: 60px auto;
-                width: 90%;
-            }
-            .content-section {
-                margin-top: 40px;
-            }
-            
-            .content-section ul {
-                padding-left: 0; 
-            }
-            
-            .google-form-embed {
-                width: 100%;
-                height: 600px; /* Altura ajustada para mobile */
-                box-sizing: border-box;
-            }
+        #scrollDownBtn {
+            background-color: #2563eb; /* blue-600 */
+            color: #ffffff;
         }
-        /* Animação para o modal (fadeIn) */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        #scrollDownBtn:hover {
+            background-color: #1d4ed8; /* blue-700 */
+            transform: scale(1.05);
+        }
+
+        #backToTopBtn {
+            background-color: #4b5563; /* gray-700 */
+            color: #ffffff;
+        }
+        #backToTopBtn:hover {
+            background-color: #374151; /* gray-800 */
+            transform: scale(1.05);
+        }
+
+        #speedControlContainer {
+            background-color: #ffffff;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #hideScrollControlsContainer {
+            background-color: #ffffff;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hidden {
+            display: none !important;
         }
     </style>
-
     <script>
-        /* ==========================================================================
-           Scripts JavaScript
-           ========================================================================== */
-
-        // Desabilita o menu de contexto (botão direito do mouse)
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Desabilita as ferramentas de desenvolvedor (F12, Ctrl+Shift+I/J/C/K, Ctrl+U)
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || (e.key === 'C' || e.key === 'K'))) || (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault();
-            }
-        });
-
-        // Executa o script quando o DOM estiver completamente carregado
         document.addEventListener('DOMContentLoaded', function() {
-            
-            /* --- Lógica dos Botões de Rolagem (Incluindo Rolagem Lenta e Velocidade Ajustável) --- */
+            const collapsibleSections = document.querySelectorAll('.collapsible-section');
+
+            collapsibleSections.forEach(section => {
+                const toggleButton = section.querySelector('.toggle-button');
+                const openText = toggleButton.querySelector('.open-text');
+                const openIcon = toggleButton.querySelector('.open-icon');
+                const closeText = toggleButton.querySelector('.close-text');
+                const closeIcon = toggleButton.querySelector('.close-icon');
+
+                // Função para atualizar o estado do botão
+                const updateToggleButtonState = () => {
+                    if (section.open) {
+                        openText.classList.add('hidden');
+                        openIcon.classList.add('hidden');
+                        closeText.classList.remove('hidden');
+                        closeIcon.classList.remove('hidden');
+                    } else {
+                        openText.classList.remove('hidden');
+                        openIcon.classList.remove('hidden');
+                        closeText.classList.add('hidden');
+                        closeIcon.classList.add('hidden');
+                    }
+                };
+
+                // Define o estado inicial do botão
+                updateToggleButtonState();
+
+                // Adiciona um listener para o evento 'toggle' do <details>
+                section.addEventListener('toggle', updateToggleButtonState);
+            });
+
+            // Lógica para o botão de "Mostrar Formulário de Assinatura"
+            const toggleFormBtn = document.getElementById('toggleFormBtn');
+            const formContainer = document.getElementById('formContainer');
+
+            if (toggleFormBtn && formContainer) {
+                toggleFormBtn.addEventListener('click', function() {
+                    if (formContainer.classList.contains('hidden')) {
+                        formContainer.classList.remove('hidden');
+                        toggleFormBtn.textContent = 'Ocultar Formulário';
+                        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        formContainer.classList.add('hidden');
+                        toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura';
+                    }
+                });
+            }
+
+            // Lógica para o banner e modal de instalação do PWA (seção do seu código original)
+            const installBanner = document.getElementById('installAppBanner');
+            const closeBannerBtn = document.getElementById('closeBanner');
+            const installLinkFooter = document.getElementById('installAppFooterLink');
+            const installModal = document.getElementById('installAppModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const installBannerButton = document.querySelector('#installAppBanner button');
+
+            if (closeBannerBtn) {
+                closeBannerBtn.addEventListener('click', function() {
+                    if (installBanner) installBanner.style.display = 'none';
+                });
+            }
+
+            if (installLinkFooter) {
+                installLinkFooter.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (installModal) installModal.style.display = 'block';
+                });
+            }
+
+            if (installBannerButton) {
+                installBannerButton.addEventListener('click', function() {
+                    if (installModal) installModal.style.display = 'block';
+                    if (installBanner) installBanner.style.display = 'none';
+                });
+            }
+
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', function() {
+                    if (installModal) installModal.style.display = 'none';
+                });
+            }
+
+            window.addEventListener('click', function(event) {
+                if (event.target == installModal) {
+                    if (installModal) installModal.style.display = 'none';
+                }
+            });
+
+            // Lógica de rolagem
             const scrollDownBtn = document.getElementById('scrollDownBtn');
             const backToTopBtn = document.getElementById('backToTopBtn');
-            const scrollDownIcon = scrollDownBtn.querySelector('i');
-            const speedControlContainer = document.getElementById('speedControlContainer'); 
-            const scrollSpeedSlider = document.getElementById('scrollSpeed');
+            const scrollDownIcon = scrollDownBtn ? scrollDownBtn.querySelector('i') : null;
+            const speedControlContainer = document.getElementById('speedControlContainer');
             const currentSpeedValueSpan = document.getElementById('currentSpeedValue');
-            
-            const reportEndMarker = document.getElementById('reportEndMarker');
-            const mainContentContainer = document.querySelector('.container'); // O container principal do relatório
+            const scrollSpeedSlider = document.getElementById('scrollSpeed');
 
+            const mainContentContainer = document.querySelector('.max-w-4xl.mx-auto.bg-white');
             const hideScrollControlsCheckbox = document.getElementById('hideScrollControls');
+            const scrollDownControlsGroup = document.getElementById('scrollDownControlsGroup'); // O novo grupo para os controles de rolagem automática
 
             let scrollInterval;
-            let isScrolling = false; // Estado para controlar se a rolagem está ativa
-            let currentScrollIntervalTime = parseInt(scrollSpeedSlider.value); 
-            let hasReachedReportEnd = false; // Flag para controlar se já passou do final do relatório
+            let isScrolling = false;
+            let currentScrollIntervalTime = scrollSpeedSlider ? parseInt(scrollSpeedSlider.value) : 20;
 
-            // Função para iniciar a rolagem automática
             function startScrolling() {
-                if (scrollInterval) {
-                    clearInterval(scrollInterval);
-                }
+                if (scrollInterval) clearInterval(scrollInterval);
                 isScrolling = true;
-                scrollDownIcon.classList.remove('fa-play');
-                scrollDownIcon.classList.add('fa-pause');
-                scrollDownBtn.setAttribute('aria-label', 'Pausar rolagem');
-                
-                speedControlContainer.classList.add('hidden');
-                scrollDownBtn.classList.add('hidden');
-                backToTopBtn.classList.add('hidden');
+                if (scrollDownIcon) {
+                    scrollDownIcon.classList.remove('fa-play');
+                    scrollDownIcon.classList.add('fa-pause');
+                    scrollDownBtn.setAttribute('aria-label', 'Pausar rolagem');
+                }
+                // Esconde os controles de rolagem automática e voltar ao topo quando a rolagem automática está ativa
+                if (scrollDownControlsGroup) scrollDownControlsGroup.classList.add('hidden');
+                if (backToTopBtn) backToTopBtn.classList.add('hidden');
 
                 scrollInterval = setInterval(() => {
                     window.scrollBy({ top: 1, behavior: 'smooth' });
 
-                    if (!hasReachedReportEnd && reportEndMarker && (window.scrollY + window.innerHeight >= reportEndMarker.offsetTop)) {
-                        hasReachedReportEnd = true; // Define a flag antes de parar
-                        stopScrolling();
-                        updateButtonVisibility(); // Atualiza a visibilidade após parar
-                    }
-
+                    // Parar a rolagem se chegar ao final do documento
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                         stopScrolling();
-                        scrollDownBtn.classList.add('hidden'); // Mantém oculto no final da página
-                        updateButtonVisibility(); // Atualiza a visibilidade após parar
+                        updateButtonVisibility(); // Atualiza a visibilidade dos botões após parar
                     }
                 }, currentScrollIntervalTime);
             }
 
-            // Função para pausar a rolagem automática
             function stopScrolling() {
                 if (isScrolling) {
                     isScrolling = false;
                     clearInterval(scrollInterval);
-                    scrollDownIcon.classList.remove('fa-pause');
-                    scrollDownIcon.classList.add('fa-play');
-                    scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
-                    hasReachedReportEnd = false; // Reseta a flag
+                    if (scrollDownIcon) {
+                        scrollDownIcon.classList.remove('fa-pause');
+                        scrollDownIcon.classList.add('fa-play');
+                        scrollDownBtn.setAttribute('aria-label', 'Iniciar rolagem para leitura');
+                    }
                 }
             }
 
-            // Event listener para o botão de Descer/Pausar
-            scrollDownBtn.addEventListener('click', function(event) {
-                event.stopPropagation(); // Previne que o clique no botão se propague
-                if (isScrolling) {
+            if (scrollDownBtn) {
+                scrollDownBtn.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    if (isScrolling) {
+                        stopScrolling();
+                    } else {
+                        startScrolling();
+                    }
+                    // updateButtonVisibility() será chamado pelo listener de scroll
+                });
+            }
+
+            if (backToTopBtn) {
+                backToTopBtn.addEventListener('click', function() {
                     stopScrolling();
-                } else {
-                    startScrolling();
-                }
-                updateButtonVisibility(); 
-            });
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // updateButtonVisibility() será chamado pelo listener de scroll
+                });
+            }
 
-            // Event listener para o botão de Voltar ao Topo
-            backToTopBtn.addEventListener('click', function() {
-                stopScrolling(); // Garante que a rolagem automática pare ao voltar ao topo
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // Função para atualizar a visibilidade dos botões e do controle de velocidade
             function updateButtonVisibility() {
-                const containerTop = mainContentContainer.offsetTop;
-                const containerBottom = containerTop + mainContentContainer.offsetHeight;
+                // Certifique-se de que os elementos existem
+                if (!mainContentContainer || !scrollDownBtn || !speedControlContainer || !backToTopBtn || !hideScrollControlsCheckbox || !scrollDownControlsGroup) {
+                    return;
+                }
+
                 const currentScrollPosition = window.scrollY;
                 const viewportHeight = window.innerHeight;
+                const docHeight = document.body.offsetHeight;
 
-                let isInMainReportArea = (currentScrollPosition + viewportHeight > containerTop) && (currentScrollPosition < containerBottom);
-                let isAtVeryTop = window.scrollY <= 100;
+                // A checkbox controla a visibilidade do grupo de rolagem automática (scrollDownControlsGroup)
+                const isAutoScrollControlsHiddenByCheckbox = hideScrollControlsCheckbox.checked;
 
-                const isFunctionalityHiddenByUser = hideScrollControlsCheckbox.checked;
-
-                if (!isScrolling) { // Se não estiver rolando automaticamente
-                    if (isFunctionalityHiddenByUser) { 
-                        scrollDownBtn.classList.add('hidden');
-                        speedControlContainer.classList.add('hidden');
-                    } else { 
-                        if (isInMainReportArea || isAtVeryTop) {
-                            scrollDownBtn.classList.remove('hidden');
-                            speedControlContainer.classList.remove('hidden');
-                        } else {
-                            scrollDownBtn.classList.add('hidden');
-                            speedControlContainer.classList.add('hidden');
-                        }
-                    }
-
-                    if (window.scrollY > 100) { 
+                // Lógica para o botão Voltar ao Topo (backToTopBtn)
+                if (isScrolling) { // Se a rolagem automática está ativa, esconde o botão Voltar ao Topo
+                    backToTopBtn.classList.add('hidden');
+                } else {
+                    if (currentScrollPosition > 100) { // Mostra o botão Voltar ao Topo se desceu mais de 100px
                         backToTopBtn.classList.remove('hidden');
-                    } else {
+                    } else { // Esconde se estiver no topo
                         backToTopBtn.classList.add('hidden');
                     }
+                }
 
-                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                        scrollDownBtn.classList.add('hidden');
+                // Lógica para o grupo de controles de rolagem automática (scrollDownControlsGroup)
+                if (isAutoScrollControlsHiddenByCheckbox) {
+                    scrollDownControlsGroup.classList.add('hidden'); // Esconde o grupo se a checkbox estiver marcada
+                } else {
+                    if (isScrolling) { // Se a rolagem automática está ativa, esconde o grupo
+                        scrollDownControlsGroup.classList.add('hidden');
+                    } else { // Se não está rolando automaticamente, mostra/esconde baseado na posição
+                        // Mostra se não está no final da página e não está muito no topo
+                        if ((currentScrollPosition + viewportHeight) < docHeight && currentScrollPosition > 50) {
+                            scrollDownControlsGroup.classList.remove('hidden');
+                        } else {
+                            scrollDownControlsGroup.classList.add('hidden');
+                        }
                     }
-
-                } else { // Se estiver rolando automaticamente, todos os controles devem estar ocultos
-                    speedControlContainer.classList.add('hidden');
-                    scrollDownBtn.classList.add('hidden');
-                    backToTopBtn.classList.add('hidden');
                 }
             }
 
-            // Event listener para a rolagem da janela
             window.addEventListener('scroll', updateButtonVisibility);
 
-            // Lógica para o checkbox de ocultar controles
-            hideScrollControlsCheckbox.checked = false; // Garante que comece desmarcado
+            if (hideScrollControlsCheckbox) {
+                hideScrollControlsCheckbox.checked = true; // Inicia com a checkbox marcada (controles de rolagem automática escondidos)
+                hideScrollControlsCheckbox.addEventListener('change', updateButtonVisibility);
+            }
+            updateButtonVisibility(); // Chama uma vez ao carregar para definir o estado inicial
 
-            hideScrollControlsCheckbox.addEventListener('change', function() {
-                updateButtonVisibility(); 
-            });
+            if (scrollSpeedSlider) {
+                scrollSpeedSlider.addEventListener('input', function() {
+                    currentScrollIntervalTime = parseInt(this.value);
+                    if (currentSpeedValueSpan) currentSpeedValueSpan.textContent = `${currentScrollIntervalTime} ms`;
+                    if (isScrolling) startScrolling();
+                });
+            }
 
-            updateButtonVisibility(); // Garante visibilidade correta no carregamento inicial
-
-            // Event listener para o slider de velocidade
-            scrollSpeedSlider.addEventListener('input', function() {
-                currentScrollIntervalTime = parseInt(this.value); 
-                currentSpeedValueSpan.textContent = `${currentScrollIntervalTime} ms`; 
-
-                if (isScrolling) { 
-                    startScrolling(); 
-                }
-            });
-
-            // Lógica para parar a rolagem com qualquer clique ou movimento do mouse
             let lastInteractionTime = 0;
-            const interactionDebounceTime = 500; 
+            const interactionDebounceTime = 500;
 
             function handleUserInteraction(event) {
-                // Verifica se o clique não veio de um dos botões de controle de rolagem
-                if (event.target === scrollDownBtn || scrollDownBtn.contains(event.target) ||
-                    event.target === backToTopBtn || backToTopBtn.contains(event.target) ||
-                    event.target === speedControlContainer || speedControlContainer.contains(event.target) ||
-                    event.target === scrollSpeedSlider || scrollSpeedSlider.contains(event.target) ||
-                    event.target === hideScrollControlsCheckbox || hideScrollControlsCheckbox.contains(event.target) ||
-                    event.target.closest('.dropdown') 
-                    ) {
-                    return; 
+                const isControlElement = (el) => {
+                    return (scrollDownBtn && (el === scrollDownBtn || scrollDownBtn.contains(el))) ||
+                           (backToTopBtn && (el === backToTopBtn || backToTopBtn.contains(el))) ||
+                           (speedControlContainer && (el === speedControlContainer || speedControlContainer.contains(el))) ||
+                           (scrollSpeedSlider && (el === scrollSpeedSlider || scrollSpeedSlider.contains(el))) ||
+                           (hideScrollControlsCheckbox && (el === hideScrollControlsCheckbox || hideScrollControlsCheckbox.contains(el))) ||
+                           (el.closest && el.closest('.dropdown'));
+                };
+
+                if (isControlElement(event.target)) {
+                    return;
                 }
 
                 const currentTime = Date.now();
                 if (isScrolling && (currentTime - lastInteractionTime > interactionDebounceTime)) {
                     stopScrolling();
-                    updateButtonVisibility(); 
+                    updateButtonVisibility();
                     lastInteractionTime = currentTime;
                 }
             }
 
-            // Adiciona ouvintes de evento ao documento para detectar cliques e movimentos do mouse
             window.addEventListener('click', handleUserInteraction);
             window.addEventListener('mousemove', handleUserInteraction);
 
-
-            /* --- Lógica do Dropdown Menu --- */
+            // Lógica do Dropdown Menu (do seu código original)
             const dropdownBtn = document.querySelector('.dropbtn');
             const dropdownContainer = document.querySelector('.dropdown');
 
             function isMobile() {
-                return window.innerWidth <= 768; 
+                return window.innerWidth <= 768;
             }
 
-            dropdownBtn.addEventListener('click', function(event) {
-                event.preventDefault();
-                dropdownContainer.classList.toggle('active');
-                event.stopPropagation();
-            });
+            if (dropdownBtn && dropdownContainer) {
+                dropdownBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    dropdownContainer.classList.toggle('active');
+                    event.stopPropagation();
+                });
+            }
 
             document.addEventListener('click', function(event) {
-                if (!dropdownContainer.contains(event.target) && dropdownContainer.classList.contains('active')) {
+                if (dropdownContainer && !dropdownContainer.contains(event.target) && dropdownContainer.classList.contains('active')) {
                     dropdownContainer.classList.remove('active');
                 }
             });
 
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     const href = this.getAttribute('href');
                     const targetId = href.substring(1);
                     const targetElement = document.getElementById(targetId);
 
                     if (targetElement) {
                         e.preventDefault();
-                        stopScrolling(); 
+                        stopScrolling();
                         window.scrollTo({
-                            top: targetElement.offsetTop, 
+                            top: targetElement.offsetTop,
                             behavior: 'smooth'
                         });
 
-                        if (isMobile() && dropdownContainer.classList.contains('active')) {
+                        if (isMobile() && dropdownContainer && dropdownContainer.classList.contains('active')) {
                             setTimeout(() => {
                                 dropdownContainer.classList.remove('active');
                             }, 100);
@@ -820,97 +492,50 @@
                 });
             });
 
-            dropdownContainer.addEventListener('mouseenter', function() {
-                if (!isMobile()) {
-                    this.classList.add('active');
-                }
-            });
-            dropdownContainer.addEventListener('mouseleave', function() {
-                if (!isMobile()) {
-                    this.classList.remove('active');
-                }
-            });
-
-            window.addEventListener('resize', function() {
-                if (!isMobile() && dropdownContainer.classList.contains('active') && !dropdownContainer.matches(':hover')) {
-                    dropdownContainer.classList.remove('active');
-                }
-                if (isMobile() && dropdownContainer.matches(':hover')) {
-                    dropdownContainer.classList.remove('active');
-                }
-            });
-
-            /* --- Lógica do Banner e Modal de "Instalar App" --- */
-            const installBanner = document.getElementById('installAppBanner');
-            const closeBannerBtn = document.getElementById('closeBanner');
-            const installLinkFooter = document.getElementById('installAppFooterLink');
-            const installModal = document.getElementById('installAppModal');
-            const closeModalBtn = document.getElementById('closeModal');
-            const installBannerButton = document.querySelector('#installAppBanner button');
-
-            closeBannerBtn.addEventListener('click', function() {
-                installBanner.style.display = 'none';
-            });
-
-            installLinkFooter.addEventListener('click', function(e) {
-                e.preventDefault();
-                installModal.style.display = 'block';
-            });
-
-            if (installBannerButton) {
-                installBannerButton.addEventListener('click', function() {
-                    installModal.style.display = 'block';
-                    installBanner.style.display = 'none';
+            if (dropdownContainer) {
+                dropdownContainer.addEventListener('mouseenter', function() {
+                    if (!isMobile()) {
+                        this.classList.add('active');
+                    }
+                });
+                dropdownContainer.addEventListener('mouseleave', function() {
+                    if (!isMobile()) {
+                        this.classList.remove('active');
+                    }
                 });
             }
 
-            closeModalBtn.addEventListener('click', function() {
-                installModal.style.display = 'none';
-            });
-
-            window.addEventListener('click', function(event) {
-                if (event.target == installModal) {
-                    installModal.style.display = 'none';
-                }
-            });
-
-            /* --- Lógica: Ocultar/Mostrar Formulário de Assinatura --- */
-            const toggleFormBtn = document.getElementById('toggleFormBtn');
-            const formContainer = document.getElementById('formContainer');
-
-            if (toggleFormBtn && formContainer) {
-                toggleFormBtn.addEventListener('click', function() {
-                    if (formContainer.style.display === 'none' || formContainer.style.display === '') {
-                        formContainer.style.display = 'block';
-                        toggleFormBtn.textContent = 'Ocultar Formulário';
-                        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    } else {
-                        formContainer.style.display = 'none';
-                        toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura';
+            window.addEventListener('resize', function() {
+                if (dropdownContainer) {
+                    if (!isMobile() && dropdownContainer.classList.contains('active') && !dropdownContainer.matches(':hover')) {
+                        dropdownContainer.classList.remove('active');
                     }
-                 });
+                    if (isMobile() && dropdownContainer.matches(':hover')) {
+                        dropdownContainer.classList.remove('active');
+                    }
+                });
             }
 
-            /* --- Código de Service Worker e PWA --- */
+            // Código de Service Worker e PWA (do seu código original)
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('/CodifyNews/service-worker.js')
                         .then(registration => {
                             console.log('ServiceWorker registered: ', registration);
                             if (installAppFooterLink) {
-                                installAppFooterLink.style.display = 'block'; 
+                                installAppFooterLink.style.display = 'block';
                             }
                         })
                         .catch(registrationError => {
                             console.log('ServiceWorker registration failed: ', registrationError);
                             if (installAppFooterLink) {
-                                installAppFooterLink.style.display = 'none'; 
+                                installAppFooterLink.style.display = 'none';
                             }
                         });
                 });
             } else {
                 if (installAppFooterLink) {
-                    installAppFooterLink.style.display = 'none'; 
+                    installAppFooterLink.style.display = 'none';
                 }
             }
 
@@ -919,7 +544,7 @@
                 e.preventDefault();
                 deferredPrompt = e;
                 if (installAppFooterLink) {
-                    installAppFooterLink.style.display = 'block'; 
+                    installAppFooterLink.style.display = 'block';
                 }
             });
 
@@ -931,7 +556,7 @@
                         console.log(`User response to the install prompt: ${outcome}`);
                         deferredPrompt = null;
                         if (installAppFooterLink) {
-                            installAppFooterLink.style.display = 'none'; 
+                            installAppFooterLink.style.display = 'none';
                         }
                     }
                 });
@@ -939,299 +564,291 @@
         }); // FIM DO DOMContentLoaded principal
     </script>
 </head>
-<body>
+<body class="p-4 sm:p-6 md:p-8 lg:p-10">
+    <!-- Contêiner principal para centralizar e limitar a largura do conteúdo em telas maiores -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg">
 
-<!-- ==========================================================================
-     Botões de Rolagem Fixos e Controle de Velocidade
-     ========================================================================== -->
-<div id="speedControlContainer" class="fixed bottom-[350px] right-6 z-50 bg-gray-700 p-2 rounded-lg text-white shadow-lg flex flex-col items-center">
-    <label for="scrollSpeed" class="text-xs mb-1">Velocidade de Rolagem:</label>
-    <input type="range" id="scrollSpeed" min="5" max="500" value="20" class="w-24"> 
-    <span id="currentSpeedValue" class="text-xs mt-1">20 ms</span>
-</div>
-
-<div class="fixed bottom-32 right-6 z-50"> <!-- Ajustado para bottom-32 -->
-    <button id="scrollDownBtn"
-            class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300"
-            aria-label="Iniciar rolagem para leitura">
-      <i id="scrollDownIcon" class="fas fa-play text-lg"></i> <!-- Ícone de play inicial -->
-    </button>
-</div>
-
-<div class="fixed bottom-6 right-6 z-50">
-    <button id="backToTopBtn"
-            class="p-3 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition duration-300 hidden"
-            aria-label="Voltar ao topo">
-      <i class="fas fa-chevron-up text-lg"></i>
-    </button>
-</div>
-
-<!-- ==========================================================================
-     Banner de Instalação do App (PWA)
-     ========================================================================== -->
-<div id="installAppBanner">
-        <p>Gostaria de instalar o <strong>CodifyNews</strong> em seu celular para não perder nenhuma notícia? <br> Clique em "Instalar App" para ver as instruções!</p>
-        <button>Instalar App</button>
-        <button id="closeBanner">X</button>
-    </div>
-
-<!-- ==========================================================================
-     Modal de Instruções de Instalação do App
-     ========================================================================== -->
-    <div id="installAppModal">
-        <div class="modal-content">
-            <span id="closeModal">×</span>
-            <h3 class="text-blue-700 text-center text-2xl mb-5">Como Instalar o CodifyNews como App</h3>
-            <p>Para adicionar o <strong>CodifyNews</strong> à sua tela inicial e acessá-lo como um aplicativo, siga os passos abaixo:</p>
-            <ol>
-                <li>No seu navegador <strong>Google Chrome (Android)</strong>: Toque no ícone de <strong>3 pontos</strong> no canto superior direito e depois em <strong>"Adicionar à tela inicial"</strong>.</li>
-                <li>No seu navegador <strong>Safari (iOS/iPhone)</strong>: Toque no ícone de <strong>Compartilhar</strong> (<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Share_icon_ios.svg/120px-Share_icon_ios.svg.png" alt="Ícone de Compartilhar iOS" class="inline-block h-4 w-4 align-middle mx-1">) na barra inferior e depois em <strong>"Adicionar à Tela de Início"</strong>.</li>
-                <li>Em outros navegadores, procure por opções como <strong>"Adicionar à Tela Inicial"</strong> ou <strong>"Instalar aplicativo"</strong> no menu principal.</li>
-                <li>Confirme a adição. Pronto! O ícone do CodifyNews aparecerá na sua tela inicial.</li>
-            </ol>
-            <p class="text-sm text-gray-600 text-center">(Os passos podem variar ligeiramente dependendo do seu navegador e sistema operacional.)</p>
-            <p class="text-sm text-blue-700 text-center font-bold">Recomendamos usar Google Chrome no Android e Safari no iOS para a melhor experiência de instalação.</p>
-        </div>
-    </div>
-
-    <header>
-        <img src="img/logo_codi.png" alt="Codify World">
-        <nav>
-            <div class="dropdown">
-                <a href="#" class="dropbtn">CodifyNews</a>
-                <div class="dropdown-content">
-                    <a href="#relatorio-atual">Relatório Atual</a>
-                    <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                    <a href="#parceiros">Parceiros</a>
-                    <a href="#assinatura">Assinatura</a> 
-                    <a href="#sobre-nos">Sobre nós</a>
-                    <a href="#contato">Contato</a>
-                    <a href="#redes-sociais">Redes Sociais</a>
-                    <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                </div>
-            </div>
-            <a href="#parceiros" class="desktop-only">Parceiros</a>
-            <a href="#assinatura" class="desktop-only">Assinatura</a> 
-            <a href="#sobre-nos" class="desktop-only">Sobre nós</a>
-            <a href="#contato" class="desktop-only">Contato</a>
-            <a href="#redes-sociais" class="desktop-only">Redes Sociais</a>
-        </nav>
-    </header>
-    
-   <!-- ==========================================================================
-        Seção: Relatório Atual (Conteúdo Principal)
-        ========================================================================== -->
-   <div class="container">
-    <h3 class="text-3xl sm:text-4xl text-blue-800 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
-        <br>   Tecnologia | Economia <br>  Tech Labs Software</h3>
-     
-  <h3 id="relatorio-atual"></h3>
-       <div  style="display: flex; justify-content: center; align-items: center; height: 5vh;">
-      <h3 <strong> </strong> </h3>
-     </div>
-       
-     <br>
-       <!-- Checkbox para ocultar controles de rolagem automática --> 
-      <div class="flex items-center justify-end mb-4 mr-4">
-     <input type="checkbox" id="hideScrollControls" class="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-400 rounded">
-     <label for="hideScrollControls" class="text-sm text-gray-600 select-none">Ocultar rolagem automática</label>
-     </div>
-   
-
-    <!-- Conteúdo do Relatório -->
-   
-
-        <!-- Título Principal do Relatório -->
+        <!-- Título Principal do Relatório (mantido fora das seções colapsáveis) -->
         <div class="flex justify-center items-center mb-6">
-            <h1 class="text-3xl sm:text-4xl text-blue-800 text-center"><strong>Relatório Técnico - Cardano</strong></h1>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-blue-800 text-center">Relatório Técnico - Cardano</h1>
         </div>
 
-        <!-- Introdução -->
+        <!-- Introdução (mantida fora das seções colapsáveis) -->
         <p class="mb-4 text-gray-700 leading-relaxed">
             O Cardano é uma plataforma blockchain de terceira geração que se destaca por sua abordagem científica e pesquisa acadêmica rigorosa em seu desenvolvimento. Lançada em 27 de setembro de 2017, o projeto desenvolveu o seu token chamado Ada. Diferente de muitas criptomoedas que surgiram rapidamente, Cardano foi construída com um foco em escalabilidade, interoperabilidade e sustentabilidade, buscando oferecer uma infraestrutura mais robusta e segura para aplicações descentralizadas (dApps) e contratos inteligentes.
         </p>
 
-        <h2 class="text-2xl font-bold text-blue-700 mt-8 mb-4">1. Função no Mercado</h2>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            No mercado de criptoativos, Cardano se posiciona como uma plataforma para a construção de um futuro descentralizado. Seu objetivo principal é fornecer uma infraestrutura que possa ser usada por empresas, governos e indivíduos para criar soluções blockchain seguras, escaláveis e eficientes. Ela compete com outras grandes blockchains como Ethereum, mas com uma ênfase particular na segurança formalmente verificada e na pesquisa por pares.
-        </p>
+        <!-- Seção 1: Função no Mercado -->
+        <details class="collapsible-section">
+            <summary class="collapsible-header">
+                <h2 class="section-title">1. Função no Mercado</h2>
+                <button class="toggle-button">
+                    <span class="open-text">Abrir</span>
+                    <i class="fas fa-chevron-down open-icon"></i>
+                    <span class="close-text hidden">Fechar</span>
+                    <i class="fas fa-times close-icon hidden"></i>
+                </button>
+            </summary>
+            <div class="collapsible-content">
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    No mercado de criptoativos, Cardano se posiciona como uma plataforma para a construção de um futuro descentralizado. Seu objetivo principal é fornecer uma infraestrutura que possa ser usada por empresas, governos e indivíduos para criar soluções blockchain seguras, escaláveis e eficientes. Ela compete com outras grandes blockchains como Ethereum, mas com uma ênfase particular na segurança formalmente verificada e na pesquisa por pares.
+                </p>
+            </div>
+        </details>
 
-        <h2 class="text-2xl font-bold text-blue-700 mt-8 mb-4">2. Utilidade em Diversos Setores</h2>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Cardano apresenta um potencial transformador em uma ampla gama de setores devido à sua arquitetura flexível e segura.
-        </p>
+        <!-- Seção 2: Utilidade em Diversos Setores -->
+        <details class="collapsible-section">
+            <summary class="collapsible-header">
+                <h2 class="section-title">2. Utilidade em Diversos Setores</h2>
+                <button class="toggle-button">
+                    <span class="open-text">Abrir</span>
+                    <i class="fas fa-chevron-down open-icon"></i>
+                    <span class="close-text hidden">Fechar</span>
+                    <i class="fas fa-times close-icon hidden"></i>
+                </button>
+            </summary>
+            <div class="collapsible-content">
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Cardano apresenta um potencial transformador em uma ampla gama de setores devido à sua arquitetura flexível e segura.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Educação</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Cardano pode revolucionar a educação através da verificação de credenciais e certificados digitais, tornando-os imutáveis e facilmente verificáveis. Isso combate a fraude e garante a autenticidade de diplomas. Além disso, pode facilitar o rastreamento de progresso acadêmico e a criação de plataformas de aprendizado descentralizadas onde os criadores de conteúdo são recompensados diretamente.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Educação</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Cardano pode revolucionar a educação através da verificação de credenciais e certificados digitais, tornando-os imutáveis e facilmente verificáveis. Isso combate a fraude e garante a autenticidade de diplomas. Além disso, pode facilitar o rastreamento de progresso acadêmico e a criação de plataformas de aprendizado descentralizadas onde os criadores de conteúdo são recompensados diretamente.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Governo</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Para governos, Cardano oferece a possibilidade de melhorar a transparência e a eficiência de serviços públicos. Isso inclui o gerenciamento seguro de registros civis, sistemas de votação eletrônica mais confiáveis, gerenciamento de identidade digital e até mesmo a distribuição de benefícios sociais de forma mais auditável e justa.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Governo</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Para governos, Cardano oferece a possibilidade de melhorar a transparência e a eficiência de serviços públicos. Isso inclui o gerenciamento seguro de registros civis, sistemas de votação eletrônica mais confiáveis, gerenciamento de identidade digital e até mesmo a distribuição de benefícios sociais de forma mais auditável e justa.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Finanças Descentralizadas (DeFi)</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            No setor DeFi, Cardano permite a criação de uma variedade de serviços financeiros sem intermediários. Isso inclui empréstimos e tomadas de empréstimos, stablecoins, exchanges descentralizadas (DEXs) e plataformas de seguros, todos operando de forma mais segura e transparente graças à sua arquitetura robusta e taxas potencialmente mais baixas que outras blockchains.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Finanças Descentralizadas (DeFi)</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    No setor DeFi, Cardano permite a criação de uma variedade de serviços financeiros sem intermediários. Isso inclui empréstimos e tomadas de empréstimos, stablecoins, exchanges descentralizadas (DEXs) e plataformas de seguros, todos operando de forma mais segura e transparente graças à sua arquitetura robusta e taxas potencialmente mais baixas que outras blockchains.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Métodos de Pagamento</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Cardano pode otimizar os métodos de pagamento globais, oferecendo transações mais rápidas, seguras e com custos mais baixos do que os sistemas bancários tradicionais. Isso é particularmente útil para remessas internacionais e para facilitar o comércio entre países com infraestrutura financeira limitada.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Métodos de Pagamento</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Cardano pode otimizar os métodos de pagamento globais, oferecendo transações mais rápidas, seguras e com custos mais baixos do que os sistemas bancários tradicionais. Isso é particularmente útil para remessas internacionais e para facilitar o comércio entre países com infraestrutura financeira limitada.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Agricultura</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Na agricultura, a blockchain Cardano pode ser utilizada para rastrear a origem de produtos alimentícios, garantindo a qualidade e a autenticidade desde a fazenda até a mesa do consumidor. Isso ajuda a combater fraudes, melhora a segurança alimentar e permite que os consumidores tomem decisões de compra mais informadas.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Agricultura</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Na agricultura, a blockchain Cardano pode ser utilizada para rastrear a origem de produtos alimentícios, garantindo a qualidade e a autenticidade desde a fazenda até a mesa do consumidor. Isso ajuda a combater fraudes, melhora a segurança alimentar e permite que os consumidores tomem decisões de compra mais informadas.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Varejo</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            No varejo, Cardano pode impulsionar programas de fidelidade baseados em blockchain, sistemas de gerenciamento de inventário mais eficientes e a tokenização de ativos para rastreamento de produtos. Isso pode levar a cadeias de suprimentos mais transparentes e eficientes.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Varejo</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    No varejo, Cardano pode impulsionar programas de fidelidade baseados em blockchain, sistemas de gerenciamento de inventário mais eficientes e a tokenização de ativos para rastreamento de produtos. Isso pode levar a cadeias de suprimentos mais transparentes e eficientes.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Gestão de Cadeia de Abastecimento</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            A rastreabilidade e a transparência são as maiores contribuições de Cardano para a gestão da cadeia de abastecimento. Ela permite que todas as etapas do processo, desde a matéria-prima até o produto final, sejam registradas em um ledger imutável, o que é crucial para garantir a autenticidade, combater a falsificação e otimizar a logística.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Gestão de Cadeia de Abastecimento</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    A rastreabilidade e a transparência são as maiores contribuições de Cardano para a gestão da cadeia de abastecimento. Ela permite que todas as etapas do processo, desde a matéria-prima até o produto final, sejam registradas em um ledger imutável, o que é crucial para garantir a autenticidade, combater a falsificação e otimizar a logística.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Programas Sociais</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Cardano pode ser usada para garantir a distribuição transparente e eficiente de fundos para programas sociais, evitando desvios e garantindo que os benefícios cheguem aos beneficiários corretos. Isso também permite que os doadores rastreiem o impacto de suas contribuições.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Programas Sociais</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Cardano pode ser usada para garantir a distribuição transparente e eficiente de fundos para programas sociais, evitando desvios e garantindo que os benefícios cheguem aos beneficiários corretos. Isso também permite que os doadores rastreiem o impacto de suas contribuições.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Armazenamento de Dados</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Com a evolução da sua arquitetura, Cardano pode facilitar o armazenamento descentralizado e seguro de dados, garantindo a privacidade e a integridade das informações. Isso é crucial para aplicações que lidam com dados sensíveis, como registros médicos ou informações pessoais.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Armazenamento de Dados</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Com a evolução da sua arquitetura, Cardano pode facilitar o armazenamento descentralizado e seguro de dados, garantindo a privacidade e a integridade das informações. Isso é crucial para aplicações que lidam com dados sensíveis, como registros médicos ou informações pessoais.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Ativos de Tokenização</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            A plataforma Cardano permite a tokenização de uma vasta gama de ativos, desde imóveis e obras de arte até ações de empresas e direitos autorais. Isso democratiza o acesso a investimentos, facilita a liquidez de ativos ilíquidos e abre novas avenidas para a captação de recursos.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Ativos de Tokenização</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    A plataforma Cardano permite a tokenização de uma vasta gama de ativos, desde imóveis e obras de arte até ações de empresas e direitos autorais. Isso democratiza o acesso a investimentos, facilita a liquidez de ativos ilíquidos e abre novas avenidas para a captação de recursos.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Sistema de Votação</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Sistemas de votação baseados em Cardano podem oferecer maior segurança, transparência e auditabilidade em processos eleitorais. Isso pode restaurar a confiança pública em eleições, combatendo a fraude e garantindo que cada voto seja contabilizado de forma justa.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Sistema de Votação</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Sistemas de votação baseados em Cardano podem oferecer maior segurança, transparência e auditabilidade em processos eleitorais. Isso pode restaurar a confiança pública em eleições, combatendo a fraude e garantindo que cada voto seja contabilizado de forma justa.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Indústria da Música</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Na indústria da música, Cardano pode empoderar artistas ao permitir a distribuição direta de royalties e direitos autorais através de contratos inteligentes. Isso elimina intermediários, garantindo que os artistas recebam uma parcela maior de suas receitas e tenham maior controle sobre sua propriedade intelectual.
-        </p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Indústria da Música</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Na indústria da música, Cardano pode empoderar artistas ao permitir a distribuição direta de royalties e direitos autorais através de contratos inteligentes. Isso elimina intermediários, garantindo que os artistas recebam uma parcela maior de suas receitas e tenham maior control sobre sua propriedade intelectual.
+                </p>
+            </div>
+        </details>
 
-        <h2 class="text-2xl font-bold text-blue-700 mt-8 mb-4">3. Última Atualização da Cardano: Vasil</h2>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            A última grande atualização da rede principal de Cardano foi a implantação do upgrade de Vasil em setembro de 2022. Embora não seja a mais recente em termos de pequenos ajustes e melhorias contínuas, Vasil representou um marco significativo ao introduzir importantes otimizações no desempenho da rede. As principais melhorias incluíram:
-        </p>
-        <ul class="list-none pl-0 mb-4">
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Pipelining de Difusão (Diffusion Pipelining):</strong> Isso aprimorou o processo de propagação de blocos na rede, reduzindo a latência e permitindo um throughput maior de transações.</li>
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Melhorias no Plutus (Plutus V2):</strong> O Plutus, a linguagem de contrato inteligente de Cardano, recebeu atualizações que aprimoraram sua eficiência, reduzindo os custos de execução de scripts e aumentando a capacidade de processamento de contratos inteligentes complexos. Isso abriu caminho para dApps mais sofisticados e com melhor desempenho.</li>
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Novas Primitivas de Criptografia:</strong> A Vasil introduziu novas primitivas criptográficas que facilitam a criação de funcionalidades mais avançadas, como sidechains e outras soluções de escalonamento.</li>
-        </ul>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Essas otimizações visaram tornar a rede mais escalável e eficiente, pavimentando o caminho para um maior número de usuários e aplicações descentralizadas.
-        </p>
+        <!-- Seção 3: Última Atualização da Cardano: Vasil -->
+        <details class="collapsible-section">
+            <summary class="collapsible-header">
+                <h2 class="section-title">3. Última Atualização da Cardano: Vasil</h2>
+                <button class="toggle-button">
+                    <span class="open-text">Abrir</span>
+                    <i class="fas fa-chevron-down open-icon"></i>
+                    <span class="close-text hidden">Fechar</span>
+                    <i class="fas fa-times close-icon hidden"></i>
+                </button>
+            </summary>
+            <div class="collapsible-content">
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    A última grande atualização da rede principal de Cardano foi a implantação do upgrade de Vasil em setembro de 2022. Embora não seja a mais recente em termos de pequenos ajustes e melhorias contínuas, Vasil representou um marco significativo ao introduzir importantes otimizações no desempenho da rede. As principais melhorias incluíram:
+                </p>
+                <ul class="list-none pl-0 mb-4">
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Pipelining de Difusão (Diffusion Pipelining):</strong> Isso aprimorou o processo de propagação de blocos na rede, reduzindo a latência e permitindo um throughput maior de transações.</li>
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Melhorias no Plutus (Plutus V2):</strong> O Plutus, a linguagem de contrato inteligente de Cardano, recebeu atualizações que aprimoraram sua eficiência, reduzindo os custos de execução de scripts e aumentando a capacidade de processamento de contratos inteligentes complexos. Isso abriu caminho para dApps mais sofisticados e com melhor desempenho.</li>
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Novas Primitivas de Criptografia:</strong> A Vasil introduziu novas primitivas criptográficas que facilitam a criação de funcionalidades mais avançadas, como sidechains e outras soluções de escalonamento.</li>
+                </ul>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Essas otimizações visaram tornar a rede mais escalável e eficiente, pavimentando o caminho para um maior número de usuários e aplicações descentralizadas.
+                </p>
+            </div>
+        </details>
 
-        <h2 class="text-2xl font-bold text-blue-700 mt-8 mb-4">4. Ouroboros: O Coração de Cardano</h2>
+        <!-- Seção 4: Ouroboros: O Coração de Cardano -->
+        <details class="collapsible-section">
+            <summary class="collapsible-header">
+                <h2 class="section-title">4. Ouroboros: O Coração de Cardano</h2>
+                <button class="toggle-button">
+                    <span class="open-text">Abrir</span>
+                    <i class="fas fa-chevron-down open-icon"></i>
+                    <span class="close-text hidden">Fechar</span>
+                    <i class="fas fa-times close-icon hidden"></i>
+                </button>
+            </summary>
+            <div class="collapsible-content">
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">O que é o Ouroboros?</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Ouroboros é o nome da família de protocolos de consenso Proof-of-Stake (PoS) utilizados pela Cardano. É o motor que permite que a blockchain funcione de forma segura, descentralizada e eficiente.
+                </p>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Ouroboros é o primeiro protocolo PoS baseado em pesquisa de pares e segurança formalmente verificada. Ele foi projetado para ser tão seguro quanto o Proof-of-Work (PoW) do Bitcoin, mas sem o enorme consumo de energia. Em vez de mineradores competindo para resolver problemas complexos e consumir energia, no Ouroboros, os validadores (stake pools) são selecionados para criar novos blocos com base na quantidade de ADA (a criptomoeda nativa de Cardano) que eles "apostam" ou delegam.
+                </p>
 
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">O que é o Ouroboros?</h3>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Para que serve o Ouroboros?</h3>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    O Ouroboros serve para as seguintes funções críticas na rede Cardano:
+                </p>
+                <ul class="list-none pl-0 mb-4">
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Validação de Transações:</strong> Ele garante que as transações na rede sejam válidas e que os novos blocos sejam adicionados à blockchain de forma correta.</li>
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Segurança da Rede:</strong> O protocolo impede ataques maliciosos à rede, como o "gasto duplo", ao garantir que a maioria dos participantes honestos tenha mais participação (stake) na rede.</li>
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Consenso:</strong> Ele permite que todos os participantes da rede cheguem a um acordo sobre o estado verdadeiro da blockchain.</li>
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Descentralização:</strong> Ao dividir o tempo em "épocas" e "slots" e selecionar aleatoriamente os líderes de slot com base no stake, o Ouroboros promove a descentralização, impedindo que uma única entidade controle a rede.</li>
+                    <li class="mb-2 text-gray-700 leading-relaxed"><strong>Eficiência Energética:</strong> Ao contrário do PoW, que requer enormes quantidades de energia, o PoS do Ouroboros é significativamente mais eficiente, tornando Cardano uma blockchain ambientalmente mais sustentável.</li>
+                </ul>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Existem diferentes versões do Ouroboros (BFT, Praos, Genesis, Chronos), cada uma com melhorias e otimizações, mostrando a evolução contínua do protocolo para atender às crescentes demandas da rede.
+                </p>
+            </div>
+        </details>
+
+        <!-- Seção 5: Resumo: Potencial de Crescimento da Cardano -->
+        <details class="collapsible-section">
+            <summary class="collapsible-header">
+                <h2 class="section-title">5. Resumo: Potencial de Crescimento da Cardano</h2>
+                <button class="toggle-button">
+                    <span class="open-text">Abrir</span>
+                    <i class="fas fa-chevron-down open-icon"></i>
+                    <span class="close-text hidden">Fechar</span>
+                    <i class="fas fa-times close-icon hidden"></i>
+                </button>
+            </summary>
+            <div class="collapsible-content">
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    O potencial de crescimento de Cardano é vasto e multifacetado. Sua abordagem científica e seu foco na segurança, escalabilidade e interoperabilidade a posicionam como uma concorrente séria no cenário blockchain. A capacidade de Cardano de atender às necessidades de diversos setores – desde finanças e governos até educação e agricultura – demonstra sua flexibilidade e a amplitude de suas possíveis aplicações.
+                </p>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    A constante evolução de seu protocolo Ouroboros, que garante a segurança e a eficiência energética da rede, juntamente com atualizações significativas como a Vasil, que aprimoram sua capacidade de processamento de contratos inteligentes e transações, solidificam sua base tecnológica.
+                </p>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Com uma comunidade ativa e um roteiro claro que inclui futuras implementações de soluções de escalabilidade de segunda camada (como Hydra) e melhorias na governança on-chain, Cardano está bem posicionada para atrair um volume crescente de desenvolvedores e usuários. Seu compromisso com a pesquisa e o desenvolvimento sustentável, em um ambiente regulatório cada vez mais complexo, a torna uma plataforma robusta e resiliente, com um futuro promissor para se tornar uma infraestrutura global para a próxima geração da internet descentralizada.
+                </p>
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Considerando esses aspectos, o potencial de Cardano para impactar significativamente a economia digital e fornecer soluções para desafios do mundo real é enorme, prometendo um crescimento contínuo e a consolidação de sua posição como uma das principais blockchains do mercado.
+                </p>
+            </div>
+        </details>
+
+    </div>
+
+    <!-- Nova Seção: Galeria de Fotos -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="galeria-fotos" class="text-2xl font-bold text-blue-700 mt-8 mb-4">Galeria de Fotos</h2>
         <p class="mb-4 text-gray-700 leading-relaxed">
-            Ouroboros é o nome da família de protocolos de consenso Proof-of-Stake (PoS) utilizados pela Cardano. É o motor que permite que a blockchain funcione de forma segura, descentralizada e eficiente.
+            Explore nossa coleção de imagens relacionadas à Cardano e ao universo blockchain.
         </p>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Ouroboros é o primeiro protocolo PoS baseado em pesquisa de pares e segurança formalmente verificada. Ele foi projetado para ser tão seguro quanto o Proof-of-Work (PoW) do Bitcoin, mas sem o enorme consumo de energia. Em vez de mineradores competindo para resolver problemas complexos e consumir energia, no Ouroboros, os validadores (stake pools) são selecionados para criar novos blocos com base na quantidade de ADA (a criptomoeda nativa de Cardano) que eles "apostam" ou delegam.
-        </p>
-
-        <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Para que serve o Ouroboros?</h3>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            O Ouroboros serve para as seguintes funções críticas na rede Cardano:
-        </p>
-        <ul class="list-none pl-0 mb-4">
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Validação de Transações:</strong> Ele garante que as transações na rede sejam válidas e que os novos blocos sejam adicionados à blockchain de forma correta.</li>
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Segurança da Rede:</strong> O protocolo impede ataques maliciosos à rede, como o "gasto duplo", ao garantir que a maioria dos participantes honestos tenha mais participação (stake) na rede.</li>
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Consenso:</strong> Ele permite que todos os participantes da rede cheguem a um acordo sobre o estado verdadeiro da blockchain.</li>
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Descentralização:</strong> Ao dividir o tempo em "épocas" e "slots" e selecionar aleatoriamente os líderes de slot com base no stake, o Ouroboros promove a descentralização, impedindo que uma única entidade controle a rede.</li>
-            <li class="mb-2 text-gray-700 leading-relaxed"><strong>Eficiência Energética:</strong> Ao contrário do PoW, que requer enormes quantidades de energia, o PoS do Ouroboros é significativamente mais eficiente, tornando Cardano uma blockchain ambientalmente mais sustentável.</li>
-        </ul>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Existem diferentes versões do Ouroboros (BFT, Praos, Genesis, Chronos), cada uma com melhorias e otimizações, mostrando a evolução contínua do protocolo para atender às crescentes demandas da rede.
-        </p>
-
-        <h2 class="text-2xl font-bold text-blue-700 mt-8 mb-4">5. Resumo: Potencial de Crescimento da Cardano</h2>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            O potencial de crescimento de Cardano é vasto e multifacetado. Sua abordagem científica e seu foco na segurança, escalabilidade e interoperabilidade a posicionam como uma concorrente séria no cenário blockchain. A capacidade de Cardano de atender às necessidades de diversos setores – desde finanças e governos até educação e agricultura – demonstra sua flexibilidade e a amplitude de suas possíveis aplicações.
-        </p>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            A constante evolução de seu protocolo Ouroboros, que garante a segurança e a eficiência energética da rede, juntamente com atualizações significativas como a Vasil, que aprimoram sua capacidade de processamento de contratos inteligentes e transações, solidificam sua base tecnológica.
-        </p>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Com uma comunidade ativa e um roteiro claro que inclui futuras implementações de soluções de escalabilidade de segunda camada (como Hydra) e melhorias na governança on-chain, Cardano está bem posicionada para atrair um volume crescente de desenvolvedores e usuários. Seu compromisso com a pesquisa e o desenvolvimento sustentável, em um ambiente regulatório cada vez mais complexo, a torna uma plataforma robusta e resiliente, com um futuro promissor para se tornar uma infraestrutura global para a próxima geração da internet descentralizada.
-        </p>
-        <p class="mb-4 text-gray-700 leading-relaxed">
-            Considerando esses aspectos, o potencial de Cardano para impactar significativamente a economia digital e fornecer soluções para desafios do mundo real é enorme, prometendo um crescimento contínuo e a consolidação de sua posição como uma das principais blockchains do mercado.
-           </p>
-         </div>
-    <div class="p-4 bg-white">
-        
-  <a href="img/cardano.png" target="_blank">
-  <img src="img/cardano.png" alt="Cardano"
-    class="w-full max-w-4xl mx-auto h-auto rounded shadow cursor-zoom-in" />
-</a>
-
-</div>
-        
-
-   
-
-<!-- ==========================================================================
-     Seção: Assinatura do Relatório e Links Adicionais
-     ========================================================================== -->
-    <div class="container">
-    <div id="reportEndMarker" class="signature">
-    <p><em><strong>Atenciosamente,</strong><br>
-    Thiago Gama<br>
-    Consultor em Crypto Moedas<br>
-    Blockchain Partner<br> 
-    Codify News | Tech Labs</em></p>
-    <p><em>Nota: Este relatório é apenas informativo são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
-    <a href="https://linkedin.com/in/thiagojgama" target="_blank" aria-label="LinkedIn" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105">
-    <i class="fab fa-linkedin text-current text-xl mr-2"></i>
-    <span>LinkedIn</span>
-  </a>
-    
-    <br>
-    <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
-   <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105">
-    <i class="fab fa-whatsapp text-current text-xl mr-2"></i>
-    <span>Network News no WhatsApp</span>
-  </a>
-  </div>
-</div>
-
-<!-- Separador principal entre seções -->
-<hr class="major-separator">
-
-<!-- ==========================================================================
-     Navegação Inferior de Seções
-     ========================================================================== -->
-    <div class="section-separator-nav">
+        <div class="p-4 flex justify-center">
+            <a href="img/cardano.png" target="_blank">
+                <img src="https://placehold.co/600x400/E0E7FF/1D4ED8?text=Imagem+Cardano" alt="Cardano"
+                    class="w-full max-w-xl h-auto rounded-lg shadow-md cursor-zoom-in"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E7FF/1D4ED8?text=Imagem+Cardano+Indisponível';" />
+            </a>
+        </div>
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
             <a href="#parceiros">Parceiros</a>
             <a href="#assinatura">Assinatura</a>
-            <a href="#sobre-nos">Sobre nós</a>
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
         </div>
+    </div>
 
-    <!-- ==========================================================================
-         Seção: Relatórios Arquivados
-         ========================================================================== -->
-    <div class="container content-section">
-        <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
-        <h2 class="subtitle"><strong>Acesse Documentos Técnicos Passados</strong></h2>
+
+    <!-- Seção: Assinatura do Relatório e Links Adicionais -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <div id="reportEndMarker" class="signature">
+            <p><em><strong>Atenciosamente,</strong><br>
+            Thiago Gama<br>
+            Consultor em Crypto Moedas<br>
+            Blockchain Partner<br>
+            Codify News | Tech Labs</em></p>
+            <p><em>Nota: Este relatório é apenas informativo são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
+            <a href="https://linkedin.com/in/thiagojgama" target="_blank" aria-label="LinkedIn" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105">
+                <i class="fab fa-linkedin text-current text-xl mr-2"></i>
+                <span>LinkedIn</span>
+            </a>
+            <br>
+            <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
+            <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105">
+                <i class="fab fa-whatsapp text-current text-xl mr-2"></i>
+                <span>Network News no WhatsApp</span>
+            </a>
+        </div>
+        <div class="section-separator-nav">
+            <a href="#relatorio-atual">Relatório Atual</a>
+            <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+            <a href="#parceiros">Parceiros</a>
+            <a href="#assinatura">Assinatura</a>
+            <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
+            <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
+        </div>
+    </div>
+
+    <!-- Separador principal entre seções -->
+    <hr class="major-separator">
+
+    <!-- Navegação Inferior de Seções -->
+    <div class="section-separator-nav">
+        <a href="#relatorio-atual">Relatório Atual</a>
+        <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+        <a href="#parceiros">Parceiros</a>
+        <a href="#assinatura">Assinatura</a>
+        <a href="#sobre-nos">Sobre nós</a>
+        <a href="#contato">Contato</a>
+        <a href="#redes-sociais">Redes Sociais</a>
+        <a href="#fatos-nao-versoes">Fatos, não versões</a>
+        <a href="#galeria-fotos">Galeria de Fotos</a>
+    </div>
+
+    <!-- Outras Seções -->
+    <!-- Seção: Relatórios Arquivados -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="relatorios-arquivados" class="text-2xl font-bold text-blue-700 mt-8 mb-4">Relatórios Arquivados</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+            Acesse Documentos Técnicos Passados
+        </p>
         <p class="text-center mb-8">Os relatórios arquivados estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com nossa equipe através dos canais oficiais da Codify News.</p>
         <p class="mt-8 text-center"><strong>Entre em contato conosco para saber mais!</strong></p>
 
@@ -1242,16 +859,17 @@
             <a href="#sobre-nos">Sobre nós</a>
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
-           <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
         </div>
-    </div> 
-    
-    <!-- ==========================================================================
-         Seção: Parceiros
-         ========================================================================== -->
-    <div class="container content-section">
-        <h2 id="parceiros" class="section-heading">Parceiros</h2>
-        <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
+    </div>
+
+    <!-- Seção: Parceiros -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="parceiros" class="text-2xl font-bold text-blue-700 mt-8 mb-4">Parceiros</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+            Nossas Colaborações Estratégicas
+        </p>
         <p class="text-center">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
         <p class="text-center">Interessado em se tornar um parceiro da Codify News? Entre em contato conosco para explorar oportunidades de colaboração.</p>
 
@@ -1263,32 +881,32 @@
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
         </div>
     </div>
 
-    <!-- ==========================================================================
-         Seção: Assinatura (com Formulário Google Forms)
-         ========================================================================== -->
-    <div class="container content-section">
-        <h2 id="assinatura" class="section-heading">📊 Assinatura Premium |Codify |News</h2>
-        <h2 class="subtitle">Inscreva-se para Acessar Nossos Relatórios Profissionais!</h2>
+    <!-- Seção: Assinatura (com Formulário Google Forms) -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="assinatura" class="text-2xl font-bold text-blue-700 mt-8 mb-4">📊 Assinatura Premium |Codify |News</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+            Inscreva-se para Acessar Nossos Relatórios Profissionais!
+        </p>
         <p class="text-center mb-8">Clique no botão abaixo para preencher o formulário de assinatura e ter acesso a análises especializadas, visão estratégica e informações atualizadas sobre tecnologia, inovação, mercado financeiro, IA e tendências digitais.</p>
 
-        <button id="toggleFormBtn">Mostrar Formulário de Assinatura</button>
+        <button id="toggleFormBtn" class="block mx-auto px-6 py-3 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition-colors duration-300">Mostrar Formulário de Assinatura</button>
 
-        <div id="formContainer">
+        <div id="formContainer" class="hidden mt-5 p-4 border border-gray-200 rounded-md bg-gray-50">
             <div class="flex justify-center items-center">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" 
-                        frameborder="0" 
-                        marginheight="0" 
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true"
+                        frameborder="0"
+                        marginheight="0"
                         marginwidth="0"
-                        class="google-form-embed">Carregando…</iframe>
+                        class="w-full h-[600px] sm:h-[800px] border-0">Carregando…</iframe>
             </div>
 
             <p class="text-center mt-8 text-red-700 font-bold">⚠️ Relatórios Arquivados</p>
             <p class="text-center mb-8">Os relatórios arquivados (anteriores ao período da sua assinatura) estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com a equipe da Codify World por nossos canais oficiais.</p>
-    
-        </div> 
+        </div>
         <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
@@ -1297,16 +915,16 @@
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
         </div>
-    </div> 
+    </div>
 
-    <!-- ==========================================================================
-         Seção: Contato
-         ========================================================================== -->
-    <div class="container content-section">
-        <h2 id="contato" class="section-heading">Contato</h2>
-        <h2 class="subtitle text-center">Fale Conosco ou Deixe Seu Feedback!</h2>
-        
+    <!-- Seção: Contato -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="contato" class="text-2xl font-bold text-blue-700 mt-8 mb-4">Contato</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+            Fale Conosco ou Deixe Seu Feedback!
+        </p>
         <p class="text-center mt-8"><strong>Codify News</strong><br>
         Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
         Rio de Janeiro, Brasil</p>
@@ -1321,98 +939,93 @@
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#assinatura">Assinatura</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
         </div>
-    </div> 
-            
-    <!-- ==========================================================================
-         Seção: Redes Sociais
-         ========================================================================== -->
-    <div class="container content-section">
-        <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
-        <h2 class="subtitle text-center">Conecte-se Conosco</h2>
+    </div>
+
+    <!-- Seção: Redes Sociais -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="redes-sociais" class="text-2xl font-bold text-blue-700 mt-8 mb-4">Redes Sociais</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+            Conecte-se Conosco
+        </p>
         <p class="text-center">Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
-   <br>
-  <ul class="social-icons-list">
-<li>
-  <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram" class="block p-2 rounded-lg border border-pink-500 text-pink-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-pink-500 hover:text-white hover:scale-105">
-    <i class="fab fa-instagram text-current text-xl mr-2"></i>
-    <span>Instagram</span>
-  </a>
-</li>
-
-<li>
-  <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"
-     class="block p-2 rounded-lg border border-black bg-white text-black font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-black hover:text-white hover:scale-105">
-    <i class="fab fa-github text-current text-xl mr-2"></i>
-    <span>GitHub</span>
-  </a>
-</li>
-
-<li>
-  <a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105">
-    <i class="fas fa-globe text-current text-xl mr-2"></i>
-    <span>Site Oficial</span>
-  </a>
-</li>
-
-<li>
-  <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105">
-    <i class="fab fa-linkedin text-current text-xl mr-2"></i>
-    <span>LinkedIn</span>
-  </a>
-</li>
-
-<li>
-  <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105">
-    <i class="fab fa-tiktok text-current text-xl mr-2"></i>
-    <span>TikTok</span>
-  </a>
-</li>
-
-<li>
-  <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105">
-    <i class="fab fa-x-twitter text-current text-xl mr-2"></i>
-    <span>X (Twitter)</span>
-  </a>
-</li>
-
-<li>
-  <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube" class="block p-2 rounded-lg border border-red-600 text-red-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-red-600 hover:text-white hover:scale-105">
-    <i class="fab fa-youtube text-current text-xl mr-2"></i>
-    <span>YouTube</span>
-  </a>
-</li>
-
-<li>
-  <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105">
-    <i class="fab fa-whatsapp text-current text-xl mr-2"></i>
-    <span>Network News no WhatsApp</span>
-  </a>
-</li>
-  </ul>
-                
+        <br>
+        <ul class="social-icons-list">
+            <li>
+                <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram" class="block p-2 rounded-lg border border-pink-500 text-pink-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-pink-500 hover:text-white hover:scale-105">
+                    <i class="fab fa-instagram text-current text-xl mr-2"></i>
+                    <span>Instagram</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"
+                   class="block p-2 rounded-lg border border-black bg-white text-black font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-black hover:text-white hover:scale-105">
+                    <i class="fab fa-github text-current text-xl mr-2"></i>
+                    <span>GitHub</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105">
+                    <i class="fas fa-globe text-current text-xl mr-2"></i>
+                    <span>Site Oficial</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105">
+                    <i class="fab fa-linkedin text-current text-xl mr-2"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105">
+                    <i class="fab fa-tiktok text-current text-xl mr-2"></i>
+                    <span>TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105">
+                    <i class="fab fa-x-twitter text-current text-xl mr-2"></i>
+                    <span>X (Twitter)</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube" class="block p-2 rounded-lg border border-red-600 text-red-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-red-600 hover:text-white hover:scale-105">
+                    <i class="fab fa-youtube text-current text-xl mr-2"></i>
+                    <span>YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105">
+                    <i class="fab fa-whatsapp text-current text-xl mr-2"></i>
+                    <span>Network News no WhatsApp</span>
+                </a>
+            </li>
+        </ul>
         <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
             <a href="#parceiros">Parceiros</a>
-            <a href="#sobre-nos">Sobre nós</a>
             <a href="#assinatura">Assinatura</a>
             <a href="#contato">Contato</a>
+            <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos, não versões</a>
+            <a href="#sobre-nos">Sobre nós</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
         </div>
-            </div>
+    </div>
 
-<!-- ==========================================================================
-     Seção: Fatos! não versões
-     ========================================================================== -->
- <div class="container content-section">
-        <h2 id="fatos-nao-versoes" class="section-heading">Fatos! não versões</h2>
-        <h2 class="subtitle text-center"><strong>Visão</strong></h2>
-        <p class="text-center"><strong>Na Codify News</strong>, nosso compromisso é com os fatos. <br><p>Produzimos análises e relatórios técnicos multissetoriais com rigor, 
+    <!-- Seção: Fatos! não versões -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="fatos-nao-versoes" class="text-2xl font-bold text-blue-700 mt-8 mb-4">Fatos! não versões</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+            Visão
+        </p>
+        <p class="text-center"><strong>Na Codify News</strong>, nosso compromisso é com os fatos. <br><p>Produzimos análises e relatórios técnicos multissetoriais com rigor,
             ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar
             conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
 
-     <div class="section-separator-nav">
+        <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
             <a href="#parceiros">Parceiros</a>
@@ -1420,26 +1033,26 @@
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#sobre-nos">Sobre nós</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
+        </div>
     </div>
- </div>
-    
-<!-- ==========================================================================
-     Seção: Sobre Nós
-     ========================================================================== -->
-    <div class="container content-section">
-        <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
-        <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
-        <p class="text-center">Na Codify News  acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
+
+    <!-- Seção: Sobre Nós -->
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 md:p-10 rounded-lg shadow-lg mt-8">
+        <h2 id="sobre-nos" class="text-2xl font-bold text-blue-700 mt-8 mb-4">Sobre nós</h2>
+        <p class="mb-4 text-gray-700 leading-relaxed">
+            Nossa Missão e Visão
+        </p>
+        <p class="text-center">Na Codify News acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
         <p class="text-center">Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
         <p class="text-center">Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
         <br>
-        
-        <a>A Codify News faz parte da holding</a>
-         <p> <a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">www.codifyworld.com.br</a></p>
-        <a>Feita por gente que ama criar, resolver problemas e fazer parte da 
+        <p class="text-center">A Codify News faz parte da holding</p>
+        <p class="text-center"> <a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">www.codifyworld.com.br</a></p>
+        <p class="text-center">Feita por gente que ama criar, resolver problemas e fazer parte da
             jornada de quem quer crescer no mundo digital. Se você tem uma ideia,
-            um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</a>
-        
+            um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
+
         <div class="section-separator-nav">
             <a href="#relatorio-atual">Relatório Atual</a>
             <a href="#relatorios-arquivados">Relatórios Arquivados</a>
@@ -1448,13 +1061,12 @@
             <a href="#contato">Contato</a>
             <a href="#redes-sociais">Redes Sociais</a>
             <a href="#fatos-nao-versoes">Fatos! não versões</a>
+            <a href="#galeria-fotos">Galeria de Fotos</a>
         </div>
     </div>
-    
-<!-- ==========================================================================
-     Rodapé (Footer)
-     ========================================================================== -->
-    <footer>
+
+    <!-- Rodapé (Footer) -->
+    <footer class="text-center p-5 bg-blue-100 text-blue-800 text-sm border-t border-blue-200">
         <p>Codify News – Análises e relatórios técnicos multissetoriais, <br> com compromisso jornalístico isento e livre de viés ideológico.</p>
         <p class="mt-2">
             <a href="#" id="installAppFooterLink" class="text-blue-700 underline font-bold">Instalar CodifyNews como App</a>
@@ -1462,9 +1074,34 @@
         <p class="mt-2 text-xs">
             Conteúdo sob Licença <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank" class="text-blue-700 underline font-bold">CC BY-NC-ND 4.0</a>. Direitos preservados.<br> Não vender, Nao usar comercialmente sem autorização prescrita legal sob pena Jurídica.
         </p>
-        
         <p>© 2025 From Codify World | Tech Labs.</p>
         <p> <a href="https://www.codifyworld.com.br">www.codifyworld.com.br</a></p>
     </footer>
-  </body>           
+
+    <!-- Controles de rolagem automática -->
+    <div id="scrollControlsGroup" class="fixed bottom-4 right-4 z-50 flex flex-col items-end space-y-2">
+        <!-- Speed Control and Auto Scroll Button (controlled by checkbox) -->
+        <div id="scrollDownControlsGroup" class="flex flex-col items-end space-y-2">
+            <div id="speedControlContainer" class="bg-white p-2 rounded-lg shadow-md flex items-center space-x-2">
+                <label for="scrollSpeed" class="text-gray-700 text-sm">Velocidade:</label>
+                <input type="range" id="scrollSpeed" min="1" max="100" value="20" class="w-24">
+                <span id="currentSpeedValue" class="text-blue-600 text-sm">20 ms</span>
+            </div>
+            <button id="scrollDownBtn" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" aria-label="Iniciar rolagem para leitura">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+
+        <!-- Back to Top Button (always exposed when scrolled down) -->
+        <button id="backToTopBtn" class="bg-gray-700 text-white p-3 rounded-full shadow-lg hover:bg-gray-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50" aria-label="Voltar ao topo">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <!-- Checkbox to hide/show scrollDownControlsGroup -->
+        <div id="hideScrollControlsContainer" class="bg-white p-2 rounded-lg shadow-md flex items-center space-x-2">
+            <input type="checkbox" id="hideScrollControls" class="form-checkbox h-4 w-4 text-blue-600 rounded" checked>
+            <label for="hideScrollControls" class="text-gray-700 text-sm">Ocultar Rolagem Automática</label>
+        </div>
+    </div>
+</body>
 </html>

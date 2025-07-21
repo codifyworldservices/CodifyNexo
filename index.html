@@ -18,11 +18,12 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Codify World | Tech Labs">
 
-    <!-- Meta Tags para PWA (Progressive Web App) em iOS -->
-    <!-- Estas tags configuram o comportamento do seu site como um aplicativo em dispositivos iOS. -->
+    <!-- Meta Tags para PWA (Progressive Web App) em iOS e Android -->
+    <!-- Atualizado para incluir a meta tag moderna para mobile-web-app-capable -->
     <link rel="apple-touch-icon" href="img/logo_codi.png"> 
     <link rel="apple-touch-icon" sizes="180x180" href="img/logo_codi.png"> 
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Mantido para compatibilidade mais antiga com iOS -->
+    <meta name="mobile-web-app-capable" content="yes"> <!-- Novo: para compatibilidade moderna com Android e outros -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CodifyNews">
 
@@ -1177,7 +1178,7 @@
                 
                 if (dropdownBtn && dropdownContainer) {
                     dropdownBtn.addEventListener('click', function(event) {
-                        event.preventDefault(); // Previne o comportamento padrão do link.
+                        event.preventDefault(); // SEMPRE previne o comportamento padrão para o botão do dropdown
                         // Fecha outros dropdowns abertos (opcional, mas melhora a UX)
                         allDropdownContainers.forEach(otherDropdown => {
                             if (otherDropdown !== dropdownContainer && otherDropdown.classList.contains('active')) {
@@ -1217,6 +1218,12 @@
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     const href = this.getAttribute('href');
+                    // Se o href for apenas "#", previne o default e não faz mais nada de rolagem.
+                    if (href === '#') {
+                        e.preventDefault(); 
+                        return; 
+                    }
+
                     const targetId = href.substring(1); // Obtém o ID da seção.
                     const targetElement = document.getElementById(targetId);
 
@@ -1243,7 +1250,6 @@
                     } else {
                         console.warn(`Elemento alvo com ID "${targetId}" não encontrado. Permitindo o comportamento padrão do link.`);
                         // Se targetElement for nulo, NÃO chamamos preventDefault, permitindo que o navegador lide com isso.
-                        // Para href="#", isso geralmente significa rolar para o topo.
                     }
                 });
             });
@@ -1325,60 +1331,15 @@
                  });
             }
 
-            /* --- Código de Service Worker e PWA --- */
-            // Verifica se o Service Worker é suportado pelo navegador.
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    // Registra o Service Worker.
-                    navigator.serviceWorker.register('/CodifyNews/service-worker.js')
-                        .then(registration => {
-                            console.log('ServiceWorker registered: ', registration);
-                            // Mostra o link de instalação no rodapé se o SW for registrado com sucesso.
-                            if (installAppFooterLink) {
-                                installAppFooterLink.style.display = 'block'; 
-                            }
-                        })
-                        .catch(registrationError => {
-                            console.log('ServiceWorker registration failed: ', registrationError);
-                            // Esconde o link se o registro falhar.
-                            if (installAppFooterLink) {
-                                installAppFooterLink.style.display = 'none'; 
-                            }
-                        });
-                });
-            } else {
-                // Esconde o link se o Service Worker não for suportado.
-                if (installAppFooterLink) {
-                    installAppFooterLink.style.display = 'none'; 
-                }
-            }
-
-            let deferredPrompt; // Variável para armazenar o evento beforeinstallprompt.
-            // Captura o evento beforeinstallprompt para instalação do PWA.
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault(); // Previne o prompt padrão do navegador.
-                deferredPrompt = e; // Armazena o evento.
-                // Mostra o link de instalação no rodapé.
-                if (installAppFooterLink) {
-                    installAppFooterLink.style.display = 'block'; 
-                }
-            });
-
-            // Lógica para o botão de instalação do PWA.
+            // Removido: Código de Service Worker e PWA (pois o arquivo service-worker.js não está disponível)
+            // Se você deseja a funcionalidade PWA, precisará fornecer um service-worker.js válido.
+            // Apenas o link no rodapé para "Instalar como App" é mantido, mas sem a funcionalidade real de PWA.
+            const installAppFooterLink = document.getElementById('installAppFooterLink');
             if (installAppFooterLink) {
-                installAppFooterLink.addEventListener('click', async () => {
-                    if (deferredPrompt) {
-                        deferredPrompt.prompt(); // Mostra o prompt de instalação.
-                        const { outcome } = await deferredPrompt.userChoice; // Espera pela escolha do usuário.
-                        console.log(`User response to the install prompt: ${outcome}`);
-                        deferredPrompt = null; // Reseta o evento.
-                        // Esconde o link de instalação após a tentativa.
-                        if (installAppFooterLink) {
-                            installAppFooterLink.style.display = 'none'; 
-                        }
-                    }
-                });
+                // Esconde o link de instalação no rodapé, pois a funcionalidade PWA não está ativa.
+                installAppFooterLink.style.display = 'none'; 
             }
+
 
             // Lógica para os botões de abrir/fechar as seções colapsáveis.
             const collapsibleSections = document.querySelectorAll('.collapsible-section');
@@ -1631,7 +1592,7 @@
        <!-- Este checkbox permite ao usuário escolher se quer ver os controles de rolagem automática. -->
       <div class="flex items-center justify-end mb-4 mr-4">
      <input type="checkbox" id="hideScrollControls" class="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-400 rounded" checked>
-     <label for="hideScrollControls" class="text-sm text-gray-600 select-none">Ocultar rolagem automática</label>
+     <label for="hideScrollControls" class="text-sm text-gray-600 select-none">Ocultar rolagem automática</label> <!-- O 'for' corresponde ao 'id' do input, garantindo acessibilidade. -->
      </div>
    
 

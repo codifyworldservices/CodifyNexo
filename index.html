@@ -181,12 +181,12 @@
             background-color: #f9f9f9;
             min-width: min-content; /* Ajusta a largura ao conteúdo */
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1; /* Garante que o dropdown fique acima de outros elementos */
+            z-index: 9999; /* Garante que o dropdown fique acima de outros elementos */
             border-radius: 5px;
             top: 100%; /* Posiciona abaixo do botão */
             left: 50%;
             transform: translateX(-50%); /* Centraliza horizontalmente */
-            overflow: hidden;
+            overflow: hidden; /* Mantido para cantos arredondados */
         }
         /* Estilos para os links dentro do dropdown. */
         .dropdown-content a {
@@ -199,7 +199,7 @@
             border: none;
             box-shadow: none;
             margin: 0;
-            white-space: normal; /* Impede que o texto quebre linha */
+            white-space: normal; /* Permite que o texto quebre linha */
             border-bottom: 2px solid var(--primary-blue); /* Linha divisória mais grossa */
         }
         /* Remove a borda do último item do dropdown. */
@@ -237,7 +237,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra para profundidade */
             box-sizing: border-box; /* Adicionado para incluir padding na largura total */
             position: relative; /* Necessário para posicionar a marca d'água */
-            overflow: hidden; /* Garante que a marca d'água não vaze */
+            /* overflow: hidden; -- REMOVIDO para permitir que dropdowns se expandam */
         }
 
         /* Remove a marca d'água antiga de cada container */
@@ -527,11 +527,6 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             font-weight: 600;
-        }
-        /* Estilos de hover para o botão do formulário. */
-        #toggleFormBtn:hover {
-            background-color: var(--primary-blue);
-            transform: translateY(-2px); /* Pequeno efeito de elevação */
         }
         /* Estilos de active para o botão do formulário. */
         #toggleFormBtn:active {
@@ -1837,7 +1832,10 @@
             <p><em><strong>Atenciosamente,</strong><br>
             Thiago Gama<br>
             Consultor em Crypto Moedas<br>
-            Blockchain Partner<br> 
+            Blockchain Partner<br>
+                <br>
+            Weslei Romano
+            Engenheiro de Sotfware
             Codify News | Tech Labs</em></p>
             <p><em>Nota: Este relatório é apenas informativo são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
             <!-- Links para o perfil do LinkedIn e grupo do WhatsApp do autor. -->
@@ -1846,15 +1844,17 @@
                     <i class="fab fa-linkedin text-current text-lg mr-2"></i>
                     <span>LinkedIn</span>
                 </a>
-                <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="inline-flex p-1 rounded-lg border border-green-600 text-green-600 font-semibold no-underline items-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105 w-fit">
-                    <i class="fab fa-whatsapp text-current text-lg mr-2"></i>
-                    <span>Network News no WhatsApp</span>
-                </a>
-            </div>
+                
+          
             
             <br>
             <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
+        <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="inline-flex p-1 rounded-lg border border-green-600 text-green-600 font-semibold no-underline items-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105 w-fit">
+                    <i class="fab fa-whatsapp text-current text-lg mr-2"></i>
+                    <span>Network News no WhatsApp</span>
+                </a>
         </div>
+    </div>  
     </div>
 
     <!-- ==========================================================================

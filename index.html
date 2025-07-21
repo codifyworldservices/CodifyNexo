@@ -28,6 +28,7 @@
 
     <!-- Links para Font Awesome (Ícones) e Tailwind CSS -->
     <!-- Font Awesome é usado para os ícones, Tailwind CSS para estilização rápida e responsiva. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -118,8 +119,8 @@
             padding: 0 10px;
             align-items: center;
         }
-        /* Estilos para os links de navegação e botões de dropdown */
-        nav a, .dropbtn {
+        /* Estilos para os links de navegação */
+        nav a {
             color: #FFFFFF;
             text-decoration: none;
             font-weight: 600;
@@ -129,35 +130,16 @@
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             white-space: nowrap; /* Impede que o texto quebre linha */
         }
-        /* Estilos de hover/focus para os links de navegação e botões de dropdown */
-        nav a:hover, nav a:focus, .dropbtn:hover, .dropbtn:focus {
+        /* Estilos de hover/focus para os links de navegação */
+        nav a:hover, nav a:focus {
             background-color: #FFFFFF;
             color: var(--primary-blue);
             border-color: #FFFFFF;
-            /* Borda interna azul + sombra externa branca */
-            box-shadow: inset 0 0 0 2px var(--secondary-blue), 0 0 10px rgba(255, 255, 255, 1);
-        }
-
-        /* Ajuste específico para o botão de dropdown do cabeçalho para aumentar o contorno branco */
-        header nav .dropbtn {
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.9); /* Sombra externa branca aumentada no estado padrão */
-        }
-        header nav .dropbtn:hover, header nav .dropbtn:focus {
-            box-shadow: inset 0 0 0 2px var(--secondary-blue), 0 0 11px rgba(255, 255, 255, 1); /* 10% a mais na sombra externa no hover */
-        }
-
-        /* Estilos para o botão de dropdown dentro das seções (CodifyNews) */
-        .section-separator-nav .dropbtn {
-            /* Borda interna branca no estado padrão, que permanece */
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.8); 
-        }
-        /* Estilos de hover/focus para o botão de dropdown dentro das seções (transforma a borda interna em azul) */
-        .section-separator-nav .dropbtn:hover, .section-separator-nav .dropbtn:focus {
             box-shadow: inset 0 0 0 2px var(--secondary-blue), 0 0 10px rgba(255, 255, 255, 1);
         }
 
         /* ==========================================================================
-           Estilos do Dropdown Menu (Navegação Mobile)
+           Estilos do Dropdown Menu (Navegação Mobile e Botões de Seção)
            ========================================================================== */
         /* Estilos para o container do dropdown. */
         .dropdown {
@@ -165,7 +147,7 @@
             display: inline-block;
             margin-top: 0;
         }
-        /* Estilos para o botão que aciona o dropdown. */
+        /* Estilos para o botão que aciona o dropdown (todos os botões "CodifyNews"). */
         .dropbtn {
             display: flex;
             align-items: center;
@@ -173,7 +155,26 @@
             height: 100%;
             box-sizing: border-box;
             background-color: var(--primary-blue); /* Cor azul para o botão */
+            
+            /* Estilos unificados para todos os botões CodifyNews (igual ao do cabeçalho) */
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid var(--primary-blue);
+            padding: 8px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.9); /* Sombra externa branca unificada */
         }
+        /* Estilos de hover/focus para o botão que aciona o dropdown (todos os botões "CodifyNews"). */
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #FFFFFF;
+            color: var(--primary-blue);
+            border-color: #FFFFFF;
+            box-shadow: inset 0 0 0 2px var(--secondary-blue), 0 0 11px rgba(255, 255, 255, 1); /* Sombra externa branca e borda interna azul unificada */
+        }
+
         /* Estilos para o conteúdo do dropdown (links). */
         .dropdown-content {
             display: none; /* Inicialmente oculto */
@@ -1217,7 +1218,11 @@
                     const targetId = href.substring(1); // Obtém o ID da seção.
                     const targetElement = document.getElementById(targetId);
 
+                    // Adicionado console.log para depuração
+                    console.log(`Clicado no link: ${href}, Target ID: ${targetId}`);
+
                     if (targetElement) {
+                        console.log(`Elemento alvo encontrado: ${targetElement.id}, Offset Top: ${targetElement.offsetTop}`);
                         e.preventDefault(); // Previne o comportamento padrão do link.
                         stopScrolling(); // Para a rolagem automática ao clicar em um link de âncora.
                         window.scrollTo({
@@ -1233,6 +1238,10 @@
                                 }, 100);
                             }
                         });
+                    } else {
+                        console.log(`Elemento alvo não encontrado para o ID: ${targetId}`);
+                        // Se o elemento não for encontrado, permite o comportamento padrão do link,
+                        // que para href="#" seria rolar para o topo.
                     }
                 });
             });
@@ -1832,10 +1841,7 @@
             <p><em><strong>Atenciosamente,</strong><br>
             Thiago Gama<br>
             Consultor em Crypto Moedas<br>
-            Blockchain Partner<br>
-                <br>
-            Weslei Romano
-            Engenheiro de Sotfware
+            Blockchain Partner<br> 
             Codify News | Tech Labs</em></p>
             <p><em>Nota: Este relatório é apenas informativo são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
             <!-- Links para o perfil do LinkedIn e grupo do WhatsApp do autor. -->
@@ -1844,17 +1850,15 @@
                     <i class="fab fa-linkedin text-current text-lg mr-2"></i>
                     <span>LinkedIn</span>
                 </a>
-                
-          
-            
-            <br>
-            <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
-        <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="inline-flex p-1 rounded-lg border border-green-600 text-green-600 font-semibold no-underline items-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105 w-fit">
+                <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="inline-flex p-1 rounded-lg border border-green-600 text-green-600 font-semibold no-underline items-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105 w-fit">
                     <i class="fab fa-whatsapp text-current text-lg mr-2"></i>
                     <span>Network News no WhatsApp</span>
                 </a>
+            </div>
+            
+            <br>
+            <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
         </div>
-    </div>  
     </div>
 
     <!-- ==========================================================================

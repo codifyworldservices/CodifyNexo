@@ -185,10 +185,11 @@
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 9999; /* Garante que o dropdown fique acima de outros elementos */
             border-radius: 5px;
-            top: 0; /* Alinha com o topo do botão */
-            left: 100%; /* Posiciona à direita do botão */
+            /* Alterado para aparecer abaixo do botão, eliminando o "gap" horizontal */
+            top: 100%; /* Posiciona abaixo do botão */
+            left: 0; /* Alinha à esquerda do botão */
             transform: none; /* Remove a transformação de centralização */
-            margin-left: 10px; /* Adiciona um pequeno espaçamento à direita do botão */
+            margin-top: 5px; /* Pequeno espaçamento entre o botão e o dropdown */
             overflow: hidden; /* Mantido para cantos arredondados */
         }
         /* Estilos para os links dentro do dropdown. */
@@ -1190,19 +1191,20 @@
                     });
                 }
 
-                // Lógica de hover para o dropdown em desktop.
-                if (dropdownContainer) {
-                    dropdownContainer.addEventListener('mouseenter', function() {
-                        if (!isMobile()) {
-                            this.classList.add('active');
-                        }
-                    });
-                    dropdownContainer.addEventListener('mouseleave', function() {
-                        if (!isMobile()) {
-                            this.classList.remove('active');
-                        }
-                    });
-                }
+                // REMOVIDO: Lógica de hover para o dropdown em desktop para evitar fechamento acidental.
+                // Isso torna o dropdown puramente click-to-toggle.
+                // if (dropdownContainer) {
+                //     dropdownContainer.addEventListener('mouseenter', function() {
+                //         if (!isMobile()) {
+                //             this.classList.add('active');
+                //         }
+                //     });
+                //     dropdownContainer.addEventListener('mouseleave', function() {
+                //         if (!isMobile()) {
+                //             this.classList.remove('active');
+                //         }
+                //     });
+                // }
             });
 
             // Fecha o dropdown se o usuário clicar fora dele.
@@ -1217,19 +1219,17 @@
             // Adiciona rolagem suave para links de âncora e fecha o dropdown em mobile.
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    // Se o href for apenas "#", previne o default e não faz mais nada de rolagem.
-                    if (href === '#') {
-                        e.preventDefault(); 
-                        return; 
+                    // Se o link clicado for o botão principal do dropdown (com href="#"),
+                    // sua lógica já é tratada pelo listener específico do dropbtn.
+                    // Apenas previne o default aqui para evitar rolagem para o topo.
+                    if (this.classList.contains('dropbtn')) {
+                        e.preventDefault();
+                        return; // Sai da função, pois a lógica do dropbtn já cuidou do resto.
                     }
 
+                    const href = this.getAttribute('href');
                     const targetId = href.substring(1); // Obtém o ID da seção.
                     const targetElement = document.getElementById(targetId);
-
-                    console.log(`Clicked link href: ${href}`);
-                    console.log(`Extracted targetId: ${targetId}`);
-                    console.log(`Found targetElement:`, targetElement);
 
                     if (targetElement) {
                         e.preventDefault(); // SOMENTE previne o comportamento padrão se o elemento alvo for encontrado
@@ -1248,7 +1248,7 @@
                             }
                         });
                     } else {
-                        console.warn(`Elemento alvo com ID "${targetId}" não encontrado. Permitindo o comportamento padrão do link.`);
+                        console.warn(`Elemento alvo com ID "${targetId}" não encontrado para o link "${href}". Permitindo o comportamento padrão do link.`);
                         // Se targetElement for nulo, NÃO chamamos preventDefault, permitindo que o navegador lide com isso.
                     }
                 });
@@ -1257,9 +1257,12 @@
             // Ajusta o estado do dropdown ao redimensionar a janela.
             window.addEventListener('resize', function() {
                 allDropdownContainers.forEach(dropdownContainer => {
+                    // Em telas grandes, se o dropdown estiver ativo mas o mouse não estiver sobre ele, fecha.
+                    // Isso é menos relevante agora que removemos o hover, mas mantido como um fallback.
                     if (!isMobile() && dropdownContainer.classList.contains('active') && !dropdownContainer.matches(':hover')) {
                         dropdownContainer.classList.remove('active');
                     }
+                    // Em telas pequenas, se o mouse estiver sobre o dropdown (mesmo que não deva), fecha.
                     if (isMobile() && dropdownContainer.matches(':hover')) {
                         dropdownContainer.classList.remove('active');
                     }
@@ -1579,7 +1582,7 @@
         Os controles de rolagem automática são visíveis apenas dentro desta seção.
         ========================================================================== -->
    <div id="mainReportContainer" class="container">
-    <h3 class="text-3xl sm:text-4xl text-blue-800 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
+    <h3 class="text-3xl sm:text-4xl text-blue-700 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
         <br>   Tecnologia | Economia <br>  Tech Labs Software</h3>
      
   <h3 id="relatorio-atual"></h3>
@@ -1813,7 +1816,7 @@
                     <i class="fab fa-linkedin text-current text-lg mr-2"></i>
                     <span>LinkedIn</span>
                 </a>
-                <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="inline-flex p-1 rounded-lg border border-green-600 text-green-600 font-semibold no-underline items-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105 w-fit">
+                <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="inline-flex p-1 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105 w-fit">
                     <i class="fab fa-whatsapp text-current text-lg mr-2"></i>
                     <span>Network News no WhatsApp</span>
                 </a>

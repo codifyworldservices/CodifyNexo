@@ -36,6 +36,11 @@
             --dark-gray: #333333;
             --light-gray: #F5F5F5;
             --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --sidebar-width: 250px; /* Largura da barra de navegação lateral */
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -48,7 +53,88 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            padding-top: 0;
+            padding-left: var(--sidebar-width); /* Espaço para a barra lateral no desktop */
+        }
+
+        /* ==========================================================================
+           Estilos da Nova Navegação (Sidebar e Hamburger)
+           ========================================================================== */
+        #sidebar-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--sidebar-width);
+            background-color: var(--primary-blue);
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #sidebar-nav .sidebar-header {
+            padding: 0 15px 20px 15px;
+            text-align: center;
+        }
+
+        #sidebar-nav .sidebar-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--light-blue);
+        }
+
+        #sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        #sidebar-nav ul li a {
+            display: block;
+            padding: 15px 20px;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            border-left: 4px solid transparent;
+            transition: background-color 0.3s ease, border-left-color 0.3s ease;
+        }
+
+        #sidebar-nav ul li a:hover,
+        #sidebar-nav ul li a:focus {
+            background-color: var(--secondary-blue);
+            border-left-color: #FFFFFF;
+        }
+
+        #hamburger-btn {
+            display: none; /* Oculto no desktop */
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1200;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        #page-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1050;
         }
 
         /* ==========================================================================
@@ -74,7 +160,7 @@
         }
 
         /* ==========================================================================
-           Estilos do Cabeçalho (Header)
+           Estilos do Cabeçalho (Header) - Simplificado
            ========================================================================== */
         header {
             background-color: var(--primary-blue);
@@ -93,107 +179,7 @@
             display: block;
             margin: 0 auto;
         }
-
-        /* ==========================================================================
-           Estilos da Barra de Navegação (Nav)
-           ========================================================================== */
-        nav {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            padding: 0 10px;
-            align-items: center;
-        }
-        nav a {
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid var(--primary-blue);
-            padding: 8px 30px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            white-space: nowrap;
-        }
-        nav a:hover, nav a:focus {
-            background-color: #FFFFFF;
-            color: var(--primary-blue);
-            border-color: #FFFFFF;
-            box-shadow: inset 0 0 0 2px var(--secondary-blue), 0 0 10px rgba(255, 255, 255, 1);
-        }
-
-        /* ==========================================================================
-           Estilos do Dropdown Menu
-           ========================================================================== */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin-top: 0;
-        }
-        .dropbtn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            box-sizing: border-box;
-            background-color: var(--primary-blue);
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid var(--primary-blue);
-            padding: 8px 30px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            white-space: nowrap;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-        }
-        .dropbtn:hover, .dropbtn:focus {
-            background-color: #FFFFFF;
-            color: var(--primary-blue);
-            border-color: #FFFFFF;
-            box-shadow: inset 0 0 0 2px var(--secondary-blue), 0 0 11px rgba(255, 255, 255, 1);
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: min-content;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 9999;
-            border-radius: 5px;
-            top: 100%;
-            left: 0;
-            transform: none;
-            margin-top: 5px;
-            overflow: hidden;
-        }
-        .dropdown-content a {
-            color: var(--primary-blue);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            font-weight: normal;
-            border: none;
-            box-shadow: none;
-            margin: 0;
-            white-space: normal;
-            border-bottom: 2px solid var(--primary-blue);
-        }
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
-        .dropdown-content a:hover {
-            background-color: #D9E7F9;
-            color: #004F9C;
-        }
-        .dropdown.active .dropdown-content {
-            display: block;
-        }
-        .desktop-only { display: inline-block; }
-        .mobile-only { display: none; }
-
+        
         /* ==========================================================================
            Estilos do Container Principal de Conteúdo
            ========================================================================== */
@@ -208,11 +194,6 @@
             position: relative;
         }
         .container::before { content: none; }
-
-        /* Estilo para o relatório de iniciantes */
-        .beginner-report-bg {
-            background-color: #f0f8ff; /* AliceBlue */
-        }
 
         /* ==========================================================================
            Estilos de Títulos e Parágrafos
@@ -287,22 +268,8 @@
         }
        
         /* ==========================================================================
-           Estilos de Separadores de Seção
+           Separadores e Seções de Conteúdo
            ========================================================================== */
-        .section-separator-nav {
-            margin: 60px auto;
-            padding-top: 30px;
-            text-align: center;
-            max-width: 600px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-top: 3px solid var(--secondary-blue);
-        }
-        .section-separator-nav .dropdown {
-            width: auto;
-            margin: 0 auto;
-        }
         .major-separator {
             border: none;
             border-top: 4px dotted var(--primary-blue);
@@ -413,8 +380,18 @@
         .social-icons-list li { margin: 0 10px 15px; }
 
         /* ==========================================================================
-           Estilos do Formulário do Google Forms
+           Estilos do Formulário do Google Forms e Seção de Assinatura
            ========================================================================== */
+        #formContainer {
+            display: block; /* Formulário visível por padrão */
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid var(--light-blue);
+            border-radius: 8px;
+            background-color: var(--light-gray);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
         .google-form-embed {
             width: 100%;
             height: 800px;
@@ -424,100 +401,22 @@
         }
 
         /* ==========================================================================
-           Estilos para Ocultar/Mostrar o Formulário de Assinatura
-           ========================================================================= */
-        #formContainer {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid var(--light-blue);
-            border-radius: 8px;
-            background-color: var(--light-gray);
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-        }
-        #toggleFormBtn {
-            display: block;
-            margin: 20px auto;
-            padding: 12px 25px;
-            background-color: var(--secondary-blue);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            font-weight: 600;
-        }
-        #toggleFormBtn:active { transform: translateY(0); }
-
-        /* ==========================================================================
-           Estilos para as seções colapsáveis (details/summary)
+           Estilos para as seções do relatório (anteriormente colapsáveis)
            ========================================================================== */
-        .collapsible-section {
+        .report-section {
             margin-bottom: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-        }
-        .collapsible-section summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
             padding: 1rem;
-            cursor: default;
-            background-color: #fff;
-            transition: background-color 0.2s ease;
             border-radius: 0.5rem;
-            list-style: none;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
-        .collapsible-section summary::-webkit-details-marker, .collapsible-section summary::marker { display: none; }
-        .collapsible-section summary:hover { background-color: #f9fafb; }
-        .collapsible-section summary .section-title {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-            padding: 0 !important;
+        .report-section h2 {
             font-size: 1.5rem;
             font-weight: 700;
             color: #1d4ed8;
-        }
-        .toggle-button {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            background-color: #ffffff;
-        }
-        .collapsible-section:not([open]) .toggle-button .open-text,
-        .collapsible-section:not([open]) .toggle-button .open-icon {
-            color: #1d4ed8;
-            display: flex;
-        }
-        .collapsible-section:not([open]) .toggle-button .close-text,
-        .collapsible-section:not([open]) .toggle-button .close-icon { display: none; }
-        .collapsible-section[open] .toggle-button .open-text,
-        .collapsible-section[open] .toggle-button .open-icon { display: none; }
-        .collapsible-section[open] .toggle-button .close-text,
-        .collapsible-section[open] .toggle-button .close-icon {
-            color: #dc2626; /* Changed from default color to red */
-            display: flex;
-        }
-        .collapsible-content {
-            padding: 1rem;
-            background-color: #f9fafb;
-            border-top: 1px solid #e5e7eb;
-            border-bottom-left-radius: 0.5rem;
-            border-bottom-right-radius: 0.5rem;
+            margin-top: 0 !important;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-blue);
         }
 
         /* ==========================================================================
@@ -612,72 +511,43 @@
            Media Queries (Responsividade)
            ========================================================================== */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
+            body {
+                padding-left: 0; /* Remove o padding no mobile */
             }
-            nav .desktop-only { display: none; }
-            nav .dropdown {
-                width: auto;
-                max-width: unset;
-                text-align: center;
-                margin-top: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: auto;
-                box-sizing: border-box;
-            }
-            .dropbtn {
-                width: auto;
-                min-width: 150px;
-                padding: 8px 20px;
-                box-sizing: border-box;
-                margin: 0 auto;
-            }
-            .dropdown-content {
-                position: static;
+
+            header, footer, .container {
                 width: 100%;
+                box-sizing: border-box;
+            }
+
+            #sidebar-nav {
+                transform: translateX(-100%); /* Esconde a sidebar no mobile */
                 box-shadow: none;
-                border-top: 1px solid var(--primary-blue);
-                transform: none;
-                left: auto;
-                top: auto;
-                margin-left: 0;
-                min-width: unset;
-                display: none;
-                margin-top: 0;
             }
-            .dropdown-content a {
-                padding: 8px 10px;
-                text-align: center;
-                width: 100%;
-                box-sizing: border-box;
+            
+            #sidebar-nav.sidebar-open {
+                transform: translateX(0); /* Mostra a sidebar */
+                box-shadow: 2px 0 5px rgba(0,0,0,0.2);
             }
-            .dropdown:hover .dropdown-content { display: none; }
-            .dropdown.active .dropdown-content { display: block; }
-            .section-separator-nav {
-                margin: 40px auto;
-                padding-top: 25px;
-                max-width: 90%;
-                display: flex;
-                justify-content: center;
+
+            #hamburger-btn {
+                display: block; /* Mostra o botão hamburger no mobile */
             }
-            .section-separator-nav a {
+            
+            #page-overlay.overlay-visible {
                 display: block;
-                width: calc(100% - 20px);
-                margin: 5px auto;
             }
+
             .section-heading {
-                font-size: 1.5em; /* Original 1.5em */
+                font-size: 1.5em;
                 margin-top: 30px;
                 margin-bottom: 15px;
                 padding-bottom: 10px;
             }
-            .collapsible-section summary .section-title {
-                font-size: 1.25rem; /* Adjusted from 1.5rem to be smaller on mobile */
+            .report-section h2 {
+                font-size: 1.25rem;
             }
+            
             #installAppBanner {
                 flex-direction: column;
                 text-align: center;
@@ -726,7 +596,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             
             const backToTopBtn = document.getElementById('backToTopBtn');
-            const allDropdownContainers = document.querySelectorAll('.dropdown');
+            const sidebar = document.getElementById('sidebar-nav');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const pageOverlay = document.getElementById('page-overlay');
+            const sidebarLinks = document.querySelectorAll('#sidebar-nav a');
+
 
             /* --- Lógica do Botão de Voltar ao Topo --- */
             if (backToTopBtn) {
@@ -746,66 +620,27 @@
                 toggleBackToTopButton();
             }
 
+            /* --- Lógica da Nova Navegação (Sidebar/Hamburger) --- */
+            if(hamburgerBtn && sidebar && pageOverlay) {
+                hamburgerBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('sidebar-open');
+                    pageOverlay.classList.toggle('overlay-visible');
+                });
 
-            /* --- Lógica do Dropdown Menu --- */
-            allDropdownContainers.forEach(dropdownContainer => {
-                const dropdownBtn = dropdownContainer.querySelector('.dropbtn');
+                pageOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('sidebar-open');
+                    pageOverlay.classList.remove('overlay-visible');
+                });
                 
-                if (dropdownBtn) {
-                    dropdownBtn.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        allDropdownContainers.forEach(otherDropdown => {
-                            if (otherDropdown !== dropdownContainer && otherDropdown.classList.contains('active')) {
-                                otherDropdown.classList.remove('active');
-                            }
-                        });
-                        dropdownContainer.classList.toggle('active');
-                        event.stopPropagation();
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                         if (window.innerWidth <= 768) {
+                            sidebar.classList.remove('sidebar-open');
+                            pageOverlay.classList.remove('overlay-visible');
+                         }
                     });
-                }
-            });
-
-            document.addEventListener('click', function(event) {
-                allDropdownContainers.forEach(dropdownContainer => {
-                    if (!dropdownContainer.contains(event.target) && dropdownContainer.classList.contains('active')) {
-                        dropdownContainer.classList.remove('active');
-                    }
                 });
-            });
-
-            /* --- Lógica da Navegação por Âncora (CORRIGIDA) --- */
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    if (this.classList.contains('dropbtn')) {
-                        e.preventDefault();
-                        return;
-                    }
-
-                    const href = this.getAttribute('href');
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId);
-
-                    if (targetElement) {
-                        e.preventDefault();
-                        
-                        // MÉTODO DE ROLAGEM MAIS ROBUSTO
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-
-                        // Fecha qualquer dropdown aberto após a navegação.
-                        allDropdownContainers.forEach(dropdownContainer => {
-                            if (dropdownContainer.classList.contains('active')) {
-                                setTimeout(() => {
-                                    dropdownContainer.classList.remove('active');
-                                }, 400); // Pequeno delay para a rolagem iniciar sem interferência
-                            }
-                        });
-                    }
-                });
-            });
-
+            }
 
             /* --- Lógica do Banner e Modal de "Instalar App" --- */
             const installBanner = document.getElementById('installAppBanner');
@@ -846,43 +681,11 @@
                     installModal.style.display = 'none';
                 }
             });
-
-            /* --- Lógica: Ocultar/Mostrar Formulário de Assinatura --- */
-            const toggleFormBtn = document.getElementById('toggleFormBtn');
-            const formContainer = document.getElementById('formContainer');
-
-            if (toggleFormBtn && formContainer) {
-                toggleFormBtn.addEventListener('click', function() {
-                    if (formContainer.style.display === 'none' || formContainer.style.display === '') {
-                        formContainer.style.display = 'block';
-                        toggleFormBtn.textContent = 'Ocultar Formulário';
-                        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    } else {
-                        formContainer.style.display = 'none';
-                        toggleFormBtn.textContent = 'Mostrar Formulário de Assinatura';
-                    }
-                 });
-            }
             
             const installAppFooterLink = document.getElementById('installAppFooterLink');
             if (installAppFooterLink) {
                 installAppFooterLink.style.display = 'none'; 
             }
-
-            // Lógica para os botões de abrir/fechar as seções colapsáveis.
-            const collapsibleSections = document.querySelectorAll('.collapsible-section');
-            collapsibleSections.forEach(section => {
-                const summary = section.querySelector('summary');
-                const toggleButton = section.querySelector('.toggle-button');
-
-                summary.addEventListener('click', function(event) {
-                    event.preventDefault(); 
-                });
-
-                toggleButton.addEventListener('click', function() {
-                    section.open = !section.open;
-                });
-            });
 
             /* --- Lógica do Carrossel de Imagens --- */
             const carouselImagesContainer = document.querySelector('.carousel-images');
@@ -970,6 +773,30 @@
 
 <div class="fixed-watermark">Codify News</div>
 
+<button id="hamburger-btn">
+    <i class="fas fa-bars"></i>
+</button>
+
+<div id="page-overlay"></div>
+
+<nav id="sidebar-nav">
+    <div class="sidebar-header">
+        <img src="img/logo_codi.png" alt="Codify News Logo">
+    </div>
+    <ul>
+        <li><a href="#relatorio-atual">Relatório Atual</a></li>
+        <li><a href="#galeria-fotos">Galeria de Fotos</a></li>
+        <li><a href="#relatorios-arquivados">Relatórios Arquivados</a></li>
+        <li><a href="#fatos-nao-versoes">Fatos, não versões</a></li>
+        <li><a href="#parceiros">Parceiros</a></li>
+        <li><a href="#assinatura-form">Assinatura</a></li>
+        <li><a href="#redes-sociais">Redes Sociais</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="#sobre-nos">Sobre nós</a></li>
+        <li><a href="#politica-privacidade">Política de Privacidade</a></li>
+    </ul>
+</nav>
+
 <button id="backToTopBtn" class="hidden bg-gray-700 text-white p-3 rounded-full shadow-lg" aria-label="Voltar ao topo">
     <i class="fas fa-arrow-up"></i>
 </button>
@@ -998,64 +825,32 @@
 
 <header>
     <img src="img/logo_codi.png" alt="Codify World">
-    <nav>
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </nav>
 </header>
     
-<div class="container">
-    <h3 class="text-3xl sm:text-4xl text-blue-700 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
-        <br>   Tecnologia | Economia <br>  Tech Labs Software</h3>
-  
-    <div id="relatorio-atual">
-    <div class="flex justify-center items-center mb-6">
-        <h1 class="text-3xl sm:text-4xl text-blue-700 text-center"><strong>Relatório Técnico - Cardano</strong></h1> </div>
-    </div>
-     <br>
+<main id="main-content">
     
-    <p class="mb-4 text-gray-800 leading-relaxed">
-        O Cardano é uma plataforma blockchain de terceira geração que se destaca por sua abordagem científica e pesquisa acadêmica rigorosa em seu desenvolvimento. Lançada em 27 de setembro de 2017, o projeto desenvolveu o seu token chamado Ada. Diferente de muitas criptomoedas que surgiram rapidamente, Cardano foi construída com um foco em escalabilidade, interoperabilidade e sustentabilidade, buscando oferecer uma infraestrutura mais robusta e segura para aplicações descentralizadas (dApps) e contratos inteligentes.
-    </p>
+    <div class="container" id="relatorio-atual">
+        <h3 class="text-3xl sm:text-4xl text-blue-700 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
+            <br>   Tecnologia | Economia <br>  Tech Labs Software</h3>
+      
+        <div class="flex justify-center items-center mb-6">
+            <h1 class="text-3xl sm:text-4xl text-blue-700 text-center"><strong>Relatório Técnico - Cardano</strong></h1> 
+        </div>
+        <br>
+        
+        <p class="mb-4 text-gray-800 leading-relaxed">
+            O Cardano é uma plataforma blockchain de terceira geração que se destaca por sua abordagem científica e pesquisa acadêmica rigorosa em seu desenvolvimento. Lançada em 27 de setembro de 2017, o projeto desenvolveu o seu token chamado Ada. Diferente de muitas criptomoedas que surgiram rapidamente, Cardano foi construída com um foco em escalabilidade, interoperabilidade e sustentabilidade, buscando oferecer uma infraestrutura mais robusta e segura para aplicações descentralizadas (dApps) e contratos inteligentes.
+        </p>
 
-    <details class="collapsible-section" open>
-        <summary class="collapsible-header">
-            <h2 class="section-title">1. Função no Mercado</h2>
-            <button class="toggle-button">
-                <span class="open-text">Abrir</span><i class="fas fa-chevron-down open-icon"></i>
-                <span class="close-text hidden">Fechar</span><i class="fas fa-times close-icon hidden"></i>
-            </button>
-        </summary>
-        <div class="collapsible-content">
+        <div class="report-section">
+            <h2>1. Função no Mercado</h2>
             <p class="mb-4 text-gray-800 leading-relaxed">
                 No mercado de criptoativos, Cardano se posiciona como uma plataforma para a construção de um futuro descentralizado. Seu objetivo principal é fornecer uma infraestrutura que possa ser usada por empresas, governos e indivíduos para criar soluções blockchain seguras, escaláveis e eficientes. Ela compete com outras grandes blockchains como Ethereum, mas com uma ênfase particular na segurança formalmente verificada e na pesquisa por pares.
             </p>
         </div>
-    </details>
 
-    <details class="collapsible-section">
-        <summary class="collapsible-header">
-            <h2 class="section-title">2. Utilidade em Diversos Setores</h2>
-            <button class="toggle-button">
-                <span class="open-text">Abrir</span><i class="fas fa-chevron-down open-icon"></i>
-                <span class="close-text hidden">Fechar</span><i class="fas fa-times close-icon hidden"></i>
-            </button>
-        </summary>
-        <div class="collapsible-content">
+        <div class="report-section">
+            <h2>2. Utilidade em Diversos Setores</h2>
             <p class="mb-4 text-gray-800 leading-relaxed">Cardano apresenta um potencial transformador em uma ampla gama de setores devido à sua arquitetura flexível e segura.</p>
             <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Educação</h3>
             <p class="mb-4 text-gray-800 leading-relaxed">Cardano pode revolucionar a educação através da verificação de credenciais e certificados digitais, tornando-os imutáveis e facilmente verificáveis. Isso combate a fraude e garante a autenticidade de diplomas. Além disso, pode facilitar o rastreamento de progresso acadêmico e a criação de plataformas de aprendizado descentralizadas onde os criadores de conteúdo são recompensados diretamente.</p>
@@ -1063,36 +858,10 @@
             <p class="mb-4 text-gray-800 leading-relaxed">Para governos, Cardano oferece a possibilidade de melhorar a transparência e a eficiência de serviços públicos. Isso inclui o gerenciamento seguro de registros civis, sistemas de votação eletrônica mais confiáveis, gerenciamento de identidade digital e até mesmo a distribuição de benefícios sociais de forma mais auditável e justa.</p>
             <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Finanças Descentralizadas (DeFi)</h3>
             <p class="mb-4 text-gray-800 leading-relaxed">No setor DeFi, Cardano permite a criação de uma variedade de serviços financeiros sem intermediários. Isso inclui empréstimos e tomadas de empréstimos, stablecoins, exchanges descentralizadas (DEXs) e plataformas de seguros, todos operando de forma mais segura e transparente graças à sua arquitetura robusta e taxas potencialmente mais baixas que outras blockchains.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Métodos de Pagamento</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Cardano pode otimizar os métodos de pagamento globais, oferecendo transações mais rápidas, seguras e com custos mais baixos do que os sistemas bancários tradicionais. Isso é particularmente útil para remessas internacionais e para facilitar o comércio entre países com infraestrutura financeira limitada.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Agricultura</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Na agricultura, a blockchain Cardano pode ser utilizada para rastrear a origem de produtos alimentícios, garantindo a qualidade e a autenticidade desde a fazenda até a mesa do consumidor. Isso ajuda a combater fraudes, melhora a segurança alimentar e permite que os consumidores tomem decisões de compra mais informadas.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Varejo</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">No varejo, Cardano pode impulsionar programas de fidelidade baseados em blockchain, sistemas de gerenciamento de inventário mais eficientes e a tokenização de ativos para rastreamento de produtos. Isso pode levar a cadeias de suprimentos mais transparentes e eficientes.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Gestão de Cadeia de Abastecimento</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">A rastreabilidade e a transparência são as maiores contribuições de Cardano para a gestão da cadeia de abastecimento. Ela permite que todas as etapas do processo, desde a matéria-prima até o produto final, sejam registradas em um ledger imutável, o que é crucial para garantir a autenticidade, combater a falsificação e otimizar a logística.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Programas Sociais</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Cardano pode ser usada para garantir a distribuição transparente e eficiente de fundos para programas sociais, evitando desvios e garantindo que os benefícios cheguem aos beneficiários corretos. Isso também permite que os doadores rastreiem o impacto de suas contribuições.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Armazenamento de Dados</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Com a evolução da sua arquitetura, Cardano pode facilitar o armazenamento descentralizado e seguro de dados, garantindo a privacidade e a integridade das informações. Isso é crucial para aplicações que lidam com dados sensíveis, como registros médicos ou informações pessoais.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Ativos de Tokenização</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">A plataforma Cardano permite a tokenização de uma vasta gama de ativos, desde imóveis e obras de arte até ações de empresas e direitos autorais. Isso democratiza o acesso a investimentos, facilita a liquidez de ativos ilíquidos e abre novas avenas para a captação de recursos.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Sistema de Votação</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Sistemas de votação baseados em Cardano podem oferecer maior segurança, transparência e auditabilidade em processos eleitorais. Isso pode restaurar a confiança pública em eleições, combatendo a fraude e garantindo que cada voto seja contabilizado de forma justa.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Indústria da Música</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Na indústria da música, Cardano pode empoderar artistas ao permitir a distribuição direta de royalties e direitos autorais através de contratos inteligentes. Isso elimina intermediários, garantindo que os artistas recebam uma parcela maior de suas receitas e tenham maior controle sobre sua propriedade intelectual.</p>
         </div>
-    </details>
 
-    <details class="collapsible-section">
-        <summary class="collapsible-header">
-            <h2 class="section-title">3. Última Atualização da Cardano: Vasil</h2>
-            <button class="toggle-button">
-                <span class="open-text">Abrir</span><i class="fas fa-chevron-down open-icon"></i>
-                <span class="close-text hidden">Fechar</span><i class="fas fa-times close-icon hidden"></i>
-            </button>
-        </summary>
-        <div class="collapsible-content">
+        <div class="report-section">
+            <h2>3. Última Atualização da Cardano: Vasil</h2>
             <p class="mb-4 text-gray-800 leading-relaxed">A última grande atualização da rede principal de Cardano foi a implantação do upgrade de Vasil em setembro de 2022. Embora não seja a mais recente em termos de pequenos ajustes e melhorias contínuas, Vasil representou um marco significativo ao introduzir importantes otimizações no desempenho da rede. As principais melhorias incluíram:</p>
             <ul class="list-none pl-0 mb-4">
                 <li class="mb-2 text-gray-800 leading-relaxed"><strong>Pipelining de Difusão (Diffusion Pipelining):</strong> Isso aprimorou o processo de propagação de blocos na rede, reduzindo a latência e permitindo um throughput maior de transações.</li>
@@ -1101,17 +870,9 @@
             </ul>
             <p class="mb-4 text-gray-800 leading-relaxed">Essas otimizações visaram tornar a rede mais escalável e eficiente, pavimentando o caminho para um maior número de usuários e aplicações descentralizadas.</p>
         </div>
-    </details>
-
-    <details class="collapsible-section">
-        <summary class="collapsible-header">
-            <h2 class="section-title">4. Ouroboros: O Coração de Cardano</h2>
-            <button class="toggle-button">
-                <span class="open-text">Abrir</span><i class="fas fa-chevron-down open-icon"></i>
-                <span class="close-text hidden">Fechar</span><i class="fas fa-times close-icon hidden"></i>
-            </button>
-        </summary>
-        <div class="collapsible-content">
+        
+        <div class="report-section">
+            <h2>4. Ouroboros: O Coração de Cardano</h2>
             <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">O que é o Ouroboros?</h3>
             <p class="mb-4 text-gray-800 leading-relaxed">Ouroboros é o nome da família de protocolos de consenso Proof-of-Stake (PoS) utilizados pela Cardano. É o motor que permite que a blockchain funcione de forma segura, descentralizada e eficiente.</p>
             <p class="mb-4 text-gray-800 leading-relaxed">Ouroboros é o primeiro protocolo PoS baseado em pesquisa de pares e segurança formalmente verificada. Ele foi projetado para ser tão seguro quanto o Proof-of-Work (PoW) do Bitcoin, mas sem o enorme consumo de energia. Em vez de mineradores competindo para resolver problemas complexos e consumir energia, no Ouroboros, os validadores (stake pools) são selecionados para criar novos blocos com base na quantidade de ADA (a criptomoeda nativa de Cardano) que eles "apostam" ou delegam.</p>
@@ -1120,364 +881,129 @@
             <ul class="list-none pl-0 mb-4">
                 <li class="mb-2 text-gray-800 leading-relaxed"><strong>Validação de Transações:</strong> Ele garante que as transações na rede sejam válidas e que os novos blocos sejam adicionados à blockchain de forma correta.</li>
                 <li class="mb-2 text-gray-800 leading-relaxed"><strong>Segurança da Rede:</strong> O protocolo impede ataques maliciosos à rede, como o "gasto duplo", ao garantir que a maioria dos participantes honestos tenha mais participação (stake) na rede.</li>
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Consenso:</strong> Ele permite que todos os participantes da rede cheguem a um acordo sobre o estado verdadeiro da blockchain.</li>
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Descentralização:</strong> Ao dividir o tempo em "épocas" e "slots" e selecionar aleatoriamente os líderes de slot com base no stake, o Ouroboros promove a descentralização, impedindo que uma única entidade controle a rede.</li>
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Eficiência Energética:</strong> Ao contrário do PoW, que requer enormes quantidades de energia, o PoS do Ouroboros é significativamente mais eficiente, tornando Cardano uma blockchain ambientalmente mais sustentável.</li>
             </ul>
-            <p class="mb-4 text-gray-800 leading-relaxed">Existem diferentes versões do Ouroboros (BFT, Praos, Genesis, Chronos), cada uma com melhorias e otimizações, mostrando a evolução contínua do protocolo para atender às crescentes demandas da rede.</p>
         </div>
-    </details>
-
-    <details class="collapsible-section">
-        <summary class="collapsible-header">
-            <h2 class="section-title">5. Resumo: Potencial de Crescimento da Cardano</h2>
-            <button class="toggle-button">
-                <span class="open-text">Abrir</span><i class="fas fa-chevron-down open-icon"></i>
-                <span class="close-text hidden">Fechar</span><i class="fas fa-times close-icon hidden"></i>
-            </button>
-        </summary>
-        <div class="collapsible-content">
+        
+        <div class="report-section">
+            <h2>5. Resumo: Potencial de Crescimento da Cardano</h2>
             <p class="mb-4 text-gray-800 leading-relaxed">O potencial de crescimento de Cardano é vasto e multifacetado. Sua abordagem científica e seu foco na segurança, escalabilidade e interoperabilidade a posicionam como uma concorrente séria no cenário blockchain. A capacidade de Cardano de atender às necessidades de diversos setores – desde finanças e governos até educação e agricultura – demonstra sua flexibilidade e a amplitude de suas possíveis aplicações.</p>
-            <p class="mb-4 text-gray-800 leading-relaxed">A constante evolução de seu protocolo Ouroboros, que garante a segurança e a eficiência energética da rede, juntamente com atualizações significativas como a Vasil, que aprimoram sua capacidade de processamento de contratos inteligentes e transações, solidificam sua base tecnológica.</p>
             <p class="mb-4 text-gray-800 leading-relaxed">Com uma comunidade ativa e um roteiro claro que inclui futuras implementações de soluções de escalabilidade de segunda camada (como Hydra) e melhorias na governança on-chain, Cardano está bem posicionada para atrair um volume crescente de desenvolvedores e usuários. Seu compromisso com a pesquisa e o desenvolvimento sustentável, em um ambiente regulatório cada vez mais complexo, a torna uma plataforma robusta e resiliente, com um futuro promissor para se tornar uma infraestrutura global para a próxima geração da internet descentralizada.</p>
-            <p class="mb-4 text-gray-800 leading-relaxed">Considerando esses aspectos, o potencial de Cardano para impactar significativamente a economia digital e fornecer soluções para desafios do mundo real é enorme, prometendo um crescimento contínuo e a consolidação de sua posição como uma das principais blockchains do mercado.</p>
         </div>
-    </details>
 
-    <div id="reportEndMarker" class="signature">
-        <p><em><strong>Atenciosamente,</strong><br>
-        Thiago Gama<br>
-        Consultor em Crypto Moedas<br>
-        Blockchain Partner<br> 
-        Codify News | Tech Labs</em></p>
-        <p><em>Nota: Este relatório é apenas informativo são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
-        <div class="flex flex-col items-start space-y-2 mt-4">
-            <a href="https://linkedin.com/in/thiagojgama" target="_blank" aria-label="LinkedIn" class="inline-flex p-1 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline items-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 w-fit">
-                <i class="fab fa-linkedin text-current text-lg mr-2"></i>
-                <span>LinkedIn</span>
-            </a>
-            <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="inline-flex p-1 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105 w-fit">
-                <i class="fab fa-whatsapp text-current text-lg mr-2"></i>
-                <span>Network News no WhatsApp</span>
-            </a>
+        <div id="reportEndMarker" class="signature">
+            <p><em><strong>Atenciosamente,</strong><br>
+            Thiago Gama<br>
+            Consultor em Crypto Moedas<br>
+            Blockchain Partner<br> 
+            Codify News | Tech Labs</em></p>
+            <p><em>Nota: Este relatório é apenas informativo são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
+            <div class="flex flex-col items-start space-y-2 mt-4">
+                <a href="https://linkedin.com/in/thiagojgama" target="_blank" aria-label="LinkedIn" class="inline-flex p-1 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline items-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105 w-fit">
+                    <i class="fab fa-linkedin text-current text-lg mr-2"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+            <br>
+            <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
         </div>
-        <br>
-        <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
     </div>
-</div>
-<div id="relatorio-secundario" class="container content-section beginner-report-bg">
-    <h2 class="section-heading">Relatório Técnico para Iniciantes</h2>
-    <h2 class="subtitle">Descomplicando a Tecnologia Blockchain</h2>
     
-    <p class="mb-4 text-gray-800 leading-relaxed">
-        Bem-vindo à nossa seção para iniciantes! O objetivo aqui é explicar conceitos fundamentais do universo das criptomoedas e da tecnologia blockchain de uma forma simples e direta. Se você está começando sua jornada agora, este é o lugar certo para construir uma base sólida de conhecimento.
-    </p>
-
-    <details class="collapsible-section" open>
-        <summary class="collapsible-header">
-            <h2 class="section-title">O que é Blockchain?</h2>
-            <button class="toggle-button">
-                <span class="open-text">Abrir</span><i class="fas fa-chevron-down open-icon"></i>
-                <span class="close-text hidden">Fechar</span><i class="fas fa-times close-icon hidden"></i>
-            </button>
-        </summary>
-        <div class="collapsible-content">
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Uma Analogia Simples</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">
-                Imagine um caderno de anotações digital que é compartilhado entre muitas pessoas. Cada vez que alguém adiciona uma nova anotação (uma "transação"), essa anotação é verificada por todos e, uma vez adicionada, não pode mais ser apagada ou alterada. Esse caderno é o "blockchain".
-            </p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Como Funciona?</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">
-                A blockchain é uma cadeia de "blocos". Cada bloco contém um conjunto de transações. Quando um bloco é preenchido, ele é ligado ao bloco anterior de forma criptográfica, formando uma corrente (a "chain"). Isso cria um registro permanente e imutável de todas as transações.
-            </p>
-            <ul class="list-disc pl-5 mb-4 text-gray-800">
-                <li class="mb-2"><strong>Descentralização:</strong> Em vez de estar em um único lugar (como um banco de dados de uma empresa), a blockchain é distribuída por uma rede de computadores. Isso a torna muito mais segura, pois não há um ponto único de falha.</li>
-                <li class="mb-2"><strong>Transparência:</strong> Embora a identidade dos participantes possa ser anônima, as transações em si são geralmente visíveis para todos na rede. Isso aumenta a transparência e a confiança.</li>
-                <li class="mb-2"><strong>Imutabilidade:</strong> Uma vez que uma transação é registrada na blockchain, é praticamente impossível alterá-la. Isso garante a integridade dos dados e previne fraudes.</li>
-            </ul>
-             <p class="mb-4 text-gray-800 leading-relaxed">
-                É essa tecnologia que torna possíveis as criptomoedas como o Bitcoin e plataformas como a Cardano, garantindo que as transações sejam seguras e confiáveis sem a necessidade de um intermediário, como um banco.
-            </p>
-        </div>
-    </details>
-
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                 <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
+    <div class="container content-section" id="galeria-fotos">
+        <h2 class="section-heading">Galeria de Fotos</h2>
+        <h2 class="subtitle">Explore nossa coleção de imagens relacionadas à Cardano e ao universo blockchain.</h2>
+        <div class="carousel-container">
+            <div class="carousel-images">
+                <img src="img/cardano.png" alt="Cardano Imagem 1" onerror="this.onerror=null;this.src='https://placehold.co/800x400/E0E7FF/1D4ED8?text=Imagem+Indisponível';"/>
+                <img src="https://placehold.co/600x400/D1FAE5/065F46?text=Cardano+Imagem+2" alt="Cardano Imagem 2" onerror="this.onerror=null;this.src='https://placehold.co/800x400/D1FAE5/065F46?text=Imagem+Indisponível';"/>
+                <img src="https://placehold.co/600x400/FEE2E2/991B1B?text=Cardano+Imagem+3" alt="Cardano Imagem 3" onerror="this.onerror=null;this.src='https://placehold.co/800x400/FEE2E2/991B1B?text=Imagem+Indisponível';"/>
             </div>
+            <button id="carouselLeftArrow" class="carousel-button left"><i class="fas fa-chevron-left"></i></button>
+            <button id="carouselRightArrow" class="carousel-button right"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-dots"></div>
         </div>
     </div>
-</div>
-<div class="container content-section">
-    <h2 id="galeria-fotos" class="section-heading">Galeria de Fotos</h2>
-    <h2 class="subtitle">Explore nossa coleção de imagens relacionadas à Cardano e ao universo blockchain.</h2>
-    <div class="carousel-container">
-        <div class="carousel-images">
-            <img src="img/cardano.png" alt="Cardano Imagem 1" onerror="this.onerror=null;this.src='https://placehold.co/800x400/E0E7FF/1D4ED8?text=Imagem+Indisponível';"/>
-            <img src="https://placehold.co/600x400/D1FAE5/065F46?text=Cardano+Imagem+2" alt="Cardano Imagem 2" onerror="this.onerror=null;this.src='https://placehold.co/800x400/D1FAE5/065F46?text=Imagem+Indisponível';"/>
-            <img src="https://placehold.co/600x400/FEE2E2/991B1B?text=Cardano+Imagem+3" alt="Cardano Imagem 3" onerror="this.onerror=null;this.src='https://placehold.co/800x400/FEE2E2/991B1B?text=Imagem+Indisponível';"/>
-        </div>
-        <button id="carouselLeftArrow" class="carousel-button left"><i class="fas fa-chevron-left"></i></button>
-        <button id="carouselRightArrow" class="carousel-button right"><i class="fas fa-chevron-right"></i></button>
-        <div class="carousel-dots"></div>
-    </div>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<hr class="major-separator">
-
-<div class="container content-section">
-    <h2 id="relatorios-arquivados" class="section-heading">Relatórios Arquivados</h2>
-    <h2 class="subtitle"><strong>Acesse Documentos Técnicos Passados</strong></h2>
-    <p class="text-center mb-8">Os relatórios arquivados estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com nossa equipe através dos canais oficiais da Codify News.</p>
-    <p class="mt-8 text-center"><strong>Além disso será necessario estar inscrito em nossa newsletters em nosso site ocifial da holding, <br><a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a> Entre em contato conosco para saber mais!</strong></p>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div> 
-
-<div class="container content-section">
-    <h2 id="fatos-nao-versoes" class="section-heading">Fatos! não versões</h2>
-    <h2 class="subtitle text-center"><strong>Visão</strong></h2>
-    <p class="text-center"><strong>Na Codify News</strong>, nosso compromisso é com os fatos. <br><p class="text-gray-800">Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container content-section">
-    <h2 id="parceiros" class="section-heading">Parceiros</h2>
-    <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
-    <p class="text-center">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
-    <p class="text-center">Interessado em se tornar um parceiro da Codify News? Entre em contato conosco para explorar oportunidades de colaboração.</p>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container content-section">
-    <h2 id="assinatura-form" class="section-heading">📊 Assinatura Premium |Codify |News</h2>
-    <h2 class="subtitle">Inscreva-se para Acessar Nossos Relatórios Profissionais!</h2>
-    <p class="text-center mb-8">Esta opção é exclusiva para assinantes. Após a confirmação da sua assinatura via Mercado Pago, o relatório será enviado diretamente para o seu e-mail cadastrado.</p>
-    <button id="toggleFormBtn">Mostrar Formulário de Assinatura</button>
-    <div id="formContainer">
-        <div class="flex justify-center items-center">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0" class="google-form-embed">Carregando…</iframe>
-        </div>
-        <p class="text-center mt-8 text-red-700 font-bold">⚠️ Relatórios Arquivados</p>
-        <p class="text-center mb-8">Os relatórios arquivados (anteriores ao período da sua assinatura) estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com a equipe da Codify World por nossos canais oficiais.</p>
+    
+    <hr class="major-separator">
+    
+    <div class="container content-section" id="relatorios-arquivados">
+        <h2 class="section-heading">Relatórios Arquivados</h2>
+        <h2 class="subtitle"><strong>Acesse Documentos Técnicos Passados</strong></h2>
+        <p class="text-center mb-8">Os relatórios arquivados estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com nossa equipe através dos canais oficiais da Codify News.</p>
+        <p class="mt-8 text-center"><strong>Além disso será necessario estar inscrito em nossa newsletters em nosso site ocifial da holding, <br><a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a> Entre em contato conosco para saber mais!</strong></p>
     </div> 
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div> 
-
-<div class="container content-section">
-    <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
-    <h2 class="subtitle text-center">Conecte-se Conosco</h2>
-    <p class="text-center">Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
-    <br>
-    <ul class="social-icons-list">
-        <li><a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram" class="block p-2 rounded-lg border border-pink-500 text-pink-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-pink-500 hover:text-white hover:scale-105"><i class="fab fa-instagram text-current text-xl mr-2"></i><span>Instagram</span></a></li>
-        <li><a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub" class="block p-2 rounded-lg border border-black bg-white text-black font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-black hover:text-white hover:scale-105"><i class="fab fa-github text-current text-xl mr-2"></i><span>GitHub</span></a></li>
-        <li><a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105"><i class="fas fa-globe text-current text-xl mr-2"></i><span>Site Oficial</span></a></li>
-        <li><a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105"><i class="fab fa-linkedin text-current text-xl mr-2"></i><span>LinkedIn</span></a></li>
-        <li><a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105"><i class="fab fa-tiktok text-current text-xl mr-2"></i><span>TikTok</span></a></li>
-        <li><a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105"><i class="fab fa-x-twitter text-current text-xl mr-2"></i><span>X (Twitter)</span></a></li>
-        <li><a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube" class="block p-2 rounded-lg border border-red-600 text-red-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-red-600 hover:text-white hover:scale-105"><i class="fab fa-youtube text-current text-xl mr-2"></i><span>YouTube</span></a></li>
-        <li><a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105"><i class="fab fa-whatsapp text-current text-xl mr-2"></i><span>Network News no WhatsApp</span></a></li>
-    </ul>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container content-section">
-    <h2 id="contato" class="section-heading">Contato</h2>
-    <h2 class="subtitle text-center">Fale Conosco ou Deixe Seu Feedback!</h2>
-    <p class="text-center mt-8"><strong>Codify News</strong><br>
-    Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
-    Rio de Janeiro, Brasil</p>
-    <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">Exterior +244 927 944 541</a> / <a href="tel:+5522997323458" class="text-blue-700 underline">Brasil +55 22 997 323 458</a></p>
-    <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div> 
     
-<div class="container content-section">
-    <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
-    <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
-    <p class="text-center">Na Codify News  acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
-    <p class="text-center">Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
-    <p class="text-center">Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
-    <br>
-    <a>A Codify News faz parte da holding</a>
-    <a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a>
-    <a>Feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital. Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</a>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
+    <div class="container content-section" id="fatos-nao-versoes">
+        <h2 class="section-heading">Fatos! não versões</h2>
+        <h2 class="subtitle text-center"><strong>Visão</strong></h2>
+        <p class="text-center"><strong>Na Codify News</strong>, nosso compromisso é com os fatos. <br><p class="text-gray-800">Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
     </div>
-</div>
 
-<div class="container content-section">
-    <h2 id="politica-privacidade" class="section-heading">Política de Privacidade</h2>
-    <h2 class="subtitle text-center">Nosso Compromisso com Seus Dados</h2>
-    <p class="text-center mb-8">Na Codify News, levamos a sua privacidade a sério. Temos o máximo cuidado com os dados que coletamos e armazenamos apenas o necessário para oferecer nossos serviços e melhorar sua experiência. Não repassamos suas informações a terceiros, salvo quando exigido por ordem judicial, conforme a lei.</p>
-    <p class="text-center">Sua confiança é fundamental para nós.</p>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
-                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#contato">Contato</a>
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
+    <div class="container content-section" id="parceiros">
+        <h2 class="section-heading">Parceiros</h2>
+        <h2 class="subtitle">Nossas Colaborações Estratégicas</h2>
+        <p class="text-center">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação. Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
+        <p class="text-center">Interessado em se tornar um parceiro da Codify News? Entre em contato conosco para explorar oportunidades de colaboração.</p>
     </div>
-</div>
+
+    <div class="container content-section" id="assinatura-form">
+        <h2 class="section-heading">📊 Assinatura Premium |Codify |News</h2>
+        <h2 class="subtitle">Inscreva-se para Acessar Nossos Relatórios Profissionais!</h2>
+        <p class="text-center mb-8">Esta opção é exclusiva para assinantes. Após a confirmação da sua assinatura via Mercado Pago, o relatório será enviado diretamente para o seu e-mail cadastrado.</p>
+        <div id="formContainer">
+            <div class="flex justify-center items-center">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0" class="google-form-embed">Carregando…</iframe>
+            </div>
+            <p class="text-center mt-8 text-red-700 font-bold">⚠️ Relatórios Arquivados</p>
+            <p class="text-center mb-8">Os relatórios arquivados (anteriores ao período da sua assinatura) estão disponíveis apenas mediante solicitação direta. Para acessá-los, entre em contato com a equipe da Codify World por nossos canais oficiais.</p>
+        </div> 
+    </div> 
+    
+    <div class="container content-section" id="redes-sociais">
+        <h2 class="section-heading">Redes Sociais</h2>
+        <h2 class="subtitle text-center">Conecte-se Conosco</h2>
+        <p class="text-center">Siga a Codify World em nossas redes sociais para ficar por dentro das últimas notícias, análises e soluções:</p>
+        <br>
+        <ul class="social-icons-list">
+            <li><a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram" class="block p-2 rounded-lg border border-pink-500 text-pink-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-pink-500 hover:text-white hover:scale-105"><i class="fab fa-instagram text-current text-xl mr-2"></i><span>Instagram</span></a></li>
+            <li><a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub" class="block p-2 rounded-lg border border-black bg-white text-black font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-black hover:text-white hover:scale-105"><i class="fab fa-github text-current text-xl mr-2"></i><span>GitHub</span></a></li>
+            <li><a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105"><i class="fas fa-globe text-current text-xl mr-2"></i><span>Site Oficial</span></a></li>
+            <li><a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn" class="block p-2 rounded-lg border border-blue-700 text-blue-700 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-blue-900 hover:text-white hover:scale-105"><i class="fab fa-linkedin text-current text-xl mr-2"></i><span>LinkedIn</span></a></li>
+            <li><a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105"><i class="fab fa-tiktok text-current text-xl mr-2"></i><span>TikTok</span></a></li>
+            <li><a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)" class="block p-2 rounded-lg border border-neutral-800 text-neutral-800 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-neutral-900 hover:text-white hover:scale-105"><i class="fab fa-x-twitter text-current text-xl mr-2"></i><span>X (Twitter)</span></a></li>
+            <li><a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube" class="block p-2 rounded-lg border border-red-600 text-red-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-red-600 hover:text-white hover:scale-105"><i class="fab fa-youtube text-current text-xl mr-2"></i><span>YouTube</span></a></li>
+            <li><a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105"><i class="fab fa-whatsapp text-current text-xl mr-2"></i><span>Network News no WhatsApp</span></a></li>
+        </ul>
+    </div>
+    
+    <div class="container content-section" id="contato">
+        <h2 class="section-heading">Contato</h2>
+        <h2 class="subtitle text-center">Fale Conosco ou Deixe Seu Feedback!</h2>
+        <p class="text-center mt-8"><strong>Codify News</strong><br>
+        Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
+        Rio de Janeiro, Brasil</p>
+        <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">Exterior +244 927 944 541</a> / <a href="tel:+5522997323458" class="text-blue-700 underline">Brasil +55 22 997 323 458</a></p>
+        <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
+    </div> 
+    
+    <div class="container content-section" id="sobre-nos">
+        <h2 class="section-heading">Sobre nós</h2>
+        <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
+        <p class="text-center">Na Codify News  acreditamos que a tecnologia deve ser uma ponte entre pessoas, ideias e soluções. Somos apaixonados por inovação e buscamos, todos os dias, criar ferramentas que facilitem a vida de quem empreende, ensina, aprende ou simplesmente quer transformar sua rotina com a ajuda da tecnologia.</p>
+        <p class="text-center">Oferecemos soluções personalizadas nas áreas de desenvolvimento de software, automação de processos, inteligência artificial e sistemas inteligentes, sempre com foco no que realmente importa: as pessoas.</p>
+        <p class="text-center">Nosso diferencial está no atendimento próximo, na escuta ativa e na entrega de projetos feitos com propósito, qualidade e clareza. Cada cliente é único, e é assim que tratamos cada desafio: com empatia, criatividade e compromisso.</p>
+        <br>
+        <a>A Codify News faz parte da holding</a>
+        <a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a>
+        <a>Feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital. Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</a>
+    </div>
+
+    <div class="container content-section" id="politica-privacidade">
+        <h2 class="section-heading">Política de Privacidade</h2>
+        <h2 class="subtitle text-center">Nosso Compromisso com Seus Dados</h2>
+        <p class="text-center mb-8">Na Codify News, levamos a sua privacidade a sério. Temos o máximo cuidado com os dados que coletamos e armazenamos apenas o necessário para oferecer nossos serviços e melhorar sua experiência. Não repassamos suas informações a terceiros, salvo quando exigido por ordem judicial, conforme a lei.</p>
+        <p class="text-center">Sua confiança é fundamental para nós.</p>
+    </div>
+</main>
     
 <footer>
     <p>Codify News – Análises e relatórios técnicos multissetoriais, <br> com compromisso jornalístico isento e livre de viés ideológico.</p>

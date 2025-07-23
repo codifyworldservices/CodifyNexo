@@ -209,6 +209,11 @@
         }
         .container::before { content: none; }
 
+        /* Estilo para o relatório de iniciantes */
+        .beginner-report-bg {
+            background-color: #f0f8ff; /* AliceBlue */
+        }
+
         /* ==========================================================================
            Estilos de Títulos e Parágrafos
            ========================================================================== */
@@ -997,15 +1002,16 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
@@ -1159,7 +1165,61 @@
         <p><em>Grupo Codify News um espaço exclusivo para quem busca informação técnica de qualidade, sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
     </div>
 </div>
+<div id="relatorio-secundario" class="container content-section beginner-report-bg">
+    <h2 class="section-heading">Relatório Técnico para Iniciantes</h2>
+    <h2 class="subtitle">Descomplicando a Tecnologia Blockchain</h2>
+    
+    <p class="mb-4 text-gray-800 leading-relaxed">
+        Bem-vindo à nossa seção para iniciantes! O objetivo aqui é explicar conceitos fundamentais do universo das criptomoedas e da tecnologia blockchain de uma forma simples e direta. Se você está começando sua jornada agora, este é o lugar certo para construir uma base sólida de conhecimento.
+    </p>
 
+    <details class="collapsible-section" open>
+        <summary class="collapsible-header">
+            <h2 class="section-title">O que é Blockchain?</h2>
+            <button class="toggle-button">
+                <span class="open-text">Abrir</span><i class="fas fa-chevron-down open-icon"></i>
+                <span class="close-text hidden">Fechar</span><i class="fas fa-times close-icon hidden"></i>
+            </button>
+        </summary>
+        <div class="collapsible-content">
+            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Uma Analogia Simples</h3>
+            <p class="mb-4 text-gray-800 leading-relaxed">
+                Imagine um caderno de anotações digital que é compartilhado entre muitas pessoas. Cada vez que alguém adiciona uma nova anotação (uma "transação"), essa anotação é verificada por todos e, uma vez adicionada, não pode mais ser apagada ou alterada. Esse caderno é o "blockchain".
+            </p>
+            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Como Funciona?</h3>
+            <p class="mb-4 text-gray-800 leading-relaxed">
+                A blockchain é uma cadeia de "blocos". Cada bloco contém um conjunto de transações. Quando um bloco é preenchido, ele é ligado ao bloco anterior de forma criptográfica, formando uma corrente (a "chain"). Isso cria um registro permanente e imutável de todas as transações.
+            </p>
+            <ul class="list-disc pl-5 mb-4 text-gray-800">
+                <li class="mb-2"><strong>Descentralização:</strong> Em vez de estar em um único lugar (como um banco de dados de uma empresa), a blockchain é distribuída por uma rede de computadores. Isso a torna muito mais segura, pois não há um ponto único de falha.</li>
+                <li class="mb-2"><strong>Transparência:</strong> Embora a identidade dos participantes possa ser anônima, as transações em si são geralmente visíveis para todos na rede. Isso aumenta a transparência e a confiança.</li>
+                <li class="mb-2"><strong>Imutabilidade:</strong> Uma vez que uma transação é registrada na blockchain, é praticamente impossível alterá-la. Isso garante a integridade dos dados e previne fraudes.</li>
+            </ul>
+             <p class="mb-4 text-gray-800 leading-relaxed">
+                É essa tecnologia que torna possíveis as criptomoedas como o Bitcoin e plataformas como a Cardano, garantindo que as transações sejam seguras e confiáveis sem a necessidade de um intermediário, como um banco.
+            </p>
+        </div>
+    </details>
+
+    <div class="section-separator-nav">
+        <div class="dropdown">
+            <a href="#" class="dropbtn">CodifyNews</a>
+            <div class="dropdown-content">
+                 <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
+                <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
+                <a href="#politica-privacidade">Política de Privacidade</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container content-section">
     <h2 id="galeria-fotos" class="section-heading">Galeria de Fotos</h2>
     <h2 class="subtitle">Explore nossa coleção de imagens relacionadas à Cardano e ao universo blockchain.</h2>
@@ -1177,15 +1237,16 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
@@ -1203,20 +1264,45 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
     </div>
 </div> 
+
+<div class="container content-section">
+    <h2 id="fatos-nao-versoes" class="section-heading">Fatos! não versões</h2>
+    <h2 class="subtitle text-center"><strong>Visão</strong></h2>
+    <p class="text-center"><strong>Na Codify News</strong>, nosso compromisso é com os fatos. <br><p class="text-gray-800">Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
+    <div class="section-separator-nav">
+        <div class="dropdown">
+            <a href="#" class="dropbtn">CodifyNews</a>
+            <div class="dropdown-content">
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
+                <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
+                <a href="#politica-privacidade">Política de Privacidade</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container content-section">
     <h2 id="parceiros" class="section-heading">Parceiros</h2>
@@ -1227,15 +1313,16 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
@@ -1258,48 +1345,22 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
     </div>
 </div> 
 
-<div class="container content-section">
-    <h2 id="contato" class="section-heading">Contato</h2>
-    <h2 class="subtitle text-center">Fale Conosco ou Deixe Seu Feedback!</h2>
-    <p class="text-center mt-8"><strong>Codify News</strong><br>
-    Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
-    Rio de Janeiro, Brasil</p>
-    <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">Exterior +244 927 944 541</a> / <a href="tel:+5522997323458" class="text-blue-700 underline">Brasil +55 22 997 323 458</a></p>
-    <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
-    <div class="section-separator-nav">
-        <div class="dropdown">
-            <a href="#" class="dropbtn">CodifyNews</a>
-            <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
-                <a href="#galeria-fotos">Galeria de Fotos</a>
-                <a href="#politica-privacidade">Política de Privacidade</a>
-            </div>
-        </div>
-    </div>
-</div> 
-            
 <div class="container content-section">
     <h2 id="redes-sociais" class="section-heading">Redes Sociais</h2>
     <h2 class="subtitle text-center">Conecte-se Conosco</h2>
@@ -1319,15 +1380,16 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
@@ -1335,27 +1397,32 @@
 </div>
 
 <div class="container content-section">
-    <h2 id="fatos-nao-versoes" class="section-heading">Fatos! não versões</h2>
-    <h2 class="subtitle text-center"><strong>Visão</strong></h2>
-    <p class="text-center"><strong>Na Codify News</strong>, nosso compromisso é com os fatos. <br><p class="text-gray-800">Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
+    <h2 id="contato" class="section-heading">Contato</h2>
+    <h2 class="subtitle text-center">Fale Conosco ou Deixe Seu Feedback!</h2>
+    <p class="text-center mt-8"><strong>Codify News</strong><br>
+    Soluções digitais inteligentes para empresas que buscam inovação, agilidade e transformação tecnológica.<br>
+    Rio de Janeiro, Brasil</p>
+    <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">Exterior +244 927 944 541</a> / <a href="tel:+5522997323458" class="text-blue-700 underline">Brasil +55 22 997 323 458</a></p>
+    <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
     <div class="section-separator-nav">
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
     </div>
-</div>
+</div> 
     
 <div class="container content-section">
     <h2 id="sobre-nos" class="section-heading">Sobre nós</h2>
@@ -1371,15 +1438,16 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>
@@ -1395,15 +1463,16 @@
         <div class="dropdown">
             <a href="#" class="dropbtn">CodifyNews</a>
             <div class="dropdown-content">
-                <a href="#relatorio-atual">Relatório Atual</a>
-                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
-                <a href="#parceiros">Parceiros</a>
-                <a href="#assinatura-form">Assinatura</a> 
-                <a href="#sobre-nos">Sobre nós</a>
-                <a href="#contato">Contato</a>
-                <a href="#redes-sociais">Redes Sociais</a>
-                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#relatorio-atual">Relatório Atual (Profissional)</a>
+                <a href="#relatorio-secundario">Relatório para Iniciantes</a>
                 <a href="#galeria-fotos">Galeria de Fotos</a>
+                <a href="#relatorios-arquivados">Relatórios Arquivados</a>
+                <a href="#fatos-nao-versoes">Fatos, não versões</a>
+                <a href="#parceiros">Parceiros</a>
+                <a href="#assinatura-form">Assinatura</a>
+                <a href="#redes-sociais">Redes Sociais</a>
+                <a href="#contato">Contato</a>
+                <a href="#sobre-nos">Sobre nós</a>
                 <a href="#politica-privacidade">Política de Privacidade</a>
             </div>
         </div>

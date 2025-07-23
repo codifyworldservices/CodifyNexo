@@ -420,7 +420,7 @@
 
         /* ==========================================================================
            Estilos para Ocultar/Mostrar o Formulário de Assinatura
-           ========================================================================== */
+           ========================================================================= */
         #formContainer {
             display: none;
             margin-top: 20px;
@@ -504,7 +504,7 @@
         .collapsible-section[open] .toggle-button .open-icon { display: none; }
         .collapsible-section[open] .toggle-button .close-text,
         .collapsible-section[open] .toggle-button .close-icon {
-            color: #dc2626;
+            color: #dc2626; /* Changed from default color to red */
             display: flex;
         }
         .collapsible-content {
@@ -665,10 +665,13 @@
                 margin: 5px auto;
             }
             .section-heading {
-                font-size: 1.5em;
+                font-size: 1.5em; /* Original 1.5em */
                 margin-top: 30px;
                 margin-bottom: 15px;
                 padding-bottom: 10px;
+            }
+            .collapsible-section summary .section-title {
+                font-size: 1.25rem; /* Adjusted from 1.5rem to be smaller on mobile */
             }
             #installAppBanner {
                 flex-direction: column;
@@ -1015,8 +1018,7 @@
   
     <div id="relatorio-atual">
     <div class="flex justify-center items-center mb-6">
-        <h1 class="text-3xl sm:text-4xl text-blue-800 text-center"><strong>Relatório Técnico - Cardano</strong></h1>
-    </div>
+        <h1 class="text-3xl sm:text-4xl text-blue-700 text-center"><strong>Relatório Técnico - Cardano</strong></h1> </div>
     </div>
      <br>
     
@@ -1068,7 +1070,7 @@
             <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Armazenamento de Dados</h3>
             <p class="mb-4 text-gray-800 leading-relaxed">Com a evolução da sua arquitetura, Cardano pode facilitar o armazenamento descentralizado e seguro de dados, garantindo a privacidade e a integridade das informações. Isso é crucial para aplicações que lidam com dados sensíveis, como registros médicos ou informações pessoais.</p>
             <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Ativos de Tokenização</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">A plataforma Cardano permite a tokenização de uma vasta gama de ativos, desde imóveis e obras de arte até ações de empresas e direitos autorais. Isso democratiza o acesso a investimentos, facilita a liquidez de ativos ilíquidos e abre novas avenhas para a captação de recursos.</p>
+            <p class="mb-4 text-gray-800 leading-relaxed">A plataforma Cardano permite a tokenização de uma vasta gama de ativos, desde imóveis e obras de arte até ações de empresas e direitos autorais. Isso democratiza o acesso a investimentos, facilita a liquidez de ativos ilíquidos e abre novas avenas para a captação de recursos.</p>
             <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Sistema de Votação</h3>
             <p class="mb-4 text-gray-800 leading-relaxed">Sistemas de votação baseados em Cardano podem oferecer maior segurança, transparência e auditabilidade em processos eleitorais. Isso pode restaurar a confiança pública em eleições, combatendo a fraude e garantindo que cada voto seja contabilizado de forma justa.</p>
             <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Indústria da Música</h3>

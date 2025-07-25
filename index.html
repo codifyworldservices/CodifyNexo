@@ -401,7 +401,7 @@
         }
 
         /* ==========================================================================
-           Estilos para as seções do relatório (anteriormente colapsáveis)
+           Estilos para as seções do relatório (MODIFICADO)
            ========================================================================== */
         .report-section {
             margin-bottom: 1.5rem;
@@ -417,7 +417,28 @@
             margin-top: 0 !important;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--secondary-blue);
+            cursor: pointer; /* Adicionado para indicar que é clicável */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .report-section h2::after {
+            content: '\f078'; /* Ícone de seta para baixo (FontAwesome) */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+        
+        .report-section h2.open::after {
+            transform: rotate(-180deg);
+        }
+
+        .report-content {
+            display: none; /* Conteúdo oculto por padrão */
+            padding-top: 1rem;
+        }
+
 
         /* ==========================================================================
            Estilos do botão de Voltar ao Topo
@@ -766,6 +787,22 @@
                     });
                 }
             }
+
+            /* --- Lógica para Abrir/Fechar Seções do Relatório (NOVO) --- */
+            const reportHeaders = document.querySelectorAll('.report-section > h2');
+            reportHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('open');
+                    const content = this.nextElementSibling;
+                    if (content && content.classList.contains('report-content')) {
+                        if (content.style.display === "block") {
+                            content.style.display = "none";
+                        } else {
+                            content.style.display = "block";
+                        }
+                    }
+                });
+            });
         });
     </script>
 </head>
@@ -825,76 +862,69 @@
 
 <header>
     <img src="img/logo_codi.png" alt="Codify World">
+<h3 class="text-3xl sm:text-4xl text-White-700 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
+            <br>   Tecnologia | Economia <br>  Tech Labs Software</h3>
 </header>
     
 <main id="main-content">
     
     <div class="container" id="relatorio-atual">
-        <h3 class="text-3xl sm:text-4xl text-blue-700 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
-            <br>   Tecnologia | Economia <br>  Tech Labs Software</h3>
-      
+        
+        <br> 
         <div class="flex justify-center items-center mb-6">
-            <h1 class="text-3xl sm:text-4xl text-blue-700 text-center"><strong>Relatório Técnico - Cardano</strong></h1> 
+            <h1 class="text-3xl sm:text-4xl text-blue-700 text-center"><strong>Relatório Cenário Mundial</strong></h1> 
         </div>
         <br>
         
         <p class="mb-4 text-gray-800 leading-relaxed">
-            O Cardano é uma plataforma blockchain de terceira geração que se destaca por sua abordagem científica e pesquisa acadêmica rigorosa em seu desenvolvimento. Lançada em 27 de setembro de 2017, o projeto desenvolveu o seu token chamado Ada. Diferente de muitas criptomoedas que surgiram rapidamente, Cardano foi construída com um foco em escalabilidade, interoperabilidade e sustentabilidade, buscando oferecer uma infraestrutura mais robusta e segura para aplicações descentralizadas (dApps) e contratos inteligentes.
+            O cenário econômico e geopolítico global de julho de 2025 é marcado por uma complexa teia de pressões sobre a política monetária das principais economias, escalada de tensões comerciais, avanços regulatórios no mercado de criptomoedas e conflitos persistentes. No centro das atenções, o Brasil navega um ambiente doméstico de inflação e juros altos enquanto lida com ameaças tarifárias diretas dos Estados Unidos.
         </p>
 
         <div class="report-section">
-            <h2>1. Função no Mercado</h2>
-            <p class="mb-4 text-gray-800 leading-relaxed">
-                No mercado de criptoativos, Cardano se posiciona como uma plataforma para a construção de um futuro descentralizado. Seu objetivo principal é fornecer uma infraestrutura que possa ser usada por empresas, governos e indivíduos para criar soluções blockchain seguras, escaláveis e eficientes. Ela compete com outras grandes blockchains como Ethereum, mas com uma ênfase particular na segurança formalmente verificada e na pesquisa por pares.
-            </p>
+            <h2>🌍 Economia Global: Um Cabo de Guerra Monetário</h2>
+            <div class="report-content">
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🇺🇸 Estados Unidos</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">O Federal Reserve (Fed) mantém as taxas de juros no intervalo de 4,25% a 4,50%, resistindo a fortes pressões por cortes. Embora a inflação permaneça acima da meta, o mercado projeta reduções para o final do ano. A economia dá sinais de arrefecimento, mas a principal fonte de incerteza vem da política comercial. O presidente Donald Trump intensificou a guerra comercial, ameaçando impor uma tarifa de 100% a produtos russos e uma pesada tarifa de 50% sobre todas as importações brasileiras, adicionando uma camada de complexidade às decisões do Fed.</p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🇪🇺 União Europeia</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">Seguindo uma abordagem cautelosa, o Banco Central Europeu (BCE) fez uma pausa em seu ciclo de afrouxamento monetário, mantendo sua principal taxa de depósito em 2,15% após sete reduções consecutivas. A decisão reflete as incertezas geradas pelas tensões comerciais globais e seu potencial impacto na inflação e na valorização do euro. Apesar do cenário desafiador, a confiança dos investidores e consumidores na zona do euro mostrou resiliência, com o índice de confiança do consumidor atingindo em julho o seu nível mais alto desde fevereiro de 2022.</p>
+            </div>
         </div>
 
         <div class="report-section">
-            <h2>2. Utilidade em Diversos Setores</h2>
-            <p class="mb-4 text-gray-800 leading-relaxed">Cardano apresenta um potencial transformador em uma ampla gama de setores devido à sua arquitetura flexível e segura.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Educação</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Cardano pode revolucionar a educação através da verificação de credenciais e certificados digitais, tornando-os imutáveis e facilmente verificáveis. Isso combate a fraude e garante a autenticidade de diplomas. Além disso, pode facilitar o rastreamento de progresso acadêmico e a criação de plataformas de aprendizado descentralizadas onde os criadores de conteúdo são recompensados diretamente.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Governo</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Para governos, Cardano oferece a possibilidade de melhorar a transparência e a eficiência de serviços públicos. Isso inclui o gerenciamento seguro de registros civis, sistemas de votação eletrônica mais confiáveis, gerenciamento de identidade digital e até mesmo a distribuição de benefícios sociais de forma mais auditável e justa.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Finanças Descentralizadas (DeFi)</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">No setor DeFi, Cardano permite a criação de uma variedade de serviços financeiros sem intermediários. Isso inclui empréstimos e tomadas de empréstimos, stablecoins, exchanges descentralizadas (DEXs) e plataformas de seguros, todos operando de forma mais segura e transparente graças à sua arquitetura robusta e taxas potencialmente mais baixas que outras blockchains.</p>
+            <h2>🪙 Criptomoedas: Recorde Histórico e o Avanço da Regulação</h2>
+            <div class="report-content">
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🌐 Mercado Global</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">O Bitcoin (BTC) vive um momento de euforia, tendo ultrapassado seu recorde histórico e superado a marca de US$ 123.000 em julho. A alta é atribuída a uma combinação de fatores, incluindo a expectativa de cortes nos juros pelo Fed e, principalmente, avanços significativos na clareza regulatória nos EUA. O mercado também observou com atenção a reativação de duas "baleias" — carteiras de Bitcoin inativas há mais de uma década — que movimentaram 20 mil BTC, gerando especulações sobre possíveis impactos na liquidez e no preço do ativo.</p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🇺🇸 Estados Unidos</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">O Congresso americano deu um passo histórico para a regulamentação do setor. Em 18 de julho, o presidente Trump sancionou a lei "Guiding and Establishing National Innovation for U.S. Stablecoins" (GENIUS Act), o primeiro grande marco legal para emissores de stablecoins no país. Paralelamente, avança no legislativo um projeto de lei que visa proibir a emissão de Moedas Digitais de Bancos Centrais (CBDCs), sinalizando um caminho regulatório que favorece soluções privadas em detrimento de uma moeda digital estatal.</p>
+            </div>
         </div>
 
         <div class="report-section">
-            <h2>3. Última Atualização da Cardano: Vasil</h2>
-            <p class="mb-4 text-gray-800 leading-relaxed">A última grande atualização da rede principal de Cardano foi a implantação do upgrade de Vasil em setembro de 2022. Embora não seja a mais recente em termos de pequenos ajustes e melhorias contínuas, Vasil representou um marco significativo ao introduzir importantes otimizações no desempenho da rede. As principais melhorias incluíram:</p>
-            <ul class="list-none pl-0 mb-4">
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Pipelining de Difusão (Diffusion Pipelining):</strong> Isso aprimorou o processo de propagação de blocos na rede, reduzindo a latência e permitindo um throughput maior de transações.</li>
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Melhorias no Plutus (Plutus V2):</strong> O Plutus, a linguagem de contrato inteligente de Cardano, recebeu atualizações que aprimoraram sua eficiência, reduzindo os custos de execução de scripts e aumentando a capacidade de processamento de contratos inteligentes complexos. Isso abriu caminho para dApps mais sofisticados e com melhor desempenho.</li>
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Novas Primitivas de Criptografia:</strong> A Vasil introduziu novas primitivas criptográficas que facilitam a criação de funcionalidades mais avançadas, como sidechains e outras soluções de escalonamento.</li>
-            </ul>
-            <p class="mb-4 text-gray-800 leading-relaxed">Essas otimizações visaram tornar a rede mais escalável e eficiente, pavimentando o caminho para um maior número de usuários e aplicações descentralizadas.</p>
+            <h2>⚔️ Conflitos Geopolíticos: Negociações Frágeis e Tensões Latentes</h2>
+            <div class="report-content">
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🇷🇺 Rússia e 🇺🇦 Ucrânia</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">As negociações de paz ganham um novo contorno com a imposição de um prazo de 50 dias por Donald Trump para um acordo, sob a ameaça de tarifas secundárias a países que comercializarem com a Rússia. O Kremlin, no entanto, manifestou ceticismo sobre a viabilidade do prazo. Em um sinal positivo, delegações russas e ucranianas realizaram uma nova rodada de troca de prisioneiros em Istambul no dia 24 de julho, mantendo um canal de diálogo aberto para questões humanitárias.</p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🇮🇱 Israel e 🇮🇷 Irã</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">Apesar de uma escalada militar em junho, com ataques diretos e um cessar-fogo frágil, analistas consideram improvável a eclosão de uma Terceira Guerra Mundial. As tensões entre Israel e Irã, contudo, permanecem elevadas, com o risco de novos confrontos localizados impactando a estabilidade no Oriente Médio.</p>
+            </div>
         </div>
         
         <div class="report-section">
-            <h2>4. Ouroboros: O Coração de Cardano</h2>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">O que é o Ouroboros?</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">Ouroboros é o nome da família de protocolos de consenso Proof-of-Stake (PoS) utilizados pela Cardano. É o motor que permite que a blockchain funcione de forma segura, descentralizada e eficiente.</p>
-            <p class="mb-4 text-gray-800 leading-relaxed">Ouroboros é o primeiro protocolo PoS baseado em pesquisa de pares e segurança formalmente verificada. Ele foi projetado para ser tão seguro quanto o Proof-of-Work (PoW) do Bitcoin, mas sem o enorme consumo de energia. Em vez de mineradores competindo para resolver problemas complexos e consumir energia, no Ouroboros, os validadores (stake pools) são selecionados para criar novos blocos com base na quantidade de ADA (a criptomoeda nativa de Cardano) que eles "apostam" ou delegam.</p>
-            <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">Para que serve o Ouroboros?</h3>
-            <p class="mb-4 text-gray-800 leading-relaxed">O Ouroboros serve para as seguintes funções críticas na rede Cardano:</p>
-            <ul class="list-none pl-0 mb-4">
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Validação de Transações:</strong> Ele garante que as transações na rede sejam válidas e que os novos blocos sejam adicionados à blockchain de forma correta.</li>
-                <li class="mb-2 text-gray-800 leading-relaxed"><strong>Segurança da Rede:</strong> O protocolo impede ataques maliciosos à rede, como o "gasto duplo", ao garantir que a maioria dos participantes honestos tenha mais participação (stake) na rede.</li>
-            </ul>
+            <h2>🇧🇷 Brasil: Inflação Persistente e Ameaça Tarifária Iminente</h2>
+            <div class="report-content">
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">📉 Economia</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">A inflação anual medida em junho atingiu 5,35%, e a prévia de julho (IPCA-15) marcou 5,3%, mantendo-se acima da meta do Banco Central. Os preços de energia e transportes continuam sendo os principais vilões. Diante deste quadro, a expectativa do mercado é que o Comitê de Política Monetária (Copom) mantenha a taxa Selic em 15% em sua próxima reunião, aguardando os efeitos do aperto monetário já realizado. O Fundo Monetário Internacional (FMI), em seu relatório de julho, projeta um crescimento de 2,3% para o PIB brasileiro em 2025, com uma leve recuperação para 2,5% no médio prazo.</p>
+                <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🏛️ Política Fiscal</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">O governo federal anunciou a liberação de R$ 20,6 bilhões do Orçamento de 2025 que estavam bloqueados. Com a medida e a revisão de receitas e despesas, a estimativa para o déficit primário do ano foi reduzida de R$ 97 bilhões para R$ 74,1 bilhões.</p>
+                 <h3 class="text-xl font-semibold text-blue-600 mt-6 mb-3">🇺🇸 Relações com os EUA</h3>
+                <p class="mb-4 text-gray-800 leading-relaxed">A relação bilateral enfrenta seu momento mais tenso em anos. O presidente Donald Trump anunciou a imposição de uma tarifa de 50% sobre todos os produtos brasileiros a partir de 1º de agosto. A medida foi explicitamente vinculada por Trump à continuidade do processo judicial contra o ex-presidente Jair Bolsonaro, o que foi classificado pelo governo brasileiro como uma "chantagem inaceitável" e um "grave ataque à soberania". O Brasil levou a queixa à Organização Mundial do Comércio (OMC) e tenta, sem sucesso até o momento, negociar uma saída diplomática. Analistas preveem um impacto limitado das tarifas em 2025, mas alertam para efeitos mais severos na economia a partir de 2026 caso a medida seja mantida.</p>
+            </div>
         </div>
-        
-        <div class="report-section">
-            <h2>5. Resumo: Potencial de Crescimento da Cardano</h2>
-            <p class="mb-4 text-gray-800 leading-relaxed">O potencial de crescimento de Cardano é vasto e multifacetado. Sua abordagem científica e seu foco na segurança, escalabilidade e interoperabilidade a posicionam como uma concorrente séria no cenário blockchain. A capacidade de Cardano de atender às necessidades de diversos setores – desde finanças e governos até educação e agricultura – demonstra sua flexibilidade e a amplitude de suas possíveis aplicações.</p>
-            <p class="mb-4 text-gray-800 leading-relaxed">Com uma comunidade ativa e um roteiro claro que inclui futuras implementações de soluções de escalabilidade de segunda camada (como Hydra) e melhorias na governança on-chain, Cardano está bem posicionada para atrair um volume crescente de desenvolvedores e usuários. Seu compromisso com a pesquisa e o desenvolvimento sustentável, em um ambiente regulatório cada vez mais complexo, a torna uma plataforma robusta e resiliente, com um futuro promissor para se tornar uma infraestrutura global para a próxima geração da internet descentralizada.</p>
-        </div>
-
         <div id="reportEndMarker" class="signature">
             <p><em><strong>Atenciosamente,</strong><br>
             Weslei Romano<br>
-            Consultor em Crypto Moedas<br>
-            Blockchain Partner<br> 
+            Engenheiro Software<br> 
             Codify News | Tech Labs</em></p>
             <p><em>Nota: Este relatório é apenas informativo são baseadas em fontes públicas e não expressam um posicionamento editorial.</em></p>
             <div class="flex flex-col items-start space-y-2 mt-4">

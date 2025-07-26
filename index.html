@@ -176,7 +176,7 @@
             border-radius: 25px;
             object-fit: cover;
             border: 15px solid var(--primary-blue);
-            display: block;
+            display: none; /* Oculta a imagem por padrão em telas maiores que 768px (desktop) */
             margin: 0 auto;
         }
         
@@ -535,8 +535,13 @@
             body {
                 padding-left: 0; /* Remove o padding no mobile */
             }
-
-            header, footer, .container {
+            
+            /* Exibe a imagem apenas quando a largura da tela for no máximo 768px (mobile) */
+             header img {
+             display: block; /* Ou 'inline-block', dependendo do seu layout desejado */
+            }
+            
+                header, footer, .container {
                 width: 100%;
                 box-sizing: border-box;
             }
@@ -861,7 +866,7 @@
 </div>
 
 <header>
-    
+<img src="img/logo_codi.png" alt="Codify World">    
 <h3 class="text-3xl sm:text-4xl text-White-700 text-center font-extrabold"><strong>Análises multissetoriais"</strong>
             <br>   Tecnologia | Economia <br>  Tech Labs Software</h3>
 </header>

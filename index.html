@@ -73,8 +73,9 @@
         /* Ajustes para o logo: Removendo altura e largura fixas iniciais */
         #main-header-content .logo img {
             max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner do pai. */
-            height: auto;    /* Mantém a proporção da imagem automaticamente. */
+            width: auto; /* Mantém a proporção da imagem automaticamente. */
             display: block;
+            object-fit: contain; /* Garante que a imagem se ajuste dentro do espaço sem cortar */
         }
 
         /* --- Modern Desktop Navigation --- */
@@ -429,14 +430,12 @@
         @media (min-width: 769px) {
             /* Ajuste o tamanho do logo para desktop */
             #main-header-content .logo img {
-                max-height: 25px; /* Reduzindo a altura máxima para desktop */
-                width: auto; /* Mantém a proporção */
+                height: 40px; /* Altura explícita para desktop */
             }
             #hamburger-btn { display: none; }
             #main-nav { display: flex; }
             .header-actions { display: block; }
             .contact-social-links { display: block; }
-             /* Reduced by 10% from 40px */    
             /* New Grid Layout for Report Cards on Desktop */
             .report-cards-grid {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -448,22 +447,26 @@
             Mobile Styles (App-like Look)
             ========================================================================== */
         @media (max-width: 768px) {
-            :root { --header-total-height: 60px; }
+            :root { --header-total-height: 60px; } /* Mantém a altura do cabeçalho para mobile */
 
             #main-header-content {
-                justify-content: space-between;
+                justify-content: center; /* Centraliza o conteúdo (logo) */
+                position: relative; /* Necessário para posicionar o botão de hambúrguer */
                 padding: 0 15px;
                 max-width: 100%;
             }
             .logo-link {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
+                /* Remove o posicionamento absoluto para que o flexbox do pai possa centralizar */
+                position: static; /* Volta ao comportamento normal de fluxo */
+                transform: none; /* Remove qualquer transformação de translação */
             }
             /* Ajuste o tamanho do logo para mobile */
             #main-header-content .logo img {
-                max-height: 20px; /* Reduzindo a altura máxima para mobile */
-                width: auto; /* Mantém a proporção */
+                height: 30px; /* Altura explícita para mobile */
+            }
+            #hamburger-btn {
+                position: absolute; /* Posiciona o botão de hambúrguer absolutamente à esquerda */
+                left: 15px;
             }
 
             .main-title { font-size: 1.8em; }
@@ -797,8 +800,6 @@
                          Projetos criativos ou imobiliários arrecadam recursos vendendo tokens em vez de ações tradicionais.</p>
                          <p><strong>Arte Digital (NFTs)</strong><br>
                          Obras são transformadas em tokens não-fungíveis (NFTs), garantindo propriedade única de itens digitais.</p>
-                         <p><strong>Garantias Financeiras</strong><br>
-                         Bancos podem aceitar tokens de ativos como garantia de empréstimos, simplificando processos.</p>
                          <p><strong>5. Mineração de Bitcoin: Garimpo Digital</strong></p>
                          <p><strong>Definição</strong><br>
                          Processo que cria novos bitcoins e registra transações, resolvendo desafios matemáticos em computadores.</p>

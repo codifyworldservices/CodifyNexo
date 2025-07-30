@@ -71,7 +71,7 @@
         }
 
         /* Ajustes para o logo: Removendo altura e largura fixas iniciais */
-        #main-header-content .logo img {
+        #main-header-content .logo {
             max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner do pai. */
             width: auto; /* Mantém a proporção da imagem automaticamente. */
             display: block;
@@ -429,11 +429,10 @@
             ========================================================================== */
         @media (min-width: 769px) {
             /* Ajuste o tamanho do logo para desktop */
-            #main-header-content .logo img {
-                 width: 120px;
-                 height: 40px;
-                /* Altura explícita para desktop */
-            }
+           #main-header-content .logo {
+                width: 45px;
+                height: auto;
+                  } 
             #hamburger-btn { display: none; }
             #main-nav { display: flex; }
             .header-actions { display: block; }
@@ -463,8 +462,8 @@
                 transform: none; /* Remove qualquer transformação de translação */
             }
             /* Ajuste o tamanho do logo para mobile */
-            #main-header-content .logo img {
-                width: 120px;
+            #main-header-content .logo {
+                 width: 25px;
                  height: auto;      /* Altura explícita para mobile */
              
             }

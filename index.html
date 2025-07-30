@@ -23,14 +23,14 @@
 
         :root {
             --primary-blue: #0055A4;
-            --secondary-blue: #007ACC; /* Azul secundário, mais claro que o primário */
-            --light-blue: #BBDDFF; /* Cor azul claro um pouco mais escura para melhor contraste */
+            --secondary-blue: #007ACC;
+            --light-blue: #BBDDFF;
             --dark-gray: #333333;
             --light-gray: #F0F2F5;
             --white: #FFFFFF;
             --font-heading: 'Poppins', sans-serif;
             --font-base: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --header-total-height: 100px; /* Ajustado: 35px (top-bar) + 65px (main-header-content) */
+            --header-total-height: 70px;
         }
 
         html {
@@ -59,192 +59,169 @@
             background-color: var(--white);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        #top-bar {
-            background-color: #A0D9FF; /* Fundo azul ainda mais claro */
-            color: var(--white); /* Texto branco */
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 5px 40px;
-            height: 45px;
-            border-bottom: 1px solid #1a66b9; /* Borda mais escura para contraste */
-        }
-        #top-bar .social-links {
-            display: flex;
-            gap: 18px;
-            align-items: center;
-        }
-        #top-bar .social-links a {
-            font-size: 1.4rem; /* Ícones maiores */
-            color: var(--white); /* Cor padrão branca, será sobrescrita pelos ícones específicos */
-            transition: color 0.2s;
-        }
-        /* Cores específicas para os ícones de redes sociais */
-        #top-bar .social-links a[aria-label="Instagram"] { color: #E4405F; }
-        #top-bar .social-links a[aria-label="GitHub"] { color: #333333; } /* Preto */
-        #top-bar .social-links a[aria-label="Site Oficial"] { color: #333333; } /* Preto para visibilidade e "inversão" */
-        #top-bar .social-links a[aria-label="LinkedIn"] { color: #0A66C2; } /* Azul padrão do LinkedIn */
-        #top-bar .social-links a[aria-label="TikTok"] { color: #333333; } /* Preto */
-        #top-bar .social-links a[aria-label="X (Twitter)"] { color: #333333; } /* Preto */
-        #top-bar .social-links a[aria-label="YouTube"] { color: #FF0000; }
-        #top-bar .social-links a[aria-label="Grupo WhatsApp"] { color: #25D366; }
-
-        #top-bar .social-links a:hover {
-            opacity: 0.8; /* Leve opacidade no hover */
-        }
-        #top-bar .separator {
-            width: 1px;
-            height: 16px;
-            background-color: rgba(255,255,255,0.3); /* Separador mais claro para fundo azul */
-            margin: 0 15px;
-        }
-        #top-bar .subscribe-link { /* Alterado para classe para ser reutilizado */
-            font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 1rem; /* Aumentado o tamanho da fonte */
-            text-decoration: none;
-            color: var(--white); /* Texto branco */
-            background-color: #000000; /* Fundo preto para destaque */
-            padding: 4px 12px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
-        #top-bar .subscribe-link a:hover {
-            background-color: #333333; /* Cinza escuro no hover do botão preto */
-        }
-
+        
         #main-header-content {
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Mantido para desktop */
-            padding: 10px 40px;
-            height: 65px;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: var(--header-total-height);
         }
-        #main-header-content .logo {
-            flex-grow: 1; /* Permite que o logo ocupe espaço para centralizar */
-            text-align: center; /* Centraliza o logo */
-        }
+
         #main-header-content .logo img {
-            height: 60px; /* Logotipo maior */
+            height: 50px;
             width: auto;
-            display: inline-block; /* Garante que text-align: center funcione */
+            display: block;
         }
-        #main-header-content .header-tagline {
-            font-family: var(--font-base);
-            font-size: 1.1rem; /* Ajustado para ser igual ao da assinatura */
-            color: var(--dark-gray);
-            text-align: right;
-            line-height: 1.4;
+
+        /* --- Modern Desktop Navigation --- */
+        #main-nav {
+            display: none;
+            flex-grow: 1;
+            justify-content: center;
         }
-        #main-header-content .header-tagline strong {
+
+        #main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        #main-nav ul li a {
             font-family: var(--font-heading);
             font-weight: 600;
+            font-size: 1rem;
+            color: var(--dark-gray);
+            text-decoration: none;
+            padding: 10px 0;
+            position: relative;
+            transition: color 0.2s;
         }
 
-        #main-nav {
-            display: none; /* Removido do desktop e mobile */
+        #main-nav ul li a:hover {
+            color: var(--primary-blue);
         }
 
+        #main-nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+
+        #main-nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: none;
+        }
+
+        .subscribe-btn {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: var(--white);
+            background-color: var(--primary-blue);
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .subscribe-btn:hover {
+            background-color: var(--secondary-blue);
+            transform: scale(1.05);
+        }
+
+
+        /* --- App-like Sidebar Navigation (Mobile) --- */
         #sidebar-nav {
             position: fixed;
             top: 0;
             left: 0;
             height: 100%;
             width: 280px;
-            background-color: #1d6ba0; /* Fundo azul claro para a sidebar (mesmo das redes sociais) */
+            background-color: var(--white);
             box-shadow: 2px 0 5px rgba(0,0,0,0.2);
             z-index: 1300;
-            flex-direction: column;
             transform: translateX(-100%);
             transition: transform 0.3s ease-in-out;
-            display: flex; /* Ensure flex column for content */
+            display: flex;
+            flex-direction: column;
         }
+
         #sidebar-nav.sidebar-open {
             transform: translateX(0);
         }
+
         #sidebar-nav .sidebar-header {
-            padding: 12px 25px;
-            background-color: ##1d6ba0;; /* Um tom um pouco mais escuro para o cabeçalho da sidebar */
-            borde
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--light-gray);
         }
+
         #sidebar-nav .sidebar-header img {
             width: 120px;
             height: auto;
-            border-radius: 20px;
         }
+
         #sidebar-nav ul {
             list-style: none;
-            padding: 0px 0;
+            padding: 15px 0;
             margin: 0;
             overflow-y: auto;
             flex-grow: 1;
         }
+
         #sidebar-nav ul li a {
-            display: block;
-            padding: 12px 20px; /* Reduzido o padding */
-            color: var(--white); /* Texto branco */
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--dark-gray);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-family: var(--font-heading);
-            font-size: 1rem;
-            transition: background-color 0.2s, box-shadow 0.2s;
-            /* Adicionado sombra para parecer um botão */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            border-radius: 4px; /* Pequenas bordas arredondadas */
-            margin: 4px 10px; /* Reduzido o espaçamento entre os botões */
+            font-size: 1.1rem;
+            transition: background-color 0.2s, color 0.2s;
         }
         #sidebar-nav ul li a:hover {
-            background-color: #90C9E9; /* Azul um pouco mais escuro no hover para "contorno" */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Aumenta a sombra no hover */
+            background-color: var(--light-gray);
+            color: var(--primary-blue);
         }
 
-        /* Social links within sidebar for mobile */
         #sidebar-social-links {
-            display: none; /* Hidden by default, shown on mobile */
-            background-color: #A0D9FF; /* Same as desktop top bar */
-            padding: 15px 25px;
-            justify-content: center;
-            gap: 20px;
-            border-top: 1px solid #1a66b9;
+            padding: 20px 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 15px;
+            border-top: 1px solid var(--light-gray);
         }
+
         #sidebar-social-links a {
-            font-size: 1.8rem; /* Larger icons for sidebar */
-            color: var(--white); /* Default white for sidebar icons */
-            transition: color 0.2s;
+            font-size: 1.5rem;
+            text-align: center;
+            transition: opacity 0.2s;
         }
-        /* Specific colors for social icons in sidebar */
-        #sidebar-social-links a[aria-label="Instagram"] { color: #E4405F; }
-        #sidebar-social-links a[aria-label="GitHub"] { color: #333333; }
-        #sidebar-social-links a[aria-label="Site Oficial"] { color: #333333; }
-        #sidebar-social-links a[aria-label="LinkedIn"] { color: #0A66C2; }
-        #sidebar-social-links a[aria-label="TikTok"] { color: #333333; }
-        #sidebar-social-links a[aria-label="X (Twitter)"] { color: #333333; }
-        #sidebar-social-links a[aria-label="YouTube"] { color: #FF0000; }
-        #sidebar-social-links a[aria-label="Grupo WhatsApp"] { color: #25D366; }
+        #sidebar-social-links a:hover {
+            opacity: 0.7;
+        }
 
-
+        /* --- Hamburger Button (Mobile) --- */
         #hamburger-btn {
-            background-color: var(--primary-blue); /* Fundo azul escuro para o botão */
+            background: none;
             border: none;
-            color: var(--white); /* Ícone branco */
-            font-size: 24px; /* Tamanho do ícone */
+            color: var(--dark-gray);
+            font-size: 24px;
             cursor: pointer;
             display: block;
-            order: -1;
-            width: 45px; /* Largura fixa para botão circular */
-            height: 45px; /* Altura fixa para botão circular */
-            border-radius: 50%; /* Torna o botão circular */
-            display: flex; /* Usa flexbox para centralizar o ícone */
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra sutil para contorno */
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        #hamburger-btn:hover {
-            background-color: var(--secondary-blue); /* Azul mais claro no hover */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            padding: 10px;
         }
 
         #page-overlay {
@@ -261,81 +238,82 @@
             display: block;
         }
 
+
         /* ==========================================================================
-            IMPROVEMENT: Estilo restaurado das seções como no site original
+            Main Content & Shared Styles
             ========================================================================== */
         .container {
             max-width: 960px;
-            margin: 30px auto;
-            background-color: var(--white); /* Fundo branco direto no container */
-            padding: 40px; /* Padding direto no container */
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin: 40px auto;
+            background-color: transparent;
+            padding: 0 20px;
             box-sizing: border-box;
         }
+        .content-section {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
 
-        .main-title { font-family: var(--font-heading); color: var(--primary-blue); font-size: 2.2em; font-weight: 800; text-align: center; margin-bottom: 10px; line-height: 1.3; }
-        .subtitle { font-family: var(--font-base); color: var(--dark-gray); font-size: 1.2em; text-align: center; margin-bottom: 25px; }
+        .main-title { font-family: var(--font-heading); color: var(--primary-blue); font-size: 2.5em; font-weight: 800; text-align: center; margin-bottom: 10px; line-height: 1.3; }
+        .subtitle { font-family: var(--font-base); color: var(--dark-gray); font-size: 1.2em; text-align: center; margin-bottom: 30px; }
         .section-heading { font-family: var(--font-heading); color: var(--dark-gray); font-size: 2.2em; font-weight: 700; text-align: center; margin-top: 0; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 4px solid var(--primary-blue); display: inline-block; }
-        .section-heading-wrapper { text-align: center; margin-bottom: 20px; }
+        .section-heading-wrapper { text-align: center; margin-bottom: 30px; }
         p, ul { margin-bottom: 15px; text-align: justify; font-size: 1.05rem; }
 
         footer {
-            text-align: center; /* Centraliza o texto do rodapé */
-            padding: 30px 20px;
-            background-color: #FFFFFF; /* Cor do rodapé alterada para o azul mais claro */
-            color: var(--primary-blue); /* Texto do rodapé em azul escuro */
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #343a40;
+            color: var(--white);
             font-size: 0.9rem;
-            border-top: 4px solid #1a66b9; /* Borda mais escura para contraste */
+            border-top: 4px solid var(--primary-blue);
             margin-top: 40px;
         }
-        /* Ensure all text content within the footer is centered */
-        footer p {
-            text-align: center;
-        }
-        footer a {
-            color: var(--primary-blue); /* Links em azul escuro no rodapé */
-            text-decoration: underline; /* Manter sublinhado */
-            font-weight: bold;
-            transition: color 0.2s;
-        }
-        footer a:hover { color: var(--secondary-blue); } /* Azul claro no hover */
+        footer p { text-align: center; color: #ced4da; }
+        footer a { color: var(--white); text-decoration: underline; font-weight: bold; transition: color 0.2s; }
+        footer a:hover { color: var(--light-blue); }
 
-        /* Card-like styling for report sections */
-        .report-cards-wrapper {
-            position: relative;
-            /* display: flex; REMOVIDO para mobile */
-            align-items: center;
+        .report-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
         .report-card {
             background-color: var(--white);
-            border-radius: 0.75rem;
+            border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 1.5rem;
-            overflow: hidden; /* Ensures image corners are rounded */
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            border: 1px solid var(--light-blue);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         .report-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
         }
         .report-card-image-container {
-            width: 100%; /* Default for mobile */
-            height: 90px; /* Reduzido para mobile */
+            width: 100%;
+            height: 200px;
             overflow: hidden;
-            border-top-left-radius: 0.75rem;
-            border-top-right-radius: 0.75rem;
-            background-color: var(--light-gray); /* Background for images that don't fill */
         }
         .report-card-image-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Changed to cover for mobile to fill space */
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .report-card:hover .report-card-image-container img {
+            transform: scale(1.05);
         }
         .report-card-content {
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
         .report-card-content h3 {
             font-family: var(--font-heading);
@@ -343,27 +321,30 @@
             color: var(--primary-blue);
             margin-top: 0;
             margin-bottom: 0.75rem;
+            font-size: 1.4rem;
         }
         .report-card-content .summary {
             color: var(--dark-gray);
             margin-bottom: 1rem;
             text-align: justify;
+            flex-grow: 1;
         }
         .read-more-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             background-color: var(--primary-blue);
             color: var(--white);
             padding: 0.75rem 1.25rem;
-            border-radius: 0.5rem;
+            border-radius: 25px;
             text-decoration: none;
             font-family: var(--font-heading);
             font-weight: 600;
             transition: background-color 0.2s ease, transform 0.2s ease;
             width: fit-content;
             margin-top: 1rem;
-            cursor: pointer; /* Ensure it looks clickable */
+            border: none;
+            cursor: pointer;
         }
         .read-more-btn:hover {
             background-color: var(--secondary-blue);
@@ -371,412 +352,137 @@
         }
         .read-more-btn i {
             margin-left: 0.5rem;
-            transition: transform 0.2s ease;
         }
         .report-content-full {
-            display: none; /* Hidden by default */
-            padding-top: 1rem;
-            border-top: 1px solid var(--light-blue);
-            margin-top: 1rem;
-            color: var(--dark-gray);
-        }
-        .report-card.open .report-content-full {
-            display: block; /* Show when card is open */
-        }
-        .report-card.open .read-more-btn i {
-            transform: rotate(90deg); /* Rotate arrow when open */
-        }
-
-        /* Form structure restored */
-        #formContainer { display: block; margin-top: 20px; padding: 20px; border: 1px solid var(--light-blue); border-radius: 8px; background-color: var(--light-gray); box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
-        .google-form-embed { width: 100%; height: 800px; border: 0; margin: 0 auto; display: block; }
-
-        /* Desktop styles for report cards (single column, but content inside is horizontal) */
-        .report-cards-grid {
-            display: grid;
-            grid-template-columns: 1fr; /* One column on desktop */
-            gap: 1.5rem;
-        }
-
-        /* Scroll indicator container (hidden on desktop) */
-        .scroll-indicator-container {
             display: none;
-            width: 100%;
-            height: 8px;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-top: 1.5rem;
-            overflow: hidden;
         }
 
-        .scroll-indicator-bar {
-            height: 100%;
-            width: 0%;
-            background-color: var(--primary-blue);
-            border-radius: 4px;
-            transition: width 0.1s ease-out;
+        /* --- Social Icon Colors & Styles --- */
+        .social-icons a, #sidebar-social-links a {
+            text-decoration: none;
         }
+        .social-icons a[aria-label="Instagram"], #sidebar-social-links a[aria-label="Instagram"] { color: #E4405F; }
+        .social-icons a[aria-label="GitHub"], #sidebar-social-links a[aria-label="GitHub"] { color: #333333; }
+        .social-icons a[aria-label="Site Oficial"], #sidebar-social-links a[aria-label="Site Oficial"] { color: #333333; }
+        .social-icons a[aria-label="LinkedIn"], #sidebar-social-links a[aria-label="LinkedIn"] { color: #0A66C2; }
+        .social-icons a[aria-label="TikTok"], #sidebar-social-links a[aria-label="TikTok"] { color: #333333; }
+        .social-icons a[aria-label="X (Twitter)"], #sidebar-social-links a[aria-label="X (Twitter)"] { color: #333333; }
+        .social-icons a[aria-label="YouTube"], #sidebar-social-links a[aria-label="YouTube"] { color: #FF0000; }
+        .social-icons a[aria-label="Grupo WhatsApp"], #sidebar-social-links a[aria-label="Grupo WhatsApp"] { color: #25D366; }
 
-        /* Full-screen reading modal */
-        #read-modal {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
-            z-index: 2000; /* Above everything else */
-            overflow-y: auto; /* Enable scrolling for long content */
-            padding: 20px;
-            box-sizing: border-box;
-            justify-content: center;
-            align-items: flex-start; /* Align content to the top */
+        .contact-social-links {
+            display: none; /* Hidden on mobile */
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
         }
-
-        #read-modal.modal-open {
-            display: flex;
-        }
-
-        #read-modal-content {
-            background-color: var(--white);
-            padding: 30px;
-            border-radius: 0.75rem;
-            max-width: 800px; /* Max width for readability */
-            width: 100%;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            position: relative;
-            animation: fadeInScale 0.3s ease-out; /* Simple animation */
-        }
-
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        #read-modal .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--dark-gray);
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        #read-modal .close-btn:hover {
-            color: var(--primary-blue);
-        }
-
-        #modal-image-container {
-            width: 100%;
-            height: 150px; /* Reduzido o height */
-            overflow: hidden;
-            border-radius: 0.5rem;
-            margin-bottom: 20px;
-            background-color: var(--light-gray);
-        }
-
-        #modal-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Image covers the container */
-        }
-
-        #modal-title {
-            font-family: var(--font-heading);
-            font-size: 2rem; /* Reduzido o font-size para desktop */
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        #modal-full-text {
-            font-size: 1rem; /* Reduzido o font-size */
-            color: var(--dark-gray);
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        /* New close button at the bottom of the modal */
-        #modal-full-text .close-btn-bottom {
-            display: block; /* Make it a block element to center */
-            margin: 2rem auto 0; /* Center horizontally and add top margin */
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
+        .contact-social-links h3 {
             font-family: var(--font-heading);
             font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
         }
-
-        #modal-full-text .close-btn-bottom:hover {
-            background-color: var(--secondary-blue);
-            transform: translateY(-2px);
-        }
-
-        /* Voltar ao Topo button */
-        #back-to-top-btn {
-            display: none; /* Hidden by default */
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #6B7280; /* Cinza */
-            color: var(--white);
-            border: none;
-            border-radius: 50%; /* Circular button */
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 44px 8px rgba(0,0,0,0.2);
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            z-index: 1000;
+        .contact-social-links .social-icons {
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 25px;
         }
-
-        #back-to-top-btn:hover {
-            background-color: #4B5563; /* Cinza mais escuro no hover */
+        .contact-social-links .social-icons a {
+            font-size: 1.8rem;
+            transition: transform 0.2s ease;
+        }
+        .contact-social-links .social-icons a:hover {
             transform: translateY(-3px);
         }
 
-        /* Scroll arrows for mobile reports */
-        .scroll-arrow {
-            display: none; /* Hidden by default, shown on mobile */
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease, opacity 0.2s ease;
-            opacity: 0.8;
-        }
-        .scroll-arrow:hover {
-            background-color: rgba(0,0,0,0.7);
-            opacity: 1;
-        }
-        .scroll-arrow.left-arrow {
-            left: 10px;
-        }
-        .scroll-arrow.right-arrow {
-            right: 10px;
-        }
-        .scroll-arrow:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
+        /* --- Modal, Form, Table, Back-to-Top (Largely Unchanged) --- */
+        #formContainer { margin-top: 20px; }
+        .google-form-embed { width: 100%; height: 800px; border: 0; display: block; }
+        #read-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; justify-content: center; align-items: flex-start; }
+        #read-modal.modal-open { display: flex; }
+        #read-modal-content { background-color: var(--white); padding: 30px; border-radius: 0.75rem; max-width: 800px; width: 100%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); position: relative; animation: fadeInScale 0.3s ease-out; }
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        #read-modal .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.8rem; color: var(--dark-gray); cursor: pointer; transition: color 0.2s; }
+        #read-modal .close-btn:hover { color: var(--primary-blue); }
+        #modal-image-container { width: 100%; height: 200px; overflow: hidden; border-radius: 0.5rem; margin-bottom: 20px; }
+        #modal-image-container img { width: 100%; height: 100%; object-fit: cover; }
+        #modal-title { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 15px; text-align: left; }
+        #modal-full-text { font-size: 1.1rem; color: var(--dark-gray); line-height: 1.8; text-align: justify; }
+        #modal-full-text .close-btn-bottom { display: block; margin: 2rem auto 0; background-color: var(--primary-blue); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 25px; border: none; font-family: var(--font-heading); font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease; }
+        #modal-full-text .close-btn-bottom:hover { background-color: var(--secondary-blue); transform: translateY(-2px); }
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+        .table-responsive table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        .table-responsive th, .table-responsive td { border: 1px solid var(--light-blue); padding: 0.75rem; text-align: left; }
+        .table-responsive th { background-color: var(--light-gray); font-family: var(--font-heading); font-weight: 600; color: var(--primary-blue); }
+        #back-to-top-btn { display: none; position: fixed; bottom: 30px; right: 30px; background-color: var(--primary-blue); color: var(--white); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s; z-index: 1000; justify-content: center; align-items: center; }
+        #back-to-top-btn:hover { background-color: var(--secondary-blue); transform: translateY(-3px); }
 
-        /* Table specific styles for responsiveness and borders */
-        .table-responsive {
-            overflow-x: auto; /* Enables horizontal scrolling on small screens */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-            margin-bottom: 1.5rem; /* Add some space below the table */
-        }
+        /* ==========================================================================
+            Desktop Styles (Modern Website Look)
+            ========================================================================== */
+        @media (min-width: 769px) {
+            body { padding-top: var(--header-total-height); }
 
-        .table-responsive table {
-            width: 100%; /* Ensure table takes full width of its container */
-            border-collapse: collapse; /* Collapse borders for a clean look */
-            min-width: 500px; /* Ensure table is wide enough to trigger scroll on small screens */
-        }
-
-        .table-responsive th,
-        .table-responsive td {
-            border: 1px solid var(--light-blue); /* Add borders to all cells */
-            padding: 0.75rem; /* Padding inside cells */
-            text-align: left; /* Align text to the left */
-        }
-
-        .table-responsive th {
-            background-color: var(--light-gray); /* Light background for headers */
-            font-family: var(--font-heading);
-            font-weight: 600;
-            color: var(--primary-blue);
-        }
-
-
-        @media (min-width: 769px) { /* Desktop styles */
-            .report-card {
-                display: flex; /* Horizontal layout for image and content */
-                align-items: stretch; /* Make children stretch to fill height */
-                flex-direction: row; /* Ensure row direction */
+            #hamburger-btn { display: none; }
+            #main-nav { display: flex; }
+            .header-actions { display: block; }
+            
+            .container {
+                max-width: 1140px;
+            }
+            .contact-social-links {
+                display: block;
             }
 
-               #sidebar-nav .subscribe-link {
-                background-color: #000000; /* Fundo preto para destaque */
-                color: var(--white); /* Texto branco */
-                display: inline-block; /* Ensure it behaves like a block for padding/margins */
-                padding: 10px 20px; /* Adjust padding for better touch target */
-                border-radius: 8px; /* Slightly more rounded corners */
-                font-size: 1.1rem; /* Slightly larger font for prominence */
-                margin-top: 15px; /* Add some margin above it */
-                margin-bottom: 15px; /* Add some margin below it */
-                text-decoration: none; /* Remove underline */
-                font-weight: 700; /* Make it bolder */
+            .report-card {
+                flex-direction: row;
+                height: 250px;
             }
             .report-card-image-container {
-                width: 200px; /* Halved width for the image container */
-                height: 200px; /* Halved height to make it perfectly square and large */
-                flex-shrink: 0; /* Prevent it from shrinking */
-                border-top-right-radius: 0; /* Reset border radius for horizontal layout */
-                border-bottom-left-radius: 0.75rem; /* Add bottom-left radius */
-                background-color: var(--light-gray); /* Background to show empty space if image is not square */
-            }
-            .report-card-image-container img {
-                width: 100%;
+                width: 300px;
                 height: 100%;
-                object-fit: cover; /* Changed to cover to fill the square, potentially cropping */
+                flex-shrink: 0;
             }
             .report-card-content {
-                flex-grow: 1; /* Allow content to take remaining space */
-                padding-left: 1.5rem; /* Add spacing between image and text */
-                display: flex; /* Use flexbox for content to push button to bottom */
-                flex-direction: column;
-                justify-content: space-between; /* Push summary and button apart if needed */
-            }
-            .report-card-content h3 {
-                margin-top: 0; /* Ensure title is at the top */
-            }
-            .read-more-btn {
-                margin-top: auto; /* Push button to the bottom */
-            }
-            /* Hide sidebar social links on desktop */
-            #sidebar-social-links {
-                display: none;
-            }
-            /* Hide arrows on desktop */
-            .scroll-arrow {
-                display: none;
+                padding: 2rem;
             }
         }
 
+        /* ==========================================================================
+            Mobile Styles (App-like Look)
+            ========================================================================== */
         @media (max-width: 768px) {
             :root { --header-total-height: 60px; }
-            body { padding-left: 0; }
-            #top-bar { display: none; } /* Ocultar top-bar no mobile para simplificar o cabeçalho */
-            #main-header-content {
-                height: 60px;
+
+            #main-header-content .logo img {
+                height: 40px;
+            }
+             #main-header-content {
+                justify-content: space-between;
                 padding: 0 15px;
-                justify-content: center; /* Centraliza o logo no mobile */
-                position: relative; /* Para posicionar o hambúrguer absolutamente */
             }
-            #page-header { box-shadow: 0 2px 2px rgba(0,0,0,0.08); }
-            #hamburger-btn {
-                display: block; /* Exibir no mobile */
-                position: absolute; /* Posicionamento absoluto */
-                left: 15px; /* Alinhado à esquerda */
-                top: 50%;
-                transform: translateY(-50%);
-                background-color: var(--primary-blue); /* Fundo azul escuro para o botão */
-                color: var(--white); /* Ícone branco */
-                width: 45px; /* Largura fixa para botão circular */
-                height: 45px; /* Altura fixa para botão circular */
-                border-radius: 50%; /* Torna o botão circular */
-                display: flex; /* Usa flexbox para centralizar o ícone */
-                justify-content: center;
-                align-items: center;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra sutil para contorno */
-                transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            }
-            #main-header-content .logo {
-                margin: 0 auto; /* Centraliza o logo */
-            }
-            #main-header-content .header-tagline { display: none; } /* Ocultar tagline no mobile */
-            /* #main-nav { display: none; } */ /* Já está display: none; por padrão agora */
-            .container { padding: 25px; }
-            /* Adjust report card padding for smaller screens */
-            .report-card-content {
-                padding: 1rem;
-            }
-            .report-card-content h3 {
-                font-size: 1.3rem; /* Ajustado para mobile */
-            }
-            .report-card-content .summary {
-                font-size: 0.95rem; /* Ajustado para mobile */
-            }
-            .report-card-image-container {
-                height: 90px; /* Reduzido para mobile */
-                width: 100%; /* Ensure full width on mobile */
-                aspect-ratio: unset; /* Remove fixed aspect ratio for mobile */
-                border-top-right-radius: 0.75rem; /* Revert for mobile */
-                border-bottom-left-radius: 0; /* Revert for mobile */
-                background-color: var(--light-gray); /* Ensure background on mobile too */
+            .logo-link {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
             }
 
-            /* Report cards now stack vertically on mobile */
-            .report-cards-grid {
-                display: block; /* Stack vertically */
-                overflow-x: hidden; /* Prevent horizontal scroll */
-                padding-bottom: 0; /* No extra padding for horizontal scrollbar */
-                gap: 0; /* No gap needed for vertical stacking */
-                /* Removed scroll-snap-type, min-width, flex-shrink from .report-card as they are not needed */
-            }
-            .report-card {
-                margin-bottom: 1.5rem; /* Maintain vertical spacing */
-            }
+            .main-title { font-size: 1.8em; }
+            .subtitle { font-size: 1.1em; }
+            .section-heading { font-size: 1.8em; }
+            .container { padding: 0 15px; margin-top: 25px; }
+            .content-section { padding: 25px; }
+            
+            .report-card-content h3 { font-size: 1.2rem; }
+            .report-card-content .summary { font-size: 0.95rem; }
+            .report-card-image-container { height: 180px; }
 
-            /* Hide scroll indicator and arrows on mobile */
-            .scroll-indicator-container,
-            .scroll-arrow {
-                display: none;
-            }
-
-            #read-modal-content {
-                padding: 20px;
-            }
-            #modal-title {
-                font-size: 1.6rem; /* Reduzido para mobile */
-            }
-            #modal-image-container {
-                height: 150px; /* Reduzido para mobile */
-            }
-            /* Show sidebar social links on mobile */
-            #sidebar-social-links {
-                display: grid; /* Alterado para grid */
-                grid-template-columns: repeat(4, 1fr); /* Quatro colunas */
-                gap: 10px; /* Espaçamento entre os itens */
-                place-items: center; /* Centraliza os ícones nas células do grid */
-                padding: 15px 10px; /* Ajusta o padding para caber mais itens */
-            }
-            /* Explicit styling for the premium subscription button in the mobile sidebar */
-            #sidebar-nav .subscribe-link {
-                background-color: #000000; /* Fundo preto para destaque */
-                color: var(--white); /* Texto branco */
-                display: inline-block; /* Ensure it behaves like a block for padding/margins */
-                padding: 10px 20px; /* Adjust padding for better touch target */
-                border-radius: 8px; /* Slightly more rounded corners */
-                font-size: 1.1rem; /* Slightly larger font for prominence */
-                margin-top: 15px; /* Add some margin above it */
-                margin-bottom: 15px; /* Add some margin below it */
-                text-decoration: none; /* Remove underline */
-                font-weight: 700; /* Make it bolder */
-            }
-            #sidebar-nav .subscribe-link:hover {
-                background-color: #333333; /* Darker gray on hover */
-            }
+            #read-modal-content { padding: 20px; }
+            #modal-title { font-size: 1.6rem; }
+            #modal-image-container { height: 150px; }
         }
     </style>
 
@@ -785,80 +491,78 @@
             const sidebar = document.getElementById('sidebar-nav');
             const hamburgerBtn = document.getElementById('hamburger-btn');
             const pageOverlay = document.getElementById('page-overlay');
-            const sidebarLinks = document.querySelectorAll('#sidebar-nav ul li a'); // Select direct links in ul
+            const sidebarLinks = document.querySelectorAll('#sidebar-nav ul li a');
 
-            if(hamburgerBtn && sidebar && pageOverlay) {
-                hamburgerBtn.addEventListener('click', function() {
-                    sidebar.classList.toggle('sidebar-open');
-                    pageOverlay.classList.toggle('overlay-visible');
-                });
-
-                pageOverlay.addEventListener('click', function() {
-                    sidebar.classList.remove('sidebar-open');
-                    pageOverlay.classList.remove('overlay-visible');
-                });
-
-                sidebarLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        if (window.innerWidth <= 768) {
-                            sidebar.classList.remove('sidebar-open');
-                            pageOverlay.classList.remove('overlay-visible');
-                        }
-                    });
-                });
+            function openSidebar() {
+                if(sidebar && pageOverlay) {
+                    sidebar.classList.add('sidebar-open');
+                    pageOverlay.classList.add('overlay-visible');
+                    document.body.style.overflow = 'hidden';
+                }
             }
 
-            // Full-screen reading modal functionality
+            function closeSidebar() {
+                if(sidebar && pageOverlay) {
+                    sidebar.classList.remove('sidebar-open');
+                    pageOverlay.classList.remove('overlay-visible');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if(hamburgerBtn) {
+                hamburgerBtn.addEventListener('click', openSidebar);
+            }
+            if(pageOverlay){
+                pageOverlay.addEventListener('click', closeSidebar);
+            }
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+
             const readModal = document.getElementById('read-modal');
             const modalImage = document.getElementById('modal-image');
             const modalTitle = document.getElementById('modal-title');
             const modalFullText = document.getElementById('modal-full-text');
             const closeBtnTop = document.querySelector('#read-modal .close-btn');
-            let closeBtnBottom; // Declare variable for the new button
 
-            // Function to close the modal
             function closeModal() {
-                readModal.classList.remove('modal-open');
-                document.body.style.overflow = ''; // Restore scrolling
-                // Remove the dynamically added close button from the modalFullText
-                if (closeBtnBottom && modalFullText.contains(closeBtnBottom)) {
-                    modalFullText.removeChild(closeBtnBottom);
+                if (readModal) {
+                    readModal.classList.remove('modal-open');
+                    document.body.style.overflow = '';
                 }
-                // Clear all content from modalFullText to prevent old content from showing
-                modalFullText.innerHTML = '';
             }
 
-            const readMoreButtons = document.querySelectorAll('.read-more-btn');
-            readMoreButtons.forEach(button => {
+            document.querySelectorAll('.read-more-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const card = this.closest('.report-card');
-                    if (card) {
+                    if (card && readModal) {
                         const imageSrc = card.querySelector('.report-card-image-container img').src;
                         const titleText = card.querySelector('.report-card-content h3').textContent;
                         const fullContentHtml = card.querySelector('.report-content-full').innerHTML;
 
                         modalImage.src = imageSrc;
                         modalTitle.textContent = titleText;
-                        modalFullText.innerHTML = fullContentHtml; // Use innerHTML to preserve paragraphs etc.
+                        modalFullText.innerHTML = fullContentHtml;
 
-                        // Create and append the new close button at the bottom
-                        closeBtnBottom = document.createElement('button');
-                        closeBtnBottom.className = 'close-btn-bottom';
-                        closeBtnBottom.textContent = 'Fechar';
-                        closeBtnBottom.addEventListener('click', closeModal); // Attach click listener
-                        modalFullText.appendChild(closeBtnBottom);
+                        let closeBtnBottom = modalFullText.querySelector('.close-btn-bottom');
+                        if (!closeBtnBottom) {
+                            closeBtnBottom = document.createElement('button');
+                            closeBtnBottom.className = 'close-btn-bottom';
+                            closeBtnBottom.textContent = 'Fechar';
+                            modalFullText.appendChild(closeBtnBottom);
+                        }
+                        closeBtnBottom.addEventListener('click', closeModal);
 
                         readModal.classList.add('modal-open');
-                        document.body.style.overflow = 'hidden'; // Prevent scrolling background
+                        document.body.style.overflow = 'hidden';
                     }
                 });
             });
 
             if (closeBtnTop) {
-                closeBtnTop.addEventListener('click', closeModal); // Attach click listener to top button
+                closeBtnTop.addEventListener('click', closeModal);
             }
 
-            // Close modal when clicking outside content
             if (readModal) {
                 readModal.addEventListener('click', function(event) {
                     if (event.target === readModal) {
@@ -867,150 +571,18 @@
                 });
             }
 
-            // Scroll Indicator and Auto-scroll functionality for mobile (now removed for vertical stacking)
-            const reportCardsGrid = document.querySelector('.report-cards-grid');
-            const scrollIndicatorContainer = document.querySelector('.scroll-indicator-container');
-            const scrollIndicatorBar = document.querySelector('.scroll-indicator-bar');
-            const reportCards = document.querySelectorAll('.report-card');
-            let autoScrollInterval;
-            let inactivityTimeout;
-            const INACTIVITY_TIME = 5000; // 5 seconds of inactivity
-            const AUTO_SCROLL_DELAY = 3000; // Auto scroll every 3 seconds if active
-
-            function updateScrollIndicator() {
-                // This function is now effectively disabled for mobile as horizontal scroll is removed
-                if (!reportCardsGrid || !scrollIndicatorBar || window.innerWidth > 768) {
-                    if (scrollIndicatorContainer) scrollIndicatorContainer.style.display = 'none';
-                    return; // Only run on desktop now, or if horizontal scroll is present
-                }
-                // The following lines are for horizontal scroll, which is now removed for mobile
-                // if (scrollIndicatorContainer) scrollIndicatorContainer.style.display = 'block';
-                // const scrollWidth = reportCardsGrid.scrollWidth - reportCardsGrid.clientWidth;
-                // const scrollPosition = reportCardsGrid.scrollLeft;
-                // const progress = (scrollPosition / scrollWidth) * 100;
-                // scrollIndicatorBar.style.width = `${progress}%`;
-            }
-
-            function startInactivityTimer() {
-                clearTimeout(inactivityTimeout);
-                inactivityTimeout = setTimeout(() => {
-                    startAutoScroll();
-                }, INACTIVITY_TIME);
-            }
-
-            function stopAutoScroll() {
-                clearInterval(autoScrollInterval);
-            }
-
-            function startAutoScroll() {
-                stopAutoScroll(); // Clear any existing interval
-                // Auto-scroll is now removed for mobile as cards stack vertically
-                // if (window.innerWidth <= 768 && reportCards.length > 0) {
-                //     let currentScrollLeft = reportCardsGrid.scrollLeft;
-                //     let nextScrollLeft = 0;
-                //     let currentCardVisibleIndex = -1;
-                //     for (let i = 0; i < reportCards.length; i++) {
-                //         const card = reportCards[i];
-                //         const cardRect = card.getBoundingClientRect();
-                //         if (cardRect.left >= 0 && cardRect.left < window.innerWidth * 0.5) {
-                //             currentCardVisibleIndex = i;
-                //             break;
-                //         }
-                //     }
-                //     if (currentCardVisibleIndex === -1 || currentCardVisibleIndex === reportCards.length - 1) {
-                //         nextScrollLeft = 0;
-                //     } else {
-                //         nextScrollLeft = reportCards[currentCardVisibleIndex + 1].offsetLeft;
-                //     }
-                //     reportCardsGrid.scrollTo({
-                //         left: nextScrollLeft,
-                //         behavior: 'smooth'
-                //     });
-                // }
-            }
-
-            // Scroll arrows functionality (now removed for vertical stacking)
-            const leftArrow = document.querySelector('.left-arrow');
-            const rightArrow = document.querySelector('.right-arrow');
-
-            function updateArrowState() {
-                // This function is now effectively disabled for mobile as horizontal scroll is removed
-                if (!reportCardsGrid || !leftArrow || !rightArrow || window.innerWidth > 768) {
-                    return; // Only run on desktop now, or if horizontal scroll is present
-                }
-                // The following lines are for horizontal scroll, which is now removed for mobile
-                // const scrollLeft = reportCardsGrid.scrollLeft;
-                // const scrollWidth = reportCardsGrid.scrollWidth;
-                // const clientWidth = reportCardsGrid.clientWidth;
-                // leftArrow.disabled = scrollLeft === 0;
-                // rightArrow.disabled = (scrollLeft + clientWidth + 1) >= scrollWidth;
-            }
-
-            if (reportCardsGrid) {
-                // Initial update and timer start (only relevant for desktop now)
-                updateScrollIndicator();
-                startInactivityTimer(); // This will only start if on desktop
-                updateArrowState(); // Initial arrow state (only relevant for desktop now)
-
-                // Event listeners for user interaction (only relevant for desktop now)
-                reportCardsGrid.addEventListener('scroll', () => {
-                    updateScrollIndicator();
-                    startInactivityTimer(); // Reset timer on scroll
-                    stopAutoScroll(); // Stop auto-scroll if user manually scrolls
-                    updateArrowState(); // Update arrow state on scroll
-                });
-                reportCardsGrid.addEventListener('touchstart', stopAutoScroll); // Stop auto-scroll on touch start
-                reportCardsGrid.addEventListener('touchend', startInactivityTimer); // Restart inactivity timer on touch end
-                reportCardsGrid.addEventListener('mousedown', stopAutoScroll); // Stop auto-scroll on mouse down
-                reportCardsGrid.addEventListener('mouseup', startInactivityTimer); // Restart inactivity timer on mouse up
-
-                // Arrow click listeners are now effectively disabled for mobile as arrows are hidden
-                if (leftArrow) {
-                    leftArrow.addEventListener('click', () => {
-                        const currentCardWidth = reportCards.length > 0 ? reportCards[0].offsetWidth : reportCardsGrid.clientWidth;
-                        reportCardsGrid.scrollBy({ left: -currentCardWidth, behavior: 'smooth' });
-                    });
-                }
-
-                if (rightArrow) {
-                    rightArrow.addEventListener('click', () => {
-                        const currentCardWidth = reportCards.length > 0 ? reportCards[0].offsetWidth : reportCardsGrid.clientWidth;
-                        reportCardsGrid.scrollBy({ left: currentCardWidth, behavior: 'smooth' });
-                    });
-                }
-
-                // Handle window resize to adjust scroll indicator and auto-scroll behavior
-                window.addEventListener('resize', () => {
-                    updateScrollIndicator();
-                    updateArrowState(); // Update arrow state on resize
-                    if (window.innerWidth > 768) {
-                        stopAutoScroll(); // Stop auto-scroll on desktop
-                        if (scrollIndicatorContainer) scrollIndicatorContainer.style.display = 'none';
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            if(backToTopBtn){
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopBtn.style.display = 'flex';
                     } else {
-                        // These lines are now effectively removed for mobile as horizontal scroll is gone
-                        // startInactivityTimer(); // Restart on mobile
-                        // if (scrollIndicatorContainer) scrollIndicatorContainer.style.display = 'block';
+                        backToTopBtn.style.display = 'none';
                     }
                 });
-            }
 
-            // Back to Top button functionality
-            const backToTopBtn = document.getElementById('back-to-top-btn');
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 200) { // Show button after scrolling 200px down
-                    backToTopBtn.style.display = 'flex';
-                } else {
-                    backToTopBtn.style.display = 'none';
-                }
-            });
-
-            if (backToTopBtn) {
                 backToTopBtn.addEventListener('click', () => {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth' // Smooth scroll to top
-                    });
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
         });
@@ -1019,35 +591,26 @@
 <body>
 
 <header id="page-header">
-    <div id="top-bar">
-        <div class="social-links">
-            <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial"><i class="fas fa-globe"></i></a>
-            <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://www.youtube.com/@codifyworld" target="_blank"aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <div class="separator"></div>
-        <div class="subscribe-link">
-            <a href="#assinatura-form">Assinatura Premium</a>
-        </div>
-    </div>
     <div id="main-header-content">
-        <button id="hamburger-btn">
+        <a href="#" class="logo-link">
+            <img src="img/logo_codi.png" alt="Logotipo da Codify Nexo" class="logo">
+        </a>
+        <button id="hamburger-btn" aria-label="Abrir menu">
             <i class="fas fa-bars"></i>
         </button>
-        <div class="logo">
-            <a href="#"><img src="img/logo_codi.png" alt="Logotipo da Codify Nexo"></a>
-        </div>
-        <div class="header-tagline">
-            <strong>"Análises multissetoriais"</strong><br>
-            Tecnologia | Economia | Software | Tech Labs
+        <nav id="main-nav">
+             <ul>
+                <li><a href="#relatorios">Relatórios</a></li>
+                <li><a href="#fatos-nao-versoes">Fatos, não versões</a></li>
+                <li><a href="#parceiros">Parceiros</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="#sobre-nos">Sobre nós</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+             <a href="#assinatura-form" class="subscribe-btn">Assinatura Premium</a>
         </div>
     </div>
-    <!-- A barra de navegação principal (#main-nav) foi removida conforme solicitado. -->
 </header>
 
 <nav id="sidebar-nav">
@@ -1063,10 +626,6 @@
         <li><a href="#sobre-nos">Sobre nós</a></li>
         <li><a href="#politica-privacidade">Política de Privacidade</a></li>
     </ul>
-    <!-- Assinatura Premium movida para a sidebar para mobile -->
-    <div class="text-center mt-4 mb-4">
-        <a href="#assinatura-form" class="subscribe-link inline-block">Assinatura Premium</a>
-    </div>
     <div id="sidebar-social-links">
         <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -1074,7 +633,7 @@
         <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://www.youtube.com/@codifyworld" target="_blank"aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 </nav>
@@ -1084,588 +643,586 @@
 <main id="main-content">
 
     <div class="container" id="relatorios">
-        <div class="flex justify-center items-center mb-6">
+        <div class="text-center mb-12">
             <h1 class="main-title"><strong>Notícias e Análises Exclusivas</strong></h1>
+            <p class="subtitle">
+                Explore nossas análises aprofundadas sobre os temas mais relevantes do cenário global.
+            </p>
         </div>
-        <p class="mb-4 text-gray-800 leading-relaxed text-center">
-            Explore nossas análises aprofundada sobre os temas mais relevantes do cenário global.
-        </p>
 
-        <!-- Wrapper for Report Cards with Arrows (Arrows are now hidden on mobile) -->
-        <div class="report-cards-wrapper">
-            <button class="scroll-arrow left-arrow">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <!-- Grid for Report Cards -->
-            <div class="report-cards-grid">
+        <div class="report-cards-grid">
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/blokchain.png" alt="Imagem ilustrativa de Blockchain">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>O que é Blockchain de forma simples e objetiva</h3>
+                     <p class="summary">Imagine um caderno de anotações que várias pessoas compartilham ao mesmo tempo. Cada página desse caderno registra quem fez o quê — como “João pagou R$ 10 para Maria”. Esse é, de modo bem simples, o que chamamos de blockchain.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p><strong>1. Introdução</strong></p>
+                         <p>Imagine um caderno de anotações que várias pessoas compartilham ao mesmo tempo. Cada página desse caderno registra quem fez o quê — como “João pagou R$ 10 para Maria”. Esse é, de modo bem simples, o que chamamos de blockchain.</p>
+                         <p><strong>2. Como Funciona em “Pedaços”</strong></p>
+                         <p><strong>Nova Anotação</strong><br>
+                         Alguém diz “quero registrar que enviei algo para outra pessoa”.</p>
+                         <p><strong>Confirmação em Grupo</strong><br>
+                         Vários pedidos desse tipo se juntam e formam uma nova “página” no caderno.</p>
+                         <p><strong>Verificação Coletiva</strong><br>
+                         Todos que têm uma cópia do caderno conferem se as informações estão corretas (sem precisar de um chefe mandando).</p>
+                         <p><strong>Ligação em Corrente</strong><br>
+                         Cada página nova ganha um “pedaço” que aponta para a página anterior, formando uma corrente de páginas.</p>
+                         <p><strong>Registro Permanente</strong><br>
+                         Depois de conferido, ninguém consegue apagar ou mudar o que está escrito naquela página sem todo mundo notar.</p>
+                         <p><strong>3. Um Exemplo Fácil: Bitcoin</strong></p>
+                         <p>Bitcoin é como dinheiro digital que roda nesse tipo de caderno compartilhado.<br>
+                         Quando você “envia” bitcoins a alguém, esse envio vira uma anotação.<br>
+                         Em vez de um banco cuidar de tudo, a própria rede de usuários checa e confirma a anotação.</p>
+                         <p><strong>4. Aplicações no Dia a Dia</strong></p>
+                         <p><strong>Rastrear Produtos</strong><br>
+                         Uma empresa de alimentos pode usar blockchain para mostrar cada passo de um queijo — desde a fazenda até o mercado.</p>
+                         <p><strong>Certificados Digitais</strong><br>
+                         Universidades ou empresas podem emitir diplomas ou contratos que ficam guardados sem risco de falsificação.</p>
+                         <p><strong>Pagamentos Sem Banco</strong><br>
+                         É possível transferir dinheiro para alguém em outro país sem precisar passar por bancos tradicionais — só pela rede de participantes.</p>
+                         <p><strong>5. Por Que Isso Importa?</strong></p>
+                         <p><strong>Confiança Sem Autoridade Única</strong><br>
+                         Você não precisa depender de uma única empresa ou banco.</p>
+                         <p><strong>Menos Fraude</strong><br>
+                         Como todo mundo vê o que foi registrado, fica difícil alterar informações escondido.</p>
+                         <p><strong>Acesso Global</strong><br>
+                         Qualquer pessoa com internet pode participar, mesmo sem conta em banco.</p>
+                         <p><strong>6. Pontos para Ficar de Olho</strong></p>
+                         <p><strong>Velocidade:</strong> às vezes as confirmações demoram mais que um sistema centralizado.</p>
+                         <p><strong>Consumo de Energia:</strong> algumas redes usam muita energia para verificar as anotações.</p>
+                         <p><strong>Legislação:</strong> governos ainda estão definindo regras sobre como usar blockchain.</p>
+                         <p><strong>7. Conclusão</strong></p>
+                         <p>O blockchain é, basicamente, um caderno compartilhado e seguro que registra eventos (como pagamentos) de modo público e permanente. Ele surgiu para apoiar o Bitcoin, mas hoje já é usado em várias áreas: rastrear produtos, emitir certificados, criar contratos automáticos e muito mais — tudo sem precisar confiar em uma única instituição.</p>
+                         <p>Esse é o ponto de partida para entender como essa “corrente de anotações” tem o poder de tornar processos mais claros e confiáveis, até para quem não é especialista no assunto.</p>
+                     </div>
+                 </div>
+             </div>
 
-                <!-- Card 1: Blockchain Report -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/blokchain.png" alt="Imagem ilustrativa de Blockchain">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>O que é Blockchain de forma simples e objetiva</h3>
-                        <p class="summary">Imagine um caderno de anotações que várias pessoas compartilham ao mesmo tempo. Cada página desse caderno registra quem fez o quê — como “João pagou R$ 10 para Maria”. Esse é, de modo bem simples, o que chamamos de blockchain.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p><strong>1. Introdução</strong></p>
-                            <p>Imagine um caderno de anotações que várias pessoas compartilham ao mesmo tempo. Cada página desse caderno registra quem fez o quê — como “João pagou R$ 10 para Maria”. Esse é, de modo bem simples, o que chamamos de blockchain.</p>
-                            <p><strong>2. Como Funciona em “Pedaços”</strong></p>
-                            <p><strong>Nova Anotação</strong><br>
-                            Alguém diz “quero registrar que enviei algo para outra pessoa”.</p>
-                            <p><strong>Confirmação em Grupo</strong><br>
-                            Vários pedidos desse tipo se juntam e formam uma nova “página” no caderno.</p>
-                            <p><strong>Verificação Coletiva</strong><br>
-                            Todos que têm uma cópia do caderno conferem se as informações estão corretas (sem precisar de um chefe mandando).</p>
-                            <p><strong>Ligação em Corrente</strong><br>
-                            Cada página nova ganha um “pedaço” que aponta para a página anterior, formando uma corrente de páginas.</p>
-                            <p><strong>Registro Permanente</strong><br>
-                            Depois de conferido, ninguém consegue apagar ou mudar o que está escrito naquela página sem todo mundo notar.</p>
-                            <p><strong>3. Um Exemplo Fácil: Bitcoin</strong></p>
-                            <p>Bitcoin é como dinheiro digital que roda nesse tipo de caderno compartilhado.<br>
-                            Quando você “envia” bitcoins a alguém, esse envio vira uma anotação.<br>
-                            Em vez de um banco cuidar de tudo, a própria rede de usuários checa e confirma a anotação.</p>
-                            <p><strong>4. Aplicações no Dia a Dia</strong></p>
-                            <p><strong>Rastrear Produtos</strong><br>
-                            Uma empresa de alimentos pode usar blockchain para mostrar cada passo de um queijo — desde a fazenda até o mercado.</p>
-                            <p><strong>Certificados Digitais</strong><br>
-                            Universidades ou empresas podem emitir diplomas ou contratos que ficam guardados sem risco de falsificação.</p>
-                            <p><strong>Pagamentos Sem Banco</strong><br>
-                            É possível transferir dinheiro para alguém em outro país sem precisar passar por bancos tradicionais — só pela rede de participantes.</p>
-                            <p><strong>5. Por Que Isso Importa?</strong></p>
-                            <p><strong>Confiança Sem Autoridade Única</strong><br>
-                            Você não precisa depender de uma única empresa ou banco.</p>
-                            <p><strong>Menos Fraude</strong><br>
-                            Como todo mundo vê o que foi registrado, fica difícil alterar informações escondido.</p>
-                            <p><strong>Acesso Global</strong><br>
-                            Qualquer pessoa com internet pode participar, mesmo sem conta em banco.</p>
-                            <p><strong>6. Pontos para Ficar de Olho</strong></p>
-                            <p><strong>Velocidade:</strong> às vezes as confirmações demoram mais que um sistema centralizado.</p>
-                            <p><strong>Consumo de Energia:</strong> algumas redes usam muita energia para verificar as anotações.</p>
-                            <p><strong>Legislação:</strong> governos ainda estão definindo regras sobre como usar blockchain.</p>
-                            <p><strong>7. Conclusão</strong></p>
-                            <p>O blockchain é, basicamente, um caderno compartilhado e seguro que registra eventos (como pagamentos) de modo público e permanente. Ele surgiu para apoiar o Bitcoin, mas hoje já é usado em várias áreas: rastrear produtos, emitir certificados, criar contratos automáticos e muito mais — tudo sem precisar confiar em uma única instituição.</p>
-                            <p>Esse é o ponto de partida para entender como essa “corrente de anotações” tem o poder de tornar processos mais claros e confiáveis, até para quem não é especialista no assunto.</p>
-                        </div>
-                    </div>
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/criptomoeda.png" alt="Imagem ilustrativa de Criptomoeda">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>O que é Criptomoeda?</h3>
+                     <p class="summary">Criptomoeda é um tipo de dinheiro digital que existe apenas na internet. Diferente do real ou do dólar, não há moedas físicas ou notas: tudo acontece em computadores.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p><strong>1. Introdução</strong><br>
+                         Criptomoeda é um tipo de dinheiro digital que existe apenas na internet. Diferente do real ou do dólar, não há moedas físicas ou notas: tudo acontece em computadores.</p>
+                         <p><strong>2. Como Funciona em “Pedaços”</strong></p>
+                         <p><strong>Carteira Digital</strong><br>
+                         Você cria uma “carteira” (um software) onde guarda suas moedas. Ela gera um endereço (como uma conta bancária).</p>
+                         <p><strong>Envio de Moedas</strong><br>
+                         Para mandar valor a alguém, você solicita uma transação: “Envie X unidades para o endereço Y”.</p>
+                         <p><strong>Rede de Computadores</strong><br>
+                         Essa ordem é compartilhada com todos os participantes da rede (chamados “nós”).</p>
+                         <p><strong>Confirmação Coletiva</strong><br>
+                         Os nós verificam se você de fato possui o saldo. Se tudo estiver certo, a transação é incluída em um bloco (lote).</p>
+                         <p><strong>Registro Permanente</strong><br>
+                         O bloco entra no registro (blockchain) e não pode ser apagado ou modificado sem toda a rede concordar.</p>
+                         <p><strong>3. Exemplo Prático: Bitcoin e Ether</strong></p>
+                         <p><strong>Bitcoin (BTC)</strong><br>
+                         Foi a primeira criptomoeda (2009). Serve basicamente para guardar e transferir valor pela internet.</p>
+                         <p><strong>Ether (ETH)</strong><br>
+                         Moeda nativa da plataforma Ethereum (lançada em 2015). Além de transações, ela “liga” aplicativos descentralizados, chamados smart contracts.</p>
+                         <p><strong>4. Aplicações no Cotidiano</strong></p>
+                         <p><strong>Envios Internacionais</strong><br>
+                         Enviar dinheiro a outro país sem bancos caros e com taxas menores.</p>
+                         <p><strong>Compras Online</strong><br>
+                         Alguns serviços e lojas aceitam pagamento direto em criptomoeda.</p>
+                         <p><strong>Investimento</strong><br>
+                         Muitas pessoas compram criptomoedas esperando que o valor suba ao longo do tempo.</p>
+                         <p><strong>Projetos Descentralizados</strong><br>
+                         Jogos, redes sociais e aplicativos financeiros que rodam sem servidor central, apenas “na nuvem” de participantes.</p>
+                         <p><strong>5. Vantagens e Desvantagens</strong></p>
+                         <p><strong>Vantagens</strong><br>
+                         Funcionamento sem bancos<br>
+                         Taxas geralmente mais baixas<br>
+                         Acesso global com internet<br>
+                         Transações transparentes e públicas</p>
+                         <p><strong>Desvantagens</strong><br>
+                         Volatilidade: preço pode subir e cair muito<br>
+                         Uso para golpes se não tomar cuidado<br>
+                         Complexidade inicial para iniciantes<br>
+                         Consumo de energia em certas redes</p>
+                         <p><strong>6. Por Que Importa?</strong></p>
+                         <p><strong>Autonomia Financeira</strong><br>
+                         Você controla seu próprio dinheiro sem depender de intermediários.</p>
+                         <p><strong>Inovação</strong><br>
+                         Novas ideias em finanças, contratos e serviços surgem a partir das criptomoedas.</p>
+                         <p><strong>Inclusão</strong><br>
+                         Pessoas sem conta em banco podem participar usando apenas um celular com internet.</p>
+                         <p><strong>7. Pontos de Atenção</strong></p>
+                         <p><strong>Segurança da Carteira</strong><br>
+                         Se perder sua senha ou chave, não há “suporte” para recuperar.</p>
+                         <p><strong>Regulamentação</strong><br>
+                         Cada país tem regras diferentes; fique atento às leis locais.</p>
+                         <p><strong>Riscos de Mercado</strong><br>
+                         O valor das criptomoedas varia muito — invista apenas o que você pode perder.</p>
+                         <p><strong>8. Conclusão</strong><br>
+                         Criptomoeda é dinheiro digital que vive num grande livro compartilhado (blockchain). Vai de simples transferências de valor até o suporte de aplicativos inovadores. Com potencial para mudar bancos, empresas e até governos, é importante conhecer como funciona, quais os riscos e benefícios antes de usar ou investir.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/tokenização.png" alt="Imagem ilustrativa de Tokenização">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>O que é Tokenização?</h3>
+                     <p class="summary">Tokenização é o processo de transformar um item — seja um bem, direito ou serviço — em “fichas digitais” chamadas de tokens. Esses tokens vivem em uma rede blockchain, permitindo que você possua, transfira e negocie coisas do mundo real de forma mais prática e segura.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p><strong>1. Introdução</strong><br>
+                         Tokenização é o processo de transformar um item — seja um bem, direito ou serviço — em “fichas digitais” chamadas de tokens. Esses tokens vivem em uma rede blockchain, permitindo que você possua, transfira e negocie coisas do mundo real de forma mais prática e segura.</p>
+                         <p><strong>2. Como Funciona em “Pedaços”</strong></p>
+                         <p><strong>Seleção do Ativo</strong><br>
+                         Escolhe-se algo de valor: um imóvel, uma obra de arte, ações de uma empresa ou mesmo pontos de um programa de fidelidade.</p>
+                         <p><strong>Criação do Token</strong><br>
+                         Um contrato inteligente gera tokens na blockchain, atrelados ao ativo real. Cada token representa uma fração ou unidade desse ativo.</p>
+                         <p><strong>Registro e Propriedade</strong><br>
+                         A rede blockchain registra quem detém cada token, garantindo histórico imutável de transações.</p>
+                         <p><strong>Negociação e Transferência</strong><br>
+                         Os tokens podem ser comprados, vendidos ou trocados em plataformas que suportam essa blockchain. A transferência ocorre em minutos, sem intermediários tradicionais.</p>
+                         <p><strong>Resgate ou Conversão</strong><br>
+                         Dependendo das regras, o detentor do token pode resgatar o ativo real ou vendê-lo a outro interessado, trocando o token por dinheiro ou outro token.</p>
+                         <p><strong>3. Exemplo Prático: Imóvel Tokenizado</strong></p>
+                         <p><strong>Cenário:</strong> Um prédio de escritórios é avaliado em R$ 10 000 000.<br>
+                         <strong>Tokenização:</strong> São criados 10 000 tokens, cada um valendo R$ 1 000.<br>
+                         <strong>Compra Fracionada:</strong> Investidores compram quantos tokens desejam—por exemplo, 50 tokens por R$ 50 000—tornando o investimento acessível.<br>
+                         <strong>Mercado Secundário:</strong> Esses tokens podem ser negociados entre pessoas diferentes, facilitando liquidez sem precisar vender o imóvel inteiro.</p>
+                         <p><strong>4. Aplicações no Cotidiano</strong></p>
+                         <p><strong>Financiamento Coletivo</strong><br>
+                         Projetos criativos ou imobiliários arrecadam recursos vendendo tokens em vez de ações tradicionais.</p>
+                         <p><strong>Arte Digital (NFTs)</strong><br>
+                         Obras são transformadas em tokens não-fungíveis (NFTs), garantindo propriedade única de itens digitais.</p>
+                         <p><strong>Garantias Financeiras</strong><br>
+                         Bancos podem aceitar tokens de ativos como garantia de empréstimos, simplificando processos.</p>
+                         <p><strong>Programas de Fidelidade</strong><br>
+                         Pontos de clientes viram tokens que podem ser trocados livremente em diferentes parceiros.</p>
+                         <p><strong>5. Vantagens e Desvantagens</strong></p>
+                         <p><strong>Vantagens</strong><br>
+                         Acesso a investimentos antes inacessíveis<br>
+                         Liquidez: troca rápida de frações do ativo<br>
+                         Transparência no histórico de transações<br>
+                         Redução de intermediários</p>
+                         <p><strong>Desvantagens</strong><br>
+                         Questões legais ainda em definição<br>
+                         Risco de contratos mal configurados<br>
+                         Complexidade para usuários iniciantes<br>
+                         Dependência de tecnologia blockchain</p>
+                         <p><strong>6. Por Que Importa?</strong></p>
+                         <p><strong>Democratização de Investimentos</strong><br>
+                         Permite que pequenas quantias participem de grandes negócios.</p>
+                         <p><strong>Maior Liquidez</strong><br>
+                         Ativos antes difíceis de vender ganham um mercado ativo de tokens.</p>
+                         <p><strong>Segurança e Transparência</strong><br>
+                         Todo movimento fica registrado de forma visível e imutável.</p>
+                         <p><strong>7. Pontos de Atenção</strong></p>
+                         <p><strong>Regulação</strong><br>
+                         Cada país tem regras diferentes; é vital entender o cenário legal antes de emitir ou comprar tokens.</p>
+                         <p><strong>Qualidade do Contrato Inteligente</strong><br>
+                         Bugs ou falhas no código podem comprometer o ativo — escolha plataformas reconhecidas.</p>
+                         <p><strong>Custos de Transação</strong><br>
+                         Em algumas blockchains, taxas para criar e mover tokens podem ser elevadas em momentos de alta demanda.</p>
+                         <p><strong>8. Conclusão</strong><br>
+                         A tokenização transforma coisas do mundo real em fichas digitais (tokens) em uma blockchain, facilitando compra, venda e divisão de ativos. Com potencial para abrir investimentos, melhorar liquidez e aumentar transparência, ela ainda enfrenta desafios regulatórios e técnicos. Para quem busca novas formas de investir ou gerenciar ativos, entender tokenização é um passo importante.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/mineração.png" alt="Imagem ilustrativa de Mineração de Bitcoin">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>O que é Mineração de Bitcoin?</h3>
+                     <p class="summary">A mineração de Bitcoin é o processo pelo qual novas moedas são criadas e as transações são confirmadas na rede. Pense nisso como um “garimpo digital”: em vez de cavar ouro, usamos computadores para resolver desafios matemáticos.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p><strong>1. Introdução</strong><br>
+                         A mineração de Bitcoin é o processo pelo qual novas moedas são criadas e as transações são confirmadas na rede. Pense nisso como um “garimpo digital”: em vez de cavar ouro, usamos computadores para resolver desafios matemáticos.</p>
+                         <p><strong>2. Por Que “Minerar”?</strong></p>
+                         <p><strong>Recompensa:</strong> quem “mina” recebe, como prêmio, novas frações de bitcoin.</p>
+                         <p><strong>Segurança:</strong> a mineração valida e registra as transações, mantendo a rede confiável.</p>
+                         <p><strong>3. Como Funciona em “Pedaços”</strong></p>
+                         <p><strong>Transações Pendentes</strong><br>
+                         Usuários enviam bitcoins uns aos outros. Essas solicitações ficam aguardando confirmação.</p>
+                         <p><strong>Formar um Bloco</strong><br>
+                         Um computador minerador agrupa várias transações não confirmadas em um “bloco”.</p>
+                         <p><strong>Desafio Matemático</strong><br>
+                         Para adicionar o bloco à rede, o minerador precisa encontrar um número (chamado nonce) que faça o bloco gerar um código específico (hash) dentro de certas regras.</p>
+                         <p><strong>Prova de Trabalho</strong><br>
+                         Esse processo de tentar vários números até achar o correto é chamado Prova de Trabalho. É demorado e consome eletricidade, pois exige muitos cálculos.</p>
+                         <p><strong>Confirmação e Recompensa</strong><br>
+                         Quando alguém encontra a solução, o bloco é aceito por todos na rede, as transações são confirmadas e o minerador recebe uma recompensa em bitcoins.</p>
+                         <p><strong>4. Analogia do “Bilhete Premiado”</strong><br>
+                         Imagine uma loteria em que milhares de pessoas compram bilhetes e tentam adivinhar um número. Quem acerta primeiro ganha o prêmio e “imprime” a nova página do caderno (bloco) com todas as apostas (transações).</p>
+                         <p><strong>5. Equipamento Necessário</strong></p>
+                         <p><strong>Hardware Especializado</strong><br>
+                         Hoje em dia usa‑se máquinas chamadas ASICs, desenvolvidas só para mineração — são mais rápidas e eficientes que simples computadores.</p>
+                         <p><strong>Energia Elétrica:</strong> Quanto mais poderosa a máquina, mais energia ela consome; por isso muitos mineradores buscam eletricidade mais barata.</p>
+                         <p><strong>6. Pontos de Atenção</strong></p>
+                         <p><strong>Dificuldade Variável</strong><br>
+                         A rede ajusta o nível de dificuldade do desafio para manter um intervalo médio de 10 minutos entre blocos.</p>
+                         <p><strong>Competição Intensa</strong><br>
+                         Mineradores competem globalmente; quem tem melhor equipamento e custos menores tem mais chance de ganhar a recompensa.</p>
+                         <p><strong>Impacto Ambiental</strong><br>
+                         O alto consumo de energia levanta discussões sobre sustentabilidade.</p>
+                         <p><strong>7. Por Que Importa Conhecer?</strong></p>
+                         <p><strong>Entendimento da Rede</strong><br>
+                         Saber como os blocos são criados ajuda a compreender por que o Bitcoin é seguro e descentralizado.</p>
+                         <p><strong>Oportunidade de Investimento</strong><br>
+                         Para quem pensa em minerar, é essencial calcular custos (equipamento + energia) versus ganhos potenciais.</p>
+                         <p><strong>Inovação Tecnológica</strong><br>
+                         A mineração inspirou pesquisas em eficiência energética e novos métodos de consenso em outras criptomoedas.</p>
+                         <p><strong>8. Conclusão</strong><br>
+                         A mineração de Bitcoin é o coração que mantém a rede funcionando: valida transações, adiciona novas moedas ao sistema e garante que tudo seja transparente e confiável. É um processo competitivo, que exige investimento em hardware e energia, mas que representa a base da confiança descentralizada do Bitcoin.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/real.png" alt="Imagem ilustrativa de Tecnologias Blockchain e Suas Aplicações no Mundo Real">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>Tecnologias Blockchain e Suas Aplicações no Mundo Real</h3>
+                     <p class="summary">Este relatório apresenta, em linguagem simples e neutra, os conceitos de blockchain, criptomoedas, tokenização e mineração, além de suas principais aplicações práticas. O objetivo é fornecer entendimento claro para leigos, sem jargões técnicos ou posicionamentos ideológicos.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p><strong>1. Introdução</strong><br>
+                         Este relatório apresenta, em linguagem simples e neutra, os conceitos de blockchain, criptomoedas, tokenização e mineração, além de suas principais aplicações práticas. O objetivo é fornecer entendimento claro para leigos, sem jargões técnicos ou posicionamentos ideológicos.</p>
+                         <p><strong>2. Blockchain: O Caderno Compartilhado</strong></p>
+                         <p><strong>Definição</strong><br>
+                         Um registro digital descentralizado onde cada “página” (bloco) reúne várias transações. Essas páginas são ligadas em sequência, formando uma corrente (chain).</p>
+                         <p><strong>Características</strong><br>
+                         Descentralização: não há um controlador único; cópias do registro existem em diversos computadores.<br>
+                         Imutabilidade: uma vez gravado e confirmado, não é possível alterar o conteúdo sem consenso de toda a rede.<br>
+                         Transparência: qualquer participante pode consultar todo o histórico de transações.</p>
+                         <p><strong>3. Criptomoeda: Dinheiro na Internet</strong></p>
+                         <p><strong>Definição</strong><br>
+                         Dinheiro digital que roda sobre uma blockchain, sem forma física, gerenciado por software.</p>
+                         <p><strong>Exemplos</strong><br>
+                         Bitcoin (BTC): primeira criptomoeda, focada em transferir valor.<br>
+                         Ether (ETH): moeda da rede Ethereum, usada tanto para pagamentos quanto para alimentar aplicativos descentralizados.</p>
+                         <p><strong>Como Funciona</strong><br>
+                         Carteira Digital: armazena chaves que provam sua titularidade.<br>
+                         Transação: você envia unidades a outro endereço.<br>
+                         Confirmação em Rede: computadores validam e registram a transferência no blockchain.<br>
+                         Registro Permanente: não há como apagar ou alterar a transação.</p>
+                         <p><strong>4. Tokenização: Transformando Ativos em Fichas Digitais</strong></p>
+                         <p><strong>Definição</strong><br>
+                         Processo que converte direitos sobre bens (imóveis, obras de arte, ações) em tokens — unidades digitais na blockchain.</p>
+                         <p><strong>Exemplo</strong><br>
+                         Um imóvel de R$ 1 000 000 pode gerar 1 000 tokens de R$ 1 000 cada, permitindo que investidores comprem frações sem adquirir o bem inteiro.<br>
+                         <strong>Mercado Secundário:</strong> Esses tokens podem ser negociados entre pessoas diferentes, facilitando liquidez sem precisar vender o imóvel inteiro.</p>
+                         <p><strong>5. Mineração de Bitcoin: Garimpo Digital</strong></p>
+                         <p><strong>Definição</strong><br>
+                         Processo que cria novos bitcoins e registra transações, resolvendo desafios matemáticos em computadores.</p>
+                         <p><strong>Como Funciona</strong><br>
+                         Agrupar Transações: mineradores formam um bloco com várias transferências pendentes.<br>
+                         Desafio (Prova de Trabalho): tentam números até encontrar um que gere um código (hash) válido.<br>
+                         Validação: rede confirma o bloco e adiciona ao blockchain.<br>
+                         Recompensa: minerador recebe novos bitcoins como pagamento.</p>
+                         <p><strong>Recursos Necessoses</strong><br>
+                         Hardware especializado (ASICs).<br>
+                         Eletricidade em larga escala.</p>
+                         <p><strong>6. Aplicações Práticas</strong></p>
+                         <div class="table-responsive">
+                             <table>
+                                 <thead>
+                                     <tr>
+                                         <th>Tecnologia</th>
+                                         <th>Caso de Uso</th>
+                                         <th>Benefício Principal</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                                         <td>Blockchain</td>
+                                         <td>Rastreabilidade de alimentos e produtos de luxo</td>
+                                         <td>Identificar origem e autenticidade</td>
+                                     </tr>
+                                     <tr>
+                                         <td>Criptomoedas</td>
+                                         <td>Remessas internacionais e pagamentos online</td>
+                                         <td>Taxas menores e rapidez</td>
+                                     </tr>
+                                     <tr>
+                                         <td>Tokenização</td>
+                                         <td>Investimento fracionado em imóveis e startups</td>
+                                         <td>Acesso democrático e liquidez</td>
+                                     </tr>
+                                     <tr>
+                                         <td>Smart Contracts</td>
+                                         <td>Seguros automáticos e pagamentos de royalties</td>
+                                         <td>Processos sem intermediários</td>
+                                     </tr>
+                                     <tr>
+                                         <td>Mineração</td>
+                                         <td>Suporte à segurança e emissão de novas moedas</td>
+                                         <td>Confirmação descentralizada</td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                         <p><strong>Rastreabilidade de Produtos</strong><br>
+                         Com blockchain, empresas monitoram cada etapa de um item (do produtor ao consumidor), acelerando recall de lotes e garantindo qualidade.</p>
+                         <p><strong>Pagamentos e Remessas</strong><br>
+                         Criptomoedas permitem transferências internacionais em minutos, com taxas abaixo das cobradas por bancos.</p>
+                         <p><strong>Investimentos e Financiamento</strong><br>
+                         Tokenização abre espaço para que qualquer pessoa invista valores pequenos em projetos imobiliários ou empresas em crescimento.</p>
+                         <p><strong>Contratos Inteligentes</strong><br>
+                         Em casos como voos cancelados ou streaming de conteúdo, acordos autoexecutáveis liberam pagamentos automaticamente sem burocracia.</p>
+                         <p><strong>Energia e Sustentabilidade</strong><br>
+                         Vendas diretas de excedentes de energia solar via blockchain e tokenização de créditos de carbono tornam o setor mais transparente e eficiente.</p>
+                         <p><strong>7. Vantagens e Desafios</strong></p>
+                         <p><strong>Vantagens</strong><br>
+                         Maior transparência e confiança sem autoridade central.<br>
+                         Redução de intermediários e custos de transação.<br>
+                         Acesso global a qualquer pessoa com internet.<br>
+                         Desafios<br>
+                         Complexidade técnica para iniciantes.<br>
+                         Consumo de energia em certos métodos de validação.<br>
+                         Incertezas regulatórias e necessidade de normas claras.</p>
+                         <p><strong>8. Conclusão</strong><br>
+                         As tecnologias de blockchain, criptomoedas, tokenização e mineração formam um ecossistema inovador que transforma como registramos, transferimos e investimos valor. Já aplicadas em rastreabilidade de produtos, finanças, gestão de contratos e energia, elas prometem evolução contínua, aumentando eficiência, segurança e acesso para pessoas e empresas ao redor do mundo.<br>
+                         Este relatório buscou consolidar, em linguagem acessível, os principais conceitos e usos práticos, servindo como ponto de partida para quem deseja entender e explorar essas soluções.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/mercado.png" alt="Imagem ilustrativa de Mercado Crypto em Alta">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>Mercado crypto em Alta e Otimismo Global</h3>
+                     <p class="summary">O Bitcoin manteve sua trajetória de valorização nesta sexta-feira, chegando a US$ 119.380, próximo de sua máxima histórica de meados de julho. A recuperação foi impulsionada por sinais de um acordo temporário de 90 dias entre EUA e China para suspender novas tarifas, aliviando tensões comerciais e atraindo fluxo de capital ao ativo digital.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p>O Bitcoin manteve sua trajetória de valorização nesta sexta-feira, chegando a US$ 119.380, próximo de sua máxima histórica de meados de julho. A recuperação foi impulsionada por sinais de um acordo temporário de 90 dias entre EUA e China para suspender novas tarifas, aliviando tensões comerciais e atraindo fluxo de capital ao ativo digital.</p>
+                         <p><strong>Ethereum Impulsiona Inovação DeFi</strong></p>
+                         <p>O Ether registrou um crescimento de 54% ao longo de julho, refletindo a forte entrada de investidores institucionais por meio de ETFs de Ethereum. Especialistas apontam que o token rompeu níveis técnicos relevantes, como a média móvel de 50 semanas, abrindo caminho para novas retomadas de alta e aquecendo o ecossistema de finanças descentralizadas.</p>
+                         <p><strong>XRP em Fase de Consolidação</strong></p>
+                         <p>O XRP avançou quase 2% no dia, em meio a um movimento geral de realocação de recursos para projetos com uso prático. Dados de mercado indicam que cerca de US$ 500 milhões em XRP foram acumulados nas últimas semanas, reforçando a expectativa de que o preço possa se aproximar do topo histórico de US$ 3,66 caso o ritmo de compras se mantenha.</p>
+                         <p><strong>Polygon Acelera com zkEVM</strong></p>
+                         <p>O token MATIC disparou para US$ 0,87, impulsionado pelo lançamento da solução zkEVM, que reduziu o tempo de confirmação de transações de até dois minutos para cerca de cinco segundos. O update elevou em 15% o número de endereços ativos na rede e ajudou a impulsionar o volume diário para mais de US$ 1,2 bilhão.</p>
+                         <p><strong>Destaques Adicionais</strong></p>
+                         <p>O Bitcoin Cash também ganhou força, ultrapassando US$ 580 após um rali de 5.2% no dia. Já o BNB atingiu nova máxima semanal, apoiado por renovado apetite de varejistas por altcoins. No segmento de mineração, a startup FindMining lançou contratos de mineração em nuvem com promessas de rendimento diário em BTC, atraindo o interesse de pequenos investidores.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/verdes.png" alt="Imagem ilustrativa de Sustentabilidade e Tecnologias Verdes">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>🌱 Sustentabilidade e Tecnologias Verdes em Ascensão</h3>
+                     <p class="summary">A tecnologia desempenha um papel fundamental na transição para uma economia mais sustentável, com inovações em energias renováveis, agricultura inteligente e gestão de resíduos.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p>A pauta de sustentabilidade ganha cada vez mais destaque em 2025, impulsionada pela urgência das mudanças climáticas e pela demanda por práticas empresariais mais responsáveis. As tecnologias verdes, ou greentech, estão no centro dessa transformação. Investimentos em energias renováveis, como solar e eólica, continuam a crescer, com avanços na eficiência e no armazenamento de energia.s</p>
+                         <p>Além disso, a tecnologia está sendo aplicada para otimizar o uso de recursos, reduzir o desperdício e promover a economia circular. Soluções de IoT (Internet das Coisas) e IA são utilizadas na agricultura de precisão para monitorar plantações e otimizar o uso da água, e na gestão de cidades inteligentes para reduzir o consumo de energia e melhorar a mobilidade urbana. A inovação em materiais sustentáveis e processos de produção de baixo carbono também são áreas de grande foco, sinalizando um futuro onde a tecnologia e a sustentabilidade caminham lado a lado.</p>
+                         <br>
+                         <h4>Carteira de Criptomoedas: Explicação Simples e Objetiva</h4>
+                         <p><strong>O que é uma carteira?</strong></p>
+                         <p>É um aplicativo ou dispositivo que guarda as “chaves” que provam que você é dono de suas criptomoedas — como um cofre digital.</p>
+                         <ul>
+                             <li><strong>Enviar moedas:</strong> você assina, com sua chave, uma transação que manda valor para outra carteira.</li>
+                             <li><strong>Receber moedas:</strong> compartilha seu “endereço” (semelhante a uma conta bancária) para que alguém envie criptomoedas a você.</li>
+                             <li><strong>Verificar saldo:</strong> consulta quantas moedas você tem, acessando a blockchain.</li>
+                         </ul>
+                         <p><strong>Tipos principais</strong></p>
+                         <p><strong>Carteiras quentes (hot wallets)</strong></p>
+                         <ul>
+                             <li>Conectadas à internet (apps para celular ou extensões de navegador).</li>
+                             <li>Práticas para uso diário, mas risco maior de ataques online.</li>
+                         </ul>
+                         <p><strong>Carteiras frias (cold wallets)</strong></p>
+                         <ul>
+                             <li>Desconectadas da internet (pen drives ou dispositivos dedicados).</li>
+                             <li>Mais seguras para guardar grandes quantias, porém menos convenientes para transações rápidas.</li>
+                         </ul>
+                         <p><strong>Como usar</strong></p>
+                         <ul>
+                             <li><strong>Instalação:</strong> baixe o app oficial ou configure um dispositivo físico.</li>
+                             <li><strong>Backup:</strong> anote e guarde com muito cuidado a “frase-semente” (12–24 palavras) que recupera sua carteira.</li>
+                             <li><strong>Transações:</strong> copie o endereço de quem vai receber, informe o valor, confirme com sua chave ou PIN.</li>
+                             <li><strong>Confirmação:</strong> aguarde a rede validar e registrar sua transação (pode levar de segundos a minutos, dependendo da moeda).</li>
+                         </ul>
+                         <p><strong>Dicas de segurança</strong></p>
+                         <ul>
+                             <li>Nunca compartilhe sua frase‑semente com ninguém.</li>
+                             <li>Ative autenticação extra (senha, PIN ou biometria).</li>
+                             <li>Para grandes valores, prefira carteiras frias.</li>
+                             <li>Use sempre softwares e firmwares oficiais e atualizados.</li>
+                         </ul>
+                         <p><strong>Resumo:</strong> a carteira de criptomoedas é seu cofre digital: um app ou dispositivo que guarda suas chaves, permite enviar e receber moedas, e exige cuidados básicos de segurança para proteger seu investimento.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/trabalho.png" alt="Imagem ilustrativa do Futuro do Trabalho">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>💼 O Futuro do Trabalho: Transformações Impulsionadas pela Tecnologia</h3>
+                     <p class="summary">A tecnologia está remodelando o mercado de trabalho, exigindo novas habilidades e modelos de colaboração, com o trabalho híbrido e remoto se consolidando.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p>O mercado de trabalho em 2025 é um reflexo das rápidas transformações tecnológicas. A automação e a Inteligência Artificial estão alterando a natureza de muitas profissões, enquanto novas funções surgem em áreas como ciência de dados, engenharia de IA e cibersegurança. A demanda por habilidades digitais e socioemocionais, como pensamento crítico, criatividade e adaptabilidade, é cada vez maior.</p>
+                         <p>O trabalho híbrido e remoto se consolidou como um modelo padrão para muitas empresas, impulsionado por ferramentas de colaboração online e infraestruturas de nuvem. Isso traz flexibilidade, mas também desafios em termos de gestão de equipes distribuídas e manutenção da cultura organizacional. A requalificação e a aprendizagem contínua são essenciais para que profissionais e empresas se adaptem a esse novo cenário, garantindo a empregabilidade e a competitividade no futuro do trabalho.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/codify-news.png" alt="Imagem ilustrativa da CodifyWorld: Nossas Soluções">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>🌐 CodifyWorld: Inovação e Soluções Tecnológicas</h3>
+                     <p class="summary">A CodifyWorld continua a liderar o caminho em soluções tecnológicas, oferecendo inovação e agilidade para empresas que buscam transformação digital.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p>Como holding por trás da Codify Nexo, a CodifyWorld está na vanguarda da transformação digital, desenvolvendo soluções inovadoras que impulsionam o crescimento e a eficiência de nossos clientes. Nosso portfólio abrange desde desenvolvimento de software personalizado e consultoria em TI até soluções de nuvem e inteligência de negócios.</p>
+                         <p>Em 2025, focamos em expandir nossa presença global e consolidar nossa expertise em tecnologias emergentes, como blockchain, computação quântica e realidade aumentada. Nosso compromisso é com a excelência e a entrega de valor, ajudando empresas a navegar pelo complexo cenário tecnológico e a alcançar seus objetivos estratégicos. Acreditamos que a tecnologia, quando bem aplicada, é uma ferramenta poderosa para criar um futuro mais conectado e mais próspero.</p>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="report-card">
+                 <div class="report-card-image-container">
+                     <img src="img/educação.png" alt="Imagem ilustrativa de Educação e Tecnologia">
+                 </div>
+                 <div class="report-card-content">
+                     <h3>📚 Educação e Tecnologia: O Futuro da Aprendizagem</h3>
+                     <p class="summary">A tecnologia está revolucionando a educação, com plataformas de aprendizado online, IA personalizada e realidade virtual transformando a experiência de alunos e professores.</p>
+                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
+                     <div class="report-content-full">
+                         <p>O setor educacional em 2025 está profundamente impactado pela tecnologia, que oferece novas oportunidades para a aprendizagem e o desenvolvimento de habilidades. Plataformas de ensino a distância e ferramentas de colaboração online se tornaram onipresentes, permitindo acesso à educação de forma mais flexível e inclusiva. A Inteligência Artificial desempenha um papel crescente na personalização do aprendizado, adaptando o conteúdo e o ritmo às necessidades individuais de cada aluno.</p>
+                         <p>Além disso, tecnologias como realidade virtual (RV) e realidade aumentada (RA) estão criando experiências imersivas e interativas, tornando o aprendizado mais engajador e eficaz. Laboratórios virtuais, simulações e visitas de campo digitais estão se tornando comuns em diversas disciplinas. O desafio é garantir que a tecnologia seja utilizada de forma equitativa, reduzindo a lacuna digital e preparando os alunos para os desafios e oportunidades do futuro.</p>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-section" id="fatos-nao-versoes">
+            <div class="section-heading-wrapper"><h2 class="section-heading">Fatos! não versões</h2></div>
+            <p class="text-center"><strong>Na Codify Nexo</strong>, nosso compromisso é com os fatos.</p>
+            <p class="text-gray-800 text-center">Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-section" id="parceiros">
+            <div class="section-heading-wrapper"><h2 class="section-heading">Parceiros</h2></div>
+            <p class="text-center">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação.
+                Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
+            <p class="text-center">Interessado em se tornar um parceiro da <strong>Codify Nexo? Entre em contato conosco.</strong></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-section" id="assinatura-form">
+            <div class="section-heading-wrapper"><h2 class="section-heading">📊 Assinatura Premium Codify Nexo</h2></div>
+            <p class="text-center mb-8" style="font-size: 1.1rem;">Inscreva-se para Acessar Nossos Relatórios, consultorias e ebooks profissionais, além de ter acesso beta a projetos CodifyWorld. Após a confirmação da sua assinatura via Mercado Pago, será enviado diretamente para o seu e-mail cadastrado os serviços descritos.</p>
+            <div id="formContainer">
+                <div class="flex justify-center items-center">
+                    <iframe class="google-form-embed" src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true">Carregando…</iframe>
                 </div>
+                <p class="text-center mt-8 text-red-700 font-bold" style="font-size: 1.1rem;">⚠️ Observação</p>
+                <p class="text-center mb-8" style="font-size: 1.1rem;">O acesso a conteúdos específicos e projetos beta será liberado após a confirmação da assinatura.</p>
+            </div>
+        </div>
+    </div>
 
-                <!-- Card 2: Criptomoeda Report -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/criptomoeda.png" alt="Imagem ilustrativa de Criptomoeda">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>O que é Criptomoeda?</h3>
-                        <p class="summary">Criptomoeda é um tipo de dinheiro digital que existe apenas na internet. Diferente do real ou do dólar, não há moedas físicas ou notas: tudo acontece em computadores.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p><strong>1. Introdução</strong><br>
-                            Criptomoeda é um tipo de dinheiro digital que existe apenas na internet. Diferente do real ou do dólar, não há moedas físicas ou notas: tudo acontece em computadores.</p>
-                            <p><strong>2. Como Funciona em “Pedaços”</strong></p>
-                            <p><strong>Carteira Digital</strong><br>
-                            Você cria uma “carteira” (um software) onde guarda suas moedas. Ela gera um endereço (como uma conta bancária).</p>
-                            <p><strong>Envio de Moedas</strong><br>
-                            Para mandar valor a alguém, você solicita uma transação: “Envie X unidades para o endereço Y”.</p>
-                            <p><strong>Rede de Computadores</strong><br>
-                            Essa ordem é compartilhada com todos os participantes da rede (chamados “nós”).</p>
-                            <p><strong>Confirmação Coletiva</strong><br>
-                            Os nós verificam se você de fato possui o saldo. Se tudo estiver certo, a transação é incluída em um bloco (lote).</p>
-                            <p><strong>Registro Permanente</strong><br>
-                            O bloco entra no registro (blockchain) e não pode ser apagado ou modificado sem toda a rede concordar.</p>
-                            <p><strong>3. Exemplo Prático: Bitcoin e Ether</strong></p>
-                            <p><strong>Bitcoin (BTC)</strong><br>
-                            Foi a primeira criptomoeda (2009). Serve basicamente para guardar e transferir valor pela internet.</p>
-                            <p><strong>Ether (ETH)</strong><br>
-                            Moeda nativa da plataforma Ethereum (lançada em 2015). Além de transações, ela “liga” aplicativos descentralizados, chamados smart contracts.</p>
-                            <p><strong>4. Aplicações no Cotidiano</strong></p>
-                            <p><strong>Envios Internacionais</strong><br>
-                            Enviar dinheiro a outro país sem bancos caros e com taxas menores.</p>
-                            <p><strong>Compras Online</strong><br>
-                            Alguns serviços e lojas aceitam pagamento direto em criptomoeda.</p>
-                            <p><strong>Investimento</strong><br>
-                            Muitas pessoas compram criptomoedas esperando que o valor suba ao longo do tempo.</p>
-                            <p><strong>Projetos Descentralizados</strong><br>
-                            Jogos, redes sociais e aplicativos financeiros que rodam sem servidor central, apenas “na nuvem” de participantes.</p>
-                            <p><strong>5. Vantagens e Desvantagens</strong></p>
-                            <p><strong>Vantagens</strong><br>
-                            Funcionamento sem bancos<br>
-                            Taxas geralmente mais baixas<br>
-                            Acesso global com internet<br>
-                            Transações transparentes e públicas</p>
-                            <p><strong>Desvantagens</strong><br>
-                            Volatilidade: preço pode subir e cair muito<br>
-                            Uso para golpes se não tomar cuidado<br>
-                            Complexidade inicial para iniciantes<br>
-                            Consumo de energia em certas redes</p>
-                            <p><strong>6. Por Que Importa?</strong></p>
-                            <p><strong>Autonomia Financeira</strong><br>
-                            Você controla seu próprio dinheiro sem depender de intermediários.</p>
-                            <p><strong>Inovação</strong><br>
-                            Novas ideias em finanças, contratos e serviços surgem a partir das criptomoedas.</p>
-                            <p><strong>Inclusão</strong><br>
-                            Pessoas sem conta em banco podem participar usando apenas um celular com internet.</p>
-                            <p><strong>7. Pontos de Atenção</strong></p>
-                            <p><strong>Segurança da Carteira</strong><br>
-                            Se perder sua senha ou chave, não há “suporte” para recuperar.</p>
-                            <p><strong>Regulamentação</strong><br>
-                            Cada país tem regras diferentes; fique atento às leis locais.</p>
-                            <p><strong>Riscos de Mercado</strong><br>
-                            O valor das criptomoedas varia muito — invista apenas o que você pode perder.</p>
-                            <p><strong>8. Conclusão</strong><br>
-                            Criptomoeda é dinheiro digital que vive num grande livro compartilhado (blockchain). Vai de simples transferências de valor até o suporte de aplicativos inovadores. Com potencial para mudar bancos, empresas e até governos, é importante conhecer como funciona, quais os riscos e benefícios antes de usar ou investir.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: Tokenization Report -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/tokenização.png" alt="Imagem ilustrativa de Tokenização">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>O que é Tokenização?</h3>
-                        <p class="summary">Tokenização é o processo de transformar um item — seja um bem, direito ou serviço — em “fichas digitais” chamadas de tokens. Esses tokens vivem em uma rede blockchain, permitindo que você possua, transfira e negocie coisas do mundo real de forma mais prática e segura.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p><strong>1. Introdução</strong><br>
-                            Tokenização é o processo de transformar um item — seja um bem, direito ou serviço — em “fichas digitais” chamadas de tokens. Esses tokens vivem em uma rede blockchain, permitindo que você possua, transfira e negocie coisas do mundo real de forma mais prática e segura.</p>
-                            <p><strong>2. Como Funciona em “Pedaços”</strong></p>
-                            <p><strong>Seleção do Ativo</strong><br>
-                            Escolhe-se algo de valor: um imóvel, uma obra de arte, ações de uma empresa ou mesmo pontos de um programa de fidelidade.</p>
-                            <p><strong>Criação do Token</strong><br>
-                            Um contrato inteligente gera tokens na blockchain, atrelados ao ativo real. Cada token representa uma fração ou unidade desse ativo.</p>
-                            <p><strong>Registro e Propriedade</strong><br>
-                            A rede blockchain registra quem detém cada token, garantindo histórico imutável de transações.</p>
-                            <p><strong>Negociação e Transferência</strong><br>
-                            Os tokens podem ser comprados, vendidos ou trocados em plataformas que suportam essa blockchain. A transferência ocorre em minutos, sem intermediários tradicionais.</p>
-                            <p><strong>Resgate ou Conversão</strong><br>
-                            Dependendo das regras, o detentor do token pode resgatar o ativo real ou vendê-lo a outro interessado, trocando o token por dinheiro ou outro token.</p>
-                            <p><strong>3. Exemplo Prático: Imóvel Tokenizado</strong></p>
-                            <p><strong>Cenário:</strong> Um prédio de escritórios é avaliado em R$ 10 000 000.<br>
-                            <strong>Tokenização:</strong> São criados 10 000 tokens, cada um valendo R$ 1 000.<br>
-                            <strong>Compra Fracionada:</strong> Investidores compram quantos tokens desejam—por exemplo, 50 tokens por R$ 50 000—tornando o investimento acessível.<br>
-                            <strong>Mercado Secundário:</strong> Esses tokens podem ser negociados entre pessoas diferentes, facilitando liquidez sem precisar vender o imóvel inteiro.</p>
-                            <p><strong>4. Aplicações no Cotidiano</strong></p>
-                            <p><strong>Financiamento Coletivo</strong><br>
-                            Projetos criativos ou imobiliários arrecadam recursos vendendo tokens em vez de ações tradicionais.</p>
-                            <p><strong>Arte Digital (NFTs)</strong><br>
-                            Obras são transformadas em tokens não-fungíveis (NFTs), garantindo propriedade única de itens digitais.</p>
-                            <p><strong>Garantias Financeiras</strong><br>
-                            Bancos podem aceitar tokens de ativos como garantia de empréstimos, simplificando processos.</p>
-                            <p><strong>Programas de Fidelidade</strong><br>
-                            Pontos de clientes viram tokens que podem ser trocados livremente em diferentes parceiros.</p>
-                            <p><strong>5. Vantagens e Desvantagens</strong></p>
-                            <p><strong>Vantagens</strong><br>
-                            Acesso a investimentos antes inacessíveis<br>
-                            Liquidez: troca rápida de frações do ativo<br>
-                            Transparência no histórico de transações<br>
-                            Redução de intermediários</p>
-                            <p><strong>Desvantagens</strong><br>
-                            Questões legais ainda em definição<br>
-                            Risco de contratos mal configurados<br>
-                            Complexidade para usuários iniciantes<br>
-                            Dependência de tecnologia blockchain</p>
-                            <p><strong>6. Por Que Importa?</strong></p>
-                            <p><strong>Democratização de Investimentos</strong><br>
-                            Permite que pequenas quantias participem de grandes negócios.</p>
-                            <p><strong>Maior Liquidez</strong><br>
-                            Ativos antes difíceis de vender ganham um mercado ativo de tokens.</p>
-                            <p><strong>Segurança e Transparência</strong><br>
-                            Todo movimento fica registrado de forma visível e imutável.</p>
-                            <p><strong>7. Pontos de Atenção</strong></p>
-                            <p><strong>Regulação</strong><br>
-                            Cada país tem regras diferentes; é vital entender o cenário legal antes de emitir ou comprar tokens.</p>
-                            <p><strong>Qualidade do Contrato Inteligente</strong><br>
-                            Bugs ou falhas no código podem comprometer o ativo — escolha plataformas reconhecidas.</p>
-                            <p><strong>Custos de Transação</strong><br>
-                            Em algumas blockchains, taxas para criar e mover tokens podem ser elevadas em momentos de alta demanda.</p>
-                            <p><strong>8. Conclusão</strong><br>
-                            A tokenização transforma coisas do mundo real em fichas digitais (tokens) em uma blockchain, facilitando compra, venda e divisão de ativos. Com potencial para abrir investimentos, melhorar liquidez e aumentar transparência, ela ainda enfrenta desafios regulatórios e técnicos. Para quem busca novas formas de investir ou gerenciar ativos, entender tokenização é um passo importante.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4: Bitcoin Mining Report -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/mineração.png" alt="Imagem ilustrativa de Mineração de Bitcoin">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>O que é Mineração de Bitcoin?</h3>
-                        <p class="summary">A mineração de Bitcoin é o processo pelo qual novas moedas são criadas e as transações são confirmadas na rede. Pense nisso como um “garimpo digital”: em vez de cavar ouro, usamos computadores para resolver desafios matemáticos.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p><strong>1. Introdução</strong><br>
-                            A mineração de Bitcoin é o processo pelo qual novas moedas são criadas e as transações são confirmadas na rede. Pense nisso como um “garimpo digital”: em vez de cavar ouro, usamos computadores para resolver desafios matemáticos.</p>
-                            <p><strong>2. Por Que “Minerar”?</strong></p>
-                            <p><strong>Recompensa:</strong> quem “mina” recebe, como prêmio, novas frações de bitcoin.</p>
-                            <p><strong>Segurança:</strong> a mineração valida e registra as transações, mantendo a rede confiável.</p>
-                            <p><strong>3. Como Funciona em “Pedaços”</strong></p>
-                            <p><strong>Transações Pendentes</strong><br>
-                            Usuários enviam bitcoins uns aos outros. Essas solicitações ficam aguardando confirmação.</p>
-                            <p><strong>Formar um Bloco</strong><br>
-                            Um computador minerador agrupa várias transações não confirmadas em um “bloco”.</p>
-                            <p><strong>Desafio Matemático</strong><br>
-                            Para adicionar o bloco à rede, o minerador precisa encontrar um número (chamado nonce) que faça o bloco gerar um código específico (hash) dentro de certas regras.</p>
-                            <p><strong>Prova de Trabalho</strong><br>
-                            Esse processo de tentar vários números até achar o correto é chamado Prova de Trabalho. É demorado e consome eletricidade, pois exige muitos cálculos.</p>
-                            <p><strong>Confirmação e Recompensa</strong><br>
-                            Quando alguém encontra a solução, o bloco é aceito por todos na rede, as transações são confirmadas e o minerador recebe uma recompensa em bitcoins.</p>
-                            <p><strong>4. Analogia do “Bilhete Premiado”</strong><br>
-                            Imagine uma loteria em que milhares de pessoas compram bilhetes e tentam adivinhar um número. Quem acerta primeiro ganha o prêmio e “imprime” a nova página do caderno (bloco) com todas as apostas (transações).</p>
-                            <p><strong>5. Equipamento Necessário</strong></p>
-                            <p><strong>Hardware Especializado</strong><br>
-                            Hoje em dia usa‑se máquinas chamadas ASICs, desenvolvidas só para mineração — são mais rápidas e eficientes que simples computadores.</p>
-                            <p><strong>Energia Elétrica:</strong> Quanto mais poderosa a máquina, mais energia ela consome; por isso muitos mineradores buscam eletricidade mais barata.</p>
-                            <p><strong>6. Pontos de Atenção</strong></p>
-                            <p><strong>Dificuldade Variável</strong><br>
-                            A rede ajusta o nível de dificuldade do desafio para manter um intervalo médio de 10 minutos entre blocos.</p>
-                            <p><strong>Competição Intensa</strong><br>
-                            Mineradores competem globalmente; quem tem melhor equipamento e custos menores tem mais chance de ganhar a recompensa.</p>
-                            <p><strong>Impacto Ambiental</strong><br>
-                            O alto consumo de energia levanta discussões sobre sustentabilidade.</p>
-                            <p><strong>7. Por Que Importa Conhecer?</strong></p>
-                            <p><strong>Entendimento da Rede</strong><br>
-                            Saber como os blocos são criados ajuda a compreender por que o Bitcoin é seguro e descentralizado.</p>
-                            <p><strong>Oportunidade de Investimento</strong><br>
-                            Para quem pensa em minerar, é essencial calcular custos (equipamento + energia) versus ganhos potenciais.</p>
-                            <p><strong>Inovação Tecnológica</strong><br>
-                            A mineração inspirou pesquisas em eficiência energética e novos métodos de consenso em outras criptomoedas.</p>
-                            <p><strong>8. Conclusão</strong><br>
-                            A mineração de Bitcoin é o coração que mantém a rede funcionando: valida transações, adiciona novas moedas ao sistema e garante que tudo seja transparente e confiável. É um processo competitivo, que exige investimento em hardware e energia, mas que representa a base da confiança descentralizada do Bitcoin.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5: Blockchain Technologies and Real-World Applications -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/real.png" alt="Imagem ilustrativa de Tecnologias Blockchain e Suas Aplicações no Mundo Real">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>Tecnologias Blockchain e Suas Aplicações no Mundo Real</h3>
-                        <p class="summary">Este relatório apresenta, em linguagem simples e neutra, os conceitos de blockchain, criptomoedas, tokenização e mineração, além de suas principais aplicações práticas. O objetivo é fornecer entendimento claro para leigos, sem jargões técnicos ou posicionamentos ideológicos.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p><strong>1. Introdução</strong><br>
-                            Este relatório apresenta, em linguagem simples e neutra, os conceitos de blockchain, criptomoedas, tokenização e mineração, além de suas principais aplicações práticas. O objetivo é fornecer entendimento claro para leigos, sem jargões técnicos ou posicionamentos ideológicos.</p>
-                            <p><strong>2. Blockchain: O Caderno Compartilhado</strong></p>
-                            <p><strong>Definição</strong><br>
-                            Um registro digital descentralizado onde cada “página” (bloco) reúne várias transações. Essas páginas são ligadas em sequência, formando uma corrente (chain).</p>
-                            <p><strong>Características</strong><br>
-                            Descentralização: não há um controlador único; cópias do registro existem em diversos computadores.<br>
-                            Imutabilidade: uma vez gravado e confirmado, não é possível alterar o conteúdo sem consenso de toda a rede.<br>
-                            Transparência: qualquer participante pode consultar todo o histórico de transações.</p>
-                            <p><strong>3. Criptomoeda: Dinheiro na Internet</strong></p>
-                            <p><strong>Definição</strong><br>
-                            Dinheiro digital que roda sobre uma blockchain, sem forma física, gerenciado por software.</p>
-                            <p><strong>Exemplos</strong><br>
-                            Bitcoin (BTC): primeira criptomoeda, focada em transferir valor.<br>
-                            Ether (ETH): moeda da rede Ethereum, usada tanto para pagamentos quanto para alimentar aplicativos descentralizados.</p>
-                            <p><strong>Como Funciona</strong><br>
-                            Carteira Digital: armazena chaves que provam sua titularidade.<br>
-                            Transação: você envia unidades a outro endereço.<br>
-                            Confirmação em Rede: computadores validam e registram a transferência no blockchain.<br>
-                            Registro Permanente: não há como apagar ou alterar a transação.</p>
-                            <p><strong>4. Tokenização: Transformando Ativos em Fichas Digitais</strong></p>
-                            <p><strong>Definição</strong><br>
-                            Processo que converte direitos sobre bens (imóveis, obras de arte, ações) em tokens — unidades digitais na blockchain.</p>
-                            <p><strong>Exemplo</strong><br>
-                            Um imóvel de R$ 1 000 000 pode gerar 1 000 tokens de R$ 1 000 cada, permitindo que investidores comprem frações sem adquirir o bem inteiro.<br>
-                            <strong>Mercado Secundário:</strong> Esses tokens podem ser negociados entre pessoas diferentes, facilitando liquidez sem precisar vender o imóvel inteiro.</p>
-                            <p><strong>5. Mineração de Bitcoin: Garimpo Digital</strong></p>
-                            <p><strong>Definição</strong><br>
-                            Processo que cria novos bitcoins e registra transações, resolvendo desafios matemáticos em computadores.</p>
-                            <p><strong>Como Funciona</strong><br>
-                            Agrupar Transações: mineradores formam um bloco com várias transferências pendentes.<br>
-                            Desafio (Prova de Trabalho): tentam números até encontrar um que gere um código (hash) válido.<br>
-                            Validação: rede confirma o bloco e adiciona ao blockchain.<br>
-                            Recompensa: minerador recebe novos bitcoins como pagamento.</p>
-                            <p><strong>Recursos Necessoses</strong><br>
-                            Hardware especializado (ASICs).<br>
-                            Eletricidade em larga escala.</p>
-                            <p><strong>6. Aplicações Práticas</strong></p>
-                            <div class="table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Tecnologia</th>
-                                            <th>Caso de Uso</th>
-                                            <th>Benefício Principal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Blockchain</td>
-                                            <td>Rastreabilidade de alimentos e produtos de luxo</td>
-                                            <td>Identificar origem e autenticidade</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Criptomoedas</td>
-                                            <td>Remessas internacionais e pagamentos online</td>
-                                            <td>Taxas menores e rapidez</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tokenização</td>
-                                            <td>Investimento fracionado em imóveis e startups</td>
-                                            <td>Acesso democrático e liquidez</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Smart Contracts</td>
-                                            <td>Seguros automáticos e pagamentos de royalties</td>
-                                            <td>Processos sem intermediários</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mineração</td>
-                                            <td>Suporte à segurança e emissão de novas moedas</td>
-                                            <td>Confirmação descentralizada</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <p><strong>Rastreabilidade de Produtos</strong><br>
-                            Com blockchain, empresas monitoram cada etapa de um item (do produtor ao consumidor), acelerando recall de lotes e garantindo qualidade.</p>
-                            <p><strong>Pagamentos e Remessas</strong><br>
-                            Criptomoedas permitem transferências internacionais em minutos, com taxas abaixo das cobradas por bancos.</p>
-                            <p><strong>Investimentos e Financiamento</strong><br>
-                            Tokenização abre espaço para que qualquer pessoa invista valores pequenos em projetos imobiliários ou empresas em crescimento.</p>
-                            <p><strong>Contratos Inteligentes</strong><br>
-                            Em casos como voos cancelados ou streaming de conteúdo, acordos autoexecutáveis liberam pagamentos automaticamente sem burocracia.</p>
-                            <p><strong>Energia e Sustentabilidade</strong><br>
-                            Vendas diretas de excedentes de energia solar via blockchain e tokenização de créditos de carbono tornam o setor mais transparente e eficiente.</p>
-                            <p><strong>7. Vantagens e Desafios</strong></p>
-                            <p><strong>Vantagens</strong><br>
-                            Maior transparência e confiança sem autoridade central.<br>
-                            Redução de intermediários e custos de transação.<br>
-                            Acesso global a qualquer pessoa com internet.<br>
-                            Desafios<br>
-                            Complexidade técnica para iniciantes.<br>
-                            Consumo de energia em certos métodos de validação.<br>
-                            Incertezas regulatórias e necessidade de normas claras.</p>
-                            <p><strong>8. Conclusão</strong><br>
-                            As tecnologias de blockchain, criptomoedas, tokenização e mineração formam um ecossistema inovador que transforma como registramos, transferimos e investimos valor. Já aplicadas em rastreabilidade de produtos, finanças, gestão de contratos e energia, elas prometem evolução contínua, aumentando eficiência, segurança e acesso para pessoas e empresas ao redor do mundo.<br>
-                            Este relatório buscou consolidar, em linguagem acessível, os principais conceitos e usos práticos, servindo como ponto de partida para quem deseja entender e explorar essas soluções.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 6: Mercado crypto em Alta e Otimismo Global -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/mercado.png" alt="Imagem ilustrativa de Mercado Crypto em Alta">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>Mercado crypto em Alta e Otimismo Global</h3>
-                        <p class="summary">O Bitcoin manteve sua trajetória de valorização nesta sexta-feira, chegando a US$ 119.380, próximo de sua máxima histórica de meados de julho. A recuperação foi impulsionada por sinais de um acordo temporário de 90 dias entre EUA e China para suspender novas tarifas, aliviando tensões comerciais e atraindo fluxo de capital ao ativo digital.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p>O Bitcoin manteve sua trajetória de valorização nesta sexta-feira, chegando a US$ 119.380, próximo de sua máxima histórica de meados de julho. A recuperação foi impulsionada por sinais de um acordo temporário de 90 dias entre EUA e China para suspender novas tarifas, aliviando tensões comerciais e atraindo fluxo de capital ao ativo digital.</p>
-                            <p><strong>Ethereum Impulsiona Inovação DeFi</strong></p>
-                            <p>O Ether registrou um crescimento de 54% ao longo de julho, refletindo a forte entrada de investidores institucionais por meio de ETFs de Ethereum. Especialistas apontam que o token rompeu níveis técnicos relevantes, como a média móvel de 50 semanas, abrindo caminho para novas retomadas de alta e aquecendo o ecossistema de finanças descentralizadas.</p>
-                            <p><strong>XRP em Fase de Consolidação</strong></p>
-                            <p>O XRP avançou quase 2% no dia, em meio a um movimento geral de realocação de recursos para projetos com uso prático. Dados de mercado indicam que cerca de US$ 500 milhões em XRP foram acumulados nas últimas semanas, reforçando a expectativa de que o preço possa se aproximar do topo histórico de US$ 3,66 caso o ritmo de compras se mantenha.</p>
-                            <p><strong>Polygon Acelera com zkEVM</strong></p>
-                            <p>O token MATIC disparou para US$ 0,87, impulsionado pelo lançamento da solução zkEVM, que reduziu o tempo de confirmação de transações de até dois minutos para cerca de cinco segundos. O update elevou em 15% o número de endereços ativos na rede e ajudou a impulsionar o volume diário para mais de US$ 1,2 bilhão.</p>
-                            <p><strong>Destaques Adicionais</strong></p>
-                            <p>O Bitcoin Cash também ganhou força, ultrapassando US$ 580 após um rali de 5.2% no dia. Já o BNB atingiu nova máxima semanal, apoiado por renovado apetite de varejistas por altcoins. No segmento de mineração, a startup FindMining lançou contratos de mineração em nuvem com promessas de rendimento diário em BTC, atraindo o interesse de pequenos investidores.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 7: Sustentabilidade e Tecnologias Verdes em Ascensão -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/verdes.png" alt="Imagem ilustrativa de Sustentabilidade e Tecnologias Verdes">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>🌱 Sustentabilidade e Tecnologias Verdes em Ascensão</h3>
-                        <p class="summary">A tecnologia desempenha um papel fundamental na transição para uma economia mais sustentável, com inovações em energias renováveis, agricultura inteligente e gestão de resíduos.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p>A pauta de sustentabilidade ganha cada vez mais destaque em 2025, impulsionada pela urgência das mudanças climáticas e pela demanda por práticas empresariais mais responsáveis. As tecnologias verdes, ou greentech, estão no centro dessa transformação. Investimentos em energias renováveis, como solar e eólica, continuam a crescer, com avanços na eficiência e no armazenamento de energia.s</p>
-                            <p>Além disso, a tecnologia está sendo aplicada para otimizar o uso de recursos, reduzir o desperdício e promover a economia circular. Soluções de IoT (Internet das Coisas) e IA são utilizadas na agricultura de precisão para monitorar plantações e otimizar o uso da água, e na gestão de cidades inteligentes para reduzir o consumo de energia e melhorar a mobilidade urbana. A inovação em materiais sustentáveis e processos de produção de baixo carbono também são áreas de grande foco, sinalizando um futuro onde a tecnologia e a sustentabilidade caminham lado a lado.</p>
-                            <br>
-                            <h4>Carteira de Criptomoedas: Explicação Simples e Objetiva</h4>
-                            <p><strong>O que é uma carteira?</strong></p>
-                            <p>É um aplicativo ou dispositivo que guarda as “chaves” que provam que você é dono de suas criptomoedas — como um cofre digital.</p>
-                            <ul>
-                                <li><strong>Enviar moedas:</strong> você assina, com sua chave, uma transação que manda valor para outra carteira.</li>
-                                <li><strong>Receber moedas:</strong> compartilha seu “endereço” (semelhante a uma conta bancária) para que alguém envie criptomoedas a você.</li>
-                                <li><strong>Verificar saldo:</strong> consulta quantas moedas você tem, acessando a blockchain.</li>
-                            </ul>
-                            <p><strong>Tipos principais</strong></p>
-                            <p><strong>Carteiras quentes (hot wallets)</strong></p>
-                            <ul>
-                                <li>Conectadas à internet (apps para celular ou extensões de navegador).</li>
-                                <li>Práticas para uso diário, mas risco maior de ataques online.</li>
-                            </ul>
-                            <p><strong>Carteiras frias (cold wallets)</strong></p>
-                            <ul>
-                                <li>Desconectadas da internet (pen drives ou dispositivos dedicados).</li>
-                                <li>Mais seguras para guardar grandes quantias, porém menos convenientes para transações rápidas.</li>
-                            </ul>
-                            <p><strong>Como usar</strong></p>
-                            <ul>
-                                <li><strong>Instalação:</strong> baixe o app oficial ou configure um dispositivo físico.</li>
-                                <li><strong>Backup:</strong> anote e guarde com muito cuidado a “frase-semente” (12–24 palavras) que recupera sua carteira.</li>
-                                <li><strong>Transações:</strong> copie o endereço de quem vai receber, informe o valor, confirme com sua chave ou PIN.</li>
-                                <li><strong>Confirmação:</strong> aguarde a rede validar e registrar sua transação (pode levar de segundos a minutos, dependendo da moeda).</li>
-                            </ul>
-                            <p><strong>Dicas de segurança</strong></p>
-                            <ul>
-                                <li>Nunca compartilhe sua frase‑semente com ninguém.</li>
-                                <li>Ative autenticação extra (senha, PIN ou biometria).</li>
-                                <li>Para grandes valores, prefira carteiras frias.</li>
-                                <li>Use sempre softwares e firmwares oficiais e atualizados.</li>
-                            </ul>
-                            <p><strong>Resumo:</strong> a carteira de criptomoedas é seu cofre digital: um app ou dispositivo que guarda suas chaves, permite enviar e receber moedas, e exige cuidados básicos de segurança para proteger seu investimento.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 8: O Futuro do Trabalho (Impacto Tech) -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/trabalho.png" alt="Imagem ilustrativa do Futuro do Trabalho">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>💼 O Futuro do Trabalho: Transformações Impulsionadas pela Tecnologia</h3>
-                        <p class="summary">A tecnologia está remodelando o mercado de trabalho, exigindo novas habilidades e modelos de colaboração, com o trabalho híbrido e remoto se consolidando.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p>O mercado de trabalho em 2025 é um reflexo das rápidas transformações tecnológicas. A automação e a Inteligência Artificial estão alterando a natureza de muitas profissões, enquanto novas funções surgem em áreas como ciência de dados, engenharia de IA e cibersegurança. A demanda por habilidades digitais e socioemocionais, como pensamento crítico, criatividade e adaptabilidade, é cada vez maior.</p>
-                            <p>O trabalho híbrido e remoto se consolidou como um modelo padrão para muitas empresas, impulsionado por ferramentas de colaboração online e infraestruturas de nuvem. Isso traz flexibilidade, mas também desafios em termos de gestão de equipes distribuídas e manutenção da cultura organizacional. A requalificação e a aprendizagem contínua são essenciais para que profissionais e empresas se adaptem a esse novo cenário, garantindo a empregabilidade e a competitividade no futuro do trabalho.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 9: CodifyWorld: Nossas Soluções -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/codify-news.png" alt="Imagem ilustrativa da CodifyWorld: Nossas Soluções">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>🌐 CodifyWorld: Inovação e Soluções Tecnológicas</h3>
-                        <p class="summary">A CodifyWorld continua a liderar o caminho em soluções tecnológicas, oferecendo inovação e agilidade para empresas que buscam transformação digital.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p>Como holding por trás da Codify Nexo, a CodifyWorld está na vanguarda da transformação digital, desenvolvendo soluções inovadoras que impulsionam o crescimento e a eficiência de nossos clientes. Nosso portfólio abrange desde desenvolvimento de software personalizado e consultoria em TI até soluções de nuvem e inteligência de negócios.</p>
-                            <p>Em 2025, focamos em expandir nossa presença global e consolidar nossa expertise em tecnologias emergentes, como blockchain, computação quântica e realidade aumentada. Nosso compromisso é com a excelência e a entrega de valor, ajudando empresas a navegar pelo complexo cenário tecnológico e a alcançar seus objetivos estratégicos. Acreditamos que a tecnologia, quando bem aplicada, é uma ferramenta poderosa para criar um futuro mais conectado e mais próspero.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 10: Educação e Tecnologia -->
-                <div class="report-card">
-                    <div class="report-card-image-container">
-                        <img src="img/educação.png" alt="Imagem ilustrativa de Educação e Tecnologia">
-                    </div>
-                    <div class="report-card-content">
-                        <h3>📚 Educação e Tecnologia: O Futuro da Aprendizagem</h3>
-                        <p class="summary">A tecnologia está revolucionando a educação, com plataformas de aprendizado online, IA personalizada e realidade virtual transformando a experiência de alunos e professores.</p>
-                        <button class="read-more-btn">Ler Mais <i class="fas fa-chevron-right"></i></button>
-                        <div class="report-content-full">
-                            <p>O setor educacional em 2025 está profundamente impactado pela tecnologia, que oferece novas oportunidades para a aprendizagem e o desenvolvimento de habilidades. Plataformas de ensino a distância e ferramentas de colaboração online se tornaram onipresentes, permitindo acesso à educação de forma mais flexível e inclusiva. A Inteligência Artificial desempenha um papel crescente na personalização do aprendizado, adaptando o conteúdo e o ritmo às necessidades individuais de cada aluno.</p>
-                            <p>Além disso, tecnologias como realidade virtual (RV) e realidade aumentada (RA) estão criando experiências imersivas e interativas, tornando o aprendizado mais engajador e eficaz. Laboratórios virtuais, simulações e visitas de campo digitais estão se tornando comuns em diversas disciplinas. O desafio é garantir que a tecnologia seja utilizada de forma equitativa, reduzindo a lacuna digital e preparando os alunos para os desafios e oportunidades do futuro.</p>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="content-section" id="contato">
+            <div class="section-heading-wrapper"><h2 class="section-heading">Contato</h2></div>
+            <p class="text-center mt-4"><strong>Codify Nexo</strong><br>Rio de Janeiro, Brasil</p>
+            <p class="text-center"><a href="tel:+5522997323458" class="text-blue-700 underline">Brasil +55 22 997 323 458</a></p>
+            <br>
+            <p class="text-center mt-4">Exterior,</p>
+            <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">Exterior +244 927 944 541</a></p>
+            <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
+            
+            <div class="contact-social-links">
+                <h3>Siga-nos em nossas redes</h3>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial"><i class="fas fa-globe"></i></a>
+                    <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            <button class="scroll-arrow right-arrow">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-        <div class="scroll-indicator-container mt-4">
-            <div class="scroll-indicator-bar"></div>
-        </div>
-    </div>
 
-    <div class="container content-section" id="fatos-nao-versoes">
-        <div class="section-heading-wrapper"><h2 class="section-heading">Fatos! não versões</h2></div>
-        <p class="text-center"><strong>Na Codify Nexo</strong>, nosso compromisso é com os fatos.</p>
-        <p class="text-gray-800">Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
-    </div>
-
-    <div class="container content-section" id="parceiros">
-        <div class="section-heading-wrapper"><h2 class="section-heading">Parceiros</h2></div>
-        <p class="text-center">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação.
-            Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
-        <p class="text-center">Interessado em se tornar um parceiro da <strong>Codify Nexo? Entre em contato conosco.</strong></p>
-    </div>
-
-    <div class="container content-section" id="assinatura-form">
-        <div class="section-heading-wrapper"><h2 class="section-heading">📊 Assinatura Premium Codify Nexo</h2></div>
-        <p class="text-center mb-8" style="font-size: 1.1rem;">Inscreva-se para Acessar Nossos Relatórios, consultorias e ebooks profissionais, além de ter acesso beta a projetos CodifyWorld. Após a confirmação da sua assinatura via Mercado Pago, será enviado diretamente para o seu e-mail cadastrado os serviços descritos.</p>
-        <div id="formContainer">
-            <div class="flex justify-center items-center">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" width="640" height="2755" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+            <p class="text-center mt-8"><em>Grupo Codify Nexo no WhatsApp, um espaço gratuito para quem busca informação técnica, <br>sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
+            <div class="flex justify-center mt-2">
+                <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105"><i class="fab fa-whatsapp text-current text-xl mr-2"></i><span>Grupo aberto WhatsApp</span></a>
             </div>
-            <p class="text-center mt-8 text-red-700 font-bold" style="font-size: 1.1rem;">⚠️ Observação</p>
-            <p class="text-center mb-8" style="font-size: 1.1rem;">O acesso a conteúdos específicos e projetos beta será liberado após a confirmação da assinatura.</p>
         </div>
     </div>
 
-    <div class="container content-section" id="contato">
-        <div class="section-heading-wrapper"><h2 class="section-heading">Contato</h2></div>
-        <p class="text-center mt-4"><strong>Codify Nexo</strong>
-        <br>
-            Rio de Janeiro, Brasil</p>
-        <p class="text-center"> <a href="tel:+5522997323458" class="text-blue-700 underline">Brasil +55 22 997 323 458</a></p>
-        <br>
-        <p class="text-center mt-4"> Exterior,</p>
-        <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">Exterior +244 927 944 541</a> <br> </p>
-        <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
-        <p class="text-center mt-4"><em>Grupo Codify Nexo no WhatsApp, um espaço gratuito para quem busca informação técnica, <br>sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
-        <div class="flex justify-center mt-2">
-            <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105"><i class="fab fa-whatsapp text-current text-xl mr-2"></i><span>Grupo aberto WhatsApp</span></a>
+    <div class="container">
+        <div class="content-section" id="sobre-nos">
+            <div class="section-heading-wrapper"><h2 class="section-heading">Sobre nós</h2></div>
+            <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
+            <p class="text-center">A Codify Nexo Imprensa é uma rede social da honding<strong>CodifyWorld.</strong> Acreditamos que a tecnologia deve ser
+                uma ponte entre pessoas, ideias e soluções, criar relatórios/notícias que facilitem a vida de quem empreende, ensina, aprende ou
+                simplemente quer transformar sua rotina com a ajuda da tecnologia. <br> Feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital.
+                Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
+            <br>
+            <p class="text-center"><a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a></p>
         </div>
     </div>
-
-    <div class="container content-section" id="sobre-nos">
-        <div class="section-heading-wrapper"><h2 class="section-heading">Sobre nós</h2></div>
-        <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
-        <p class="text-center">A Codify Nexo Imprensa é uma rede social da honding<strong>CodifyWorld.</strong> Acreditamos que a tecnologia deve ser
-            uma ponte entre pessoas, ideias e soluções, criar relatórios/notícias que facilitem a vida de quem empreende, ensina, aprende ou
-            simplemente quer transformar sua rotina com a ajuda da tecnologia. <br> Feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital.
-            Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
-        <br>
-           <p class="text-center"> <a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a></p>
-    </div>
-
-    <div class="container content-section" id="politica-privacidade">
-        <div class="section-heading-wrapper"><h2 class="section-heading">Política de Privacidade</h2></div>
-        <h2 class="subtitle text-center">Nosso Compromisso com Seus Dados</h2>
-        <p class="text-center mb-8">Na Codify Nexo, levamos a sua privacidade a sério. Temos o máximo cuidado com os dados que coletamos e armazenamos apenas o necessário para oferecer nossos serviços e melhorar sua experiência. Não repassamos suas informações a terceiros.</p>
-        <p class="text-center"><strong>Salvo quando exigido por ordem judicial, conforme a lei.Sua confiança é fundamental para nós.</strong></p>
+    
+    <div class="container">
+        <div class="content-section" id="politica-privacidade">
+            <div class="section-heading-wrapper"><h2 class="section-heading">Política de Privacidade</h2></div>
+            <h2 class="subtitle text-center">Nosso Compromisso com Seus Dados</h2>
+            <p class="text-center mb-8">Na Codify Nexo, levamos a sua privacidade a sério. Temos o máximo cuidado com os dados que coletamos e armazenamos apenas o necessário para oferecer nossos serviços e melhorar sua experiência. Não repassamos suas informações a terceiros.</p>
+            <p class="text-center"><strong>Salvo quando exigido por ordem judicial, conforme a lei.Sua confiança é fundamental para nós.</strong></p>
+        </div>
     </div>
 
 </main>
 
 <footer>
-    <p class="text-center text-blue-700">
-    <strong>Conteúdo sob Licença</strong> <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank" style="color: var(--primary-blue) underline font-bold;">CC BY-NC-ND 4.0</a> <br> <strong>Não usar comercialmente sem autorização prescrita, SOB PENA JUDICIAL.</strong>
+    <p>
+    <strong>Conteúdo sob Licença</strong> <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank">CC BY-NC-ND 4.0</a> <br> <strong>Não usar comercialmente sem autorização prescrita, SOB PENA JUDICIAL.</strong>
     </p>
-    <p class="text-center text-blue-700"><strong>© 2025 From Codify World Tech Labs <br> Direitos preservados.</strong></p>
-    <p class="text-center"> <a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a></p>
+    <p><strong>© 2025 From Codify World Tech Labs <br> Direitos preservados.</strong></p>
+    <p><a href="https://www.codifyworld.com.br">https://www.codifyworld.com.br</a></p>
 </footer>
 
-<!-- Full-screen reading modal -->
 <div id="read-modal">
     <div id="read-modal-content">
-        <button class="close-btn"><i class="fas fa-times"></i></button>
+        <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
         <div id="modal-image-container">
             <img id="modal-image" src="" alt="Imagem do Relatório">
         </div>
         <h3 id="modal-title"></h3>
         <div id="modal-full-text">
-            <!-- Full content will be inserted here by JavaScript -->
-        </div>
+            </div>
     </div>
 </div>
 
-<!-- Back to Top button -->
 <button id="back-to-top-btn" aria-label="Voltar ao Topo">
     <i class="fas fa-arrow-up"></i>
 </button>

@@ -72,8 +72,8 @@
 
         /* Ajustes para o logo: Removendo altura e largura fixas iniciais */
         #main-header-content .logo img {
-            max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
-            height: 10px;    /* Mantém a proporção da imagem */
+            max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner do pai. */
+            height: auto;    /* Mantém a proporção da imagem automaticamente. */
             display: block;
         }
 
@@ -429,7 +429,7 @@
         @media (min-width: 769px) {
             /* Ajuste o tamanho do logo para desktop */
             #main-header-content .logo img {
-                max-height: 30px; /* Reduzindo a altura máxima para desktop */
+                max-height: 25px; /* Reduzindo a altura máxima para desktop */
                 width: auto; /* Mantém a proporção */
             }
             #hamburger-btn { display: none; }
@@ -462,7 +462,7 @@
             }
             /* Ajuste o tamanho do logo para mobile */
             #main-header-content .logo img {
-                max-height: 22px; /* Reduzindo a altura máxima para mobile */
+                max-height: 20px; /* Reduzindo a altura máxima para mobile */
                 width: auto; /* Mantém a proporção */
             }
 
@@ -799,70 +799,17 @@
                          Obras são transformadas em tokens não-fungíveis (NFTs), garantindo propriedade única de itens digitais.</p>
                          <p><strong>Garantias Financeiras</strong><br>
                          Bancos podem aceitar tokens de ativos como garantia de empréstimos, simplificando processos.</p>
-                         <p><strong>Programas de Fidelidade</strong><br>
-                         Pontos de clientes viram tokens que podem ser trocados livremente em diferentes parceiros.</p>
-                         <p><strong>5. Vantagens e Desvantagens</strong></p>
-                         <p><strong>Vantagens</strong><br>
-                         Acesso a investimentos antes inacessíveis<br>
-                         Liquidez: troca rápida de frações do ativo<br>
-                         Transparência no histórico de transações<br>
-                         Redução de intermediários</p>
-                         <p><strong>Desvantagens</strong><br>
-                         Questões legais ainda em definição<br>
-                         Risco de contratos mal configurados<br>
-                         Complexidade para usuários iniciantes<br>
-                         Dependência de tecnologia blockchain</p>
-                         <p><strong>6. Por Que Importa?</strong></p>
-                         <p><strong>Democratização de Investimentos</strong><br>
-                         Permite que pequenas quantias participem de grandes negócios.</p>
-                         <p><strong>Maior Liquidez</strong><br>
-                         Ativos antes difíceis de vender ganham um mercado ativo de tokens.</p>
-                         <p><strong>Segurança e Transparência</strong><br>
-                         Todo movimento fica registrado de forma visível e imutável.</p>
-                         <p><strong>7. Pontos de Atenção</strong></p>
-                         <p><strong>Regulação</strong><br>
-                         Cada país tem regras diferentes; é vital entender o cenário legal antes de emitir ou comprar tokens.</p>
-                         <p><strong>Qualidade do Contrato Inteligente</strong><br>
-                         Bugs ou falhas no código podem comprometer o ativo — escolha plataformas reconhecidas.</p>
-                         <p><strong>Custos de Transação</strong><br>
-                         Em algumas blockchains, taxas para criar e mover tokens podem ser elevadas em momentos de alta demanda.</p>
-                         <p><strong>8. Conclusão</strong><br>
-                         A tokenização transforma coisas do mundo real em fichas digitais (tokens) em uma blockchain, facilitando compra, venda e divisão de ativos. Com potencial para abrir investimentos, melhorar liquidez e aumentar transparência, ela ainda enfrenta desafios regulatórios e técnicos. Para quem busca novas formas de investir ou gerenciar ativos, entender tokenização é um passo importante.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/mineração.png" alt="Imagem ilustrativa de Mineração de Bitcoin">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>O que é Mineração de Bitcoin?</h3>
-                     <p class="summary">A mineração de Bitcoin é o processo pelo qual novas moedas são criadas e as transações são confirmadas na rede. Pense nisso como um “garimpo digital”: em vez de cavar ouro, usamos computadores para resolver desafios matemáticos.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p><strong>1. Introdução</strong><br>
-                         A mineração de Bitcoin é o processo pelo qual novas moedas são criadas e as transações são confirmadas na rede. Pense nisso como um “garimpo digital”: em vez de cavar ouro, usamos computadores para resolver desafios matemáticos.</p>
-                         <p><strong>2. Por Que “Minerar”?</strong></p>
-                         <p><strong>Recompensa:</strong> quem “mina” recebe, como prêmio, novas frações de bitcoin.</p>
-                         <p><strong>Segurança:</strong> a mineração valida e registra as transações, mantendo a rede confiável.</p>
-                         <p><strong>3. Como Funciona em “Pedaços”</strong></p>
-                         <p><strong>Transações Pendentes</strong><br>
-                         Usuários enviam bitcoins uns aos outros. Essas solicitações ficam aguardando confirmação.</p>
-                         <p><strong>Formar um Bloco</strong><br>
-                         Um computador minerador agrupa várias transações não confirmadas em um “bloco”.</p>
-                         <p><strong>Desafio Matemático</strong><br>
-                         Para adicionar o bloco à rede, o minerador precisa encontrar um número (chamado nonce) que faça o bloco gerar um código específico (hash) dentro de certas regras.</p>
-                         <p><strong>Prova de Trabalho</strong><br>
-                         Esse processo de tentar vários números até achar o correto é chamado Prova de Trabalho. É demorado e consome eletricidade, pois exige muitos cálculos.</p>
-                         <p><strong>Confirmação e Recompensa</strong><br>
-                         Quando alguém encontra a solução, o bloco é aceito por todos na rede, as transações são confirmadas e o minerador recebe uma recompensa em bitcoins.</p>
-                         <p><strong>4. Analogia do “Bilhete Premiado”</strong><br>
-                         Imagine uma loteria em que milhares de pessoas compram bilhetes e tentam adivinhar um número. Quem acerta primeiro ganha o prêmio e “imprime” a nova página do caderno (bloco) com todas as apostas (transações).</p>
-                         <p><strong>5. Equipamento Necessário</strong></p>
-                         <p><strong>Hardware Especializado</strong><br>
-                         Hoje em dia usa‑se máquinas chamadas ASICs, desenvolvidas só para mineração — são mais rápidas e eficientes que simples computadores.</p>
-                         <p><strong>Energia Elétrica:</strong> Quanto mais poderosa a máquina, mais energia ela consome; por isso muitos mineradores buscam eletricidade mais barata.</p>
+                         <p><strong>5. Mineração de Bitcoin: Garimpo Digital</strong></p>
+                         <p><strong>Definição</strong><br>
+                         Processo que cria novos bitcoins e registra transações, resolvendo desafios matemáticos em computadores.</p>
+                         <p><strong>Como Funciona</strong><br>
+                         Agrupar Transações: mineradores formam um bloco com várias transferências pendentes.<br>
+                         Desafio (Prova de Trabalho): tentam números até encontrar um que gere um código (hash) válido.<br>
+                         Validação: rede confirma o bloco e adiciona ao blockchain.<br>
+                         Recompensa: minerador recebe novos bitcoins como pagamento.</p>
+                         <p><strong>Recursos Necessoses</strong><br>
+                         Hardware especializado (ASICs).<br>
+                         Eletricidade em larga escala.</p>
                          <p><strong>6. Pontos de Atenção</strong></p>
                          <p><strong>Dificuldade Variável</strong><br>
                          A rede ajusta o nível de dificuldade do desafio para manter um intervalo médio de 10 minutos entre blocos.</p>
@@ -903,10 +850,10 @@
                          Transparência: qualquer participante pode consultar todo o histórico de transações.</p>
                          <p><strong>3. Criptomoeda: Dinheiro na Internet</strong></p>
                          <p><strong>Definição</strong><br>
-                         Dinheiro digital que roda sobre uma blockchain, sem forma física, gerenciado por software.</p>
+                         Dinheiro digital que roda sobre uma blockchain, sem forma física, gerenciado por software.<br>
                          <p><strong>Exemplos</strong><br>
                          Bitcoin (BTC): primeira criptomoeda, focada em transferir valor.<br>
-                         Ether (ETH): moeda da rede Ethereum, usada tanto para pagamentos quanto para alimentar aplicativos descentralizados.</p>
+                         Ether (ETH): moeda da rede Ethereum, usada tanto para pagamentos quanto para alimentar aplicativos descentralizados.<br>
                          <p><strong>Como Funciona</strong><br>
                          Carteira Digital: armazena chaves que provam sua titularidade.<br>
                          Transação: você envia unidades a outro endereço.<br>
@@ -1010,8 +957,6 @@
                          <p>O XRP avançou quase 2% no dia, em meio a um movimento geral de realocação de recursos para projetos com uso prático. Dados de mercado indicam que cerca de US$ 500 milhões em XRP foram acumulados nas últimas semanas, reforçando a expectativa de que o preço possa se aproximar do topo histórico de US$ 3,66 caso o ritmo de compras se mantenha.</p>
                          <p><strong>Polygon Acelera com zkEVM</strong></p>
                          <p>O token MATIC disparou para US$ 0,87, impulsionado pelo lançamento da solução zkEVM, que reduziu o tempo de confirmação de transações de até dois minutos para cerca de cinco segundos. O update elevou em 15% o número de endereços ativos na rede e ajudou a impulsionar o volume diário para mais de US$ 1,2 bilhão.</p>
-                         <p><strong>Destaques Adicionais</strong></p>
-                         <p>O Bitcoin Cash também ganhou força, ultrapassando US$ 580 após um rali de 5.2% no dia. Já o BNB atingiu nova máxima semanal, apoiado por renovado apetite de varejistas por altcoins. No segmento de mineração, a startup FindMining lançou contratos de mineração em nuvem com promessas de rendimento diário em BTC, atraindo o interesse de pequenos investidores.</p>
                      </div>
                  </div>
              </div>
@@ -1164,7 +1109,7 @@
                     <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
                     <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105"><i class="fab fa-whatsapp text-current text-xl mr-2"></i><span>Grupo aberto WhatsApp</span></a>
                 </div>
             </div>
 

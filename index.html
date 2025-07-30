@@ -70,9 +70,10 @@
             margin: 0 auto;
         }
 
+        /* Ajustes para o logo: Removendo altura e largura fixas iniciais */
         #main-header-content .logo img {
-            height: 10px;
-            width: 10px;
+            max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
+            height: auto;    /* Mantém a proporção da imagem */
             display: block;
         }
 
@@ -425,8 +426,12 @@
         /* ==========================================================================
             Desktop Styles (Modern Website Look)
             ========================================================================== */
-        @media (min-width: 769px) 
-            #main-header-content .logo img { height: 100px; }
+        @media (min-width: 769px) {
+            /* Ajuste o tamanho do logo para desktop */
+            #main-header-content .logo img {
+                max-height: 80px; /* Reduzindo a altura máxima para desktop */
+                width: auto; /* Mantém a proporção */
+            }
             #hamburger-btn { display: none; }
             #main-nav { display: flex; }
             .header-actions { display: block; }
@@ -455,8 +460,10 @@
                 left: 50%;
                 transform: translateX(-50%);
             }
+            /* Ajuste o tamanho do logo para mobile */
             #main-header-content .logo img {
-                height: 36px; /* Reduced by 10% from 40px */
+                max-height: 30px; /* Reduzindo a altura máxima para mobile */
+                width: auto; /* Mantém a proporção */
             }
 
             .main-title { font-size: 1.8em; }

@@ -490,17 +490,16 @@
     </style>
 
     <script>
-       <script>
+     
            
   // Função para enviar a pergunta ao backend e mostrar a resposta
-  async function enviarPergunta(event) {
-    if (event) event.preventDefault();
+ async function enviarPergunta(event) {
+    if(event) event.preventDefault();
 
-    const perguntaInput = document.getElementById('perguntaIA');
+    const pergunta = document.getElementById('perguntaIA').value;
     const respostaDiv = document.getElementById('respostaIA');
-    const pergunta = perguntaInput.value.trim();
 
-    if (!pergunta) {
+    if (!pergunta.trim()) {
       respostaDiv.textContent = "⚠️ Digite uma pergunta antes de enviar.";
       respostaDiv.classList.remove('hidden');
       return;
@@ -510,42 +509,30 @@
     respostaDiv.classList.remove('hidden');
 
     try {
-      const response = await fetch('http://localhost:3000/api/ia-codify', {
+      const res = await fetch('http://localhost:3000/api/ia-codify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pergunta }),
       });
 
-      if (!response.ok) {
-        respostaDiv.textContent = `❌ Erro no servidor: ${response.status}`;
+      if (!res.ok) {
+        const errorText = await res.text();
+        respostaDiv.textContent = `❌ Erro no servidor: ${errorText || res.status}`;
         return;
       }
 
-      const data = await response.json();
+      const data = await res.json();
 
       if (data.response) {
-        // Usando template literals e substituindo quebras de linha por <br>
         respostaDiv.innerHTML = `<strong>Resposta da IA:</strong><br>${data.response.replace(/\n/g, '<br>')}`;
       } else {
         respostaDiv.textContent = "⚠️ Não foi possível obter resposta.";
       }
     } catch (error) {
       respostaDiv.textContent = "❌ Erro ao conectar com a CodifyMind.";
-      console.error('Erro ao enviar pergunta:', error);
+      console.error(error);
     }
   }
-
-  // Adiciona evento para enviar ao pressionar Enter no input
-  document.addEventListener('DOMContentLoaded', () => {
-    const perguntaInput = document.getElementById('perguntaIA');
-    perguntaInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        enviarPergunta(e);
-      }
-    });
-  });
-
-
 
 
         

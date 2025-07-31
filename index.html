@@ -490,8 +490,66 @@
     </style>
 
     <script>
-           
-        async function enviarPergunta(event) {
+    
+
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar-nav');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const pageOverlay = document.getElementById('page-overlay');
+            const sidebarLinks = document.querySelectorAll('#sidebar-nav ul li a');
+
+            function openSidebar() {
+                if(sidebar && pageOverlay) {
+                    sidebar.classList.add('sidebar-open');
+                    pageOverlay.classList.add('overlay-visible');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebar() {
+                if(sidebar && pageOverlay) {
+                    sidebar.classList.remove('sidebar-open');
+                    pageOverlay.classList.remove('overlay-visible');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if(hamburgerBtn) {
+                hamburgerBtn.addEventListener('click', openSidebar);
+            }
+            if(pageOverlay){
+                pageOverlay.addEventListener('click', closeSidebar);
+            }
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+
+            const readModal = document.getElementById('read-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalFullText = document.getElementById('modal-full-text');
+            const closeBtnTop = document.querySelector('#read-modal .close-btn');
+
+            function closeModal() {
+                if (readModal) {
+                    readModal.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+async function enviarPergunta(event) {
   if (event) event.preventDefault();
 
   const pergunta = document.getElementById('perguntaIA').value;
@@ -540,50 +598,15 @@
 
 
 
-            document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar-nav');
-            const hamburgerBtn = document.getElementById('hamburger-btn');
-            const pageOverlay = document.getElementById('page-overlay');
-            const sidebarLinks = document.querySelectorAll('#sidebar-nav ul li a');
 
-            function openSidebar() {
-                if(sidebar && pageOverlay) {
-                    sidebar.classList.add('sidebar-open');
-                    pageOverlay.classList.add('overlay-visible');
-                    document.body.style.overflow = 'hidden';
-                }
-            }
 
-            function closeSidebar() {
-                if(sidebar && pageOverlay) {
-                    sidebar.classList.remove('sidebar-open');
-                    pageOverlay.classList.remove('overlay-visible');
-                    document.body.style.overflow = '';
-                }
-            }
 
-            if(hamburgerBtn) {
-                hamburgerBtn.addEventListener('click', openSidebar);
-            }
-            if(pageOverlay){
-                pageOverlay.addEventListener('click', closeSidebar);
-            }
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', closeSidebar);
-            });
 
-            const readModal = document.getElementById('read-modal');
-            const modalImage = document.getElementById('modal-image');
-            const modalTitle = document.getElementById('modal-title');
-            const modalFullText = document.getElementById('modal-full-text');
-            const closeBtnTop = document.querySelector('#read-modal .close-btn');
 
-            function closeModal() {
-                if (readModal) {
-                    readModal.classList.remove('modal-open');
-                    document.body.style.overflow = '';
-                }
-            }
+
+
+
+
 
             document.querySelectorAll('.read-more-btn').forEach(button => {
                 button.addEventListener('click', function() {

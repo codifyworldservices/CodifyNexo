@@ -491,32 +491,45 @@
 
     <script>
            
-         async function enviarPergunta() {
-        const pergunta = document.getElementById('perguntaIA').value;
-        const respostaDiv = document.getElementById('respostaIA');
-        respostaDiv.innerHTML = "⏳ Processando...";
-        respostaDiv.classList.remove("hidden");
+        async function enviarPergunta(event) {
+  if (event) event.preventDefault();
 
-        try {
-            const res = await fetch('http://localhost:3000/api/ia-codify', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ pergunta }),
-            });
+  const pergunta = document.getElementById('perguntaIA').value;
+  const respostaDiv = document.getElementById('respostaIA');
+  respostaDiv.innerHTML = "⏳ Processando...";
+  respostaDiv.classList.remove("hidden");
 
-            const data = await res.json();
-            if (data.response) {
-                respostaDiv.innerHTML = `<strong>Resposta da IA:</strong><br>${data.response.replace(/\n/g, "<br>")}`;
-            } else {
-                respostaDiv.innerHTML = "⚠️ Não foi possível obter resposta.";
-            }
-        } catch (error) {
-            respostaDiv.innerHTML = "❌ Erro ao conectar com a CodifyMind.";
-            console.error(error);
-        }
-       }
+  if (!pergunta.trim()) {
+    respostaDiv.innerHTML = "⚠️ Digite uma pergunta antes de enviar.";
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:3000/api/ia-codify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ pergunta }),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      respostaDiv.innerHTML = `❌ Erro no servidor: ${errorText}`;
+      return;
+    }
+
+    const data = await res.json();
+    if (data.response) {
+      respostaDiv.innerHTML = `<strong>Resposta da IA:</strong><br>${data.response.replace(/\n/g, "<br>")}`;
+    } else {
+      respostaDiv.innerHTML = "⚠️ Não foi possível obter resposta.";
+    }
+  } catch (error) {
+    respostaDiv.innerHTML = "❌ Erro ao conectar com a CodifyMind.";
+    console.error(error);
+  }
+}
 
 
 

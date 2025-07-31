@@ -432,6 +432,27 @@
         #back-to-top-btn { display: none; position: fixed; bottom: 30px; right: 30px; background-color: var(--primary-blue); color: var(--white); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s; z-index: 1000; justify-content: center; align-items: center; }
         #back-to-top-btn:hover { background-color: var(--secondary-blue); transform: translateY(-3px); }
 
+
+
+        /*<div class="mt-6">
+      <input
+        id="perguntaIA"
+        type="text"
+        placeholder="Digite sua pergunta..."
+        class="w-full max-w-2xl px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button class="btn-enviar mt-4 bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">
+        Enviar
+      </button>
+    </div>
+    <div
+      id="respostaIA"
+      class="mt-6 p-4 bg-gray-100 rounded-lg shadow text-left max-w-3xl mx-auto hidden"
+    ></div>
+  </div>
+</div>*/
+
+        
         /* ==========================================================================
             Desktop Styles (Modern Website Look)
             ========================================================================== */
@@ -497,74 +518,8 @@
     </style>
 
     <script>
-     
-           
-  // Função para enviar a pergunta ao backend e mostrar a resposta
-<script>
-  // Função para enviar a pergunta ao backend e mostrar a resposta
-  async function enviarPergunta(event) {
-    if (event) event.preventDefault();
-
-    const pergunta = document.getElementById('perguntaIA').value;
-    const respostaDiv = document.getElementById('respostaIA');
-
-    if (!pergunta.trim()) {
-      respostaDiv.textContent = "⚠️ Digite uma pergunta antes de enviar.";
-      respostaDiv.classList.remove('hidden');
-      return;
-    }
-
-  respostaDiv.textContent = "⏳ Processando...";
-respostaDiv.classList.add('visible');
-
-
-    try {
-      const res = await fetch('http://localhost:3000/api/ia-codify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pergunta }),
-      });
-
-      if (!res.ok) {
-        const errorText = await res.text();
-        respostaDiv.textContent = `❌ Erro no servidor: ${errorText || res.status}`;
-        return;
-      }
-
-      const data = await res.json();
-
-      if (data.response) {
-        respostaDiv.innerHTML = `<strong>Resposta da IA:</strong><br>${data.response.replace(/\n/g, '<br>')}`;
-      } else {
-        respostaDiv.textContent = "⚠️ Não foi possível obter resposta.";
-      }
-    } catch (error) {
-      respostaDiv.textContent = "❌ Erro ao conectar com a CodifyMind.";
-      console.error(error);
-    }
-  }
-
-  // Opcional: se quiser, adiciona event listeners no DOM carregado, para evitar usar onclick/onkeyup inline
-  document.addEventListener('DOMContentLoaded', () => {
-    const input = document.getElementById('perguntaIA');
-    const btn = document.querySelector('button');
-
-    if (input) {
-      input.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') enviarPergunta(e);
-      });
-    }
-    if (btn) {
-      btn.addEventListener('click', enviarPergunta);
-    }
-  });
-
-
-
         
     
-
-
 
             document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar-nav');
@@ -729,23 +684,7 @@ respostaDiv.classList.add('visible');
       Interaja com nossa inteligência artificial multidisciplinar. <em>Generativa em testes</em>.
     </p>
 
-    <div class="mt-6">
-      <input
-        id="perguntaIA"
-        type="text"
-        placeholder="Digite sua pergunta..."
-        class="w-full max-w-2xl px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button class="btn-enviar mt-4 bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">
-        Enviar
-      </button>
-    </div>
-    <div
-      id="respostaIA"
-      class="mt-6 p-4 bg-gray-100 rounded-lg shadow text-left max-w-3xl mx-auto hidden"
-    ></div>
-  </div>
-</div>
+    
 
 
     <div class="container" id="relatorios">

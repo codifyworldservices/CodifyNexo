@@ -490,6 +490,48 @@
     </style>
 
     <script>
+       async function enviarPergunta(event) {
+    if(event) event.preventDefault();
+
+    const pergunta = document.getElementById('perguntaIA').value;
+    const respostaDiv = document.getElementById('respostaIA');
+
+    if (!pergunta.trim()) {
+      respostaDiv.textContent = "⚠️ Digite uma pergunta antes de enviar.";
+      respostaDiv.classList.remove('hidden');
+      return;
+    }
+
+    respostaDiv.textContent = "⏳ Processando...";
+    respostaDiv.classList.remove('hidden');
+
+    try {
+      const res = await fetch('http://localhost:3000/api/ia-codify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pergunta }),
+      });
+
+      if (!res.ok) {
+        respostaDiv.textContent = `❌ Erro no servidor: ${res.status}`;
+        return;
+      }
+
+      const data = await res.json();
+
+      if (data.response) {
+        respostaDiv.innerHTML = `<strong>Resposta da IA:</strong><br>${data.response.replace(/\n/g, '<br>')}`;
+      } else {
+        respostaDiv.textContent = "⚠️ Não foi possível obter resposta.";
+      }
+    } catch (error) {
+      respostaDiv.textContent = "❌ Erro ao conectar com a CodifyMind.";
+      console.error(error);
+    }
+  }
+
+
+        
     
 
 
@@ -592,49 +634,7 @@
                 });
             }
               
-                
-                
-                
-                async function enviarPergunta(event) {
-  if (event) event.preventDefault();
-
-  const pergunta = document.getElementById('perguntaIA').value;
-  const respostaDiv = document.getElementById('respostaIA');
-  respostaDiv.innerHTML = "⏳ Processando...";
-  respostaDiv.classList.remove("hidden");
-
-  if (!pergunta.trim()) {
-    respostaDiv.innerHTML = "⚠️ Digite uma pergunta antes de enviar.";
-    return;
-  }
-
-  try {
-    const res = await fetch('http://localhost:3000/api/ia-codify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ pergunta }),
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      respostaDiv.innerHTML = `❌ Erro no servidor: ${errorText}`;
-      return;
-    }
-
-    const data = await res.json();
-    if (data.response) {
-      respostaDiv.innerHTML = `<strong>Resposta da IA:</strong><br>${data.response.replace(/\n/g, "<br>")}`;
-    } else {
-      respostaDiv.innerHTML = "⚠️ Não foi possível obter resposta.";
-    }
-  } catch (error) {
-    respostaDiv.innerHTML = "❌ Erro ao conectar com a CodifyMind.";
-    console.error(error);
-  }
-}
-
+        
         });
     </script>
 </head>
@@ -698,9 +698,10 @@
         <p class="subtitle">Interaja com nossa inteligência artificial multidisciplinar. <em>Generativa em testes</em>.</p>
         
         <div class="mt-6">
-           <input id="perguntaIA" type="text" placeholder="Digite sua pergunta..." 
-       class="w-full max-w-2xl px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-       onkeyup="if (event.key === 'Enter') enviarPergunta()">
+          <input id="perguntaIA" type="text" placeholder="Digite sua pergunta..."
+   class="w-full max-w-2xl px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+   onkeyup="if(event.key === 'Enter') enviarPergunta(event)">
+
             <button onclick="enviarPergunta()" 
                     class="mt-4 bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">Enviar</button>
         </div>

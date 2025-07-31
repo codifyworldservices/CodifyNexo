@@ -268,17 +268,18 @@
         p, ul { margin-bottom: 15px; text-align: justify; font-size: 1.05rem; }
 
         footer {
-            text-align: center;
-            padding: 40px 20px;
-            background-color: #343a40;
-            color: var(--white);
-            font-size: 0.9rem;
-            border-top: 4px solid var(--primary-blue);
-            margin-top: 40px;
+             text-align: center;
+    padding: 40px 10px;
+    background-color: var(--light-gray); /* igual às seções */
+    color: var(--dark-gray);         /* texto escuro como no resto */
+    font-size: 0.7rem;
+    border-top: none;
+    margin-top: 40px;
+
         }
-        footer p { text-align: center; color: #ced4da; }
-        footer a { color: var(--white); text-decoration: underline; font-weight: bold; transition: color 0.2s; }
-        footer a:hover { color: var(--light-blue); }
+        footer p { text-align: center; color: var(--dark-gray); }
+        footer a { var(--primary-blue); text-decoration: underline; font-weight: bold; transition: color 0.2s; }
+        footer a:hover { var(--primary-blue); }
 
         .report-cards-grid {
             display: grid;
@@ -489,7 +490,44 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+           
+         async function enviarPergunta() {
+        const pergunta = document.getElementById('perguntaIA').value;
+        const respostaDiv = document.getElementById('respostaIA');
+        respostaDiv.innerHTML = "⏳ Processando...";
+        respostaDiv.classList.remove("hidden");
+
+        try {
+            const res = await fetch('http://localhost:3000/api/ia-codify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pergunta }),
+            });
+
+            const data = await res.json();
+            if (data.response) {
+                respostaDiv.innerHTML = `<strong>Resposta da IA:</strong><br>${data.response.replace(/\n/g, "<br>")}`;
+            } else {
+                respostaDiv.innerHTML = "⚠️ Não foi possível obter resposta.";
+            }
+        } catch (error) {
+            respostaDiv.innerHTML = "❌ Erro ao conectar com a CodifyMind.";
+            console.error(error);
+        }
+       }
+
+
+
+
+
+
+
+
+
+
+            document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar-nav');
             const hamburgerBtn = document.getElementById('hamburger-btn');
             const pageOverlay = document.getElementById('page-overlay');
@@ -643,6 +681,23 @@
 <div id="page-overlay"></div>
 
 <main id="main-content">
+
+<div class="container" id="codifymind">
+    <div class="content-section text-center">
+        <h2 class="section-heading">IA CodifyMind</h2>
+        <p class="subtitle">Interaja com nossa inteligência artificial multidisciplinar. <em>Generativa em testes</em>.</p>
+        
+        <div class="mt-6">
+           <input id="perguntaIA" type="text" placeholder="Digite sua pergunta..." 
+       class="w-full max-w-2xl px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+       onkeyup="if (event.key === 'Enter') enviarPergunta()">
+            <button onclick="enviarPergunta()" 
+                    class="mt-4 bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">Enviar</button>
+        </div>
+
+        <div id="respostaIA" class="mt-6 p-4 bg-gray-100 rounded-lg shadow text-left max-w-3xl mx-auto hidden"></div>
+    </div>
+</div>
 
     <div class="container" id="relatorios">
         <div class="text-center mb-12">
@@ -1085,7 +1140,7 @@
             <p class="text-center mb-8" style="font-size: 1.1rem;">Inscreva-se para Acessar Nossos Relatórios, consultorias e ebooks profissionais, além de ter acesso beta a projetos CodifyWorld. Após a confirmação da sua assinatura via Mercado Pago, será enviado diretamente para o seu e-mail cadastrado os serviços descritos.</p>
             <div id="formContainer">
                 <div class="flex justify-center items-center">
-                    <iframe class="google-form-embed" src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true">Carregando…</iframe>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" width="640" height="2712" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
                 </div>
                 <p class="text-center mt-8 text-red-700 font-bold" style="font-size: 1.1rem;">⚠️ Observação</p>
                 <p class="text-center mb-8" style="font-size: 1.1rem;">O acesso a conteúdos específicos e projetos beta será liberado após a confirmação da assinatura.</p>
@@ -1145,6 +1200,10 @@
             <p class="text-center"><strong>Salvo quando exigido por ordem judicial, conforme a lei.Sua confiança é fundamental para nós.</strong></p>
         </div>
     </div>
+
+
+
+
 
 </main>
 

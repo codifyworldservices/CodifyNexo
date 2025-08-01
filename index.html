@@ -1385,7 +1385,7 @@
                             `);
                             readModal.style.display = 'flex';
                             break;
-                        case 'premium-subscription':
+                            case 'premium-subscription':
                             loadContentIntoModal('Assinatura Premium', 'img/premium.jpg', `
                                 <h2>Assinatura Premium</h2>
                                 <p>Torne-se um assinante Premium da Codify Nexo e tenha acesso exclusivo a conteúdo aprofundado, análises avançadas e relatórios de mercado antecipados. Nossos assinantes recebem:</p>
@@ -1398,8 +1398,22 @@
                                 </ul>
                                 <p class="text-center mt-4">Invista no seu conhecimento e fique à frente no mercado.</p>
                                 <p class="text-center mt-2 font-bold text-xl text-primary-blue">Comece sua Assinatura Premium hoje!</p>
-                                <p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" width="640" height="2712" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe></p>
-                            `);
+                               
+                                
+                                
+                              <div  class="relative w-full pt-[423.75%] bg-gray-100 flex items-center justify-center text-gray-500 text-sm">                              
+                                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" 
+                                frameborder="0" 
+                                marginheight="0" 
+                               marginwidth="0"
+                               allowfullscreen 
+                              class="absolute inset-0 w-full h-full">
+                               Carregando…
+                             </iframe>
+                             <p class="absolute inset-0 flex items-center justify-center">Carregando formulário...</p>
+                           </div>
+
+                             
                             readModal.style.display = 'flex';
                             break;
                         case 'privacy-policy':

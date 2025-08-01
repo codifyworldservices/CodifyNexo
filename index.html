@@ -9,11 +9,17 @@
     <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
 
     <meta property="og:title" content="Codify Nexo | Tech Labs ">
-    <meta property="og:description" content="Economia Tecnologia Software ">
+    <meta property="og:description" content="Economia | Tecnologia | Software | Global 2025">
     <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
     <meta property="og:url" content="https://codifyworldservices.github.io/CodifyNews/">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content=" From Codify World ">
+    <meta property="og:site_name" content="Codify World | Tech Labs">
+
+    <link rel="apple-touch-icon" href="img/logo_codi.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="CodifyNews">
+    <meta name="theme-color" content="#0055A4">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,6 +37,8 @@
             --font-heading: 'Poppins', sans-serif;
             --font-base: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --header-total-height: 70px;
+            --bottom-nav-height: 60px; /* Height of the new bottom navigation */
+            --sidebar-light-blue: #0066CC; /* Slightly lighter blue for sidebar */
         }
 
         html {
@@ -48,1178 +56,1569 @@
             -ms-user-select: none;
             user-select: none;
             padding-top: var(--header-total-height);
+            padding-bottom: 0; /* Default 0 for desktop, will be set for mobile */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
         }
 
-        #page-header {
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a1a; /* Dark background */
+            color: #f0f0f0; /* Light text */
+        }
+
+        body.dark-mode header {
+            background-color: #003366; /* Darker blue for header in dark mode */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+        body.dark-mode .header-content .menu-toggle {
+            color: var(--white); /* Ensure menu toggle is white in dark mode */
+        }
+        body.dark-mode #desktop-top-nav button {
+            color: #f0f0f0; /* Light text in dark mode */
+        }
+        body.dark-mode #desktop-top-nav button:hover {
+            color: #BBDDFF;
+        }
+
+
+        body.dark-mode #sidebar-nav {
+            background-color: #003366; /* Darker blue for sidebar in dark mode */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode #sidebar-nav ul li a,
+        body.dark-mode #sidebar-nav ul li button {
+            color: #f0f0f0; /* Light text in sidebar */
+        }
+
+        body.dark-mode #sidebar-nav ul li a:hover,
+        body.dark-mode #sidebar-nav ul li button:hover {
+            background-color: #004488; /* Darker hover effect */
+        }
+
+        body.dark-mode .section-heading {
+            color: #BBDDFF; /* Lighter blue for headings in dark mode */
+            border-bottom-color: #0055A4; /* Darker border for headings */
+        }
+        
+        /* Dark mode for hero section heading (Bem-vindo) */
+        body.dark-mode #hero h2 {
+            color: var(--primary-blue); /* Make it blue in dark mode as requested */
+        }
+
+        body.dark-mode .cryptocurrency-card,
+        body.dark-mode .news-card,
+        body.dark-mode .article-card,
+        body.dark-mode .report-card,
+        body.dark-mode .gallery-card {
+            background-color: #2a2a2a; /* Darker cards */
+            border-color: #444; /* Darker border */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode .cryptocurrency-card h3,
+        body.dark-mode .news-card h3,
+        body.dark-mode .article-card h3,
+        body.dark-mode .report-card h3,
+        body.dark-mode .gallery-card h3 {
+            color: #BBDDFF; /* Lighter blue for card titles */
+        }
+
+        body.dark-mode .cryptocurrency-card p,
+        body.dark-mode .news-card p,
+        body.dark-mode .article-card p,
+        body.dark-mode .report-card p,
+        body.dark-mode .gallery-card p {
+            color: #ccc; /* Lighter text for card paragraphs */
+        }
+
+        body.dark-mode .cryptocurrency-card button.view-crypto-details-btn,
+        body.dark-mode .news-card a,
+        body.dark-mode .article-card a,
+        body.dark-mode .report-card a,
+        body.dark-mode .gallery-card a {
+            color: #88ccff; /* Lighter blue for links/buttons in dark mode */
+        }
+
+        body.dark-mode .cryptocurrency-card button.view-crypto-details-btn:hover {
+            text-decoration: underline;
+        }
+        
+        body.dark-mode .news-card a:hover, body.dark-mode .article-card a:hover, body.dark-mode .report-card a:hover, body.dark-mode .gallery-card a:hover {
+            text-decoration: underline;
+        }
+
+
+        body.dark-mode .show-more-btn {
+            background-color: #004488; /* Darker blue for show more button */
+        }
+        body.dark-mode .show-more-btn:hover {
+            background-color: #0055AA;
+        }
+
+        body.dark-mode .modal-content {
+            background-color: #222; /* Darker modal background */
+            color: #f0f0f0; /* Lighter text in modal */
+        }
+
+        body.dark-mode .modal-text-content h2 {
+            color: #BBDDFF; /* Lighter blue for modal headings */
+        }
+
+        body.dark-mode .modal-text-content a {
+            color: #88ccff; /* Lighter blue for modal links */
+        }
+
+        body.dark-mode .modal-bottom-close-btn {
+            background-color: #004488;
+        }
+        body.dark-mode .modal-bottom-close-btn:hover {
+            background-color: #0055AA;
+        }
+
+        body.dark-mode footer {
+            color: #aaa; /* Lighter gray for footer text */
+        }
+        body.dark-mode footer a {
+            color: #88ccff; /* Lighter blue for footer links */
+        }
+
+        body.dark-mode #mobile-bottom-nav { /* Renamed from #bottom-mobile-nav */
+            background-color: var(--primary-blue); /* Keep as primary blue in dark mode as requested */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
+        }
+        body.dark-mode #mobile-bottom-nav button { /* Renamed from #bottom-mobile-nav */
+            color: #f0f0f0;
+        }
+        body.dark-mode #mobile-bottom-nav button:hover { /* Renamed from #bottom-mobile-nav */
+            color: #BBDDFF;
+        }
+
+
+        /* ------------------------------------------------------------- */
+        /* Header */
+        /* ------------------------------------------------------------- */
+        header {
+            width: 100%;
+            background-color: var(--white); /* Changed to white */
+            color: var(--dark-gray); /* Text color changed to dark gray for visibility */
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            z-index: 1100;
-            background-color: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex; /* Changed to flex */
+            justify-content: space-between; /* Ensures content spreads out */
+            align-items: center;
+            height: var(--header-total-height);
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        #respostaIA {
-             display: none; /* começa oculto */
-          }
-
-          #respostaIA.visible {
-            display: block;
-         }
-        #main-header-content {
+        .header-content {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            height: var(--header-total-height);
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Ajustes para o logo: Removendo altura e largura fixas iniciais */
-        #main-header-content .logo {
-            max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner do pai. */
-            width: auto; /* Mantém a proporção da imagem automaticamente. */
-            display: block;
-            object-fit: contain; /* Garante que a imagem se ajuste dentro do espaço sem cortar */
-        }
-
-        /* --- Modern Desktop Navigation --- */
-        #main-nav {
-            display: none;
-            flex-grow: 1;
-            justify-content: center;
-        }
-
-        #main-nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 25px;
-        }
-
-        #main-nav ul li a {
-            font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--dark-gray);
-            text-decoration: none;
-            padding: 10px 0;
-            position: relative;
-            transition: color 0.2s;
-        }
-
-        #main-nav ul li a:hover {
-            color: var(--primary-blue);
-        }
-
-        #main-nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary-blue);
-            transition: width 0.3s ease;
-        }
-
-        #main-nav ul li a:hover::after {
             width: 100%;
+            justify-content: space-between; /* Spreads out menu-toggle, logo, and desktop-top-nav */
         }
 
-        .header-actions {
-            display: none;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 1; /* Allow logo container to take available space */
+            justify-content: center; /* Center logo image within its container */
         }
 
-        .subscribe-btn {
-            font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-decoration: none;
-            color: var(--white);
-            background-color: var(--primary-blue);
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: background-color 0.2s, transform 0.2s;
+        .logo {
+            height: 50px;
         }
 
-        .subscribe-btn:hover {
-            background-color: var(--secondary-blue);
-            transform: scale(1.05);
+        .site-title {
+            display: none; /* Hide site title for all screen sizes */
         }
 
+        .menu-toggle {
+            display: block; /* Shown by default on mobile */
+            background: none;
+            border: none;
+            color: var(--dark-gray); /* Changed to dark gray for visibility */
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1001; /* Ensure it's above other elements if needed */
+        }
 
-        /* --- App-like Sidebar Navigation (Mobile) --- */
-        #sidebar-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 280px;
-            background-color: var(--white);
-            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-            z-index: 1300;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
+        /* Desktop Top Navigation */
+        #desktop-top-nav {
+            display: none; /* Hidden by default (mobile first) */
+            align-items: center;
+            justify-content: space-around; /* Spread out buttons */
+            flex-grow: 1; /* Allow desktop nav to take available space */
+            max-width: 400px; /* Limit width to prevent excessive spreading */
+            margin-left: 20px; /* Add some margin to separate from logo */
+        }
+
+        #desktop-top-nav button {
+            background: none;
+            border: none;
+            color: var(--dark-gray); /* Text color for desktop nav buttons */
             display: flex;
             flex-direction: column;
+            align-items: center;
+            font-size: 0.85rem; /* Slightly smaller font for desktop buttons */
+            font-family: var(--font-base);
+            padding: 5px 8px; /* Padding for desktop buttons */
+            cursor: pointer;
+            transition: color 0.2s ease;
         }
 
-        #sidebar-nav.sidebar-open {
-            transform: translateX(0);
+
+        #desktop-top-nav button i {
+            font-size: 1.1rem; /* Icon size for desktop buttons */
+            margin-bottom: 3px;
         }
 
-        #sidebar-nav .sidebar-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid var(--light-gray);
+
+        /* ------------------------------------------------------------- */
+        /* Sidebar Navigation */
+        /* ------------------------------------------------------------- */
+        #sidebar-nav {
+            position: fixed;
+            top: 0; /* Will be adjusted by JS/media query for mobile */
+            left: -250px; /* Changed from right to left */
+            width: 250px;
+            height: 100%; /* Will be adjusted by JS/media query for mobile */
+            background-color: var(--sidebar-light-blue); /* Changed to slightly lighter blue */
+            padding-top: var(--header-total-height); /* Ensure content starts below header */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Adjusted shadow for left side */
+            transition: left 0.3s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 999;
+            overflow-y: auto; /* Add scroll for sidebar content */
+            box-sizing: border-box; /* Ensure padding doesn't push content out */
         }
 
-        #sidebar-nav .sidebar-header img {
-            width: 120px;
-            height: auto;
+        #sidebar-nav.open {
+            left: 0; /* Changed from right to left */
         }
 
         #sidebar-nav ul {
             list-style: none;
-            padding: 15px 0;
+            padding: 0;
             margin: 0;
-            overflow-y: auto;
-            flex-grow: 1;
         }
 
-        #sidebar-nav ul li a {
-            display: flex;
-            align-items: center;
-            padding: 15px 25px;
-            color: var(--dark-gray);
+        #sidebar-nav ul li a,
+        #sidebar-nav ul li button {
+            display: block;
+            padding: 15px 20px;
+            color: var(--white);
             text-decoration: none;
-            font-weight: 600;
             font-family: var(--font-heading);
-            font-size: 1.1rem;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        #sidebar-nav ul li a:hover {
-            background-color: var(--light-gray);
-            color: var(--primary-blue);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
+        #sidebar-nav ul li a:hover,
+        #sidebar-nav ul li button:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        .close-btn { /* This will now only apply to modal close buttons */
+            position: absolute;
+            top: 20px;
+            right: 20px; /* Kept right for modals */
+            background: none;
+            border: none;
+            color: var(--dark-gray); /* Default for modals */
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        body.dark-mode .modal .close-btn { /* Dark mode for modal close button */
+            color: var(--white);
+        }
+
+        /* ------------------------------------------------------------- */
+        /* Main Content Structure & Sections */
+        /* ------------------------------------------------------------- */
+        main {
+            padding: 20px;
+            max-width: 1200px; /* Increased max-width for 5 columns */
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 30px 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .content-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+
+        .section-heading-wrapper {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-heading {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--light-blue);
+            display: inline-block;
+            padding-bottom: 5px;
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+        }
+
+        .subtitle {
+            text-align: center;
+        }
+
+        /* Cryptocurrency Section Specifics */
+        .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            width: 200px; /* Default for smaller screens, will be overridden */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Include padding/border in width */
+        }
+
+        .cryptocurrency-card:hover, .news-card:hover, .article-card:hover, .report-card:hover, .gallery-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cryptocurrency-card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        .news-card img, .article-card img, .report-card img, .gallery-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--primary-blue);
+            transition: color 0.3s ease;
+        }
+
+        .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .cryptocurrency-card p.price, .cryptocurrency-card p.marketcap {
+            font-size: 0.85rem;
+            margin-top: 8px;
+            color: #555;
+        }
+        .cryptocurrency-card p.positive { color: green; font-weight: bold; }
+        .cryptocurrency-card p.negative { color: red; font-weight: bold; }
+
+        .cryptocurrency-card button.view-crypto-details-btn {
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .cryptocurrency-card button.view-crypto-details-btn:hover {
+            text-decoration: underline;
+        }
+        
+        .news-card .open-content-modal, .article-card .open-content-modal, .report-card .open-content-modal, .gallery-card .open-content-modal {
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            cursor: pointer; /* Ensure it looks clickable */
+            display: inline-block; /* Make sure padding/margin works */
+            padding-top: 5px;
+        }
+
+        .news-card .open-content-modal:hover, .article-card .open-content-modal:hover, .report-card .open-content-modal:hover, .gallery-card .open-content-modal:hover {
+            text-decoration: underline;
+        }
+
+        /* Show More Button */
+        .show-more-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 10px 25px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .show-more-btn:hover {
+            background-color: var(--secondary-blue);
+        }
+        
+        /* Class for hidden cards */
+        .hidden-card {
+            display: none !important;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* Modal Styles */
+        /* ------------------------------------------------------------- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            padding-top: var(--header-total-height);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+            top: 20px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .modal-content {
+                max-width: 800px;
+                padding: 30px;
+            }
+        }
+
+        .modal-bottom-close-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-bottom-close-btn:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        @-webkit-keyframes animatetop {
+            from { top: -300px; opacity: 0 }
+            to { top: 20px; opacity: 1 }
+        }
+
+        @keyframes animatetop {
+            from { top: -300px; opacity: 0 }
+            to { top: 20px; opacity: 1 }
+        }
+
+        #modal-image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #modal-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #modal-text-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        #modal-text-content p {
+            margin-bottom: 1em;
+            text-align: justify;
+        }
+
+        #modal-text-content ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 1em;
+        }
+
+        #modal-text-content ul li {
+            margin-bottom: 0.5em;
+        }
+
+        /* ------------------------------------------------------------- */
+        /* Footer */
+        /* ------------------------------------------------------------- */
+        footer {
+            background-color: transparent; /* Removed black background */
+            color: var(--dark-gray); /* Text color set to dark gray */
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            box-shadow: none; /* Removed shadow */
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+            transition: color 0.3s ease;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        footer a {
+            color: var(--primary-blue); /* Adjusted link color to match theme */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+        /* Specific styling for the new copyright container to ensure visibility */
+        .copyright-info {
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px; /* Add some padding so it doesn't touch the bottom edge */
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+            border-top: 1px solid #e0e0e0; /* Separator line */
+            margin-top: 40px; /* Space from content above */
+        }
+        .copyright-info a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .copyright-info a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ------------------------------------------------------------- */
+        /* Social Media Icons */
+        /* ------------------------------------------------------------- */
         #sidebar-social-links {
-            padding: 20px 25px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-            gap: 15px;
-            border-top: 1px solid var(--light-gray);
+            display: flex;
+            flex-wrap: wrap; /* Allow icons to wrap to next line */
+            justify-content: center;
+            gap: 15px; /* Adjust gap between icons */
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 20px;
         }
 
         #sidebar-social-links a {
             font-size: 1.5rem;
-            text-align: center;
-            transition: opacity 0.2s;
-        }
-        #sidebar-social-links a:hover {
-            opacity: 0.7;
-        }
-
-        /* --- Hamburger Button (Mobile) --- */
-        #hamburger-btn {
-            background: none;
-            border: none;
-            color: var(--dark-gray);
-            font-size: 24px;
-            cursor: pointer;
-            display: block;
-            padding: 10px;
-        }
-
-        #page-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            z-index: 1200;
-        }
-        #page-overlay.overlay-visible {
-            display: block;
-        }
-
-
-        /* ==========================================================================
-            Main Content & Shared Styles
-            ========================================================================== */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            background-color: transparent;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-        .content-section {
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 40px;
-        }
-
-        .main-title { font-family: var(--font-heading); color: var(--primary-blue); font-size: 2.5em; font-weight: 800; text-align: center; margin-bottom: 10px; line-height: 1.3; }
-        .subtitle { font-family: var(--font-base); color: var(--dark-gray); font-size: 1.2em; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; margin-bottom: 30px; }
-        .section-heading { font-family: var(--font-heading); color: var(--dark-gray); font-size: 2.2em; font-weight: 700; text-align: center; margin-top: 0; margin-bottom: 10px; padding-bottom: 15px; border-bottom: 4px solid var(--primary-blue); display: inline-block; }
-        .section-heading-wrapper { text-align: center; margin-bottom: 30px; }
-        p, ul { margin-bottom: 15px; text-align: justify; font-size: 1.05rem; }
-
-        footer {
-             text-align: center;
-    padding: 40px 10px;
-    background-color: var(--light-gray); /* igual às seções */
-    color: var(--dark-gray);         /* texto escuro como no resto */
-    font-size: 0.7rem;
-    border-top: none;
-    margin-top: 40px;
-
-        }
-        footer p { text-align: center; color: var(--dark-gray); }
-        footer a { var(--primary-blue); text-decoration: underline; font-weight: bold; transition: color 0.2s; }
-        footer a:hover { var(--primary-blue); }
-
-        .report-cards-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .report-card {
-            background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .report-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-        }
-        .report-card-image-container {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-        }
-        .report-card-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .report-card:hover .report-card-image-container img {
-            transform: scale(1.05);
-        }
-        .report-card-content {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .report-card-content h3 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-top: 0;
-            margin-bottom: 0.75rem;
-            font-size: 1.4rem;
-        }
-        .report-card-content .summary {
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
-            text-align: justify;
-            flex-grow: 1;
-        }
-        .read-more-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-blue);
             color: var(--white);
-            padding: 0.75rem 1.25rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-family: var(--font-heading);
-            font-weight: 600;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            width: fit-content;
-            margin-top: 1rem;
-            border: none;
-            cursor: pointer;
-        }
-        .read-more-btn:hover {
-            background-color: var(--secondary-blue);
-            transform: translateY(-2px);
-        }
-        .read-more-btn i {
-            margin-left: 0.5rem;
-        }
-        .report-content-full {
-            display: none;
-        }
-
-        /* --- Social Icon Colors & Styles --- */
-        .social-icons a, #sidebar-social-links a {
-            text-decoration: none;
-        }
-        .social-icons a[aria-label="Instagram"], #sidebar-social-links a[aria-label="Instagram"] { color: #E4405F; }
-        .social-icons a[aria-label="GitHub"], #sidebar-social-links a[aria-label="GitHub"] { color: #333333; }
-        .social-icons a[aria-label="Site Oficial"], #sidebar-social-links a[aria-label="Site Oficial"] { color: #333333; }
-        .social-icons a[aria-label="LinkedIn"], #sidebar-social-links a[aria-label="LinkedIn"] { color: #0A66C2; }
-        .social-icons a[aria-label="TikTok"], #sidebar-social-links a[aria-label="TikTok"] { color: #333333; }
-        .social-icons a[aria-label="X (Twitter)"], #sidebar-social-links a[aria-label="X (Twitter)"] { color: #333333; }
-        .social-icons a[aria-label="YouTube"], #sidebar-social-links a[aria-label="YouTube"] { color: #FF0000; }
-        .social-icons a[aria-label="Grupo WhatsApp"], #sidebar-social-links a[aria-label="Grupo WhatsApp"] { color: #25D366; }
-
-        .contact-social-links {
-            display: none;
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid var(--light-gray);
-        }
-        .contact-social-links h3 {
-            font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: var(--dark-gray);
-            margin-bottom: 20px;
-        }
-        .contact-social-links .social-icons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-        }
-        .contact-social-links .social-icons a {
-            font-size: 1.8rem;
             transition: transform 0.2s ease;
         }
-        .contact-social-links .social-icons a:hover {
-            transform: translateY(-3px);
+
+        #sidebar-social-links a:hover {
+            transform: translateY(-2px);
         }
 
-        /* --- Modal, Form, Table, Back-to-Top --- */
-        #formContainer { margin-top: 20px; }
-        .google-form-embed { width: 100%; height: 800px; border: 0; display: block; }
-        #read-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; justify-content: center; align-items: flex-start; }
-        #read-modal.modal-open { display: flex; }
-        #read-modal-content { background-color: var(--white); padding: 30px; border-radius: 0.75rem; max-width: 800px; width: 100%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); position: relative; animation: fadeInScale 0.3s ease-out; }
-        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        #read-modal .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.8rem; color: var(--dark-gray); cursor: pointer; transition: color 0.2s; }
-        #read-modal .close-btn:hover { color: var(--primary-blue); }
-        #modal-image-container { width: 100%; height: 200px; overflow: hidden; border-radius: 0.5rem; margin-bottom: 20px; }
-        #modal-image-container img { width: 100%; height: 100%; object-fit: cover; }
-        #modal-title { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 15px; text-align: left; }
-        #modal-full-text { font-size: 1.1rem; color: var(--dark-gray); line-height: 1.8; text-align: justify; }
-        #modal-full-text .close-btn-bottom { display: block; margin: 2rem auto 0; background-color: var(--primary-blue); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 25px; border: none; font-family: var(--font-heading); font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease; }
-        #modal-full-text .close-btn-bottom:hover { background-color: var(--secondary-blue); transform: translateY(-2px); }
-        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
-        .table-responsive table { width: 100%; border-collapse: collapse; min-width: 500px; }
-        .table-responsive th, .table-responsive td { border: 1px solid var(--light-blue); padding: 0.75rem; text-align: left; }
-        .table-responsive th { background-color: var(--light-gray); font-family: var(--font-heading); font-weight: 600; color: var(--primary-blue); }
-        #back-to-top-btn { display: none; position: fixed; bottom: 30px; right: 30px; background-color: var(--primary-blue); color: var(--white); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s; z-index: 1000; justify-content: center; align-items: center; }
-        #back-to-top-btn:hover { background-color: var(--secondary-blue); transform: translateY(-3px); }
+        /* Specific colors for social icons */
+        #sidebar-social-links a[aria-label="Instagram"] { color: #E4405F; }
+        #sidebar-social-links a[aria-label="GitHub"] { color: #FFFFFF; } /* White for GitHub on dark blue background */
+        #sidebar-social-links a[aria-label="Site Oficial"] { color: #FFFFFF; } /* White for Site Oficial */
+        #sidebar-social-links a[aria-label="LinkedIn"] { color: #FFFFFF; } /* Changed to white as requested */
+        #sidebar-social-links a[aria-label="TikTok"] { color: #FFFFFF; } /* White for TikTok */
+        #sidebar-social-links a[aria-label="X (Twitter)"] { color: #FFFFFF; } /* White for X */
+        #sidebar-social-links a[aria-label="YouTube"] { color: #FF0000; }
+        #sidebar-social-links a[aria-label="Grupo WhatsApp"] { color: #25D366; }
 
 
-
-        /*
-        
-<div class="container" id="codifymind">
-  <div class="content-section text-center">
-    <h2 class="section-heading">IA CodifyMind</h2>
-    <p class="subtitle">
-      Interaja com nossa inteligência artificial multidisciplinar. <em>Generativa em testes</em>.
-    </p>
-        <div class="mt-6">
-      <input
-        id="perguntaIA"
-        type="text"
-        placeholder="Digite sua pergunta..."
-        class="w-full max-w-2xl px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button class="btn-enviar mt-4 bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition">
-        Enviar
-      </button>
-    </div>
-    <div
-      id="respostaIA"
-      class="mt-6 p-4 bg-gray-100 rounded-lg shadow text-left max-w-3xl mx-auto hidden"
-    ></div>
-  </div>
-</div>*/
-
-        
-        /* ==========================================================================
-            Desktop Styles (Modern Website Look)
-            ========================================================================== */
-        @media (min-width: 769px) {
-            /* Ajuste o tamanho do logo para desktop */
-           #main-header-content .logo {
-                width: 200px;
-                height: auto;
-                  } 
-            #hamburger-btn { display: none; }
-            #main-nav { display: flex; }
-            .header-actions { display: block; }
-            .contact-social-links { display: block; }
-            /* New Grid Layout for Report Cards on Desktop */
-            .report-cards-grid {
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: 2rem;
-            }
+        /* ------------------------------------------------------------- */
+        /* Mobile Bottom Navigation (formerly bottom-mobile-nav) */
+        /* ------------------------------------------------------------- */
+        #mobile-bottom-nav { /* Renamed from #bottom-mobile-nav */
+            display: flex; /* Shown by default on mobile */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--bottom-nav-height);
+            background-color: var(--primary-blue); /* Keep as primary blue */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 998;
+            justify-content: space-around;
+            align-items: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* ==========================================================================
-            Mobile Styles (App-like Look)
-            ========================================================================== */
+        #mobile-bottom-nav button {
+            background: none;
+            border: none;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            font-family: var(--font-base);
+            padding: 5px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        #mobile-bottom-nav button i {
+            font-size: 1.3rem;
+            margin-bottom: 3px;
+        }
+
+        #mobile-bottom-nav button:hover {
+            color: var(--light-blue);
+        }
+
+        /* ------------------------------------------------------------- */
+        /* Responsive Adjustments */
+        /* ------------------------------------------------------------- */
         @media (max-width: 768px) {
-            :root { --header-total-height: 60px; } /* Mantém a altura do cabeçalho para mobile */
-
-            #main-header-content {
-                justify-content: center; /* Centraliza o conteúdo (logo) */
-                position: relative; /* Necessário para posicionar o botão de hambúrguer */
-                padding: 0 15px;
-                max-width: 100%;
-            }
-            .logo-link {
-                /* Remove o posicionamento absoluto para que o flexbox do pai possa centralizar */
-                position: static; /* Volta ao comportamento normal de fluxo */
-                transform: none; /* Remove qualquer transformação de translação */
-            }
-            /* Ajuste o tamanho do logo para mobile */
-            #main-header-content .logo {
-                 width: 150px;
-                 height: auto;      /* Altura explícita para mobile */
-             
-            }
-            #hamburger-btn {
-                position: absolute; /* Posiciona o botão de hambúrguer absolutamente à esquerda */
-                left: 15px;
+            body {
+                padding-bottom: var(--bottom-nav-height); /* Add padding for bottom nav on mobile */
             }
 
-            .main-title { font-size: 1.8em; }
-            .subtitle { font-size: 1.1em; }
-            .section-heading { font-size: 1.8em; }
-            .container { padding: 0 15px; margin-top: 25px; }
-            .content-section { padding: 25px; }
+            #sidebar-nav {
+                width: 70%;
+                max-width: 250px;
+                /* Adjust sidebar height and position for mobile to not cover bottom nav */
+                height: calc(100vh - var(--header-total-height) - var(--bottom-nav-height));
+                top: var(--header-total-height);
+                padding-top: 0; /* Remove padding-top here as 'top' now accounts for header height */
+            }
+
+            /* Mobile bottom nav is already set to flex by default, ensure it stays that way */
+            #mobile-bottom-nav {
+                display: flex;
+            }
+            /* Hide desktop top nav on mobile */
+            #desktop-top-nav {
+                display: none;
+            }
+
+            main {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .content-section {
+                padding: 20px 0;
+            }
+
+            .section-heading {
+                font-size: 2rem;
+            }
+
+            /* Adjust hero section padding for mobile */
+            #hero {
+                padding: 10px 0; /* Reduced padding */
+            }
+        }
+
+        @media (min-width: 769px) { /* Tablet and Desktop styles */
+            .site-title {
+                display: none; /* Hide site title on desktop as well */
+            }
+
+            .menu-toggle {
+                display: block; /* Keep menu toggle visible on desktop for sidebar access */
+                order: 1; /* Place it at the beginning of the header content */
+            }
             
-            .report-card-content h3 { font-size: 1.2rem; }
-            .report-card-content .summary { font-size: 0.95rem; }
-            .report-card-image-container { height: 180px; }
+            .logo-container {
+                order: 2; /* Place logo container in the middle */
+                flex-grow: 1; /* Allow it to take up space and center the logo */
+            }
 
-            #read-modal-content { padding: 20px; }
-            #modal-title { font-size: 1.6rem; }
-            #modal-image-container { height: 150px; }
+            #desktop-top-nav {
+                display: flex; /* Show desktop top nav */
+                order: 3; /* Place desktop nav at the end */
+            }
+
+            #mobile-bottom-nav {
+                display: none; /* Hide mobile bottom nav on desktop */
+            }
+
+            /* Ensure header padding/height is correct */
+            header {
+                padding: 10px 20px; /* Standard padding */
+            }
+        }
+
+        @media (min-width: 992px) { /* Larger Desktop for 5 columns */
+            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card {
+                width: calc(20% - 16px); /* 5 cards per row with 20px gap */
+            }
+        }
+
+
+        /* Smaller card sizes for very small mobile screens */
+        @media (max-width: 640px) {
+            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container {
+                gap: 15px; /* Slightly reduced gap */
+            }
+            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card {
+                width: calc(50% - 10px); /* Two cards per row with gap */
+                padding: 10px; /* Reduced padding inside cards */
+            }
+            .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3 {
+                font-size: 1.1rem; /* Slightly smaller title */
+            }
+            .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p {
+                font-size: 0.8rem; /* Smaller text */
+            }
         }
     </style>
-
-    <script>
-        
-    
-
-            document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar-nav');
-            const hamburgerBtn = document.getElementById('hamburger-btn');
-            const pageOverlay = document.getElementById('page-overlay');
-            const sidebarLinks = document.querySelectorAll('#sidebar-nav ul li a');
-
-            function openSidebar() {
-                if(sidebar && pageOverlay) {
-                    sidebar.classList.add('sidebar-open');
-                    pageOverlay.classList.add('overlay-visible');
-                    document.body.style.overflow = 'hidden';
-                }
-            }
-
-            function closeSidebar() {
-                if(sidebar && pageOverlay) {
-                    sidebar.classList.remove('sidebar-open');
-                    pageOverlay.classList.remove('overlay-visible');
-                    document.body.style.overflow = '';
-                }
-            }
-
-            if(hamburgerBtn) {
-                hamburgerBtn.addEventListener('click', openSidebar);
-            }
-            if(pageOverlay){
-                pageOverlay.addEventListener('click', closeSidebar);
-            }
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', closeSidebar);
-            });
-
-            const readModal = document.getElementById('read-modal');
-            const modalImage = document.getElementById('modal-image');
-            const modalTitle = document.getElementById('modal-title');
-            const modalFullText = document.getElementById('modal-full-text');
-            const closeBtnTop = document.querySelector('#read-modal .close-btn');
-
-            function closeModal() {
-                if (readModal) {
-                    readModal.classList.remove('modal-open');
-                    document.body.style.overflow = '';
-                }
-            }
-            document.querySelectorAll('.read-more-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const card = this.closest('.report-card');
-                    if (card && readModal) {
-                        const imageSrc = card.querySelector('.report-card-image-container img').src;
-                        const titleText = card.querySelector('.report-card-content h3').textContent;
-                        const fullContentHtml = card.querySelector('.report-content-full').innerHTML;
-
-                        modalImage.src = imageSrc;
-                        modalTitle.textContent = titleText;
-                        modalFullText.innerHTML = fullContentHtml;
-
-                        let closeBtnBottom = modalFullText.querySelector('.close-btn-bottom');
-                        if (!closeBtnBottom) {
-                            closeBtnBottom = document.createElement('button');
-                            closeBtnBottom.className = 'close-btn-bottom';
-                            closeBtnBottom.textContent = 'Fechar';
-                            modalFullText.appendChild(closeBtnBottom);
-                        }
-                        closeBtnBottom.addEventListener('click', closeModal);
-
-                        readModal.classList.add('modal-open');
-                        document.body.style.overflow = 'hidden';
-                    }
-                });
-            });
-
-            if (closeBtnTop) {
-                closeBtnTop.addEventListener('click', closeModal);
-            }
-
-            if (readModal) {
-                readModal.addEventListener('click', function(event) {
-                    if (event.target === readModal) {
-                        closeModal();
-                    }
-                });
-            }
-
-            const backToTopBtn = document.getElementById('back-to-top-btn');
-            if(backToTopBtn){
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 300) {
-                        backToTopBtn.style.display = 'flex';
-                    } else {
-                        backToTopBtn.style.display = 'none';
-                    }
-                });
-
-                backToTopBtn.addEventListener('click', () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-              
-        
-        });
-    </script>
 </head>
 <body>
 
-<header id="page-header">
-    <div id="main-header-content">
-        <a href="#" class="logo-link">
-            <img src="img/logo_codi.png" alt="Logotipo da Codify Nexo" class="logo">
-        </a>
-        <button id="hamburger-btn" aria-label="Abrir menu">
-            <i class="fas fa-bars"></i>
+    <header>
+        <div class="header-content">
+            <button class="menu-toggle" aria-label="Abrir menu"><i class="fas fa-bars"></i></button>
+            <div class="logo-container">
+                <img src="img/logo_codi.png" alt="Codify Nexo Logo" class="logo">
+                <h1 class="site-title">Codify Nexo</h1> </div>
+            <nav id="desktop-top-nav">
+                <button class="scroll-to-section-btn" data-section-id="news-section">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Notícia</span>
+                </button>
+                <button class="scroll-to-section-btn" data-section-id="cryptocurrency-section">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Finança</span>
+                </button>
+                <button class="scroll-to-section-btn" data-section-id="hero">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </button>
+                <button class="open-modal-btn" data-modal-id="premium-subscription">
+                    <i class="fas fa-star"></i>
+                    <span>Premium</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <nav id="sidebar-nav">
+        <ul>
+            <li><button class="scroll-to-section-btn" data-section-id="news-section">Notícias</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="articles-section">Artigos</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="cryptocurrency-section">Mercado Financeiro</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="reports-section">Relatórios de Mercado</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="photo-gallery-section">Galeria de Fotos</button></li>
+            <li><button class="open-modal-btn" data-modal-id="not-versions">Fatos, não versões</button></li>
+            <li><button class="open-modal-btn" data-modal-id="premium-subscription">Assinatura Premium</button></li>
+            <li><button class="open-modal-btn" data-modal-id="privacy-policy">Política de Privacidade</button></li>
+            <li><button class="open-modal-btn" data-modal-id="terms-of-use">Termos de Uso</button></li>
+            <li><button class="open-modal-btn" data-modal-id="about-us">Sobre Nós</button></li>
+            <li><button id="dark-mode-toggle"><i class="fas fa-moon"></i> Escurecer Tela</button></li>
+        </ul>
+        <div id="sidebar-social-links">
+            <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial"><i class="fas fa-globe"></i></a>
+            <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="py-10 text-center"> <h2 class="text-4xl font-bold text-gray-800 mb-4">Bem-vindo à Codify Nexo</h2>
+            <p class="text-xl text-gray-600">Sua rede social, fonte de análises técnicas e relatórios de mercado.</p>
+            </section>
+
+        <section id="news-section" class="content-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Últimas Notícias</h2>
+            </div>
+            <div class="news-cards-container">
+                <div class="news-card">
+                    <img src="https://via.placeholder.com/180x120?text=Noticia+1" alt="Imagem Notícia 1">
+                    <h3>O Futuro da Inteligência Artificial</h3>
+                    <p>Novos avanços em IA prometem revolucionar diversos setores industriais em 2025.</p>
+                    <a href="#" class="open-content-modal" data-title="O Futuro da Inteligência Artificial" data-image="https://via.placeholder.com/600x400?text=Futuro+IA" data-content="
+                        <p>A inteligência artificial (IA) continua a ser uma das tecnologias mais transformadoras da nossa era, com projeções de impacto massivo em 2025 e além. Espera-se que a IA aprimore a automação industrial, otimize a logística, personalize a educação e revolucione o atendimento ao cliente com assistentes virtuais mais sofisticados.</p>
+                        <p>No setor da saúde, a IA auxiliará no diagnóstico precoce de doenças, na descoberta de novos medicamentos e na personalização de tratamentos. No mercado financeiro, algoritmos de IA já são usados para análise preditiva, detecção de fraudes e gestão de riscos, tornando as operações mais eficientes e seguras.</p>
+                        <p>Além disso, a IA está impulsionando a inovação em carros autônomos, robótica e até mesmo na exploração espacial. Contudo, desafios éticos e regulatórios, como privacidade de dados e impacto no emprego, continuarão a ser debatidos à medida que a tecnologia se integra cada vez mais em nossas vidas.</p>
+                    ">Ler Mais</a>
+                </div>
+                <div class="news-card">
+                    <img src="https://via.placeholder.com/180x120?text=Noticia+2" alt="Imagem Notícia 2">
+                    <h3>Mercados Globais Reagem à Inflação</h3>
+                    <p>Análise de como os principais mercados estão se adaptando às pressões inflacionárias.</p>
+                    <a href="#" class="open-content-modal" data-title="Mercados Globais Reagem à Inflação" data-image="https://via.placeholder.com/600x400?text=Inflacao+Mercados" data-content="
+                        <p>A inflação global tem sido um dos maiores desafios econômicos recentes, com bancos centrais ao redor do mundo elevando taxas de juros para conter a escalada de preços. Mercados de ações reagiram com volatilidade, e investidores buscaram ativos mais seguros como ouro e títulos públicos em momentos de incerteza.</p>
+                        <p>No Brasil, o Banco Central tem atuado com rigor para controlar a inflação, impactando diretamente o poder de compra e o custo do crédito. As empresas enfrentam custos de produção mais altos, o que se reflete nos preços ao consumidor e, por vezes, na desaceleração do crescimento.</p>
+                        <p>Apesar dos desafios, alguns setores, como o de commodities e tecnologia de energias renováveis, podem se beneficiar em cenários de alta inflação, pois seus produtos ou serviços são essenciais ou oferecem soluções para a transição energética global. A resiliência das cadeias de suprimentos e a inovação tecnológica serão cruciais para a recuperação econômica global.</p>
+                    ">Ler Mais</a>
+                </div>
+                <div class="news-card">
+                    <img src="https://via.placeholder.com/180x120?text=Noticia+3" alt="Imagem Notícia 3">
+                    <h3>Cibersegurança: Novas Ameaças em Foco</h3>
+                    <p>Especialistas alertam para a crescente sofisticação de ataques cibernéticos.</p>
+                    <a href="#" class="open-content-modal" data-title="Cibersegurança: Novas Ameaças em Foco" data-image="https://via.placeholder.com/600x400?text=Ciberseguranca" data-content="
+                        <p>O cenário da cibersegurança está em constante evolução, com hackers utilizando inteligência artificial e técnicas cada vez mais sofisticadas para lançar ataques. Ransomware, phishing avançado e ataques à cadeia de suprimentos são algumas das maiores ameaças que empresas e indivíduos enfrentam atualmente.</p>
+                        <p>Empresas de todos os portes estão investindo pesadamente em defesas cibernéticas, incluindo sistemas de detecção e resposta a incidentes (EDR), inteligência de ameaças e treinamento de funcionários. A falta de profissionais qualificados em cibersegurança também é um desafio global.</p>
+                        <p>Além da proteção de dados, a segurança de infraestruturas críticas, como redes de energia e sistemas de transporte, tornou-se uma prioridade nacional e internacional. A colaboração entre governos, empresas e pesquisadores é fundamental para desenvolver novas estratégias e tecnologias que possam antecipar e neutralizar as ameaças futuras.</p>
+                    ">Ler Mais</a>
+                </div>
+                <div class="news-card">
+                    <img src="https://via.placeholder.com/180x120?text=Noticia+4" alt="Imagem Notícia 4">
+                    <h3>Energias Renováveis Ganham Força</h3>
+                    <p>Investimentos em energia solar e eólica atingem recordes em todo o mundo.</p>
+                    <a href="#" class="open-content-modal" data-title="Energias Renováveis Ganham Força" data-image="https://via.placeholder.com/600x400?text=Energias+Renovaveis" data-content="
+                        <p>O setor de energias renováveis está vivendo um boom global, impulsionado pela urgência climática e pela busca por segurança energética. Investimentos em energia solar fotovoltaica e eólica atingiram recordes, superando, em 2023, o montante investido em combustíveis fósseis pela primeira vez.</p>
+                        <p>A queda nos custos de produção, os avanços tecnológicos e as políticas de incentivo governamentais têm tornado as energias limpas cada vez mais competitivas. Países como China, Estados Unidos e nações europeias lideram a instalação de novas capacidades.</p>
+                        <p>O Brasil, com seu vasto potencial em energia solar, eólica, hidrelétrica e biomassa, é um player chave nessa transição. A expansão das energias renováveis não apenas reduz as emissões de carbono, mas também cria empregos e impulsiona o desenvolvimento tecnológico, posicionando-se como um pilar da economia verde global.</p>
+                    ">Ler Mais</a>
+                </div>
+                <div class="news-card">
+                    <img src="https://via.placeholder.com/180x120?text=Noticia+5" alt="Imagem Notícia 5">
+                    <h3>Blockchain Além das Criptos</h3>
+                    <p>Como a tecnologia blockchain está sendo aplicada em diversas indústrias.</p>
+                    <a href="#" class="open-content-modal" data-title="Blockchain Além das Criptos" data-image="https://via.placeholder.com/600x400?text=Blockchain+Aplicacoes" data-content="
+                        <p>Embora a tecnologia blockchain seja mais conhecida por seu papel nas criptomoedas como Bitcoin, suas aplicações vão muito além. Governos e grandes corporações estão explorando o blockchain para otimizar processos, aumentar a transparência e reduzir custos em diversas áreas.</p>
+                        <p>Na cadeia de suprimentos, o blockchain permite rastrear produtos desde a origem até o consumidor final, garantindo autenticidade e combatendo a falsificação. No setor de saúde, pode proteger registros médicos e facilitar o compartilhamento seguro de informações entre instituições.</p>
+                        <p>Outras aplicações incluem sistemas de votação eletrônica, gestão de direitos autorais para artistas, contratos inteligentes automatizados, e até mesmo na verificação de identidade digital. A natureza descentralizada e imutável do blockchain promete revolucionar a forma como interagimos com dados e transações em um futuro próximo.</p>
+                    ">Ler Mais</a>
+                </div>
+            </div>
+            <button class="show-more-btn" id="show-more-news">Mostrar Mais Notícias</button>
+            </section>
+
+        <section id="articles-section" class="content-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Artigos</h2>
+            </div>
+            <div class="articles-cards-container">
+                <div class="article-card">
+                    <img src="https://via.placeholder.com/180x120?text=Artigo+1" alt="Imagem Artigo 1">
+                    <h3>Impacto da IA na Educação</h3>
+                    <p>Como a inteligência artificial está transformando o aprendizado e o ensino.</p>
+                    <a href="#" class="open-content-modal" data-title="Impacto da IA na Educação" data-image="https://via.placeholder.com/600x400?text=IA+Educacao" data-content="
+                        <p>A inteligência artificial está remodelando a educação, oferecendo novas ferramentas para alunos e educadores. Plataformas de IA podem personalizar o aprendizado, adaptando o conteúdo e o ritmo às necessidades individuais de cada estudante, identificando lacunas de conhecimento e recomendando materiais de estudo específicos.</p>
+                        <p>Para os professores, a IA pode automatizar tarefas administrativas, como correção de provas e planejamento de aulas, liberando mais tempo para interações significativas com os alunos. Ferramentas de tutoria baseadas em IA também fornecem suporte 24 horas por dia, 7 dias por semana, tornando o aprendizado mais acessível.</p>
+                        <p>No entanto, a integração da IA na educação também levanta questões sobre a privacidade dos dados dos alunos, o viés algorítmico e a necessidade de garantir que a tecnologia complemente, em vez de substituir, o papel humano no processo educacional. O futuro da educação com IA promete ser mais eficiente, inclusivo e adaptativo.</p>
+                    ">Ler Artigo</a>
+                </div>
+                <div class="article-card">
+                    <img src="https://via.placeholder.com/180x120?text=Artigo+2" alt="Imagem Artigo 2">
+                    <h3>A Revolução do 5G e IoT</h3>
+                    <p>Descubra o potencial da conectividade de próxima geração para as cidades inteligentes.</p>
+                    <a href="#" class="open-content-modal" data-title="A Revolução do 5G e IoT" data-image="https://via.placeholder.com/600x400?text=5G+IoT" data-content="
+                        <p>A combinação do 5G e da Internet das Coisas (IoT) está pavimentando o caminho para uma nova era de conectividade e inovação. O 5G, com sua velocidade ultrarrápida, baixa latência e capacidade massiva de conexão, é a espinha dorsal necessária para o pleno potencial da IoT.</p>
+                        <p>Em cidades inteligentes, essa sinergia permite o funcionamento de semáforos inteligentes, sensores de qualidade do ar em tempo real, sistemas de gerenciamento de resíduos otimizados e veículos autônomos. A IoT, por sua vez, gera uma quantidade imensa de dados que, impulsionados pelo 5G, podem ser processados e analisados instantaneamente para tomar decisões.</p>
+                        <p>Na indústria, o 5G e a IoT facilitam a Indústria 4.0, com fábricas conectadas, robôs autônomos e manutenção preditiva. O agronegócio também se beneficia, com monitoramento de plantações e rebanhos. Essa revolução da conectividade promete maior eficiência, segurança e novas oportunidades de negócios em todos os setores.</p>
+                    ">Ler Artigo</a>
+                </div>
+                <div class="article-card">
+                    <img src="https://via.placeholder.com/180x120?text=Artigo+3" alt="Imagem Artigo 3">
+                    <h3>Desafios da Cibersegurança Corporativa</h3>
+                    <p>Análise das principais ameaças e estratégias de defesa para empresas.</p>
+                    <a href="#" class="open-content-modal" data-title="Desafios da Cibersegurança Corporativa" data-image="https://via.placeholder.com/600x400?text=Ciberseguranca+Corporativa" data-content="
+                        <p>A cibersegurança corporativa enfrenta um cenário de ameaças cada vez mais complexo. Os principais desafios incluem ataques de ransomware, que criptografam dados e exigem resgate; ataques de phishing e engenharia social, que visam enganar funcionários; e ameaças internas, seja por negligência ou intenção maliciosa.</p>
+                        <p>As estratégias de defesa eficazes envolvem uma abordagem multicamadas. Isso inclui a implementação de firewalls robustos, sistemas de detecção de intrusão, criptografia de dados, autenticação multifator e backups regulares e isolados. Além da tecnologia, o fator humano é crucial: treinamentos contínuos para os funcionários são essenciais para reconhecer e evitar armadilhas cibernéticas.</p>
+                        <p>A conformidade com regulamentações como a LGPD (no Brasil) e a GDPR (na Europa) também é um desafio, exigindo que as empresas garantam a proteção dos dados pessoais de seus clientes e colaboradores. A resiliência cibernética e a capacidade de resposta a incidentes tornaram-se prioridades estratégicas para qualquer organização.</p>
+                    ">Ler Artigo</a>
+                </div>
+                <div class="article-card">
+                    <img src="https://via.placeholder.com/180x120?text=Artigo+4" alt="Imagem Artigo 4">
+                    <h3>O Crescimento do E-commerce no Brasil</h3>
+                    <p>Tendências e perspectivas para o comércio eletrônico no cenário nacional.</p>
+                    <a href="#" class="open-content-modal" data-title="O Crescimento do E-commerce no Brasil" data-image="https://via.placeholder.com/600x400?text=Ecommerce+Brasil" data-content="
+                        <p>O e-commerce no Brasil tem apresentado um crescimento exponencial nos últimos anos, impulsionado pela digitalização, maior acesso à internet e mudanças nos hábitos de consumo, especialmente após a pandemia. O país se consolidou como um dos maiores mercados de comércio eletrônico da América Latina.</p>
+                        <p>As principais tendências incluem a ascensão do mobile commerce (m-commerce), com a maioria das compras realizadas via smartphones, e a popularização de marketplaces, que oferecem uma vasta gama de produtos. A logística e os pagamentos digitais também se desenvolveram para suportar essa expansão.</p>
+                        <p>As perspectivas para o futuro indicam a continuidade do crescimento, com foco em nichos de mercado, personalização da experiência de compra e a integração entre o online e o offline (omnichannel). A sustentabilidade e a conveniência também são fatores-chave que moldarão o setor, com empresas investindo em entregas mais rápidas e opções de pagamento inovadoras.</p>
+                    ">Ler Artigo</a>
+                </div>
+                <div class="article-card">
+                    <img src="https://via.placeholder.com/180x120?text=Artigo+5" alt="Imagem Artigo 5">
+                    <h3>Realidade Virtual e Aumentada</h3>
+                    <p>O futuro da interação e novas oportunidades de mercado.</p>
+                    <a href="#" class="open-content-modal" data-title="Realidade Virtual e Aumentada" data-image="https://via.placeholder.com/600x400?text=RV+RA" data-content="
+                        <p>A Realidade Virtual (RV) e a Realidade Aumentada (RA) estão no limiar de transformar a forma como interagimos com a tecnologia e o mundo. Enquanto a RV imerge o usuário em um ambiente completamente digital, a RA sobrepõe informações digitais ao mundo real, enriquecendo a percepção.</p>
+                        <p>As aplicações de RV e RA já são vastas: na educação, simulações imersivas; na medicina, treinamentos cirúrgicos e terapias; no entretenimento, jogos e experiências interativas; e no varejo, provadores virtuais. O Metaverso, um conceito de mundos virtuais interconectados, é um dos grandes catalisadores do desenvolvimento dessas tecnologias.</p>
+                        <p>Com o avanço de hardwares mais leves e acessíveis, e a melhoria da qualidade gráfica, espera-se que RV e RA se tornem cada vez mais presentes em nosso cotidiano. As oportunidades de mercado são enormes, desde o desenvolvimento de software e hardware até a criação de conteúdo e a integração dessas tecnologias em diversas indústrias.</p>
+                    ">Ler Artigo</a>
+                </div>
+            </div>
+            <button class="show-more-btn" id="show-more-articles">Mostrar Mais Artigos</button>
+            </section>
+
+        <section id="cryptocurrency-section" class="content-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Mercado Financeiro</h2>
+            </div>
+            <p class="text-center mb-8 max-w-3xl mx-auto">Explore o universo das criptomoedas e da tecnologia blockchain, com análises sobre as principais moedas, tendências de mercado e o impacto dessa inovação na economia global.</p>
+            <div class="cryptocurrency-container">
+                </div>
+            <button class="show-more-btn" id="show-more-crypto">Mostrar Mais Criptomoedas</button>
+            <p class="text-center mt-8 text-sm text-gray-500">Dados de cotação fornecidos pela CoinGecko.</p>
+        </section>
+
+        <section id="reports-section" class="content-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Relatórios de Mercado</h2>
+            </div>
+            <div class="reports-cards-container">
+                <div class="report-card">
+                    <img src="https://via.placeholder.com/180x120?text=Relatorio+1" alt="Imagem Relatório 1">
+                    <h3>Perspectivas do Mercado de Fintechs</h3>
+                    <p>Análise do crescimento e inovações no setor de tecnologia financeira.</p>
+                    <a href="#" class="open-content-modal" data-title="Perspectivas do Mercado de Fintechs" data-image="https://via.placeholder.com/600x400?text=Fintechs" data-content="
+                        <p>O mercado de fintechs (tecnologias financeiras) continua em franca expansão globalmente, impulsionado pela digitalização dos serviços financeiros, a demanda por conveniência e a inclusão financeira. No Brasil, o setor é um dos mais dinâmicos, com a proliferação de bancos digitais, plataformas de pagamento, empresas de crédito e insurtechs.</p>
+                        <p>As inovações incluem o Open Banking (e futuramente Open Finance), que permite o compartilhamento seguro de dados financeiros entre instituições, e o PIX, que revolucionou os pagamentos no país. Essas tecnologias estão democratizando o acesso a serviços financeiros e aumentando a concorrência.</p>
+                        <p>As perspectivas para o mercado de fintechs são altamente positivas, com projeções de crescimento contínuo e a consolidação de novos modelos de negócio. O desafio será a adaptação às regulamentações e a garantia da segurança dos dados dos usuários em um ambiente cada vez mais digital e interconectado.</p>
+                    ">Ver Relatório</a>
+                </div>
+                <div class="report-card">
+                    <img src="https://via.placeholder.com/180x120?text=Relatorio+2" alt="Imagem Relatório 2">
+                    <h3>Setor de Energias Renováveis 2025</h3>
+                    <p>Projeções e oportunidades de investimento em energias limpas.</p>
+                    <a href="#" class="open-content-modal" data-title="Setor de Energias Renováveis 2025" data-image="https://via.placeholder.com/600x400?text=Renovaveis+2025" data-content="
+                        <p>O setor de energias renováveis está posicionado para um crescimento robusto em 2025 e nos anos seguintes, impulsionado por metas globais de descarbonização e pela busca por maior segurança energética. A Agência Internacional de Energia (AIE) prevê que a capacidade global de energia renovável continuará a crescer significativamente, com a solar fotovoltaica e a eólica liderando a expansão.</p>
+                        <p>Oportunidades de investimento se abrem em áreas como armazenamento de energia (baterias), hidrogênio verde, biocombustíveis avançados e tecnologias de rede inteligente para integrar a geração renovável intermitente. Países estão oferecendo incentivos fiscais e subsídios para atrair investimentos no setor.</p>
+                        <p>No Brasil, a vasta disponibilidade de recursos naturais favoráveis às renováveis, juntamente com uma matriz energética já majoritariamente limpa, cria um ambiente promissor para projetos de grande escala e para a exportação de energia verde. O cenário é de otimismo para quem busca investir em um futuro sustentável.</p>
+                    ">Ver Relatório</a>
+                </div>
+                <div class="report-card">
+                    <img src="https://via.placeholder.com/180x120?text=Relatorio+3" alt="Imagem Relatório 3">
+                    <h3>Relatório Global de Cibersegurança</h3>
+                    <p>Dados e tendências sobre as ameaças e defesas mais recentes.</p>
+                    <a href="#" class="open-content-modal" data-title="Relatório Global de Cibersegurança" data-image="https://via.placeholder.com/600x400?text=Global+Ciberseguranca" data-content="
+                        <p>O Relatório Global de Cibersegurança de 2024-2025 aponta para um aumento alarmante no volume e na sofisticação dos ataques cibernéticos. O custo médio de uma violação de dados atingiu novas máximas, e o ransomware continua sendo uma das maiores preocupações para empresas e governos em todo o mundo.</p>
+                        <p>As tendências observadas incluem o uso crescente de inteligência artificial por parte dos atacantes para criar ataques mais personalizados e eficientes, e a exploração de vulnerabilidades em softwares de terceiros e cadeias de suprimentos. A escassez de profissionais qualificados em cibersegurança agrava o problema.</p>
+                        <p>Em resposta, há um foco maior em segurança de identidade, com a adoção de Zero Trust e autenticação multifator, além de investimentos em inteligência de ameaças para antecipar ataques. A colaboração internacional e a conscientização dos usuários são cruciais para construir um ambiente digital mais resiliente.</p>
+                    ">Ver Relatório</a>
+                </div>
+                <div class="report-card">
+                    <img src="https://via.placeholder.com/180x120?text=Relatorio+4" alt="Imagem Relatório 4">
+                    <h3>Mercado de Saúde Digital: Crescimento</h3>
+                    <p>Como a tecnologia está remodelando a saúde e o bem-estar.</p>
+                    <a href="#" class="open-content-modal" data-title="Mercado de Saúde Digital: Crescimento" data-image="https://via.placeholder.com/600x400?text=Saude+Digital" data-content="
+                        <p>O mercado de saúde digital está em plena ascensão, impulsionado pela busca por maior eficiência, acessibilidade e personalização nos cuidados de saúde. A pandemia acelerou a adoção de tecnologias como a telemedicina, que permite consultas e monitoramento remoto, e dispositivos vestíveis (wearables) que coletam dados de saúde em tempo real.</p>
+                        <p>Inovações incluem aplicativos de bem-estar, plataformas de gestão de doenças crônicas, inteligência artificial para diagnóstico e descoberta de medicamentos, e robótica para cirurgias. Essas tecnologias visam melhorar a experiência do paciente, otimizar os recursos dos sistemas de saúde e promover a medicina preventiva.</p>
+                        <p>Ainda existem desafios regulatórios e de privacidade de dados, mas o potencial de transformação é imenso. A saúde digital promete tornar os serviços de saúde mais acessíveis, eficientes e centrados no paciente, com um impacto positivo na qualidade de vida de milhões de pessoas em todo o mundo.</p>
+                    ">Ver Relatório</a>
+                </div>
+                <div class="report-card">
+                    <img src="https://via.placeholder.com/180x120?text=Relatorio+5" alt="Imagem Relatório 5">
+                    <h3>Tendências de AI e Machine Learning</h3>
+                    <p>Novos avanços em inteligência artificial e aprendizado de máquina.</p>
+                    <a href="#" class="open-content-modal" data-title="Tendências de AI e Machine Learning" data-image="https://via.placeholder.com/600x400?text=AI+ML" data-content="
+                        <p>A inteligência artificial (IA) e o aprendizado de máquina (Machine Learning - ML) continuam a evoluir rapidamente, com novas tendências moldando o futuro da tecnologia. O aprendizado de máquina federado, que permite treinar modelos sem centralizar os dados, está ganhando destaque para aplicações que exigem privacidade, como saúde e finanças.</p>
+                        <p>A IA generativa, capaz de criar textos, imagens e até códigos, está revolucionando setores como design, marketing e desenvolvimento de software. A IA explicável (XAI) também é uma área crescente, focada em tornar os modelos de IA mais transparentes e compreensíveis, o que é crucial para aplicações críticas.</p>
+                        <p>Outras tendências incluem a IA embarcada (Edge AI), que executa algoritmos diretamente em dispositivos, e o uso de IA para otimizar operações de TI (AIOps). Esses avanços prometem maior automação, personalização e eficiência em uma vasta gama de aplicações, desde carros autônomos até a descoberta científica.</p>
+                    ">Ver Relatório</a>
+                </div>
+            </div>
+            <button class="show-more-btn" id="show-more-reports">Mostrar Mais Relatórios</button>
+            </section>
+
+        <section id="photo-gallery-section" class="content-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Galeria de Fotos</h2>
+            </div>
+            <div class="gallery-cards-container">
+                <div class="gallery-card">
+                    <img src="https://via.placeholder.com/200x150?text=Imagem+1" alt="Galeria Imagem 1">
+                    <h3>Inovação em Ação</h3>
+                    <p>Tecnologia transformando indústrias.</p>
+                    <a href="#" class="open-content-modal" data-title="Inovação em Ação" data-image="https://via.placeholder.com/600x400?text=Inovacao+Acao" data-content="
+                        <p>Esta imagem representa a inovação tecnológica em plena atividade. Em laboratórios e centros de pesquisa ao redor do mundo, cientistas e engenheiros trabalham incansavelmente para desenvolver soluções que transformam indústrias e a vida cotidiana. A inovação em ação é o motor do progresso, impulsionando a eficiência, a sustentabilidade e a criação de novas oportunidades de mercado.</p>
+                        <p>Desde a inteligência artificial otimizando processos produtivos até a biotecnologia revolucionando a medicina, a busca por novas e melhores maneiras de fazer as coisas é contínua. Essa foto simboliza o dinamismo e a energia por trás das descobertas que moldarão o nosso futuro.</p>
+                    ">Ver Imagem</a>
+                </div>
+                <div class="gallery-card">
+                    <img src="https://via.placeholder.com/200x150?text=Imagem+3" alt="Galeria Imagem 3">
+                    <h3>Robótica Avançada</h3>
+                    <p>Novos horizontes da automação.</p>
+                    <a href="#" class="open-content-modal" data-title="Robótica Avançada" data-image="https://via.placeholder.com/600x400?text=Robotica+Avancada" data-content="
+                        <p>A robótica avançada, como ilustrada nesta imagem, está expandindo os horizontes da automação muito além das linhas de montagem tradicionais. Robôs colaborativos (cobots) trabalham lado a lado com humanos, aumentando a produtividade e a segurança em ambientes industriais e até mesmo em serviços.</p>
+                        <p>Robôs autônomos de entrega, drones para inspeções e robôs cirúrgicos de alta precisão são exemplos da diversidade de aplicações. O desenvolvimento em inteligência artificial e aprendizado de máquina permite que esses robôs aprendam, se adaptem e realizem tarefas complexas com crescente autonomia.</p>
+                        <p>O futuro da robótica promete soluções para desafios em áreas como saúde, logística, agricultura e exploração de ambientes extremos, transformando a maneira como trabalhamos e vivemos.</p>
+                    ">Ver Imagem</a>
+                </div>
+                <div class="gallery-card">
+                    <img src="https://via.placeholder.com/200x150?text=Imagem+3" alt="Galeria Imagem 3">
+                    <h3>Robótica Avançada</h3>
+                    <p>Novos horizontes da automação.</p>
+                    <a href="#" class="open-content-modal" data-title="Robótica Avançada" data-image="https://via.placeholder.com/600x400?text=Robotica+Avancada" data-content="
+                        <p>A robótica avançada, como ilustrada nesta imagem, está expandindo os horizontes da automação muito além das linhas de montagem tradicionais. Robôs colaborativos (cobots) trabalham lado a lado com humanos, aumentando a produtividade e a segurança em ambientes industriais e até mesmo em serviços.</p>
+                        <p>Robôs autônomos de entrega, drones para inspeções e robôs cirúrgicos de alta precisão são exemplos da diversidade de aplicações. O desenvolvimento em inteligência artificial e aprendizado de máquina permite que esses robôs aprendam, se adaptem e realizem tarefas complexas com crescente autonomia.</p>
+                        <p>O futuro da robótica promete soluções para desafios em áreas como saúde, logística, agricultura e exploração de ambientes extremos, transformando a maneira como trabalhamos e vivemos.</p>
+                    ">Ver Imagem</a>
+                </div>
+                <div class="gallery-card">
+                    <img src="https://via.placeholder.com/200x150?text=Imagem+4" alt="Galeria Imagem 4">
+                    <h3>Beleza da Ciência</h3>
+                    <p>Microcosmos e nanotecnologia.</p>
+                    <a href="#" class="open-content-modal" data-title="Beleza da Ciência" data-image="https://via.placeholder.com/600x400?text=Beleza+Ciencia" data-content="
+                        <p>Esta imagem evoca a intrínseca beleza da ciência, muitas vezes oculta a olho nu. Ela nos convida a explorar o microcosmos, onde estruturas complexas e padrões fascinantes são revelados através da microscopia avançada. A nanotecnologia, por exemplo, manipula a matéria em escala atômica e molecular, abrindo caminho para novos materiais, medicamentos e dispositivos minúsculos.</p>
+                        <p>A ciência não é apenas sobre números e fórmulas; é também sobre a descoberta da beleza inerente ao universo, desde a complexidade de uma célula viva até as interconexões cósmicas. Essa foto celebra a curiosidade humana e a capacidade de desvendar os mistérios do mundo através da pesquisa e da inovação.</p>
+                    ">Ver Imagem</a>
+                </div>
+                 <div class="gallery-card">
+                    <img src="https://via.placeholder.com/200x150?text=Imagem+5" alt="Galeria Imagem 5">
+                    <h3>Design e Tecnologia</h3>
+                    <p>A fusão da arte com a inovação.</p>
+                    <a href="#" class="open-content-modal" data-title="Design e Tecnologia" data-image="https://via.placeholder.com/600x400?text=Design+Tecnologia" data-content="
+                        <p>Esta imagem ilustra a poderosa fusão entre design e tecnologia. Não basta apenas criar tecnologias avançadas; é preciso que elas sejam intuitivas, esteticamente agradáveis e eficientes para o usuário. O design, nesse contexto, vai além da aparência, englobando a experiência do usuário (UX) e a interface do usuário (UI), garantindo que a inovação seja acessível e útil.</p>
+                        <p>Desde smartphones com interfaces elegantes até dispositivos domésticos inteligentes que se integram perfeitamente ao ambiente, o design é crucial para o sucesso da tecnologia. Essa simbiose entre a criatividade do design e a funcionalidade da engenharia é o que torna as inovações tecnológicas verdadeiramente impactantes e desejáveis no cotidiano das pessoas.</p>
+                    ">Ver Imagem</a>
+                </div>
+            </div>
+            <button class="show-more-btn" id="show-more-gallery">Mostrar Mais Imagens</button>
+            </section>
+
+        </main>
+
+    <div id="read-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
+            <div id="modal-image-container">
+                <img id="modal-image" src="" alt="Conteúdo da Seção">
+            </div>
+            <div id="modal-text-content">
+                </div>
+            <button class="modal-bottom-close-btn">Fechar</button>
+        </div>
+    </div>
+
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Política de Privacidade</h2>
+            </div>
+            <div class="text-content p-4">
+                <p class="text-center mb-8 max-w-3xl mx-auto">Na Codify Nexo, levamos a sua privacidade a sério. Temos o máximo cuidado com os dados que coletamos e armazenamos apenas o necessário para oferecer nossos serviços e melhorar sua experiência. Não repassamos suas informações a terceiros.</p>
+                <p class="text-center"><strong>Salvo quando exigido por ordem judicial, conforme a lei.Sua confiança é fundamental para nós.</strong></p>
+            </div>
+            <button class="modal-bottom-close-btn">Fechar</button>
+        </div>
+    </div>
+
+    <div id="terms-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Termos de Uso</h2>
+            </div>
+            <div class="text-content p-4">
+                <p>Bem-vindo à Codify Nexo. Ao acessar e usar este site, você concorda em cumprir e estar vinculado aos seguintes termos e condições de uso. Se você não concordar com qualquer parte destes termos, por favor, não use nosso site.</p>
+
+                <h3>1. Uso do Conteúdo</h3>
+                <p>Todo o conteúdo publicado neste site, incluindo textos, gráficos, imagens, informações e outros materiais, é fornecido apenas para fins informativos e educacionais. Não se destina a ser um conselho financeiro, de investimento, legal ou profissional. O uso das informações é de sua inteira responsabilidade.</p>
+
+                <h3>2. Direitos Autorais e Licença</h3>
+                <p>O conteúdo da Codify Nexo está sob Licença Creative Commons Atribuição-NãoComercial-SemDerivações 4.0 Internacional (CC BY-NC-ND 4.0).</p>
+                <ul>
+                    <li><strong>Atribuição (BY):</strong> Você deve dar o crédito apropriado, fornecer um link para a licença e indicar se foram feitas alterações. Você pode fazê-lo de qualquer forma razoável, mas não de forma a sugerir que o licenciador o endossa ou o seu uso.</li>
+                    <li><strong>Não Comercial (NC):</strong> Você não pode usar o material para fins comerciais.</li>
+                    <li><strong>Sem Derivações (ND):</strong> Se você remixar, transformar ou construir sobre o material, você não pode distribuir o material modificado.</li>
+                </ul>
+                <p>Para qualquer uso comercial ou derivação, é necessária autorização expressa e por escrito da Codify Nexo.</p>
+
+                <h3>3. Isenção de Responsabilidade</h3>
+                <p>A Codify Nexo se esforça para manter as informações atualizadas e precisas, mas não faz representações ou garantias de qualquer tipo, expressas ou implícitas, sobre a completude, precisão, confiabilidade, adequação ou disponibilidade em relação ao site ou às informações, produtos, serviços ou gráficos relacionados contidos no site para qualquer finalidade. Qualquer confiança que você depositar em tal informação é, portanto, estritamente por sua conta e risco.</p>
+
+                <h3>4. Links para Terceiros</h3>
+                <p>O site pode conter links para sites de terceiros que não são controlados ou operados pela Codify Nexo. Não temos controle sobre o conteúdo, políticas de privacidade ou práticas de quaisquer sites ou serviços de terceiros e não aceitamos qualquer responsabilidade por eles.</p>
+
+                <h3>5. Alterações nos Termos</h3>
+                <p>A Codify Nexo reserva-se o direito de revisar estes termos de uso a qualquer momento, atualizando esta publicação. Ao usar este site, você concorda em ficar vinculado à versão atual destes termos de uso.</p>
+
+                <h3>6. Lei Aplicável</h3>
+                <p>Estes termos e condições são regidos e interpretados de acordo com as leis do Brasil, e você se submete irrevogavelmente à jurisdição exclusiva dos tribunais nesse local.</p>
+                <p class="text-center mt-4"><strong>Ao continuar a usar nosso site, você concorda com estes Termos de Uso.</strong></p>
+            </div>
+            <button class="modal-bottom-close-btn">Fechar</button>
+        </div>
+    </div>
+
+    <footer>
+    <p><strong>© 2025 From Codify World. Todos os direitos reservados.</strong></p>
+    <p>Proibida a reprodução total ou parcial sem autorização expressa.</p>
+    </footer>
+
+    <nav id="mobile-bottom-nav">
+        <button class="scroll-to-section-btn" data-section-id="news-section">
+            <i class="fas fa-newspaper"></i>
+            <span>Notícia</span>
         </button>
-        <nav id="main-nav">
-             <ul>
-                <li><a href="#relatorios">Relatórios</a></li>
-                <li><a href="#fatos-nao-versoes">Fatos, não versões</a></li>
-                <li><a href="#parceiros">Parceiros</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li><a href="#sobre-nos">Sobre nós</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-             <a href="#assinatura-form" class="subscribe-btn">Assinatura Premium</a>
-        </div>
-    </div>
-</header>
-
-<nav id="sidebar-nav">
-    <div class="sidebar-header">
-        <img src="img/logo_codi.png" alt="Logotipo da Codify Nexo">
-    </div>
-    <ul>
-        <li><a href="#relatorios">Relatórios</a></li>
-        <li><a href="#fatos-nao-versoes">Fatos, não versões</a></li>
-        <li><a href="#parceiros">Parceiros</a></li>
-        <li><a href="#assinatura-form">Assinatura</a></li>
-        <li><a href="#contato">Contato</a></li>
-        <li><a href="#sobre-nos">Sobre nós</a></li>
-        <li><a href="#politica-privacidade">Política de Privacidade</a></li>
-    </ul>
-    <div id="sidebar-social-links">
-        <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial"><i class="fas fa-globe"></i></a>
-        <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" aria-label="Grupo WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    </div>
-</nav>
-
-<div id="page-overlay"></div>
-
-<main id="main-content">
+        <button class="scroll-to-section-btn" data-section-id="cryptocurrency-section">
+            <i class="fas fa-chart-line"></i>
+            <span>Finança</span>
+        </button>
+        <button class="scroll-to-section-btn" data-section-id="hero">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </button>
+        <button class="open-modal-btn" data-modal-id="premium-subscription">
+            <i class="fas fa-star"></i>
+            <span>Premium</span>
+        </button>
+    </nav>
 
 
-    
-
-
-    <div class="container" id="relatorios">
-        <div class="text-center mb-12">
-            <h1 class="main-title"><strong>Notícias e Análises Globais</strong></h1>
-            <p class="subtitle">
-                Explore nossas análises aprofundadas sobre os temas mais relevantes do cenário global.
-            </p>
-        </div>
-
-        <div class="report-cards-grid">
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/blokchain.png" alt="Imagem ilustrativa de Blockchain">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>O que é Blockchain de forma simples e objetiva</h3>
-                     <p class="summary">Imagine um caderno de anotações que várias pessoas compartilham ao mesmo tempo. Cada página desse caderno registra quem fez o quê — como “João pagou R$ 10 para Maria”. Esse é, de modo bem simples, o que chamamos de blockchain.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p><strong>1. Introdução</strong></p>
-                         <p>Imagine um caderno de anotações que várias pessoas compartilham ao mesmo tempo. Cada página desse caderno registra quem fez o quê — como “João pagou R$ 10 para Maria”. Esse é, de modo bem simples, o que chamamos de blockchain.</p>
-                         <p><strong>2. Como Funciona em “Pedaços”</strong></p>
-                         <p><strong>Nova Anotação</strong><br>
-                         Alguém diz “quero registrar que enviei algo para outra pessoa”.</p>
-                         <p><strong>Confirmação em Grupo</strong><br>
-                         Vários pedidos desse tipo se juntam e formam uma nova “página” no caderno.</p>
-                         <p><strong>Verificação Coletiva</strong><br>
-                         Todos que têm uma cópia do caderno conferem se as informações estão corretas (sem precisar de um chefe mandando).</p>
-                         <p><strong>Ligação em Corrente</strong><br>
-                         Cada página nova ganha um “pedaço” que aponta para a página anterior, formando uma corrente de páginas.</p>
-                         <p><strong>Registro Permanente</strong><br>
-                         Depois de conferido, ninguém consegue apagar ou mudar o que está escrito naquela página sem todo mundo notar.</p>
-                         <p><strong>3. Um Exemplo Fácil: Bitcoin</strong></p>
-                         <p>Bitcoin é como dinheiro digital que roda nesse tipo de caderno compartilhado.<br>
-                         Quando você “envia” bitcoins a alguém, esse envio vira uma anotação.<br>
-                         Em vez de um banco cuidar de tudo, a própria rede de usuários checa e confirma a anotação.</p>
-                         <p><strong>4. Aplicações no Dia a Dia</strong></p>
-                         <p><strong>Rastrear Produtos</strong><br>
-                         Uma empresa de alimentos pode usar blockchain para mostrar cada passo de um queijo — desde a fazenda até o mercado.</p>
-                         <p><strong>Certificados Digitais</strong><br>
-                         Universidades ou empresas podem emitir diplomas ou contratos que ficam guardados sem risco de falsificação.</p>
-                         <p><strong>Pagamentos Sem Banco</strong><br>
-                         É possível transferir dinheiro para alguém em outro país sem precisar passar por bancos tradicionais — só pela rede de participantes.</p>
-                         <p><strong>5. Por Que Isso Importa?</strong></p>
-                         <p><strong>Confiança Sem Autoridade Única</strong><br>
-                         Você não precisa depender de uma única empresa ou banco.</p>
-                         <p><strong>Menos Fraude</strong><br>
-                         Como todo mundo vê o que foi registrado, fica difícil alterar informações escondido.</p>
-                         <p><strong>Acesso Global</strong><br>
-                         Qualquer pessoa com internet pode participar, mesmo sem conta em banco.</p>
-                         <p><strong>6. Pontos para Ficar de Olho</strong></p>
-                         <p><strong>Velocidade:</strong> às vezes as confirmações demoram mais que um sistema centralizado.</p>
-                         <p><strong>Consumo de Energia:</strong> algumas redes usam muita energia para verificar as anotações.</p>
-                         <p><strong>Legislação:</strong> governos ainda estão definindo regras sobre como usar blockchain.</p>
-                         <p><strong>7. Conclusão</strong></p>
-                         <p>O blockchain é, basicamente, um caderno compartilhado e seguro que registra eventos (como pagamentos) de modo público e permanente. Ele surgiu para apoiar o Bitcoin, mas hoje já é usado em várias áreas: rastrear produtos, emitir certificados, criar contratos automáticos e muito mais — tudo sem precisar confiar em uma única instituição.</p>
-                         <p>Esse é o ponto de partida para entender como essa “corrente de anotações” tem o poder de tornar processos mais claros e confiáveis, até para quem não é especialista no assunto.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/criptomoeda.png" alt="Imagem ilustrativa de Criptomoeda">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>O que é Criptomoeda?</h3>
-                     <p class="summary">Criptomoeda é um tipo de dinheiro digital que existe apenas na internet. Diferente do real ou do dólar, não há moedas físicas ou notas: tudo acontece em computadores.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p><strong>1. Introdução</strong><br>
-                         Criptomoeda é um tipo de dinheiro digital que existe apenas na internet. Diferente do real ou do dólar, não há moedas físicas ou notas: tudo acontece em computadores.</p>
-                         <p><strong>2. Como Funciona em “Pedaços”</strong></p>
-                         <p><strong>Carteira Digital</strong><br>
-                         Você cria uma “carteira” (um software) onde guarda suas moedas. Ela gera um endereço (como uma conta bancária).</p>
-                         <p><strong>Envio de Moedas</strong><br>
-                         Para mandar valor a alguém, você solicita uma transação: “Envie X unidades para o endereço Y”.</p>
-                         <p><strong>Rede de Computadores</strong><br>
-                         Essa ordem é compartilhada com todos os participantes da rede (chamados “nós”).</p>
-                         <p><strong>Confirmação Coletiva</strong><br>
-                         Os nós verificam se você de fato possui o saldo. Se tudo estiver certo, a transação é incluída em um bloco (lote).</p>
-                         <p><strong>Registro Permanente</strong><br>
-                         O bloco entra no registro (blockchain) e não pode ser apagado ou modificado sem toda a rede concordar.</p>
-                         <p><strong>3. Exemplo Prático: Bitcoin e Ether</strong></p>
-                         <p><strong>Bitcoin (BTC)</strong><br>
-                         Foi a primeira criptomoeda (2009). Serve basicamente para guardar e transferir valor pela internet.</p>
-                         <p><strong>Ether (ETH)</strong><br>
-                         Moeda nativa da plataforma Ethereum (lançada em 2015). Além de transações, ela “liga” aplicativos descentralizados, chamados smart contracts.</p>
-                         <p><strong>4. Aplicações no Cotidiano</strong></p>
-                         <p><strong>Envios Internacionais</strong><br>
-                         Enviar dinheiro a outro país sem bancos caros e com taxas menores.</p>
-                         <p><strong>Compras Online</strong><br>
-                         Alguns serviços e lojas aceitam pagamento direto em criptomoeda.</p>
-                         <p><strong>Investimento</strong><br>
-                         Muitas pessoas compram criptomoedas esperando que o valor suba ao longo do tempo.</p>
-                         <p><strong>Projetos Descentralizados</strong><br>
-                         Jogos, redes sociais e aplicativos financeiros que rodam sem servidor central, apenas “na nuvem” de participantes.</p>
-                         <p><strong>5. Vantagens e Desvantagens</strong></p>
-                         <p><strong>Vantagens</strong><br>
-                         Funcionamento sem bancos<br>
-                         Taxas geralmente mais baixas<br>
-                         Acesso global com internet<br>
-                         Transações transparentes e públicas</p>
-                         <p><strong>Desvantagens</strong><br>
-                         Volatilidade: preço pode subir e cair muito<br>
-                         Uso para golpes se não tomar cuidado<br>
-                         Complexidade inicial para iniciantes<br>
-                         Consumo de energia em certas redes</p>
-                         <p><strong>6. Por Que Importa?</strong></p>
-                         <p><strong>Autonomia Financeira</strong><br>
-                         Você controla seu próprio dinheiro sem depender de intermediários.</p>
-                         <p><strong>Inovação</strong><br>
-                         Novas ideias em finanças, contratos e serviços surgem a partir das criptomoedas.</p>
-                         <p><strong>Inclusão</strong><br>
-                         Pessoas sem conta em banco podem participar usando apenas um celular com internet.</p>
-                         <p><strong>7. Pontos de Atenção</strong></p>
-                         <p><strong>Segurança da Carteira</strong><br>
-                         Se perder sua senha ou chave, não há “suporte” para recuperar.</p>
-                         <p><strong>Regulamentação</strong><br>
-                         Cada país tem regras diferentes; fique atento às leis locais.</p>
-                         <p><strong>Riscos de Mercado</strong><br>
-                         O valor das criptomoedas varia muito — invista apenas o que você pode perder.</p>
-                         <p><strong>8. Conclusão</strong><br>
-                         Criptomoeda é dinheiro digital que vive num grande livro compartilhado (blockchain). Vai de simples transferências de valor até o suporte de aplicativos inovadores. Com potencial para mudar bancos, empresas e até governos, é importante conhecer como funciona, quais os riscos e benefícios antes de usar ou investir.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/tokenização.png" alt="Imagem ilustrativa de Tokenização">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>O que é Tokenização?</h3>
-                     <p class="summary">Tokenização é o processo de transformar um item — seja um bem, direito ou serviço — em “fichas digitais” chamadas de tokens. Esses tokens vivem em uma rede blockchain, permitindo que você possua, transfira e negocie coisas do mundo real de forma mais prática e segura.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p><strong>1. Introdução</strong><br>
-                         Tokenização é o processo de transformar um item — seja um bem, direito ou serviço — em “fichas digitais” chamadas de tokens. Esses tokens vivem em uma rede blockchain, permitindo que você possua, transfira e negocie coisas do mundo real de forma mais prática e segura.</p>
-                         <p><strong>2. Como Funciona em “Pedaços”</strong></p>
-                         <p><strong>Seleção do Ativo</strong><br>
-                         Escolhe-se algo de valor: um imóvel, uma obra de arte, ações de uma empresa ou mesmo pontos de um programa de fidelidade.</p>
-                         <p><strong>Criação do Token</strong><br>
-                         Um contrato inteligente gera tokens na blockchain, atrelados ao ativo real. Cada token representa uma fração ou unidade desse ativo.</p>
-                         <p><strong>Registro e Propriedade</strong><br>
-                         A rede blockchain registra quem detém cada token, garantindo histórico imutável de transações.</p>
-                         <p><strong>Negociação e Transferência</strong><br>
-                         Os tokens podem ser comprados, vendidos ou trocados em plataformas que suportam essa blockchain. A transferência ocorre em minutos, sem intermediários tradicionais.</p>
-                         <p><strong>Resgate ou Conversão</strong><br>
-                         Dependendo das regras, o detentor do token pode resgatar o ativo real ou vendê-lo a outro interessado, trocando o token por dinheiro ou outro token.</p>
-                         <p><strong>3. Exemplo Prático: Imóvel Tokenizado</strong></p>
-                         <p><strong>Cenário:</strong> Um prédio de escritórios é avaliado em R$ 10 000 000.<br>
-                         <strong>Tokenização:</strong> São criados 10 000 tokens, cada um valendo R$ 1 000.<br>
-                         <strong>Compra Fracionada:</strong> Investidores compram quantos tokens desejam—por exemplo, 50 tokens por R$ 50 000—tornando o investimento acessível.<br>
-                         <strong>Mercado Secundário:</strong> Esses tokens podem ser negociados entre pessoas diferentes, facilitando liquidez sem precisar vender o imóvel inteiro.</p>
-                         <p><strong>4. Aplicações no Cotidiano</strong></p>
-                         <p><strong>Financiamento Coletivo</strong><br>
-                         Projetos criativos ou imobiliários arrecadam recursos vendendo tokens em vez de ações tradicionais.</p>
-                         <p><strong>Arte Digital (NFTs)</strong><br>
-                         Obras são transformadas em tokens não-fungíveis (NFTs), garantindo propriedade única de itens digitais.</p>
-                         <p><strong>5. Mineração de Bitcoin: Garimpo Digital</strong></p>
-                         <p><strong>Definição</strong><br>
-                         Processo que cria novos bitcoins e registra transações, resolvendo desafios matemáticos em computadores.</p>
-                         <p><strong>Como Funciona</strong><br>
-                         Agrupar Transações: mineradores formam um bloco com várias transferências pendentes.<br>
-                         Desafio (Prova de Trabalho): tentam números até encontrar um que gere um código (hash) válido.<br>
-                         Validação: rede confirma o bloco e adiciona ao blockchain.<br>
-                         Recompensa: minerador recebe novos bitcoins como pagamento.</p>
-                         <p><strong>Recursos Necessoses</strong><br>
-                         Hardware especializado (ASICs).<br>
-                         Eletricidade em larga escala.</p>
-                         <p><strong>6. Pontos de Atenção</strong></p>
-                         <p><strong>Dificuldade Variável</strong><br>
-                         A rede ajusta o nível de dificuldade do desafio para manter um intervalo médio de 10 minutos entre blocos.</p>
-                         <p><strong>Competição Intensa</strong><br>
-                         Mineradores competem globalmente; quem tem melhor equipamento e custos menores tem mais chance de ganhar a recompensa.</p>
-                         <p><strong>Impacto Ambiental</strong><br>
-                         O alto consumo de energia levanta discussões sobre sustentabilidade.</p>
-                         <p><strong>7. Por Que Importa Conhecer?</strong></p>
-                         <p><strong>Entendimento da Rede</strong><br>
-                         Saber como os blocos são criados ajuda a compreender por que o Bitcoin é seguro e descentralizado.</p>
-                         <p><strong>Oportunidade de Investimento</strong><br>
-                         Para quem pensa em minerar, é essencial calcular custos (equipamento + energia) versus ganhos potenciais.</p>
-                         <p><strong>Inovação Tecnológica</strong><br>
-                         A mineração inspirou pesquisas em eficiência energética e novos métodos de consenso em outras criptomoedas.</p>
-                         <p><strong>8. Conclusão</strong><br>
-                         A mineração de Bitcoin é o coração que mantém a rede funcionando: valida transações, adiciona novas moedas ao sistema e garante que tudo seja transparente e confiável. É um processo competitivo, que exige investimento em hardware e energia, mas que representa a base da confiança descentralizada do Bitcoin.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/real.png" alt="Imagem ilustrativa de Tecnologias Blockchain e Suas Aplicações no Mundo Real">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>Tecnologias Blockchain e Suas Aplicações no Mundo Real</h3>
-                     <p class="summary">Este relatório apresenta, em linguagem simples e neutra, os conceitos de blockchain, criptomoedas, tokenização e mineração, além de suas principais aplicações práticas. O objetivo é fornecer entendimento claro para leigos, sem jargões técnicos ou posicionamentos ideológicos.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p><strong>1. Introdução</strong><br>
-                         Este relatório apresenta, em linguagem simples e neutra, os conceitos de blockchain, criptomoedas, tokenização e mineração, além de suas principais aplicações práticas. O objetivo é fornecer entendimento claro para leigos, sem jargões técnicos ou posicionamentos ideológicos.</p>
-                         <p><strong>2. Blockchain: O Caderno Compartilhado</strong></p>
-                         <p><strong>Definição</strong><br>
-                         Um registro digital descentralizado onde cada “página” (bloco) reúne várias transações. Essas páginas são ligadas em sequência, formando uma corrente (chain).</p>
-                         <p><strong>Características</strong><br>
-                         Descentralização: não há um controlador único; cópias do registro existem em diversos computadores.<br>
-                         Imutabilidade: uma vez gravado e confirmado, não é possível alterar o conteúdo sem consenso de toda a rede.<br>
-                         Transparência: qualquer participante pode consultar todo o histórico de transações.</p>
-                         <p><strong>3. Criptomoeda: Dinheiro na Internet</strong></p>
-                         <p><strong>Definição</strong><br>
-                         Dinheiro digital que roda sobre uma blockchain, sem forma física, gerenciado por software.<br>
-                         <p><strong>Exemplos</strong><br>
-                         Bitcoin (BTC): primeira criptomoeda, focada em transferir valor.<br>
-                         Ether (ETH): moeda da rede Ethereum, usada tanto para pagamentos quanto para alimentar aplicativos descentralizados.<br>
-                         <p><strong>Como Funciona</strong><br>
-                         Carteira Digital: armazena chaves que provam sua titularidade.<br>
-                         Transação: você envia unidades a outro endereço.<br>
-                         Confirmação em Rede: computadores validam e registram a transferência no blockchain.<br>
-                         Registro Permanente: não há como apagar ou alterar a transação.</p>
-                         <p><strong>4. Tokenização: Transformando Ativos em Fichas Digitais</strong></p>
-                         <p><strong>Definição</strong><br>
-                         Processo que converte direitos sobre bens (imóveis, obras de arte, ações) em tokens — unidades digitais na blockchain.</p>
-                         <p><strong>Exemplo</strong><br>
-                         Um imóvel de R$ 1 000 000 pode gerar 1 000 tokens de R$ 1 000 cada, permitindo que investidores comprem frações sem adquirir o bem inteiro.<br>
-                         <strong>Mercado Secundário:</strong> Esses tokens podem ser negociados entre pessoas diferentes, facilitando liquidez sem precisar vender o imóvel inteiro.</p>
-                         <p><strong>5. Mineração de Bitcoin: Garimpo Digital</strong></p>
-                         <p><strong>Definição</strong><br>
-                         Processo que cria novos bitcoins e registra transações, resolvendo desafios matemáticos em computadores.</p>
-                         <p><strong>Como Funciona</strong><br>
-                         Agrupar Transações: mineradores formam um bloco com várias transferências pendentes.<br>
-                         Desafio (Prova de Trabalho): tentam números até encontrar um que gere um código (hash) válido.<br>
-                         Validação: rede confirma o bloco e adiciona ao blockchain.<br>
-                         Recompensa: minerador recebe novos bitcoins como pagamento.</p>
-                         <p><strong>Recursos Necessoses</strong><br>
-                         Hardware especializado (ASICs).<br>
-                         Eletricidade em larga escala.</p>
-                         <p><strong>6. Aplicações Práticas</strong></p>
-                         <div class="table-responsive">
-                             <table>
-                                 <thead>
-                                     <tr>
-                                         <th>Tecnologia</th>
-                                         <th>Caso de Uso</th>
-                                         <th>Benefício Principal</th>
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-                                     <tr>
-                                         <td>Blockchain</td>
-                                         <td>Rastreabilidade de alimentos e produtos de luxo</td>
-                                         <td>Identificar origem e autenticidade</td>
-                                     </tr>
-                                     <tr>
-                                         <td>Criptomoedas</td>
-                                         <td>Remessas internacionais e pagamentos online</td>
-                                         <td>Taxas menores e rapidez</td>
-                                     </tr>
-                                     <tr>
-                                         <td>Tokenização</td>
-                                         <td>Investimento fracionado em imóveis e startups</td>
-                                         <td>Acesso democrático e liquidez</td>
-                                     </tr>
-                                     <tr>
-                                         <td>Smart Contracts</td>
-                                         <td>Seguros automáticos e pagamentos de royalties</td>
-                                         <td>Processos sem intermediários</td>
-                                     </tr>
-                                     <tr>
-                                         <td>Mineração</td>
-                                         <td>Suporte à segurança e emissão de novas moedas</td>
-                                         <td>Confirmação descentralizada</td>
-                                     </tr>
-                                 </tbody>
-                             </table>
-                         </div>
-                         <p><strong>Rastreabilidade de Produtos</strong><br>
-                         Com blockchain, empresas monitoram cada etapa de um item (do produtor ao consumidor), acelerando recall de lotes e garantindo qualidade.</p>
-                         <p><strong>Pagamentos e Remessas</strong><br>
-                         Criptomoedas permitem transferências internacionais em minutos, com taxas abaixo das cobradas por bancos.</p>
-                         <p><strong>Investimentos e Financiamento</strong><br>
-                         Tokenização abre espaço para que qualquer pessoa invista valores pequenos em projetos imobiliários ou empresas em crescimento.</p>
-                         <p><strong>Contratos Inteligentes</strong><br>
-                         Em casos como voos cancelados ou streaming de conteúdo, acordos autoexecutáveis liberam pagamentos automaticamente sem burocracia.</p>
-                         <p><strong>Energia e Sustentabilidade</strong><br>
-                         Vendas diretas de excedentes de energia solar via blockchain e tokenização de créditos de carbono tornam o setor mais transparente e eficiente.</p>
-                         <p><strong>7. Vantagens e Desafios</strong></p>
-                         <p><strong>Vantagens</strong><br>
-                         Maior transparência e confiança sem autoridade central.<br>
-                         Redução de intermediários e custos de transação.<br>
-                         Acesso global a qualquer pessoa com internet.<br>
-                         Desafios<br>
-                         Complexidade técnica para iniciantes.<br>
-                         Consumo de energia em certos métodos de validação.<br>
-                         Incertezas regulatórias e necessidade de normas claras.</p>
-                         <p><strong>8. Conclusão</strong><br>
-                         As tecnologias de blockchain, criptomoedas, tokenização e mineração formam um ecossistema inovador que transforma como registramos, transferimos e investimos valor. Já aplicadas em rastreabilidade de produtos, finanças, gestão de contratos e energia, elas prometem evolução contínua, aumentando eficiência, segurança e acesso para pessoas e empresas ao redor do mundo.<br>
-                         Este relatório buscou consolidar, em linguagem acessível, os principais conceitos e usos práticos, servindo como ponto de partida para quem deseja entender e explorar essas soluções.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/mercado.png" alt="Imagem ilustrativa de Mercado Crypto em Alta">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>Mercado crypto em Alta e Otimismo Global</h3>
-                     <p class="summary">O Bitcoin manteve sua trajetória de valorização nesta sexta-feira, chegando a US$ 119.380, próximo de sua máxima histórica de meados de julho. A recuperação foi impulsionada por sinais de um acordo temporário de 90 dias entre EUA e China para suspender novas tarifas, aliviando tensões comerciais e atraindo fluxo de capital ao ativo digital.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p>O Bitcoin manteve sua trajetória de valorização nesta sexta-feira, chegando a US$ 119.380, próximo de sua máxima histórica de meados de julho. A recuperação foi impulsionada por sinais de um acordo temporário de 90 dias entre EUA e China para suspender novas tarifas, aliviando tensões comerciais e atraindo fluxo de capital ao ativo digital.</p>
-                         <p><strong>Ethereum Impulsiona Inovação DeFi</strong></p>
-                         <p>O Ether registrou um crescimento de 54% ao longo de julho, refletindo a forte entrada de investidores institucionais por meio de ETFs de Ethereum. Especialistas apontam que o token rompeu níveis técnicos relevantes, como a média móvel de 50 semanas, abrindo caminho para novas retomadas de alta e aquecendo o ecossistema de finanças descentralizadas.</p>
-                         <p><strong>XRP em Fase de Consolidação</strong></p>
-                         <p>O XRP avançou quase 2% no dia, em meio a um movimento geral de realocação de recursos para projetos com uso prático. Dados de mercado indicam que cerca de US$ 500 milhões em XRP foram acumulados nas últimas semanas, reforçando a expectativa de que o preço possa se aproximar do topo histórico de US$ 3,66 caso o ritmo de compras se mantenha.</p>
-                         <p><strong>Polygon Acelera com zkEVM</strong></p>
-                         <p>O token MATIC disparou para US$ 0,87, impulsionado pelo lançamento da solução zkEVM, que reduziu o tempo de confirmação de transações de até dois minutos para cerca de cinco segundos. O update elevou em 15% o número de endereços ativos na rede e ajudou a impulsionar o volume diário para mais de US$ 1,2 bilhão.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/verdes.png" alt="Imagem ilustrativa de Sustentabilidade e Tecnologias Verdes">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>🌱 Sustentabilidade e Tecnologias Verdes em Ascensão</h3>
-                     <p class="summary">A tecnologia desempenha um papel fundamental na transição para uma economia mais sustentável, com inovações em energias renováveis, agricultura inteligente e gestão de resíduos.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p>A pauta de sustentabilidade ganha cada vez mais destaque em 2025, impulsionada pela urgência das mudanças climáticas e pela demanda por práticas empresariais mais responsáveis. As tecnologias verdes, ou greentech, estão no centro dessa transformação. Investimentos em energias renováveis, como solar e eólica, continuam a crescer, com avanços na eficiência e no armazenamento de energia.s</p>
-                         <p>Além disso, a tecnologia está sendo aplicada para otimizar o uso de recursos, reduzir o desperdício e promover a economia circular. Soluções de IoT (Internet das Coisas) e IA são utilizadas na agricultura de precisão para monitorar plantações e otimizar o uso da água, e na gestão de cidades inteligentes para reduzir o consumo de energia e melhorar a mobilidade urbana. A inovação em materiais sustentáveis e processos de produção de baixo carbono também são áreas de grande foco, sinalizando um futuro onde a tecnologia e a sustentabilidade caminham lado a lado.</p>
-                         <br>
-                         <h4>Carteira de Criptomoedas: Explicação Simples e Objetiva</h4>
-                         <p><strong>O que é uma carteira?</strong></p>
-                         <p>É um aplicativo ou dispositivo que guarda as “chaves” que provam que você é dono de suas criptomoedas — como um cofre digital.</p>
-                         <ul>
-                             <li><strong>Enviar moedas:</strong> você assina, com sua chave, uma transação que manda valor para outra carteira.</li>
-                             <li><strong>Receber moedas:</strong> compartilha seu “endereço” (semelhante a uma conta bancária) para que alguém envie criptomoedas a você.</li>
-                             <li><strong>Verificar saldo:</strong> consulta quantas moedas você tem, acessando a blockchain.</li>
-                         </ul>
-                         <p><strong>Tipos principais</strong></p>
-                         <p><strong>Carteiras quentes (hot wallets)</strong></p>
-                         <ul>
-                             <li>Conectadas à internet (apps para celular ou extensões de navegador).</li>
-                             <li>Práticas para uso diário, mas risco maior de ataques online.</li>
-                         </ul>
-                         <p><strong>Carteiras frias (cold wallets)</strong></p>
-                         <ul>
-                             <li>Desconectadas da internet (pen drives ou dispositivos dedicados).</li>
-                             <li>Mais seguras para guardar grandes quantias, porém menos convenientes para transações rápidas.</li>
-                         </ul>
-                         <p><strong>Como usar</strong></p>
-                         <ul>
-                             <li><strong>Instalação:</strong> baixe o app oficial ou configure um dispositivo físico.</li>
-                             <li><strong>Backup:</strong> anote e guarde com muito cuidado a “frase-semente” (12–24 palavras) que recupera sua carteira.</li>
-                             <li><strong>Transações:</strong> copie o endereço de quem vai receber, informe o valor, confirme com sua chave ou PIN.</li>
-                             <li><strong>Confirmação:</strong> aguarde a rede validar e registrar sua transação (pode levar de segundos a minutos, dependendo da moeda).</li>
-                         </ul>
-                         <p><strong>Dicas de segurança</strong></p>
-                         <ul>
-                             <li>Nunca compartilhe sua frase‑semente com ninguém.</li>
-                             <li>Ative autenticação extra (senha, PIN ou biometria).</li>
-                             <li>Para grandes valores, prefira carteiras frias.</li>
-                             <li>Use sempre softwares e firmwares oficiais e atualizados.</li>
-                         </ul>
-                         <p><strong>Resumo:</strong> a carteira de criptomoedas é seu cofre digital: um app ou dispositivo que guarda suas chaves, permite enviar e receber moedas, e exige cuidados básicos de segurança para proteger seu investimento.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/trabalho.png" alt="Imagem ilustrativa do Futuro do Trabalho">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>💼 O Futuro do Trabalho: Transformações Impulsionadas pela Tecnologia</h3>
-                     <p class="summary">A tecnologia está remodelando o mercado de trabalho, exigindo novas habilidades e modelos de colaboração, com o trabalho híbrido e remoto se consolidando.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p>O mercado de trabalho em 2025 é um reflexo das rápidas transformações tecnológicas. A automação e a Inteligência Artificial estão alterando a natureza de muitas profissões, enquanto novas funções surgem em áreas como ciência de dados, engenharia de IA e cibersegurança. A demanda por habilidades digitais e socioemocionais, como pensamento crítico, criatividade e adaptabilidade, é cada vez maior.</p>
-                         <p>O trabalho híbrido e remoto se consolidou como um modelo padrão para muitas empresas, impulsionado por ferramentas de colaboração online e infraestruturas de nuvem. Isso traz flexibilidade, mas também desafios em termos de gestão de equipes distribuídas e manutenção da cultura organizacional. A requalificação e a aprendizagem contínua são essenciais para que profissionais e empresas se adaptem a esse novo cenário, garantindo a empregabilidade e a competitividade no futuro do trabalho.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/codify-news.png" alt="Imagem ilustrativa da CodifyWorld: Nossas Soluções">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>🌐 CodifyWorld: Inovação e Soluções Tecnológicas</h3>
-                     <p class="summary">A CodifyWorld continua a liderar o caminho em soluções tecnológicas, oferecendo inovação e agilidade para empresas que buscam transformação digital.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p>Como holding por trás da Codify Nexo, a CodifyWorld está na vanguarda da transformação digital, desenvolvendo soluções inovadoras que impulsionam o crescimento e a eficiência de nossos clientes. Nosso portfólio abrange desde desenvolvimento de software personalizado e consultoria em TI até soluções de nuvem e inteligência de negócios.</p>
-                         <p>Em 2025, focamos em expandir nossa presença global e consolidar nossa expertise em tecnologias emergentes, como blockchain, computação quântica e realidade aumentada. Nosso compromisso é com a excelência e a entrega de valor, ajudando empresas a navegar pelo complexo cenário tecnológico e a alcançar seus objetivos estratégicos. Acreditamos que a tecnologia, quando bem aplicada, é uma ferramenta poderosa para criar um futuro mais conectado e mais próspero.</p>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="report-card">
-                 <div class="report-card-image-container">
-                     <img src="img/educação.png" alt="Imagem ilustrativa de Educação e Tecnologia">
-                 </div>
-                 <div class="report-card-content">
-                     <h3>📚 Educação e Tecnologia: O Futuro da Aprendizagem</h3>
-                     <p class="summary">A tecnologia está revolucionando a educação, com plataformas de aprendizado online, IA personalizada e realidade virtual transformando a experiência de alunos e professores.</p>
-                     <button class="read-more-btn">Ler Mais <i class="fas fa-arrow-right"></i></button>
-                     <div class="report-content-full">
-                         <p>O setor educacional em 2025 está profundamente impactado pela tecnologia, que oferece novas oportunidades para a aprendizagem e o desenvolvimento de habilidades. Plataformas de ensino a distância e ferramentas de colaboração online se tornaram onipresentes, permitindo acesso à educação de forma mais flexível e inclusiva. A Inteligência Artificial desempenha um papel crescente na personalização do aprendizado, adaptando o conteúdo e o ritmo às necessidades individuais de cada aluno.</p>
-                         <p>Além disso, tecnologias como realidade virtual (RV) e realidade aumentada (RA) estão criando experiências imersivas e interativas, tornando o aprendizado mais engajador e eficaz. Laboratórios virtuais, simulações e visitas de campo digitais estão se tornando comuns em diversas disciplinas. O desafio é garantir que a tecnologia seja utilizada de forma equitativa, reduzindo a lacuna digital e preparando os alunos para os desafios e oportunidades do futuro.</p>
-                     </div>
-                 </div>
-             </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="content-section" id="fatos-nao-versoes">
-            <div class="section-heading-wrapper"><h2 class="section-heading">Fatos! não versões</h2></div>
-            <p class="text-center"><strong>Na Codify Nexo</strong>, nosso compromisso é com os fatos.</p>
-            <p class="text-gray-800 text-center max-w-3xl mx-auto">Produzimos análises e relatórios técnicos multissetoriais com rigor, ética e total isenção. Aqui, a informação é tratada com responsabilidade, sem distorções, filtros partidários ou influências ideológicas. Nosso objetivo é entregar conhecimento confiável e transparente, para que você forme sua própria opinião — baseada em dados, não em narrativas.</p>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="content-section" id="parceiros">
-            <div class="section-heading-wrapper"><h2 class="section-heading">Parceiros</h2></div>
-            <p class="text-center max-w-3xl mx-auto">Trabalhamos em parceria com empresas e instituições que compartilham nossa visão de futuro e inovação.
-                Juntos, construímos soluções robustas e eficientes para o mercado digital.</p>
-            <p class="text-center max-w-3xl mx-auto mt-4">Interessado em se tornar um parceiro da <strong>Codify Nexo? Entre em contato conosco.</strong></p>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="content-section" id="assinatura-form">
-            <div class="section-heading-wrapper"><h2 class="section-heading">📊 Assinatura Premium Codify Nexo</h2></div>
-            <p class="text-center mb-8" style="font-size: 1.1rem;">Inscreva-se para Acessar Nossos Relatórios, consultorias e ebooks profissionais, além de ter acesso beta a projetos CodifyWorld. Após a confirmação da sua assinatura via Mercado Pago, será enviado diretamente para o seu e-mail cadastrado os serviços descritos.</p>
-            <div id="formContainer">
-                <div class="flex justify-center items-center">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true" width="640" height="2712" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
-                </div>
-                <p class="text-center mt-8 text-red-700 font-bold" style="font-size: 1.1rem;">⚠️ Observação</p>
-                <p class="text-center mb-8" style="font-size: 1.1rem;">O acesso a conteúdos específicos e projetos beta será liberado após a confirmação da assinatura.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="content-section" id="contato">
-            <div class="section-heading-wrapper"><h2 class="section-heading">Contato</h2></div>
-            <p class="text-center mt-4"><strong>Codify Nexo</strong><br>Rio de Janeiro, Brasil</p>
-            <p class="text-center"><a href="tel:+5522997323458" class="text-blue-700 underline">Brasil +55 22 997 323 458</a></p>
-            <br>
-            <p class="text-center mt-4">Exterior,</p>
-            <p class="text-center">Tel: <a href="tel:+244927944541" class="text-blue-700 underline">Exterior +244 927 944 541</a></p>
-            <p class="text-center">Email: <a href="mailto:codifyworldservices@gmail.com" class="text-blue-700 underline">codifyworldservices@gmail.com</a></p>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            // Removed closeSidebarBtn as per user request
+            const openModalBtns = document.querySelectorAll('.open-modal-btn');
+            const scrollBtns = document.querySelectorAll('.scroll-to-section-btn');
+            const readModal = document.getElementById('read-modal');
+            const privacyModal = document.getElementById('privacy-modal');
+            const termsModal = document.getElementById('terms-modal');
+            const modalCloseBtns = document.querySelectorAll('.modal .close-btn, .modal .modal-bottom-close-btn');
+            const modalImage = document.getElementById('modal-image');
+            const modalTextContent = document.getElementById('modal-text-content');
+            const cryptocurrencyContainer = document.querySelector('.cryptocurrency-container');
             
-            <div class="contact-social-links">
-                <h3>Siga-nos em nossas redes</h3>
-                <div class="social-icons">
-                    <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.codifyworld.com.br/" target="_blank" aria-label="Site Oficial"><i class="fas fa-globe"></i></a>
-                    <a href="https://linkedin.com/company/codifyworld" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.tiktok.com/@codifyworld" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://x.com/codifyworld" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-                    <a href="https://www.youtube.com/@codifyworld" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105"><i class="fab fa-whatsapp text-current text-xl mr-2"></i><span>Grupo aberto WhatsApp</span></a>
-                </div>
-            </div>
+            // New button for dark mode
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
 
-            <p class="text-center mt-8"><em>Grupo Codify Nexo no WhatsApp, um espaço gratuito para quem busca informação técnica, <br>sem viés ideológico, com foco em economia, tecnologia e inovação.</em></p>
-            <div class="flex justify-center mt-2">
-                <a href="https://chat.whatsapp.com/JqDUWNswCsK51oPqbNC9F1?mode=r_t" target="_blank" class="block p-2 rounded-lg border border-green-600 text-green-600 font-semibold no-underline flex items-center justify-center transition duration-300 hover:bg-green-600 hover:text-white hover:scale-105"><i class="fab fa-whatsapp text-current text-xl mr-2"></i><span>Grupo aberto WhatsApp</span></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="content-section" id="sobre-nos">
-            <div class="section-heading-wrapper"><h2 class="section-heading">Sobre nós</h2></div>
-            <h2 class="subtitle text-center">Nossa Missão e Visão</h2>
-            <p class="text-center max-w-3xl mx-auto">A Codify Nexo Imprensa é uma rede social da honding<strong>CodifyWorld.</strong> Acreditamos que a tecnologia deve ser
-                uma ponte entre pessoas, ideias e soluções, criar relatórios/notícias que facilitem a vida de quem empreende, ensina, aprende ou
-                simplemente quer transformar sua rotina com a ajuda da tecnologia. <br> Feita por gente que ama criar, resolver problemas e fazer parte da jornada de quem quer crescer no mundo digital.
-                Se você tem uma ideia, um projeto ou um sonho, estamos aqui para ajudar a torná-lo realidade.</p>
-            <br>
-            <p class="text-center"><a href="https://www.codifyworld.com.br" class="text-blue-700 underline font-bold">https://www.codifyworld.com.br</a></p>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="content-section" id="politica-privacidade">
-            <div class="section-heading-wrapper"><h2 class="section-heading">Política de Privacidade</h2></div>
-            <h2 class="subtitle text-center">Nosso Compromisso com Seus Dados</h2>
-            <p class="text-center mb-8 max-w-3xl mx-auto">Na Codify Nexo, levamos a sua privacidade a sério. Temos o máximo cuidado com os dados que coletamos e armazenamos apenas o necessário para oferecer nossos serviços e melhorar sua experiência. Não repassamos suas informações a terceiros.</p>
-            <p class="text-center"><strong>Salvo quando exigido por ordem judicial, conforme a lei.Sua confiança é fundamental para nós.</strong></p>
-        </div>
-    </div>
+            // Select all content modal openers
+            const openContentModalLinks = document.querySelectorAll('.open-content-modal');
 
 
+            // --- PWA Installation Prompt (moved to About Us content) ---
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                // The install link will be inserted directly into 'About Us' modal content
+            });
+
+            // --- Sidebar Toggles ---
+            menuToggle.addEventListener('click', () => {
+                sidebarNav.classList.add('open');
+            });
+
+            // Removed closeSidebarBtn.addEventListener as per user request
+            
+            document.addEventListener('click', (event) => {
+                if (!sidebarNav.contains(event.target) && !menuToggle.contains(event.target) && sidebarNav.classList.contains('open')) {
+                    sidebarNav.classList.remove('open');
+                }
+            });
+
+            // --- Section Scrolling ---
+            scrollBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const sectionId = button.dataset.sectionId;
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                        sidebarNav.classList.remove('open'); // Close sidebar after clicking
+                    }
+                });
+            });
+
+            // --- Main Modal Handling (for About Us, Premium, etc.) ---
+            openModalBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modalId = button.dataset.modalId;
+                    sidebarNav.classList.remove('open'); // Close sidebar when opening a modal
+
+                    switch (modalId) {
+                        case 'about-us':
+                            loadContentIntoModal('Sobre Nós', 'img/about-us.jpg', `
+                                <h2>Sobre Nós</h2>
+                                <p>Na <strong>Codify World</strong>, nossa missão é desmistificar o mundo complexo da economia, tecnologia e software. Somos uma equipe de analistas e jornalistas comprometidos em fornecer informações precisas, aprofundadas e isentas de viés ideológico.</p>
+                                <p>Acreditamos que o conhecimento é a chave para o empoderamento. Por isso, dedicamo-nos a pesquisar, analisar e reportar os fatos, não versões. Nosso foco está em tendências globais, inovações disruptivas e o impacto desses fatores no seu dia a dia e no futuro do mercado.</p>
+                                <p>Com uma abordagem multissetorial, cobrimos desde os avanços mais recentes em inteligência artificial e blockchain até as dinâmicas do mercado financeiro e as estratégias das grandes corporações tecnológicas. Nosso compromisso é com a verdade e a clareza, para que você possa tomar decisões informadas e entender verdadeiramente o cenário global de 2025 e além.</p>
+                                <p>Seja bem-vindo à sua fonte confiável de inteligência e análise.</p>
+                                <hr class="my-4">
+                                <p class="text-center mt-2">
+                                    Visite nosso site oficial: <a href="https://www.codifyworld.com.br" target="_blank" class="text-blue-700 underline font-bold">www.codifyworld.com.br</a>
+                                </p>
+                                <p class="text-center mt-2">
+                                    <a href="#" id="installAppInModalLink" class="text-blue-700 underline font-bold">Instalar CodifyNews como App</a>
+                                </p>
+                                <p class="text-center mt-4">
+                                    <strong>Conteúdo sob Licença</strong> <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank" class="text-blue-700 underline font-bold">CC BY-NC-ND 4.0</a> <br> <strong>Não usar comercialmente sem autorização prescrita, SOB PENA JUDICIAL.</strong>
+                                </p>
+                                <p class="text-center"><strong>© 2025 From Codify World Tech Labs <br> Direitos preservados.</strong></p>
+                                <p class="text-center"><a href="https://www.codifyworld.com.br" target="_blank" class="text-blue-700 underline">https://www.codifyworld.com.br</a></p>
+                            `);
+                            readModal.style.display = 'flex';
+                            // Add event listener for PWA install link inside the modal
+                            setTimeout(() => { // Use setTimeout to ensure the element is in DOM
+                                const installAppInModalLink = document.getElementById('installAppInModalLink');
+                                if (installAppInModalLink) {
+                                    if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+                                        installAppInModalLink.style.display = 'none'; // Hide if already installed
+                                    } else {
+                                        installAppInModalLink.style.display = 'block';
+                                    }
+                                    installAppInModalLink.onclick = async (e) => {
+                                        e.preventDefault();
+                                        if (deferredPrompt) {
+                                            deferredPrompt.prompt();
+                                            const { outcome } = await deferredPrompt.userChoice;
+                                            console.log(`User response to the install prompt: ${outcome}`);
+                                            deferredPrompt = null;
+                                            installAppInModalLink.style.display = 'none';
+                                        }
+                                    };
+                                }
+                            }, 0);
+                            break;
+                        case 'not-versions':
+                            loadContentIntoModal('Fatos, Não Versões', 'img/fatos_nao_versoes.jpg', `
+                                <h2>Fatos, Não Versões</h2>
+                                <p>Nesta seção, nos dedicamos a desmascarar mitos e apresentar a verdade por trás das narrativas. Com base em pesquisa rigorosa e fontes verificáveis, oferecemos uma perspectiva clara e objetiva sobre eventos e informações que frequentemente são distorcidas ou mal interpretadas.</p>
+                                <p>Nosso objetivo é combater a desinformação, fornecendo aos nossos leitores as ferramentas para discernir fatos de opiniões e propaganda. Aqui você encontrará análises críticas sobre:</p>
+                                <ul>
+                                    <li>Notícias e eventos globais sob uma ótica imparcial.</li>
+                                    <li>A veracidade de afirmações populares e virais.</li>
+                                    <li>O contexto completo por trás de manchetes sensacionalistas.</li>
+                                    <li>Desmistificando jargões técnicos e econômicos.</li>
+                                </ul>
+                                <p>Na Codify Nexo, a busca pela verdade é o nosso pilar. Apresentamos os dados e as evidências para que você possa formar suas próprias conclusões, sem distorções.</p>
+                            `);
+                            readModal.style.display = 'flex';
+                            break;
+                        case 'premium-subscription':
+                            loadContentIntoModal('Assinatura Premium', 'img/premium.jpg', `
+                                <h2>Assinatura Premium</h2>
+                                <p>Torne-se um assinante Premium da Codify Nexo e tenha acesso exclusivo a conteúdo aprofundado, análises avançadas e relatórios de mercado antecipados. Nossos assinantes recebem:</p>
+                                <ul>
+                                    <li>Acesso ilimitado a todos os artigos e relatórios premium.</li>
+                                    <li>Newsletters exclusivas com insights de mercado e tendências.</li>
+                                    <li>Convites para webinars e eventos exclusivos com nossos analistas.</li>
+                                    <li>Conteúdo sem anúncios para uma experiência de leitura ininterrupta.</li>
+                                    <li>Suporte prioritário.</li>
+                                </ul>
+                                <p class="text-center mt-4">Invista no seu conhecimento e fique à frente no mercado.</p>
+                                <p class="text-center mt-2 font-bold text-xl text-primary-blue">Comece sua Assinatura Premium hoje!</p>
+                            `);
+                            readModal.style.display = 'flex';
+                            break;
+                        case 'privacy-policy':
+                            privacyModal.style.display = 'flex';
+                            break;
+                        case 'terms-of-use':
+                            termsModal.style.display = 'flex';
+                            break;
+                    }
+                });
+            });
+
+            // --- Content Modal Handling (for News, Articles, Reports, Gallery) ---
+            openContentModalLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default link behavior
+                    const title = link.dataset.title;
+                    const image = link.dataset.image;
+                    const content = link.dataset.content;
+
+                    loadContentIntoModal(title, image, content);
+                    readModal.style.display = 'flex';
+                });
+            });
+
+
+            function loadContentIntoModal(title, imageUrl, contentHtml) {
+                modalImage.src = imageUrl;
+                modalImage.alt = title;
+                modalImage.style.display = imageUrl ? 'block' : 'none'; // Only show image if URL provided
+                modalTextContent.innerHTML = contentHtml;
+            }
+
+            modalCloseBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    readModal.style.display = 'none';
+                    privacyModal.style.display = 'none';
+                    termsModal.style.display = 'none';
+                    modalImage.style.display = 'block'; // Reset display for next modal
+                });
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === readModal) {
+                    readModal.style.display = 'none';
+                    modalImage.style.display = 'block';
+                }
+                if (event.target === privacyModal) {
+                    privacyModal.style.display = 'none';
+                }
+                if (event.target === termsModal) {
+                    termsModal.style.display = 'none';
+                }
+            });
+
+            // --- Show More / Less Logic for Sections ---
+            const hiddenCardClass = 'hidden-card';
+
+            function setupShowMore(containerSelector, buttonId, initialCount) {
+                const container = document.querySelector(containerSelector);
+                const cards = container ? Array.from(container.children) : [];
+                const toggleBtn = document.getElementById(buttonId);
+
+                if (!container || !toggleBtn || cards.length === 0) {
+                    if (toggleBtn) toggleBtn.style.display = 'none';
+                    return;
+                }
+
+                let showingAll = false;
+
+                function updateVisibility() {
+                    cards.forEach((card, index) => {
+                        if (showingAll || index < initialCount) {
+                            card.classList.remove(hiddenCardClass);
+                        } else {
+                            card.classList.add(hiddenCardClass);
+                        }
+                    });
+
+                    if (cards.length > initialCount) {
+                        toggleBtn.style.display = 'block';
+                        toggleBtn.textContent = showingAll ? 'Mostrar Menos' : 'Mostrar Mais';
+                    } else {
+                        toggleBtn.style.display = 'none';
+                    }
+                }
+
+                toggleBtn.addEventListener('click', () => {
+                    showingAll = !showingAll;
+                    updateVisibility();
+                    if (!showingAll) { // Scroll to top of section when showing less
+                        const section = toggleBtn.closest('.content-section');
+                        if (section) {
+                            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                });
+
+                // Initial setup call
+                updateVisibility();
+            }
+
+
+            // Function to fetch detailed cryptocurrency data and display in modal
+            async function fetchCryptoDetails(coinId) {
+                const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+
+                    // Get description, prefer Portuguese if available, otherwise English
+                    let description = data.description.pt || data.description.en || 'Descrição não disponível.';
+                    
+                    // Truncate description if too long
+                    const maxLength = 800; // Max characters for a "brief summary"
+                    if (description.length > maxLength) {
+                        description = description.substring(0, maxLength) + '... (Leia mais no CoinGecko)';
+                    }
+
+
+                    loadContentIntoModal(
+                        data.name,
+                        data.image.large, // Use large image for modal
+                        `
+                        <h2>${data.name} (${data.symbol.toUpperCase()})</h2>
+                        <p><strong>Rank:</strong> #${data.market_cap_rank || 'N/A'}</p>
+                        <p><strong>Website:</strong> <a href="${data.links.homepage[0]}" target="_blank" class="text-blue-700 underline">${data.links.homepage[0]}</a></p>
+                        <h3>Sobre a ${data.name}:</h3>
+                        <p>${description}</p>
+                        <p class="text-center mt-4 text-sm text-gray-500">Dados fornecidos por <a href="https://www.coingecko.com/" target="_blank" class="text-blue-700 underline">CoinGecko</a>.</p>
+                        `
+                    );
+                    readModal.style.display = 'flex';
+
+                } catch (error) {
+                    console.error(`Erro ao buscar detalhes da criptomoeda ${coinId}:`, error);
+                    loadContentIntoModal(
+                        'Erro',
+                        '',
+                        `<p class="text-center text-red-500">Não foi possível carregar os detalhes da criptomoeda no momento. Por favor, tente novamente mais tarde.</p>`
+                    );
+                    readModal.style.display = 'flex';
+                }
+            }
+
+
+            // Function to fetch and display cryptocurrency market data
+            async function fetchCryptoData() {
+                const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=50&page=1&sparkline=false';
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+
+                    cryptocurrencyContainer.innerHTML = ''; // Clear existing content
+
+                    data.forEach(coin => {
+                        const changeClass = coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative';
+                        const card = document.createElement('div');
+                        card.className = 'cryptocurrency-card';
+                        card.innerHTML = `
+                            <img src="${coin.image}" alt="${coin.name} Logo">
+                            <h3>${coin.name} (${coin.symbol.toUpperCase()})</h3>
+                            <p class="${changeClass}">📈 Variação 24h: ${coin.price_change_percentage_24h.toFixed(2)}%</p>
+                            <p class="price">💰 Preço: R$ ${coin.current_price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 10 })}</p>
+                            <p class="marketcap">📊 Market Cap: R$ ${coin.market_cap.toLocaleString('pt-BR')}</p>
+                            <button class="view-crypto-details-btn" data-coin-id="${coin.id}">Ver Cotação</button>
+                        `;
+                        cryptocurrencyContainer.appendChild(card);
+                    });
+
+                    // Add event listeners to newly created "Ver Cotação" buttons
+                    document.querySelectorAll('.view-crypto-details-btn').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            const coinId = event.target.dataset.coinId;
+                            fetchCryptoDetails(coinId);
+                        });
+                    });
+
+                    // After loading, apply the show more/less logic
+                    setupShowMore('.cryptocurrency-container', 'show-more-crypto', 20); // Changed to 20 initial coins
+
+                } catch (error) {
+                    console.error('Erro ao buscar dados de criptomoedas:', error);
+                    cryptocurrencyContainer.innerHTML = '<p class="text-center text-red-500">Não foi possível carregar os dados de criptomoedas no momento. Por favor, tente novamente mais tarde.</p>';
+                    document.getElementById('show-more-crypto').style.display = 'none'; // Hide button on error
+                }
+            }
+
+
+            // Call API function on page load
+            fetchCryptoData();
+
+            // Setup for News (e.g., show 5 initially)
+            setupShowMore('.news-cards-container', 'show-more-news', 5); // Changed to 5 initial news
+            // Setup for Articles (e.g., show 5 initially)
+            setupShowMore('.articles-cards-container', 'show-more-articles', 5); // Changed to 5 initial articles
+            // Setup for Reports (e.g., show 5 initially)
+            setupShowMore('.reports-cards-container', 'show-more-reports', 5); // Changed to 5 initial reports
+            // Setup for Gallery (e.g., show 5 initially)
+            setupShowMore('.gallery-cards-container', 'show-more-gallery', 5); // Changed to 5 initial gallery
+
+
+            // --- Dark Mode Toggle ---
+            const body = document.body;
+            const darkModeKey = 'darkModeEnabled';
+
+            // Check localStorage for dark mode preference on load
+            if (localStorage.getItem(darkModeKey) === 'true') {
+                body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela'; // Change icon and text
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
+                localStorage.setItem(darkModeKey, isDarkMode); // Save preference
+
+                if (isDarkMode) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela';
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Escurecer Tela';
+                }
+            });
 
 
 
-</main>
 
-<footer>
-    <p>
-    <strong>Conteúdo sob Licença</strong> <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.pt_BR" target="_blank">CC BY-NC-ND 4.0</a> <br> <strong>Não usar comercialmente sem autorização prescrita, SOB PENA JUDICIAL.</strong>
-    </p>
-    <p><strong>© 2025 From Codify World Tech Labs <br> Direitos preservados.</strong></p>
-    <p><a href="https://www.codifyworld.com.br">https://www.codifyworld.com.br</a></p>
-</footer>
+  // Desativa o menu de contexto (botão direito do mouse)
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-<div id="read-modal">
-    <div id="read-modal-content">
-        <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
-        <div id="modal-image-container">
-            <img id="modal-image" src="" alt="Imagem do Relatório">
-        </div>
-        <h3 id="modal-title"></h3>
-        <div id="modal-full-text">
-            </div>
-    </div>
-</div>
+        // Desabilita atalhos como F12, Ctrl+Shift+I, Ctrl+U, etc.
+        document.addEventListener('keydown', event => {
+            // F12
+            if (event.keyCode == 123) {
+                event.preventDefault();
+            }
+            // Ctrl+Shift+I (ou Cmd+Option+I para Mac)
+            if (event.ctrlKey && event.shiftKey && event.keyCode == 'I'.charCodeAt(0)) {
+                event.preventDefault();
+            }
+            // Ctrl+Shift+J (ou Cmd+Option+J para Mac)
+            if (event.ctrlKey && event.shiftKey && event.keyCode == 'J'.charCodeAt(0)) {
+                event.preventDefault();
+            }
+            // Ctrl+U (ou Cmd+Option+U para Mac) - Ver código fonte
+            if (event.ctrlKey && event.keyCode == 'U'.charCodeAt(0)) {
+                event.preventDefault();
+            }
+            // Ctrl+S (ou Cmd+S para Mac) - Salvar página
+            if (event.ctrlKey && event.keyCode == 'S'.charCodeAt(0)) {
+                event.preventDefault();
+            }
+        });
 
-<button id="back-to-top-btn" aria-label="Voltar ao Topo">
-    <i class="fas fa-arrow-up"></i>
-</button>
-
+        });
+    </script>
 </body>
 </html>

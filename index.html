@@ -385,9 +385,9 @@
 
         /* Cryptocurrency Section Specifics */
         .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container {
-            display: grid; 
+            display: flex; 
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             margin-top: 20px;
             padding: 0 10px
@@ -410,9 +410,9 @@
         }
 
         .cryptocurrency-card img {
-            width: 40px;
-            height: 0px;
-            margin-bottom: 8px;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
         }
         .news-card img, .article-card img, .report-card img, .gallery-card img {
             width: 100%;
@@ -424,21 +424,21 @@
 
         .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3 {
             font-family: var(--font-heading);
-            font-size: 1.0rem;
+            font-size: 1.2rem;
             margin-bottom: 5px;
             color: var(--primary-blue);
             transition: color 0.3s ease;
         }
 
         .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             color: var(--dark-gray);
             margin-bottom: 5px;
             text-align: center;
             transition: color 0.3s ease;
         }
         .cryptocurrency-card p.price, .cryptocurrency-card p.marketcap {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             margin-top: 8px;
             color: #555;
         }

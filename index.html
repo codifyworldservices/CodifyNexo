@@ -1668,51 +1668,48 @@
                     });
 
 // b3333333333333333333333333333333333333333
-   const todasAcoes = [
-    'VALE3', 'PETR4', 'ITUB4', 'BBDC4', 'ABEV3',
+ 
+document.addEventListener("DOMContentLoaded", () => {
+  // --- Script da B3 ---
+  const todasAcoes = ['VALE3', 'PETR4', 'ITUB4', 
+    'BBDC4', VALE3', 'PETR4', 'ITUB4', 'BBDC4', 'ABEV3',
     'BBAS3', 'WEGE3', 'MGLU3', 'RENT3', 'B3SA3',
     'LREN3', 'GGBR4', 'ELET3', 'HAPV3', 'SBSP3',
     'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
     'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11',
     'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3'
-  ];
+                     ];
+  const b3Url = `https://brapi.dev/api/quote/${todasAcoes.join(',')}?range=1d&interval=1d&fundamental=true`;
 
-  const url = `https://brapi.dev/api/quote/${todasAcoes.join(',')}?range=1d&interval=1d&fundamental=true`;
-
-  fetch(url, {
+  fetch(b3Url, {
     headers: {
       'x-api-key': 'h4Nc6GEDnRhYnz4aZeLtjV'
     }
   })
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById('b3-container');
-      container.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4';
+  .then(res => res.json())
+  .then(data => {
+    const b3Container = document.getElementById('b3-container');
+    b3Container.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4';
 
-      data.results.forEach(acao => {
-        const card = document.createElement('div');
-        const isAlta = acao.change >= 0;
-        const variacaoClasse = isAlta ? 'text-green-500' : 'text-red-500';
-        const variacaoSimbolo = isAlta ? '▲' : '▼';
+    data.results.forEach(acao => {
+      const card = document.createElement('div');
+      const isAlta = acao.change >= 0;
+      const variacaoClasse = isAlta ? 'text-green-500' : 'text-red-500';
+      const variacaoSimbolo = isAlta ? '▲' : '▼';
 
-        card.className = 'bg-white rounded-xl shadow-lg p-5 hover:shadow-2xl transition duration-300';
+      card.className = 'bg-white rounded-xl shadow-lg p-5 hover:shadow-2xl transition duration-300';
 
-        card.innerHTML = `
-          <h3 class="text-xl font-bold mb-2 text-gray-800">${acao.stock}</h3>
-          <p class="mb-1 text-gray-700">📈 Variação: <span class="${variacaoClasse} font-semibold">${variacaoSimbolo} ${acao.change.toFixed(2)}%</span></p>
-          <p class="mb-1 text-gray-700">💰 Preço: <span class="font-medium">R$ ${acao.regularMarketPrice.toFixed(2)}</span></p>
-          <p class="text-gray-700">📊 Market Cap: <span class="font-medium">R$ ${acao.marketCap.toLocaleString('pt-BR')}</span></p>
-        `;
+      card.innerHTML = `
+        <h3 class="text-xl font-bold mb-2 text-gray-800">${acao.stock}</h3>
+        <p class="mb-1 text-gray-700">📈 Variação: <span class="${variacaoClasse} font-semibold">${variacaoSimbolo} ${acao.change.toFixed(2)}%</span></p>
+        <p class="mb-1 text-gray-700">💰 Preço: <span class="font-medium">R$ ${acao.regularMarketPrice.toFixed(2)}</span></p>
+        <p class="text-gray-700">📊 Market Cap: <span class="font-medium">R$ ${acao.marketCap.toLocaleString('pt-BR')}</span></p>
+      `;
 
-        container.appendChild(card);
-      });
-    })
-    .catch(error => {
-      console.error('Erro ao carregar dados da B3:', error);
-      const container = document.getElementById('b3-container');
-      container.innerHTML = `<p class="text-red-500 text-center w-full col-span-full">Erro ao carregar dados da B3. Verifique a chave da API.</p>`;
+      b3Container.appendChild(card);
     });
-
+  });
+});
 
 
 

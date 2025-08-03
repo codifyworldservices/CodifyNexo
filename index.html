@@ -1023,19 +1023,18 @@
   </section>
 
         
-
-  <section id="b3-section" class="content-section">
+<div id="b3-container">
+  <section id="b3-section" class="content-section mt-16">
   <div class="section-heading-wrapper">
-    <h2 class="section-heading">Mercado B3</h2>
+    <h2 class="section-heading text-center text-2xl font-semibold text-gray-800 mb-4">Mercado B3</h2>
   </div>
-  <p class="text-center mb-8 max-w-3xl mx-auto">
-    Veja os principais ativos da Bolsa de Valores Brasileira.
+  <p class="text-center mb-8 max-w-3xl mx-auto text-gray-600">
+    Veja os principais ativos da Bolsa de Valores Brasileira em tempo real.
   </p>
   <div id="b3-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4"></div>
-  <p class="text-center mt-8 text-sm text-gray-500">Dados da Brapi.dev.</p>
+  <p class="text-center mt-8 text-sm text-gray-500">Fonte: Brapi.dev</p>
 </section>
-
-
+</div>
 
 
         
@@ -1666,17 +1665,18 @@
  
 
   // --- Script da B3 ---
-  document.addEventListener("DOMContentLoaded", () => {
-  const todasAcoes = ['VALE3', 'PETR4', 'ITUB4', 'BBDC4', 'WEGE3', 'BBAS3', 'MGLU3', 'VALE3', 'PETR4', 'ITUB4', 'BBDC4', 
-    'WEGE3', 'MGLU3', 'RENT3', 'B3SA3', 'ABEV3',
-    'LREN3', 'GGBR4', 'ELET3', 'HAPV3', 'SBSP3',
-    'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
-    'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11',
-    'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3'
-                     ];
-  const b3Url = `https://brapi.dev/api/quote/${todasAcoes.join(',')}?range=1d&interval=1d&fundamental=true`;
 
-  fetch(b3Url, {
+                   document.addEventListener("DOMContentLoaded", () => {
+ const ativosAtualizados = [
+  'VALE3', 'PETR4', 'ITUB4', 'BBDC4', 'WEGE3', 'BBAS3', 'MGLU3', 'RENT3', 'B3SA3', 'ABEV3',
+  'LREN3', 'GGBR4', 'ELET3', 'HAPV3', 'SBSP3', 'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
+  'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11', 'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3',
+  'AMER3', 'JBSS3'
+];
+
+  const url = `https://brapi.dev/api/quote/${ativos.join(',')}?range=1d&interval=1d&fundamental=true`;
+
+  fetch(url, {
     headers: { 'x-api-key': 'h4Nc6GEDnRhYnz4aZeLtjV' }
   })
   .then(res => res.json())
@@ -1685,25 +1685,33 @@
     if (!container || !data.results) return;
 
     data.results.forEach(acao => {
-      const card = document.createElement('div');
       const isAlta = acao.change >= 0;
-      const classe = isAlta ? 'text-green-500' : 'text-red-500';
+      const cor = isAlta ? 'text-green-500' : 'text-red-500';
       const simbolo = isAlta ? '▲' : '▼';
 
+      const card = document.createElement('div');
       card.className = 'bg-white rounded-xl shadow-md p-5 hover:shadow-2xl transition duration-300';
+
       card.innerHTML = `
         <h3 class="text-lg font-bold text-gray-800">${acao.stock}</h3>
-        <p class="text-gray-700">💰 Preço: R$ ${acao.regularMarketPrice.toFixed(2)}</p>
-        <p class="text-gray-700">📈 Variação: <span class="${classe}">${simbolo} ${acao.change.toFixed(2)}%</span></p>
-        <p class="text-gray-700">📊 Market Cap: R$ ${acao.marketCap.toLocaleString('pt-BR')}</p>
+        <p class="text-gray-700">🏷️ Nome: ${acao.longName || 'Não disponível'}</p>
+        <p class="text-gray-700">💰 Preço: R$ ${acao.regularMarketPrice?.toFixed(2) || 'N/A'}</p>
+        <p class="text-gray-700">📈 Variação: <span class="${cor}">${simbolo} ${acao.change?.toFixed(2) || 0}%</span></p>
+        <p class="text-gray-700">📊 Market Cap: R$ ${acao.marketCap?.toLocaleString('pt-BR') || 'N/A'}</p>
+        <p class="text-gray-700">📉 Mín/Máx: R$ ${acao.regularMarketDayLow?.toFixed(2) || '-'} / R$ ${acao.regularMarketDayHigh?.toFixed(2) || '-'}</p>
       `;
+
       container.appendChild(card);
     });
+  })
+  .catch(err => {
+    console.error("Erro ao buscar dados da B3:", err);
+    const container = document.getElementById('b3-container');
+    if (container) {
+      container.innerHTML = `<p class="text-red-500 text-center">Erro ao carregar dados da B3.</p>`;
+    }
   });
 });
-
-
-
 
 
                     

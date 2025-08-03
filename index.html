@@ -1026,7 +1026,7 @@
 
   <section id="b3-section" class="content-section mt-16">
   <div class="section-heading-wrapper">
-    <h2 class="section-heading text-center text-2xl font-semibold text-gray-800 mb-4">Mercado B3 em Construcão</h2>
+    <h2 class="section-heading">Mercado B3 em Construcão</h2>
   </div>
   <p class="text-center mb-8 max-w-3xl mx-auto text-gray-600">
     Veja os principais ativos da Bolsa de Valores Brasileira em tempo real.
@@ -1661,21 +1661,36 @@
                         });
                     });
 
-// b3333333333333333333333333333333333333333
- 
+                    
+                    // After loading, apply the show more/less logic
+                    setupShowMore('.cryptocurrency-container', 'show-more-crypto', 10); // Changed to 20 initial coins
 
-  // --- Script da B3 ---
+                } catch (error) {
+                    console.error('Erro ao buscar dados de criptomoedas:', error);
+                    cryptocurrencyContainer.innerHTML = '<p class="text-center text-red-500">Não foi possível carregar os dados de criptomoedas no momento. Por favor, tente novamente mais tarde.</p>';
+                    document.getElementById('show-more-crypto').style.display = 'none'; // Hide button on error
+                }
+            }
 
-                   document.addEventListener("DOMContentLoaded", () => {
- const ativosAtualizados = [
-  'VALE3', 'PETR4', 'ITUB4', 'BBDC4', 'WEGE3', 'BBAS3', 'MGLU3', 'RENT3', 'B3SA3', 'ABEV3',
-  'LREN3', 'GGBR4', 'ELET3', 'HAPV3', 'SBSP3', 'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
-  'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11', 'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3',
-  'AMER3', 'JBSS3'
-];
 
-  const url = `https://brapi.dev/api/quote/${ativos.join(',')}?range=1d&interval=1d&fundamental=true`;
+            // Call API function on page load
+            fetchCryptoData();
 
+            
+           // b3333333333333333333333
+              document.addEventListener("DOMContentLoaded", () => {
+  // Lista unificada e sem duplicatas
+  const ativosAtualizados = [
+    'VALE3', 'PETR4', 'ITUB4', 'BBDC4', 'WEGE3', 'BBAS3', 'MGLU3', 'RENT3', 'B3SA3', 'ABEV3',
+    'LREN3', 'GGBR4', 'ELET3', 'HAPV3', 'SBSP3', 'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
+    'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11', 'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3',
+    'AMER3', 'JBSS3'
+  ];
+
+  // Monta a URL com ativos separados por vírgula
+  const url = `https://brapi.dev/api/quote/${ativosAtualizados.join(',')}?range=1d&interval=1d&fundamental=true`;
+
+  // Faz a requisição com o token na header
   fetch(url, {
     headers: { 'x-api-key': 'h4Nc6GEDnRhYnz4aZeLtjV' }
   })
@@ -1711,27 +1726,8 @@
       container.innerHTML = `<p class="text-red-500 text-center">Erro ao carregar dados da B3.</p>`;
     }
   });
-});
-
-
-                    
-
-
-                    
-                    // After loading, apply the show more/less logic
-                    setupShowMore('.cryptocurrency-container', 'show-more-crypto', 10); // Changed to 20 initial coins
-
-                } catch (error) {
-                    console.error('Erro ao buscar dados de criptomoedas:', error);
-                    cryptocurrencyContainer.innerHTML = '<p class="text-center text-red-500">Não foi possível carregar os dados de criptomoedas no momento. Por favor, tente novamente mais tarde.</p>';
-                    document.getElementById('show-more-crypto').style.display = 'none'; // Hide button on error
-                }
-            }
-
-
-            // Call API function on page load
-            fetchCryptoData();
-
+});          
+            
             // Setup for News (e.g., show 5 initially)
             setupShowMore('.news-cards-container', 'show-more-news', 5); // Changed to 5 initial news
             // Setup for Articles (e.g., show 5 initially)

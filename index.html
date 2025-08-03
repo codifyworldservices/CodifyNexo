@@ -1013,7 +1013,7 @@
       <h2 class="section-heading">Mercado Crypto</h2>
     </div>
     <p class="text-center mb-8 max-w-3xl mx-auto">
-      Explore o universo das criptomoedas e da tecnologia blockchain, com análises sobre as principais moedas, tendências de mercado e o impacto dessa inovação na economia global.
+      Explore o universo das criptomoedas e da tecnologia blockchain.
     </p>
     <div class="cryptocurrency-container">
       <!-- Criptomoedas aqui -->
@@ -1688,11 +1688,11 @@
   ];
 
   // Monta a URL com ativos separados por vírgula
-  const url = `https://brapi.dev/api/quote/${ativosAtualizados.join(',')}?range=1d&interval=1d&fundamental=true`;
+  const url = `https://brapi.dev/api/quote/PETR4?token=h4Nc6GEDnRhYnz4aZeLtjV`;
 
   // Faz a requisição com o token na header
   fetch(url, {
-    headers: { 'x-api-key': 'h4Nc6GEDnRhYnz4aZeLtjV' }
+    headers: { 'x-api-key': '' }
   })
   .then(res => res.json())
   .then(data => {

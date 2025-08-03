@@ -1675,7 +1675,6 @@
     'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
     'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11',
     'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3'
-
   ];
 
   const url = `https://brapi.dev/api/quote/${todasAcoes.join(',')}?range=1d&interval=1d&fundamental=true`;
@@ -1688,18 +1687,21 @@
     .then(res => res.json())
     .then(data => {
       const container = document.getElementById('b3-container');
+      container.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4';
+
       data.results.forEach(acao => {
         const card = document.createElement('div');
-        card.className = 'bg-white shadow-lg rounded-xl p-4 hover:shadow-2xl transition-all';
+        const isAlta = acao.change >= 0;
+        const variacaoClasse = isAlta ? 'text-green-500' : 'text-red-500';
+        const variacaoSimbolo = isAlta ? '▲' : '▼';
 
-        const variacaoClasse = acao.change >= 0 ? 'text-green-500' : 'text-red-500';
-        const variacaoSimbolo = acao.change >= 0 ? '▲' : '▼';
+        card.className = 'bg-white rounded-xl shadow-lg p-5 hover:shadow-2xl transition duration-300';
 
         card.innerHTML = `
-          <h3 class="text-xl font-semibold mb-2">${acao.stock}</h3>
-          <p class="text-gray-700 mb-1">📈 Variação: <span class="${variacaoClasse}">${variacaoSimbolo} ${acao.change.toFixed(2)}%</span></p>
-          <p class="text-gray-700 mb-1">💰 Preço: R$ ${acao.regularMarketPrice.toFixed(2)}</p>
-          <p class="text-gray-700">📊 Market Cap: R$ ${acao.marketCap.toLocaleString('pt-BR')}</p>
+          <h3 class="text-xl font-bold mb-2 text-gray-800">${acao.stock}</h3>
+          <p class="mb-1 text-gray-700">📈 Variação: <span class="${variacaoClasse} font-semibold">${variacaoSimbolo} ${acao.change.toFixed(2)}%</span></p>
+          <p class="mb-1 text-gray-700">💰 Preço: <span class="font-medium">R$ ${acao.regularMarketPrice.toFixed(2)}</span></p>
+          <p class="text-gray-700">📊 Market Cap: <span class="font-medium">R$ ${acao.marketCap.toLocaleString('pt-BR')}</span></p>
         `;
 
         container.appendChild(card);
@@ -1707,6 +1709,8 @@
     })
     .catch(error => {
       console.error('Erro ao carregar dados da B3:', error);
+      const container = document.getElementById('b3-container');
+      container.innerHTML = `<p class="text-red-500 text-center w-full col-span-full">Erro ao carregar dados da B3. Verifique a chave da API.</p>`;
     });
 
 

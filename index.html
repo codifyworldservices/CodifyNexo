@@ -1675,59 +1675,39 @@
     'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
     'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11',
     'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3'
+
   ];
 
-  let paginaAtual = 0;
-  const tamanhoPagina = 10;
+  const url = `https://brapi.dev/api/quote/${todasAcoes.join(',')}?range=1d&interval=1d&fundamental=true`;
 
-  async function carregarAcoesB3(pagina) {
-    const container = document.getElementById("b3-container");
-    const inicio = pagina * tamanhoPagina;
-    const fim = inicio + tamanhoPagina;
-    const acoesPagina = todasAcoes.slice(inicio, fim);
-
-    if (acoesPagina.length === 0) {
-      document.getElementById("show-more-b3").disabled = true;
-      document.getElementById("show-more-b3").innerText = "Todas as ações foram carregadas.";
-      return;
+  fetch(url, {
+    headers: {
+      'x-api-key': 'h4Nc6GEDnRhYnz4aZeLtjV'
     }
-
-    try {
-      const response = await fetch(`h4Nc6GEDnRhYnz4aZeLtjV`);
-      const data = await response.json();
-
+  })
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('b3-container');
       data.results.forEach(acao => {
-        const card = document.createElement("div");
-        card.className = "bg-white shadow-md rounded-lg p-4 m-2 w-full md:w-1/2 lg:w-1/3";
+        const card = document.createElement('div');
+        card.className = 'bg-white shadow-lg rounded-xl p-4 hover:shadow-2xl transition-all';
 
-        const variacao = acao.change_percent?.toFixed(2) ?? "0.00";
-        const cor = variacao >= 0 ? 'text-green-500' : 'text-red-500';
+        const variacaoClasse = acao.change >= 0 ? 'text-green-500' : 'text-red-500';
+        const variacaoSimbolo = acao.change >= 0 ? '▲' : '▼';
 
         card.innerHTML = `
-          <h3 class="text-xl font-bold mb-2">${acao.symbol} - ${acao.shortName}</h3>
-          <p class="text-gray-700">💰 Preço: R$ ${acao.regularMarketPrice?.toFixed(2) ?? "N/A"}</p>
-          <p class="${cor}">📈 Variação: ${variacao}%</p>
-          <p class="text-gray-700">📊 Valor de Mercado: R$ ${(acao.marketCap ? acao.marketCap / 1e9 : 0).toFixed(2)} Bi</p>
+          <h3 class="text-xl font-semibold mb-2">${acao.stock}</h3>
+          <p class="text-gray-700 mb-1">📈 Variação: <span class="${variacaoClasse}">${variacaoSimbolo} ${acao.change.toFixed(2)}%</span></p>
+          <p class="text-gray-700 mb-1">💰 Preço: R$ ${acao.regularMarketPrice.toFixed(2)}</p>
+          <p class="text-gray-700">📊 Market Cap: R$ ${acao.marketCap.toLocaleString('pt-BR')}</p>
         `;
 
         container.appendChild(card);
       });
-
-      paginaAtual++;
-    } catch (erro) {
-      console.error("Erro ao carregar ações:", erro);
-      container.innerHTML += `<p class="text-red-500">Erro ao carregar mais dados da B3.</p>`;
-    }
-  }
-
-  // Carregar primeira página ao entrar
-  carregarAcoesB3(paginaAtual);
-
-  // Mostrar mais ao clicar no botão
-  document.getElementById("show-more-b3").addEventListener("click", () => {
-    carregarAcoesB3(paginaAtual);
-  });
-
+    })
+    .catch(error => {
+      console.error('Erro ao carregar dados da B3:', error);
+    });
 
 
 

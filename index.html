@@ -1727,34 +1727,7 @@
                     });
 
 // b3333333333333333333333333333333333333333
-             const ativosTop10 = [
-    "PETR4", "VALE3", "ITUB4", "BBDC4", "BBAS3",
-    "ABEV3", "MGLU3", "B3SA3", "WEGE3", "ELET3"
-  ];
-
-  const url = `https://brapi.dev/api/quote/${ativosTop10.join(",")}`;
-
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("b3-container");
-
-      data.results.forEach(acao => {
-        const card = document.createElement("div");
-        card.className = "b3-card";
-        card.innerHTML = `
-          <h3>${acao.symbol}</h3>
-          <p>💰 Preço: R$ ${acao.regularMarketPrice.toFixed(2)}</p>
-          <p>📈 Variação: ${acao.regularMarketChangePercent.toFixed(2)}%</p>
-          <p>🏦 Valor de Mercado: R$ ${acao.marketCap.toLocaleString('pt-BR')}</p>
-          <p>💵 Moeda: ${acao.currency}</p>
-        `;
-        container.appendChild(card);
-      });
-    })
-    .catch(err => {
-      console.error("Erro ao buscar dados da B3:", err);
-    });
+   
 
 
 

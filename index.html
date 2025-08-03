@@ -383,6 +383,63 @@
             text-align: center;
         }
 
+
+
+        
+         /* b333333333333333 */
+        .b3-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .b3-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .b3-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .b3-card h3 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #1d4ed8;
+      margin-bottom: 10px;
+    }
+
+    .b3-card p {
+      margin: 4px 0;
+      color: #374151;
+    }
+
+    .show-more-btn {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 10px 20px;
+      background-color: #1d4ed8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .show-more-btn:hover {
+      background-color: #2563eb;
+    }
+/* b333333333333333 */
+
+
+
+
+
+        
         /* Cryptocurrency Section Specifics */
         .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container {
             display: flex; 
@@ -1006,7 +1063,22 @@
             <button class="show-more-btn" id="show-more-crypto">Mostrar Mais Criptomoedas</button>
             <p class="text-center mt-8 text-sm text-gray-500">Dados de cotação fornecidos pela CoinGecko.</p>
         </section>
-        
+
+        <section id="b3-section" class="content-section">
+  <div class="section-heading-wrapper">
+    <h2 class="section-heading">Mercado Financeiro</h2>
+  </div>
+  <p class="text-center mb-8 max-w-3xl mx-auto">
+    Explore o universo das ações brasileiras com dados em tempo real das principais empresas da B3, incluindo preços atualizados, variações e valor de mercado.
+  </p>
+
+  <div class="b3-container" id="b3-container">
+    <!-- Cards das ações da B3 serão inseridos aqui -->
+  </div>
+
+  <button class="show-more-btn" id="show-more-b3">Mostrar Mais Ações</button>
+  <p class="text-center mt-8 text-sm text-gray-500">Dados fornecidos gratuitamente por BRAPI.dev</p>
+</section>
 
         <section id="reports-section" class="content-section">
             <div class="section-heading-wrapper">
@@ -1631,6 +1703,45 @@
                         });
                     });
 
+// b3333333333333333333333333333333333333333
+                     const ativosTop10 = [
+      "PETR4", "VALE3", "ITUB4", "BBDC4", "BBAS3",
+      "ABEV3", "MGLU3", "B3SA3", "WEGE3", "ELET3"
+    ];
+
+    const url = `https://brapi.dev/api/quote/${ativosTop10.join(",")}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("acoes-container");
+
+        data.results.forEach(acao => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h2>${acao.symbol}</h2>
+            <p>💰 Preço: R$ ${acao.regularMarketPrice.toFixed(2)}</p>
+            <p>📈 Variação: ${acao.regularMarketChangePercent.toFixed(2)}%</p>
+            <p>🏦 Valor de Mercado: R$ ${acao.marketCap.toLocaleString('pt-BR')}</p>
+            <p>💵 Moeda: ${acao.currency}</p>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error("Erro ao buscar dados da B3:", err);
+      });
+
+
+
+
+
+
+
+
+
+                    
                     // After loading, apply the show more/less logic
                     setupShowMore('.cryptocurrency-container', 'show-more-crypto', 10); // Changed to 20 initial coins
 

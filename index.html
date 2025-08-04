@@ -478,13 +478,13 @@
 
         /* Estilos específicos para imagens dentro de cards */
         .cryptocurrency-card img {
-            width: 50px;
-            height: 50px;
+            width: 75px; /* Aumentado em 50% (original 50px) */
+            height: 75px; /* Aumentado em 50% (original 50px) */
             margin-bottom: 10px;
         }
         .news-card img, .article-card img, .report-card img, .gallery-card img {
             width: 100%;
-            height: 120px;
+            height: 180px; /* Aumentado em 50% (original 120px) */
             object-fit: cover;
             border-radius: 4px;
             margin-bottom: 10px;
@@ -927,9 +927,17 @@
             .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
                 font-size: 0.75rem; /* Fonte do parágrafo menor */
             }
-            .cryptocurrency-card img, .news-card img, .article-card img, .report-card img, .gallery-card img, .b3-card img {
-                width: 40px; /* Imagens menores */
-                height: 40px;
+            .cryptocurrency-card img {
+                width: 75px; /* Aumentado em 50% (original 50px) */
+                height: 75px; /* Aumentado em 50% (original 50px) */
+            }
+            .news-card img, .article-card img, .report-card img, .gallery-card img {
+                width: 100%; /* Mantém 100% para preencher o card */
+                height: 60px; /* Aumentado em 50% (original 40px) */
+            }
+            .b3-card img {
+                width: 96px; /* Aumentado em 50% (original 64px) */
+                height: 96px; /* Aumentado em 50% (original 64px) */
             }
         }
 
@@ -948,9 +956,17 @@
             .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
                 font-size: 0.7rem;
             }
-            .cryptocurrency-card img, .news-card img, .article-card img, .report-card img, .gallery-card img, .b3-card img {
-                width: 35px;
-                height: 35px;
+            .cryptocurrency-card img {
+                width: 75px; /* Mantém o tamanho maior */
+                height: 75px; /* Mantém o tamanho maior */
+            }
+            .news-card img, .article-card img, .report-card img, .gallery-card img {
+                width: 100%; /* Mantém 100% para preencher o card */
+                height: 52px; /* Aumentado em 50% (original 35px, arredondado) */
+            }
+            .b3-card img {
+                width: 96px; /* Mantém o tamanho maior */
+                height: 96px; /* Mantém o tamanho maior */
             }
         }
 
@@ -1644,7 +1660,7 @@
                                 <p class="text-center mt-4">Invista no seu conhecimento e fique à frente no mercado.</p>
                                 <p class="text-center mt-2 font-bold text-xl text-primary-blue">Comece sua Assinatura Premium hoje!</p> 
                                 <div class="relative w-full h-auto max-h-[70vh] overflow-y-auto overflow-x-hidden border border-gray-300 rounded-lg bg-white p-2">
-                                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhvGQdg/viewform?embedded=true"
+                                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true"
                                             frameborder="0" 
                                             marginheight="0" 
                                             marginwidth="0"

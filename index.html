@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codify Nexo</title>
 
+    <!-- Favicon e ícones de atalho para diferentes dispositivos -->
     <link rel="icon" href="img/logo_codi.png" type="image/png">
     <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
 
+    <!-- Metadados Open Graph para compartilhamento em redes sociais -->
     <meta property="og:title" content="Rede Social Codify Nexo ">
     <meta property="og:description" content="Economia | Tecnologia | Software">
     <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNews/img/logo_codi.png">
@@ -15,18 +17,23 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content=" From Codify World | Tech Labs">
 
+    <!-- Metadados para Apple iOS (PWA) -->
     <link rel="apple-touch-icon" href="img/logo_codi.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="CodifyNexo">
     <meta name="theme-color" content="#0055A4">
 
+    <!-- Links para bibliotecas externas: Font Awesome para ícones e Tailwind CSS para estilização rápida -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Estilos CSS personalizados -->
     <style>
+        /* Importa fontes do Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@500;600;700;800&display=swap');
 
+        /* Definição de variáveis CSS para cores e tamanhos */
         :root {
             --primary-blue: #0055A4;
             --secondary-blue: #007ACC;
@@ -37,82 +44,90 @@
             --font-heading: 'Poppins', sans-serif;
             --font-base: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --header-total-height: 70px;
-            --bottom-nav-height: 60px; /* Height of the new bottom navigation */
-            --sidebar-light-blue: #0066CC; /* Slightly lighter blue for sidebar */
+            --bottom-nav-height: 60px; /* Altura da nova navegação inferior */
+            --sidebar-light-blue: #0066CC; /* Azul ligeiramente mais claro para a barra lateral */
         }
 
+        /* Comportamento de rolagem suave para âncoras */
         html {
             scroll-behavior: smooth;
         }
 
+        /* Estilos globais do corpo da página */
         body {
             margin: 0;
             font-family: var(--font-base);
             background-color: var(--light-gray);
             color: var(--dark-gray);
             line-height: 1.7;
+            /* Desativa a seleção de texto */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            padding-top: var(--header-total-height);
-            padding-bottom: 0; /* Default 0 for desktop, will be set for mobile */
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+            padding-top: var(--header-total-height); /* Espaçamento para o cabeçalho fixo */
+            padding-bottom: 0; /* Padrão 0 para desktop, será ajustado para mobile */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para o modo escuro */
         }
 
-        /* Dark Mode Styles */
+        /* Estilos do Modo Escuro */
         body.dark-mode {
-            background-color: #1a1a1a; /* Dark background */
-            color: #f0f0f0; /* Light text */
+            background-color: #1a1a1a; /* Fundo escuro */
+            color: #f0f0f0; /* Texto claro */
         }
 
         body.dark-mode header {
-            background-color: #003366; /* Darker blue for header in dark mode */
+            background-color: #003366; /* Azul mais escuro para o cabeçalho no modo escuro */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
         }
         body.dark-mode .header-content .menu-toggle {
-            color: var(--white); /* Ensure menu toggle is white in dark mode */
+            color: var(--white); /* Garante que o ícone do menu seja branco no modo escuro */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra mais escura para o botão de menu */
         }
         body.dark-mode #desktop-top-nav button {
-            color: #f0f0f0; /* Light text in dark mode */
+            color: #f0f0f0; /* Texto claro no modo escuro */
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); REMOVIDO */
         }
         body.dark-mode #desktop-top-nav button:hover {
             color: #BBDDFF;
         }
 
-
         body.dark-mode #sidebar-nav {
-            background-color: #003366; /* Darker blue for sidebar in dark mode */
+            background-color: #003366; /* Azul mais escuro para a barra lateral no modo escuro */
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
         }
 
         body.dark-mode #sidebar-nav ul li a,
         body.dark-mode #sidebar-nav ul li button {
-            color: #f0f0f0; /* Light text in sidebar */
+            color: #f0f0f0; /* Texto claro na barra lateral */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra mais escura para os botões da barra lateral */
         }
 
         body.dark-mode #sidebar-nav ul li a:hover,
         body.dark-mode #sidebar-nav ul li button:hover {
-            background-color: #004488; /* Darker hover effect */
+            background-color: #004488; /* Efeito de hover mais escuro */
         }
 
         body.dark-mode .section-heading {
-            color: #BBDDFF; /* Lighter blue for headings in dark mode */
-            border-bottom-color: #0055A4; /* Darker border for headings */
+            color: #BBDDFF; /* Azul mais claro para títulos no modo escuro */
+            border-bottom-color: #0055A4; /* Borda mais escura para títulos */
         }
         
-        /* Dark mode for hero section heading (Bem-vindo) */
+        /* Modo escuro para o título da seção hero (Bem-vindo) */
         body.dark-mode #hero h2 {
-            color: var(--primary-blue); /* Make it blue in dark mode as requested */
+            color: var(--primary-blue); /* Mantém azul no modo escuro conforme solicitado */
         }
 
+        /* Estilos de cards no modo escuro */
         body.dark-mode .cryptocurrency-card,
         body.dark-mode .news-card,
         body.dark-mode .article-card,
         body.dark-mode .report-card,
-        body.dark-mode .gallery-card {
-            background-color: #2a2a2a; /* Darker cards */
-            border-color: #444; /* Darker border */
+        body.dark-mode .gallery-card,
+        body.dark-mode .b3-card,
+        body.dark-mode .indicador {
+            background-color: #2a2a2a; /* Cards mais escuros */
+            border-color: #444; /* Borda mais escura */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
@@ -120,16 +135,20 @@
         body.dark-mode .news-card h3,
         body.dark-mode .article-card h3,
         body.dark-mode .report-card h3,
-        body.dark-mode .gallery-card h3 {
-            color: #BBDDFF; /* Lighter blue for card titles */
+        body.dark-mode .gallery-card h3,
+        body.dark-mode .b3-card h3,
+        body.dark-mode .indicador h2 {
+            color: #BBDDFF; /* Azul mais claro para títulos de cards */
         }
 
         body.dark-mode .cryptocurrency-card p,
         body.dark-mode .news-card p,
         body.dark-mode .article-card p,
         body.dark-mode .report-card p,
-        body.dark-mode .gallery-card p {
-            color: #ccc; /* Lighter text for card paragraphs */
+        body.dark-mode .gallery-card p,
+        body.dark-mode .b3-card p,
+        body.dark-mode .indicador p {
+            color: #ccc; /* Texto mais claro para parágrafos de cards */
         }
 
         body.dark-mode .cryptocurrency-card button.view-crypto-details-btn,
@@ -137,7 +156,7 @@
         body.dark-mode .article-card a,
         body.dark-mode .report-card a,
         body.dark-mode .gallery-card a {
-            color: #88ccff; /* Lighter blue for links/buttons in dark mode */
+            color: #88ccff; /* Azul mais claro para links/botões no modo escuro */
         }
 
         body.dark-mode .cryptocurrency-card button.view-crypto-details-btn:hover {
@@ -148,25 +167,25 @@
             text-decoration: underline;
         }
 
-
         body.dark-mode .show-more-btn {
-            background-color: #004488; /* Darker blue for show more button */
+            background-color: #004488; /* Azul mais escuro para o botão "Mostrar Mais" */
         }
         body.dark-mode .show-more-btn:hover {
             background-color: #0055AA;
         }
 
+        /* Estilos de modal no modo escuro */
         body.dark-mode .modal-content {
-            background-color: #222; /* Darker modal background */
-            color: #f0f0f0; /* Lighter text in modal */
+            background-color: #222; /* Fundo do modal mais escuro */
+            color: #f0f0f0; /* Texto claro no modal */
         }
 
         body.dark-mode .modal-text-content h2 {
-            color: #BBDDFF; /* Lighter blue for modal headings */
+            color: #BBDDFF; /* Azul mais claro para títulos do modal */
         }
 
         body.dark-mode .modal-text-content a {
-            color: #88ccff; /* Lighter blue for modal links */
+            color: #88ccff; /* Azul mais claro para links do modal */
         }
 
         body.dark-mode .modal-bottom-close-btn {
@@ -176,40 +195,43 @@
             background-color: #0055AA;
         }
 
+        /* Estilos de rodapé no modo escuro */
         body.dark-mode footer {
-            color: #aaa; /* Lighter gray for footer text */
+            color: #aaa; /* Cinza mais claro para o texto do rodapé */
         }
         body.dark-mode footer a {
-            color: #88ccff; /* Lighter blue for footer links */
+            color: #88ccff; /* Azul mais claro para links do rodapé */
         }
 
-        body.dark-mode #mobile-bottom-nav { /* Renamed from #bottom-mobile-nav */
-            background-color: var(--primary-blue); /* Keep as primary blue in dark mode as requested */
+        /* Navegação inferior móvel no modo escuro */
+        body.dark-mode #mobile-bottom-nav {
+            background-color: var(--primary-blue); /* Mantém o azul primário no modo escuro */
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
         }
-        body.dark-mode #mobile-bottom-nav button { /* Renamed from #bottom-mobile-nav */
+        body.dark-mode #mobile-bottom-nav button {
             color: #f0f0f0;
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); REMOVIDO */
         }
-        body.dark-mode #mobile-bottom-nav button:hover { /* Renamed from #bottom-mobile-nav */
+        body.dark-mode #mobile-bottom-nav button:hover {
             color: #BBDDFF;
         }
 
 
         /* ------------------------------------------------------------- */
-        /* Header */
+        /* Cabeçalho */
         /* ------------------------------------------------------------- */
         header {
             width: 100%;
-            background-color: var(--white); /* Changed to white */
-            color: var(--dark-gray); /* Text color changed to dark gray for visibility */
+            background-color: var(--white); /* Fundo branco */
+            color: var(--dark-gray); /* Cor do texto */
             padding: 10px 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             position: fixed;
             top: 0;
             left: 0;
             z-index: 1000;
-            display: flex; /* Changed to flex */
-            justify-content: space-between; /* Ensures content spreads out */
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             height: var(--header-total-height);
             box-sizing: border-box;
@@ -220,14 +242,14 @@
             display: flex;
             align-items: center;
             width: 100%;
-            justify-content: space-between; /* Spreads out menu-toggle, logo, and desktop-top-nav */
+            justify-content: space-between; /* Espalha o menu-toggle, logo e desktop-top-nav */
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            flex-grow: 1; /* Allow logo container to take available space */
-            justify-content: center; /* Center logo image within its container */
+            flex-grow: 1; /* Permite que o container do logo ocupe espaço disponível */
+            justify-content: center; /* Centraliza a imagem do logo */
         }
 
         .logo {
@@ -236,70 +258,110 @@
         }
 
         .site-title {
-            display: none; /* Hide site title for all screen sizes */
+            display: none; /* Esconde o título do site em todos os tamanhos de tela */
         }
 
         .menu-toggle {
-            display: block; /* Shown by default on mobile */
+            display: block; /* Visível por padrão no mobile */
             background: none;
             border: none;
-            color: var(--dark-gray); /* Changed to dark gray for visibility */
+            color: var(--dark-gray); /* Cor do ícone do menu */
             font-size: 1.8rem;
             cursor: pointer;
-            z-index: 1001; /* Ensure it's above other elements if needed */
+            z-index: 1001; /* Garante que esteja acima de outros elementos */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao botão de menu */
+            border-radius: 5px; /* Arredonda as bordas para a sombra */
+            padding: 5px; /* Adiciona padding para a sombra ficar visível */
         }
 
-        /* Desktop Top Navigation */
+        /* Navegação Superior (Desktop) */
         #desktop-top-nav {
-            display: none; /* Hidden by default (mobile first) */
+            display: none; /* Escondido por padrão (mobile first) */
             align-items: center;
-            justify-content: space-around; /* Spread out buttons */
-            flex-grow: 1; /* Allow desktop nav to take available space */
-            max-width: 400px; /* Limit width to prevent excessive spreading */
-            margin-left: 20px; /* Add some margin to separate from logo */
+            justify-content: space-around; /* Espalha os botões */
+            flex-grow: 1; /* Permite que a navegação ocupe espaço disponível */
+            max-width: 400px; /* Limita a largura para evitar que se espalhe demais */
+            margin-left: 20px; /* Margem para separar do logo */
         }
 
         #desktop-top-nav button {
             background: none;
             border: none;
-            color: var(--dark-gray); /* Text color for desktop nav buttons */
+            color: var(--dark-gray); /* Cor do texto dos botões da navegação desktop */
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 0.85rem; /* Slightly smaller font for desktop buttons */
+            font-size: 0.85rem; /* Fonte ligeiramente menor para botões desktop */
             font-family: var(--font-base);
-            padding: 5px 8px; /* Padding for desktop buttons */
+            padding: 5px 8px; /* Preenchimento para botões desktop */
             cursor: pointer;
             transition: color 0.2s ease;
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); REMOVIDO */
+            border-radius: 5px; /* Arredonda as bordas para a sombra */
         }
 
 
         #desktop-top-nav button i {
-            font-size: 1.1rem; /* Icon size for desktop buttons */
+            font-size: 1.1rem; /* Tamanho do ícone para botões desktop */
             margin-bottom: 3px;
         }
 
+        /* Estilos do novo botão de atualização */
+        .refresh-btn {
+            display: none; /* Escondido por padrão para desktop */
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            align-items: center; /* Para alinhamento de ícone e texto */
+            justify-content: center;
+            gap: 5px; /* Espaço entre ícone e texto */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao botão de atualização */
+        }
+
+        .refresh-btn:hover {
+            background-color: var(--secondary-blue);
+        }
+
+        .refresh-btn i {
+            font-size: 1rem;
+        }
+
+        /* Modo escuro para o botão de atualização */
+        body.dark-mode .refresh-btn {
+            background-color: #004488;
+            color: #f0f0f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra mais escura para o modo escuro */
+        }
+        body.dark-mode .refresh-btn:hover {
+            background-color: #0055AA;
+        }
+
 
         /* ------------------------------------------------------------- */
-        /* Sidebar Navigation */
+        /* Navegação da Barra Lateral */
         /* ------------------------------------------------------------- */
         #sidebar-nav {
             position: fixed;
-            top: 0; /* Will be adjusted by JS/media query for mobile */
-            left: -250px; /* Changed from right to left */
+            top: 0; /* Será ajustado por JS/media query para mobile */
+            left: -250px; /* Posição inicial (escondida à esquerda) */
             width: 250px;
-            height: 100%; /* Will be adjusted by JS/media query for mobile */
-            background-color: var(--sidebar-light-blue); /* Changed to slightly lighter blue */
-            padding-top: var(--header-total-height); /* Ensure content starts below header */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Adjusted shadow for left side */
+            height: 100%; /* Será ajustado por JS/media query para mobile */
+            background-color: var(--sidebar-light-blue); /* Cor de fundo */
+            padding-top: var(--header-total-height); /* Garante que o conteúdo comece abaixo do cabeçalho */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra para a barra lateral */
             transition: left 0.3s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
             z-index: 999;
-            overflow-y: auto; /* Add scroll for sidebar content */
-            box-sizing: border-box; /* Ensure padding doesn't push content out */
+            overflow-y: auto; /* Adiciona rolagem para o conteúdo da barra lateral */
+            box-sizing: border-box; /* Garante que o preenchimento não empurre o conteúdo para fora */
         }
 
         #sidebar-nav.open {
-            left: 0; /* Changed from right to left */
+            left: 0; /* Abre a barra lateral */
         }
 
         #sidebar-nav ul {
@@ -311,7 +373,7 @@
         #sidebar-nav ul li a,
         #sidebar-nav ul li button {
             display: block;
-            padding: 15px 20px;
+            padding: 10px 20px; /* Aumenta o padding para suavizar o visual */
             color: var(--white);
             text-decoration: none;
             font-family: var(--font-heading);
@@ -322,6 +384,9 @@
             text-align: left;
             cursor: pointer;
             font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adiciona sombra aos botões da barra lateral */
+            border-radius: 5px; /* Arredonda as bordas para a sombra */
+            margin-bottom: 8px; /* Adiciona um pequeno espaço entre os botões */
         }
 
         #sidebar-nav ul li a:hover,
@@ -329,26 +394,27 @@
             background-color: var(--secondary-blue);
         }
 
-        .close-btn { /* This will now only apply to modal close buttons */
+        /* Botão de fechar (aplicado apenas a modais) */
+        .close-btn {
             position: absolute;
             top: 20px;
-            right: 20px; /* Kept right for modals */
+            right: 20px;
             background: none;
             border: none;
-            color: var(--dark-gray); /* Default for modals */
+            color: var(--dark-gray); /* Padrão para modais */
             font-size: 2rem;
             cursor: pointer;
         }
-        body.dark-mode .modal .close-btn { /* Dark mode for modal close button */
+        body.dark-mode .modal .close-btn { /* Modo escuro para o botão de fechar modal */
             color: var(--white);
         }
 
         /* ------------------------------------------------------------- */
-        /* Main Content Structure & Sections */
+        /* Estrutura do Conteúdo Principal e Seções */
         /* ------------------------------------------------------------- */
         main {
             padding: 20px;
-            max-width: 1200px; /* Increased max-width for 5 columns */
+            max-width: 1200px; /* Largura máxima aumentada para 5 colunas de cards */
             margin: 0 auto;
         }
 
@@ -361,7 +427,6 @@
             border-bottom: none;
             margin-bottom: 0;
         }
-
 
         .section-heading-wrapper {
             text-align: center;
@@ -382,45 +447,36 @@
         .subtitle {
             text-align: center;
         }
-
-
-
         
-         /* b333333333333333 */
-       
-/* b333333333333333 */
-
-
-
-
-
-        
-        /* Cryptocurrency Section Specifics */
-        .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container {
-            display: flex; 
-            flex-wrap: wrap;
-            gap: 20px;
+        /* Estilos de grade gerais para todos os containers de cards */
+        .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+            display: grid;
+            /* Padrão para telas muito pequenas, ajustará dinamicamente para 2 ou 3 colunas */
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px; /* Espaçamento ligeiramente reduzido */
             justify-content: center;
             margin-top: 20px;
-            padding: 0 10px
+            padding: 0 10px;
         }
 
-        .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card {
+        /* Estilos base para todos os cards */
+        .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card, .indicador {
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 15px;
             text-align: center;
-            width: 200px; /* Default for smaller screens, will be overridden */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            box-sizing: border-box; /* Include padding/border in width */
+            box-sizing: border-box; /* Inclui preenchimento/borda na largura */
         }
 
-        .cryptocurrency-card:hover, .news-card:hover, .article-card:hover, .report-card:hover, .gallery-card:hover {
+        /* Efeito de hover para todos os cards */
+        .cryptocurrency-card:hover, .news-card:hover, .article-card:hover, .report-card:hover, .gallery-card:hover, .b3-card:hover, .indicador:hover {
             transform: translateY(-5px);
         }
 
+        /* Estilos específicos para imagens dentro de cards */
         .cryptocurrency-card img {
             width: 50px;
             height: 50px;
@@ -433,16 +489,27 @@
             border-radius: 4px;
             margin-bottom: 10px;
         }
+        .indicador i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
 
-        .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3 {
+        /* Estilos para títulos de cards */
+        .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3, .indicador h2 {
             font-family: var(--font-heading);
             font-size: 1.2rem;
             margin-bottom: 5px;
             color: var(--primary-blue);
             transition: color 0.3s ease;
         }
+        .indicador h2 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
 
-        .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p {
+        /* Estilos para parágrafos de cards */
+        .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p, .indicador p {
             font-size: 0.9rem;
             color: var(--dark-gray);
             margin-bottom: 5px;
@@ -457,6 +524,7 @@
         .cryptocurrency-card p.positive { color: green; font-weight: bold; }
         .cryptocurrency-card p.negative { color: red; font-weight: bold; }
 
+        /* Botão para ver detalhes da criptomoeda */
         .cryptocurrency-card button.view-crypto-details-btn {
             color: var(--secondary-blue);
             text-decoration: none;
@@ -474,13 +542,14 @@
             text-decoration: underline;
         }
         
+        /* Links para abrir modais de conteúdo */
         .news-card .open-content-modal, .article-card .open-content-modal, .report-card .open-content-modal, .gallery-card .open-content-modal {
             color: var(--secondary-blue);
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
-            cursor: pointer; /* Ensure it looks clickable */
-            display: inline-block; /* Make sure padding/margin works */
+            cursor: pointer;
+            display: inline-block;
             padding-top: 5px;
         }
 
@@ -488,7 +557,7 @@
             text-decoration: underline;
         }
 
-        /* Show More Button */
+        /* Botão "Mostrar Mais" */
         .show-more-btn {
             display: block;
             margin: 30px auto 0;
@@ -505,24 +574,24 @@
             background-color: var(--secondary-blue);
         }
         
-        /* Class for hidden cards */
+        /* Classe para cards escondidos */
         .hidden-card {
             display: none !important;
         }
 
         /* ------------------------------------------------------------- */
-        /* Modal Styles */
+        /* Estilos de Modal */
         /* ------------------------------------------------------------- */
         .modal {
-            display: none;
+            display: none; /* Escondido por padrão */
             position: fixed;
-            z-index: 1001;
+            z-index: 1001; /* Acima de outros elementos */
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto; /* Permite rolagem se o conteúdo for grande */
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
             justify-content: center;
             align-items: center;
             padding-top: var(--header-total-height);
@@ -538,6 +607,7 @@
             overflow-y: auto;
             position: relative;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            /* Animação de entrada do modal */
             -webkit-animation-name: animatetop;
             -webkit-animation-duration: 0.4s;
             animation-name: animatetop;
@@ -547,6 +617,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Ajustes de modal para telas maiores */
         @media (min-width: 768px) {
             .modal-content {
                 max-width: 800px;
@@ -554,6 +625,7 @@
             }
         }
 
+        /* Botão de fechar na parte inferior do modal */
         .modal-bottom-close-btn {
             display: block;
             margin: 20px auto 0;
@@ -571,6 +643,7 @@
             background-color: var(--secondary-blue);
         }
 
+        /* Keyframes para animação de entrada do modal */
         @-webkit-keyframes animatetop {
             from { top: -300px; opacity: 0 }
             to { top: 20px; opacity: 1 }
@@ -618,15 +691,15 @@
         }
 
         /* ------------------------------------------------------------- */
-        /* Footer */
+        /* Rodapé */
         /* ------------------------------------------------------------- */
         footer {
-            background-color: transparent; /* Removed black background */
-            color: var(--dark-gray); /* Text color set to dark gray */
+            background-color: transparent; /* Fundo transparente */
+            color: var(--dark-gray); /* Cor do texto */
             text-align: center;
             padding: 10px;
             font-size: 0.75rem;
-            box-shadow: none; /* Removed shadow */
+            box-shadow: none; /* Sem sombra */
             position: relative;
             bottom: 0;
             width: 100%;
@@ -639,7 +712,7 @@
         }
 
         footer a {
-            color: var(--primary-blue); /* Adjusted link color to match theme */
+            color: var(--primary-blue); /* Cor do link ajustada ao tema */
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
@@ -648,15 +721,15 @@
         footer a:hover {
             text-decoration: underline;
         }
-        /* Specific styling for the new copyright container to ensure visibility */
+        /* Estilização específica para o container de direitos autorais */
         .copyright-info {
             text-align: center;
             padding-top: 20px;
-            padding-bottom: 20px; /* Add some padding so it doesn't touch the bottom edge */
+            padding-bottom: 20px; /* Adiciona preenchimento para não tocar a borda inferior */
             font-size: 0.85rem;
             color: var(--dark-gray);
-            border-top: 1px solid #e0e0e0; /* Separator line */
-            margin-top: 40px; /* Space from content above */
+            border-top: 1px solid #e0e0e0; /* Linha separadora */
+            margin-top: 40px; /* Espaço do conteúdo acima */
         }
         .copyright-info a {
             color: var(--primary-blue);
@@ -669,13 +742,13 @@
 
 
         /* ------------------------------------------------------------- */
-        /* Social Media Icons */
+        /* Ícones de Redes Sociais */
         /* ------------------------------------------------------------- */
         #sidebar-social-links {
             display: flex;
-            flex-wrap: wrap; /* Allow icons to wrap to next line */
+            flex-wrap: wrap; /* Permite que os ícones quebrem para a próxima linha */
             justify-content: center;
-            gap: 15px; /* Adjust gap between icons */
+            gap: 15px; /* Espaçamento entre os ícones */
             padding: 20px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             margin-top: 20px;
@@ -691,28 +764,30 @@
             transform: translateY(-2px);
         }
 
-        /* Specific colors for social icons */
+        /* Cores específicas para ícones sociais e efeitos de destaque */
         #sidebar-social-links a[aria-label="Instagram"] { color: #E4405F; }
-        #sidebar-social-links a[aria-label="GitHub"] { color: #FFFFFF; } /* White for GitHub on dark blue background */
-        #sidebar-social-links a[aria-label="Site Oficial"] { color: #FFFFFF; } /* White for Site Oficial */
-        #sidebar-social-links a[aria-label="LinkedIn"] { color: #FFFFFF; } /* Changed to white as requested */
-        #sidebar-social-links a[aria-label="TikTok"] { color: #FFFFFF; } /* White for TikTok */
-        #sidebar-social-links a[aria-label="X (Twitter)"] { color: #FFFFFF; } /* White for X */
+        /* GitHub, TikTok, X com sombra preta para destaque */
+        #sidebar-social-links a[aria-label="GitHub"] { color: #FFFFFF; text-shadow: 1px 1px 2px #000; }
+        #sidebar-social-links a[aria-label="Site Oficial"] { color: #FFFFFF; }
+        /* LinkedIn com cor invertida (azul para contraste) e sombra preta */
+        #sidebar-social-links a[aria-label="LinkedIn"] { color: var(--secondary-blue); text-shadow: 1px 1px 2px #000; }
+        #sidebar-social-links a[aria-label="TikTok"] { color: #FFFFFF; text-shadow: 1px 1px 2px #000; }
+        #sidebar-social-links a[aria-label="X (Twitter)"] { color: #FFFFFF; text-shadow: 1px 1px 2px #000; }
         #sidebar-social-links a[aria-label="YouTube"] { color: #FF0000; }
         #sidebar-social-links a[aria-label="Grupo WhatsApp"] { color: #25D366; }
 
 
         /* ------------------------------------------------------------- */
-        /* Mobile Bottom Navigation (formerly bottom-mobile-nav) */
+        /* Navegação Inferior Móvel */
         /* ------------------------------------------------------------- */
-        #mobile-bottom-nav { /* Renamed from #bottom-mobile-nav */
-            display: flex; /* Shown by default on mobile */
+        #mobile-bottom-nav {
+            display: flex;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             height: var(--bottom-nav-height);
-            background-color: var(--primary-blue); /* Keep as primary blue */
+            background-color: var(--primary-blue);
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
             z-index: 998;
             justify-content: space-around;
@@ -732,6 +807,8 @@
             padding: 5px;
             cursor: pointer;
             transition: color 0.2s ease;
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); REMOVIDO */
+            border-radius: 5px; /* Arredonda as bordas para a sombra */
         }
 
         #mobile-bottom-nav button i {
@@ -744,29 +821,26 @@
         }
 
         /* ------------------------------------------------------------- */
-        /* Responsive Adjustments */
+        /* Ajustes Responsivos */
         /* ------------------------------------------------------------- */
         @media (max-width: 768px) {
             body {
-                padding-bottom: var(--bottom-nav-height); /* Add padding for bottom nav on mobile */
+                padding-bottom: var(--bottom-nav-height); /* Adiciona espaço para a navegação inferior */
             }
 
             #sidebar-nav {
                 width: 70%;
                 max-width: 250px;
-                /* Adjust sidebar height and position for mobile to not cover bottom nav */
                 height: calc(100vh - var(--header-total-height) - var(--bottom-nav-height));
                 top: var(--header-total-height);
-                padding-top: 0; /* Remove padding-top here as 'top' now accounts for header height */
+                padding-top: 0;
             }
 
-            /* Mobile bottom nav is already set to flex by default, ensure it stays that way */
             #mobile-bottom-nav {
-                display: flex;
+                display: flex; /* Mostra a navegação inferior em mobile */
             }
-            /* Hide desktop top nav on mobile */
             #desktop-top-nav {
-                display: none;
+                display: none; /* Esconde a navegação superior em mobile */
             }
 
             main {
@@ -782,75 +856,139 @@
                 font-size: 2rem;
             }
 
-            /* Adjust hero section padding for mobile */
             #hero {
-                padding: 10px 0; /* Reduced padding */
+                padding: 10px 0;
+            }
+
+            /* Layout específico do cabeçalho para mobile */
+            .header-content {
+                justify-content: space-between;
+            }
+            .menu-toggle {
+                order: 1; /* Mais à esquerda */
+            }
+            .logo-container {
+                order: 2; /* Centralizado */
+                flex-grow: 1; /* Permite ocupar espaço disponível */
+                margin-right: 10px; /* Pequena margem do botão de atualização */
+            }
+            #refresh-mobile-btn {
+                display: flex; /* Mostra o botão de atualização em mobile */
+                order: 3; /* Mais à direita */
             }
         }
 
-        @media (min-width: 769px) { /* Tablet and Desktop styles */
+        @media (min-width: 769px) { /* Estilos para Tablet e Desktop */
             .site-title {
-                display: none; /* Hide site title on desktop as well */
+                display: none;
             }
 
             .menu-toggle {
-                display: block; /* Keep menu toggle visible on desktop for sidebar access */
-                order: 1; /* Place it at the beginning of the header content */
+                display: block;
+                order: 1;
             }
             
             .logo-container {
-                order: 2; /* Place logo container in the middle */
-                flex-grow: 1; /* Allow it to take up space and center the logo */
+                order: 2;
+                flex-grow: 1;
+                justify-content: center; /* Centraliza a imagem do logo no desktop */
             }
 
             #desktop-top-nav {
-                display: flex; /* Show desktop top nav */
-                order: 3; /* Place desktop nav at the end */
+                display: flex; /* Mostra a navegação superior no desktop */
+                order: 3;
             }
 
             #mobile-bottom-nav {
-                display: none; /* Hide mobile bottom nav on desktop */
+                display: none; /* Esconde a navegação inferior no desktop */
             }
 
-            /* Ensure header padding/height is correct */
             header {
-                padding: 10px 20px; /* Standard padding */
+                padding: 10px 20px;
+            }
+
+            #refresh-mobile-btn {
+                display: none; /* Esconde o botão de atualização no desktop */
             }
         }
 
-        @media (min-width: 992px) { /* Larger Desktop for 5 columns */
-            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card {
-                width: calc(20% - 16px); /* 5 cards per row with 20px gap */
+        /* Media query específica para 3 colunas na maioria das telas mobile */
+        @media (max-width: 767px) {
+            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+                grid-template-columns: repeat(3, 1fr); /* 3 colunas fixas para mobile */
+                gap: 10px; /* Espaçamento reduzido para melhor ajuste */
+            }
+            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card {
+                padding: 8px; /* Preenchimento reduzido */
+            }
+            .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3 {
+                font-size: 1rem; /* Fonte do título menor */
+            }
+            .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
+                font-size: 0.75rem; /* Fonte do parágrafo menor */
+            }
+            .cryptocurrency-card img, .news-card img, .article-card img, .report-card img, .gallery-card img, .b3-card img {
+                width: 40px; /* Imagens menores */
+                height: 40px;
             }
         }
 
+        /* Para telas muito pequenas (abaixo de 480px), permite 2 colunas se 3 for muito apertado */
+        @media (max-width: 479px) {
+            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas muito pequenas para melhor legibilidade */
+                gap: 10px;
+            }
+            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card {
+                padding: 6px;
+            }
+            .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3 {
+                font-size: 0.9rem;
+            }
+            .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
+                font-size: 0.7rem;
+            }
+            .cryptocurrency-card img, .news-card img, .article-card img, .report-card img, .gallery-card img, .b3-card img {
+                width: 35px;
+                height: 35px;
+            }
+        }
 
-        /* Smaller card sizes for very small mobile screens */
-        @media (max-width: 640px) {
-            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container {
-                gap: 15px; /* Slightly reduced gap */
+        /* Tablet (768px a 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+                grid-template-columns: repeat(4, 1fr); /* 4 colunas para tablets */
+                gap: 20px;
             }
-            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card {
-                width: calc(50% - 10px); /* Two cards per row with gap */
-                padding: 10px; /* Reduced padding inside cards */
-            }
-            .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3 {
-                font-size: 1.1rem; /* Slightly smaller title */
-            }
-            .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p {
-                font-size: 0.8rem; /* Smaller text */
+        }
+
+        /* Desktop (992px e acima) */
+        @media (min-width: 992px) {
+            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+                grid-template-columns: repeat(5, 1fr); /* 5 colunas para telas maiores */
+                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Cabeçalho fixo da página -->
     <header>
         <div class="header-content">
+            <!-- Botão de alternar menu (visível em mobile) -->
             <button class="menu-toggle" aria-label="Abrir menu"><i class="fas fa-bars"></i></button>
+            <!-- Container do logo -->
             <div class="logo-container">
                 <img src="img/logo_codi.png" alt="Codify Nexo Logo" class="logo">
-                <h1 class="site-title">Codify Nexo</h1> </div>
+                <h1 class="site-title">Codify Nexo</h1>
+            </div>
+            <!-- Novo botão de atualização para mobile (visível apenas em telas menores) -->
+            <button id="refresh-mobile-btn" class="refresh-btn" aria-label="Atualizar dados">
+                <i class="fas fa-sync-alt"></i>
+                <span>Atualizar</span>
+            </button>
+            <!-- Navegação superior para desktop -->
             <nav id="desktop-top-nav">
                 <button class="scroll-to-section-btn" data-section-id="news-section">
                     <i class="fas fa-newspaper"></i>
@@ -872,11 +1010,13 @@
         </div>
     </header>
 
+    <!-- Barra de navegação lateral (sidebar) -->
     <nav id="sidebar-nav">
         <ul>
             <li><button class="scroll-to-section-btn" data-section-id="news-section">Notícias</button></li>
             <li><button class="scroll-to-section-btn" data-section-id="articles-section">Artigos</button></li>
-            <li><button class="scroll-to-section-btn" data-section-id="cryptocurrency-section">Mercado Financeiro</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="cryptocurrency-section">Mercado Cripto</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="b3-section">Mercado B3</button></li>
             <li><button class="scroll-to-section-btn" data-section-id="reports-section">Relatórios de Mercado</button></li>
             <li><button class="scroll-to-section-btn" data-section-id="photo-gallery-section">Galeria de Fotos</button></li>
             <li><button class="open-modal-btn" data-modal-id="not-versions">Fatos, não versões</button></li>
@@ -886,6 +1026,7 @@
             <li><button class="open-modal-btn" data-modal-id="about-us">Sobre Nós</button></li>
             <li><button id="dark-mode-toggle"><i class="fas fa-moon"></i> Escurecer Tela</button></li>
         </ul>
+        <!-- Links de redes sociais na barra lateral -->
         <div id="sidebar-social-links">
             <a href="https://www.instagram.com/codifyworld" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://github.com/codifyworldservices" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -898,151 +1039,177 @@
         </div>
     </nav>
 
+    <!-- Conteúdo principal da página -->
     <main>
-         <section id="hero" class="py-10 text-center"> <h2 class="text-4xl font-bold text-gray-800 mb-4">Bem-vindo à Nexo</h2>
+        <!-- Seção Hero (Boas-vindas) -->
+        <section id="hero" class="py-10 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Bem-vindo à Nexo</h2>
             <p class="text-xl text-gray-600">"Conectando mentes, não ideologias."</p>
-            </section>
+        </section>
 
+        <!-- Seção de Notícias -->
         <section id="news-section" class="content-section">
             <div class="section-heading-wrapper">
                 <h2 class="section-heading">Últimas Notícias</h2>
             </div>
             
             <div class="news-cards-container">
-                 <div class="news-card">
-    <img src="img/b1.png" alt="Imagem Notícia Blockchain">
-    <h3>1ª Hack de US$ 14,5 bi expõe falha histórica na segurança do Bitcoin – 02/08/2025</h3>
-    <p>Revelação sobre ataque ao pool LuBian levanta alerta global sobre segurança em redes blockchain.</p>
-    <a href="#" 
-       class="open-content-modal" 
-       data-title="Hack de US$ 14,5 bi expõe falha histórica na segurança do Bitcoin" 
-       data-image="img/b1.png" 
-       data-content="
-        <p>Em agosto de 2025, a empresa Arkham Intelligence revelou o maior hack já registrado no universo cripto: 127.426 BTC foram roubados do pool de mineração chinês LuBian, o equivalente a US$ 14,5 bilhões hoje.</p>
-        <p>O ataque foi possível devido a uma falha no algoritmo de geração de chaves privadas do pool. A maioria dos fundos ainda permanece congelada desde 2024, e a notícia só foi trazida a público agora.</p>
-        <p>Especialistas dizem que o caso reacende debates sobre segurança, transparência e manutenção de redes blockchain, além de refletir em queda de confiança e volatilidade no mercado do Bitcoin.</p>
-       ">Ler Mais</a>
-  </div>
+                <!-- Card de Notícia 1 -->
                 <div class="news-card">
-  <img src="img/b2.png" alt="Imagem Notícia Cripto">
-  <h3>2ª Mercado Cripto sofre retração global em meio à alta dos juros – 02/08/2025</h3>
-  <p>Investidores recuam após anúncio do Fed e impacto regulatório em stablecoins.</p>
-  <a href="#"
-     class="open-content-modal"
-     data-title="Mercado Cripto sofre retração global em meio à alta dos juros principais índices encerram em queda– 02/08/2025"
-     data-image="img/b2.png"
-     data-content="
-       <p><strong>Dados de 02/08/2025:</strong></p>
-       <ul>
-         <li><strong>Capitalização Global:</strong> US$ 3,64 trilhões (−1,76% nas últimas 24h)</li>
-         <li><strong>Volume 24h Global:</strong> US$ 144,38 bilhões (−30,95% nas últimas 24h)</li>
-         <li><strong>Bitcoin (BTC):</strong> US$ 112.615,00 | Market Cap: US$ 2,24 trilhões | Volume 24h: US$ 60,54 bilhões (−1,10%)</li>
-         <li><strong>Ethereum (ETH):</strong> US$ 3.416,89 (−3,57%) | Alta intradia: US$ 3.544,32 | Baixa intradia: US$ 3.378,75</li>
-         <li><strong>Dominância BTC:</strong> 61,61% (+0,49% sobre ontem)</li>
-       </ul>
-       <p>O Federal Reserve anunciou nova elevação de juros, e discussões regulatórias sobre stablecoins nos EUA e Europa continuam gerando aversão ao risco entre investidores institucionais.</p>
-     ">Ler Mais</a>
-               </div>      
-                
+                    <img src="img/b1.png" alt="Imagem Notícia Blockchain">
+                    <h3>1ª Hack de US$ 14,5 bi expõe falha histórica na segurança do Bitcoin – 02/08/2025</h3>
+                    <p>Revelação sobre ataque ao pool LuBian levanta alerta global sobre segurança em redes blockchain.</p>
+                    <a href="#" 
+                       class="open-content-modal" 
+                       data-title="Hack de US$ 14,5 bi expõe falha histórica na segurança do Bitcoin" 
+                       data-image="img/b1.png" 
+                       data-content="
+                        <p>Em agosto de 2025, a empresa Arkham Intelligence revelou o maior hack já registrado no universo cripto: 127.426 BTC foram roubados do pool de mineração chinês LuBian, o equivalente a US$ 14,5 bilhões hoje.</p>
+                        <p>O ataque foi possível devido a uma falha no algoritmo de geração de chaves privadas do pool. A maioria dos fundos ainda permanece congelada desde 2024, e a notícia só foi trazida a público agora.</p>
+                        <p>Especialistas dizem que o caso reacende debates sobre segurança, transparência e manutenção de redes blockchain, além de refletir em queda de confiança e volatilidade no mercado do Bitcoin.</p>
+                       ">Ler Mais</a>
+                </div>
+                <!-- Card de Notícia 2 -->
                 <div class="news-card">
-  <img src="img/b3.png" alt="Imagem Mercado NYSE">
-  <h3>3ª Mercado da Bolsa de Valores de Nova York – 02/08/2025</h3>
-  <p>Dados do último pregão (01/08/2025): principais índices encerram em queda forte.</p>
-  <a href="#"
-     class="open-content-modal"
-     
-     data-image="img/b3.png"
-     data-content="
-      <p><strong>Fechamento em 01/08/2025:</strong></p>
-      <ul>
-        <li><strong>Dow Jones Industrial Average (DJIA):</strong> 43.588,58 pontos (−1,23%)</li>
-        <li><strong>S&P 500:</strong> 6.238,01 pontos (−1,60%)</li>
-        <li><strong>Nasdaq Composite:</strong> 20.650,13 pontos (−2,24%)</li>
-        <li><strong>Russell 2000:</strong> 2.166,78 pontos (−2,00%)</li>
-      </ul>
-      <p>A queda foi impulsionada pelo anúncio de nova alta de juros pelo Federal Reserve, fracos dados de emprego em julho e temores crescentes sobre tarifas comerciais.</p>
-     ">Ler Mais</a>
-</div>
-              <div class="news-card">
-  <img src="img/b4.png" alt="Dados B3 Brasil">
-  <h3>4ª Dados da B3 Brasil – 02/08/2025</h3>
-  <p><p>Fechamento do pregão de sexta-feira (01/08/2025) com principais índices de ações, FIIs e câmbio.</p></p>
-  <a href="#" 
-     class="open-content-modal" 
-     data-title="Dados da B3 Brasil – 02/08/2025" 
-     data-image="img/b4.png" 
-     data-content="
-       <p><strong>Ibovespa (IBOV):</strong> 132.437,39 pts (−0,48%). Abertura: 132.920; Mín: 132.140; Máx: 133.237.</p>
-       <p><strong>IBrX-50:</strong> 22.185,20 pts (−0,55%). Abertura: 22.185; Mín: 22.131,10; Máx: 22.316,83.</p>
-       <p><strong>IFIX (FIIs):</strong> 3.439,00 pts (+0,06%). Abertura: 3.437; Mín: 3.437; Máx: 3.441.</p>
-       <p><strong>Volume Financeiro Total:</strong> R$ 16,7 bilhões.</p>
-       <p><strong>Dólar PTAX-800:</strong> R$ 5,5456 (−0,99%).</p>
-       <p>O pregão refletiu aversão ao risco global com alta de juros nos EUA e ajustes técnicos em ativos locais.</p>
-     ">
-    Ler Mais
-  </a>
-</div>
+                    <img src="img/b2.png" alt="Imagem Notícia Cripto">
+                    <h3>2ª Mercado Cripto sofre retração global em meio à alta dos juros – 02/08/2025</h3>
+                    <p>Investidores recuam após anúncio do Fed e impacto regulatório em stablecoins.</p>
+                    <a href="#"
+                       class="open-content-modal"
+                       data-title="Mercado Cripto sofre retração global em meio à alta dos juros principais índices encerram em queda– 02/08/2025"
+                       data-image="img/b2.png"
+                       data-content="
+                         <p><strong>Dados de 02/08/2025:</strong></p>
+                         <ul>
+                           <li><strong>Capitalização Global:</strong> US$ 3,64 trilhões (−1,76% nas últimas 24h)</li>
+                           <li><strong>Volume 24h Global:</strong> US$ 144,38 bilhões (−30,95% nas últimas 24h)</li>
+                           <li><strong>Bitcoin (BTC):</strong> US$ 112.615,00 | Market Cap: US$ 2,24 trilhões | Volume 24h: US$ 60,54 bilhões (−1,10%)</li>
+                           <li><strong>Ethereum (ETH):</strong> US$ 3.416,89 (−3,57%) | Alta intradia: US$ 3.544,32 | Baixa intradia: US$ 3.378,75</li>
+                           <li><strong>Dominância BTC:</strong> 61,61% (+0,49% sobre ontem)</li>
+                         </ul>
+                         <p>O Federal Reserve anunciou nova elevação de juros, e discussões regulatórias sobre stablecoins nos EUA e Europa continuam gerando aversão ao risco entre investidores institucionais.</p>
+                       ">Ler Mais</a>
+                </div>      
+                <!-- Card de Notícia 3 -->
                 <div class="news-card">
-  <img src="img/b5.png" alt="Imagem Justiça Brasileira 02/08/2025">
-  <h3>5ª Justiça Brasileira mantém entendimento atual sobre competência da CVM – 02/08/2025</h3>
-  <p>Até hoje, STF e STJ não firmaram entendimento conjunto que altere a jurisdição de ações envolvendo a CVM.</p>
-  <a href="#"
-     class="open-content-modal"
-     data-title="Justiça Brasileira mantém entendimento atual sobre competência da CVM – 02/08/2025"
-     data-image="img/b5.png"
-     data-content="
-       <p><strong>Dados de 02/08/2025:</strong></p>
-       <ul>
-         <li>Não houve julgamento conjunto do STF e STJ que modifique competência para infrações relacionadas à CVM.</li>
-         <li>Processos continuam tramitando nas varas federais e regionais especializadas, conforme regras vigentes.</li>
-         <li>A CVM mantém competência para fiscalizar e aplicar sanções em ações administrativas, sem redistribuição para o STJ.</li>
-       </ul>
-       <p>O tema segue em debate acadêmico e legislativo, mas não há decisões judiciais novas nesta data.</p>
-     ">Ler Mais</a>
-</div>
+                    <img src="img/b3.png" alt="Imagem Mercado NYSE">
+                    <h3>3ª Mercado da Bolsa de Valores de Nova York – 02/08/2025</h3>
+                    <p>Dados do último pregão (01/08/2025): principais índices encerram em queda forte.</p>
+                    <a href="#"
+                       class="open-content-modal"
+                       data-image="img/b3.png"
+                       data-content="
+                        <p><strong>Fechamento em 01/08/2025:</strong></p>
+                        <ul>
+                          <li><strong>Dow Jones Industrial Average (DJIA):</strong> 43.588,58 pontos (−1,23%)</li>
+                          <li><strong>S&P 500:</strong> 6.238,01 pontos (−1,60%)</li>
+                          <li><strong>Nasdaq Composite:</strong> 20.650,13 pontos (−2,24%)</li>
+                          <li><strong>Russell 2000:</strong> 2.166,78 pontos (−2,00%)</li>
+                        </ul>
+                        <p>A caída foi impulsionada pelo anúncio de nova alta de juros pelo Federal Reserve, fracos dados de emprego em julho e temores crescentes sobre tarifas comerciais.</p>
+                       ">Ler Mais</a>
+                </div>
+                <!-- Card de Notícia 4 -->
+                <div class="news-card">
+                    <img src="img/b4.png" alt="Dados B3 Brasil">
+                    <h3>4ª Dados da B3 Brasil – 02/08/2025</h3>
+                    <p><p>Fechamento do pregão de sexta-feira (01/08/2025) com principais índices de ações, FIIs e câmbio.</p></p>
+                    <a href="#" 
+                       class="open-content-modal" 
+                       data-title="Dados da B3 Brasil – 02/08/2025" 
+                       data-image="img/b4.png" 
+                       data-content="
+                         <p><strong>Ibovespa (IBOV):</strong> 132.437,39 pts (−0,48%). Abertura: 132.920; Mín: 132.140; Máx: 133.237.</p>
+                         <p><strong>IBrX-50:</strong> 22.185,20 pts (−0,55%). Abertura: 22.185; Mín: 22.131,10; Máx: 22.316,83.</p>
+                         <p><strong>IFIX (FIIs):</strong> 3.439,00 pts (+0,06%). Abertura: 3.437; Mín: 3.437; Máx: 3.441.</p>
+                         <p><strong>Volume Financeiro Total:</strong> R$ 16,7 bilhões.</p>
+                         <p><strong>Dólar PTAX-800:</strong> R$ 5,5456 (−0,99%).</p>
+                         <p>O pregão refletiu aversão ao risco global com alta de juros nos EUA e ajustes técnicos em ativos locais.</p>
+                       ">
+                      Ler Mais
+                    </a>
+                </div>
+                <!-- Card de Notícia 5 -->
+                <div class="news-card">
+                    <img src="img/b5.png" alt="Imagem Justiça Brasileira 02/08/2025">
+                    <h3>5ª Justiça Brasileira mantém entendimento atual sobre competência da CVM – 02/08/2025</h3>
+                    <p>Até hoje, STF e STJ não firmaram entendimento conjunto que altere a jurisdição de ações envolvendo a CVM.</p>
+                    <a href="#"
+                       class="open-content-modal"
+                       data-title="Justiça Brasileira mantém entendimento atual sobre competência da CVM – 02/08/2025"
+                       data-image="img/b5.png"
+                       data-content="
+                         <p><strong>Dados de 02/08/2025:</strong></p>
+                         <ul>
+                           <li>Não houve julgamento conjunto do STF e STJ que modifique competência para infrações relacionadas à CVM.</li>
+                           <li>Processos continuam tramitando nas varas federais e regionais especializadas, conforme regras vigentes.</li>
+                           <li>A CVM mantém competência para fiscalizar e aplicar sanções em ações administrativas, sem redistribuição para o STJ.</li>
+                         </ul>
+                         <p>O tema segue em debate acadêmico e legislativo, mas não há decisões judiciais novas nesta data.</p>
+                       ">Ler Mais</a>
+                </div>
             </div>
+            <!-- Botão para mostrar mais notícias -->
             <button class="show-more-btn" id="show-more-news">Mostrar Mais Notícias</button>
-            </section>
+        </section>
 
+        <!-- Seção de Mercado Crypto -->
+        <section id="cryptocurrency-section" class="content-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Mercado Crypto</h2>
+            </div>
+            <p class="text-center mb-8 max-w-3xl mx-auto">
+                Explore o universo das criptomoedas e da tecnologia blockchain.
+            </p>
+            <!-- Indicador de carregamento para dados de criptomoedas -->
+            <div id="loading-crypto" class="text-center mb-4">
+                <div class="spinner mx-auto w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-gray-600 mt-2">Carregando dados de criptomoedas via API...</p>
+            </div>
+            <!-- Mensagem de erro para dados de criptomoedas -->
+            <div id="erro-crypto" class="hidden text-center text-red-500 font-semibold mt-4"></div>
+            <div class="cryptocurrency-container">
+                <!-- Criptomoedas serão carregadas aqui via JavaScript -->
+            </div>
+            <!-- Botão para mostrar mais criptomoedas -->
+            <button class="show-more-btn" id="show-more-crypto">Mostrar Mais Criptomoedas</button>
+            <p class="text-center mt-8 text-sm text-gray-500">Dados de cotação fornecidos pela CoinGecko.</p>
+        </section>
+
+        <!-- Seção de Mercado B3 -->
+        <section id="b3-section" class="content-section py-10 max-w-7xl mx-auto">
+            <div class="text-center mb-6 px-4">
+                <h2 class="section-heading">Mercado B3</h2>
+                <p class="text-sm text-gray-600">Veja os principais ativos da Bolsa de Valores Brasileira.</p>
+            </div>
+
+            <!-- Indicador de carregamento para dados da B3 -->
+            <div id="loading-b3" class="text-center mb-4">
+                <div class="spinner mx-auto w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-gray-600 mt-2">Carregando dados da B3...</p>
+            </div>
+
+            <!-- Mensagem de erro para dados da B3 -->
+            <div id="erro-b3" class="hidden text-center text-red-500 font-semibold mt-4"></div>
+
+            <div id="b3-container">
+                <!-- Ativos da B3 serão carregados aqui via JavaScript -->
+            </div>
+            <!-- Botão para mostrar mais ativos da B3 -->
+            <button class="show-more-btn" id="show-more-b3">Mostrar Mais Ativos</button>
+
+            <p class="text-center mt-8 text-sm text-gray-500">
+                Fonte dos dados: <a class="underline" href="https://brapi.dev" target="_blank" rel="noopener noreferrer">Brapi.dev</a>
+            </p>
+        </section>
         
-
-        
-             
-  <section id="cryptocurrency-section" class="content-section">
-    <div class="section-heading-wrapper">
-      <h2 class="section-heading">Mercado Crypto</h2>
-    </div>
-    <p class="text-center mb-8 max-w-3xl mx-auto">
-      Explore o universo das criptomoedas e da tecnologia blockchain.
-    </p>
-    <div class="cryptocurrency-container">
-      <!-- Criptomoedas aqui -->
-    </div>
-    <button class="show-more-btn" id="show-more-crypto">Mostrar Mais Criptomoedas</button>
-    <p class="text-center mt-8 text-sm text-gray-500">Dados de cotação fornecidos pela CoinGecko.</p>
-  </section>
-
-        
-
-  <section id="b3-section" class="content-section mt-16">
-  <div class="section-heading-wrapper">
-    <h2 class="section-heading">Mercado B3 em Construcão</h2>
-  </div>
-  <p class="text-center mb-8 max-w-3xl mx-auto text-gray-600">
-    Veja os principais ativos da Bolsa de Valores Brasileira em tempo real.
-  </p>
-  <div id="b3-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4"></div>
-  <p class="text-center mt-8 text-sm text-gray-500">Fonte: Brapi.dev</p>
-</section>
-
-
-
-        
+        <!-- Seção de Relatórios de Mercado -->
         <section id="reports-section" class="content-section">
             <div class="section-heading-wrapper">
                 <h2 class="section-heading">Relatórios de Mercado em Construção</h2>
             </div>
             <div class="reports-cards-container">
+                <!-- Card de Relatório 1 -->
                 <div class="report-card">
                     <img src="https://via.placeholder.com/180x120?text=Relatorio+1" alt="Imagem Relatório 1">
                     <h3>Perspectivas do Mercado de Fintechs</h3>
@@ -1053,6 +1220,7 @@
                         <p>As perspectivas para o mercado de fintechs são altamente positivas, com projeções de crescimento contínuo e a consolidação de novos modelos de negócio. O desafio será a adaptação às regulamentações e a garantia da segurança dos dados dos usuários em um ambiente cada vez mais digital e interconectado.</p>
                     ">Ver Relatório</a>
                 </div>
+                <!-- Card de Relatório 2 -->
                 <div class="report-card">
                     <img src="https://via.placeholder.com/180x120?text=Relatorio+2" alt="Imagem Relatório 2">
                     <h3>Setor de Energias Renováveis 2025</h3>
@@ -1063,6 +1231,7 @@
                         <p>No Brasil, a vasta disponibilidade de recursos naturais favoráveis às renováveis, juntamente com uma matriz energética já majoritariamente limpa, cria um ambiente promissor para projetos de grande escala e para a exportação de energia verde. O cenário é de otimismo para quem busca investir em um futuro sustentável.</p>
                     ">Ver Relatório</a>
                 </div>
+                <!-- Card de Relatório 3 -->
                 <div class="report-card">
                     <img src="https://via.placeholder.com/180x120?text=Relatorio+3" alt="Imagem Relatório 3">
                     <h3>Relatório Global de Cibersegurança</h3>
@@ -1073,6 +1242,7 @@
                         <p>Em resposta, há um foco maior em segurança de identidade, com a adoção de Zero Trust e autenticação multifator, além de investimentos em inteligência de ameaças para antecipar ataques. A colaboração internacional e a conscientização dos usuários são cruciais para construir um ambiente digital mais resiliente.</p>
                     ">Ver Relatório</a>
                 </div>
+                <!-- Card de Relatório 4 -->
                 <div class="report-card">
                     <img src="https://via.placeholder.com/180x120?text=Relatorio+4" alt="Imagem Relatório 4">
                     <h3>Mercado de Saúde Digital: Crescimento</h3>
@@ -1083,6 +1253,7 @@
                         <p>Ainda existem desafios regulatórios e de privacidade de dados, mas o potencial de transformação é imenso. A saúde digital promete tornar os serviços de saúde mais acessíveis, eficientes e centrados no paciente, com um impacto positivo na qualidade de vida de milhões de pessoas em todo o mundo.</p>
                     ">Ver Relatório</a>
                 </div>
+                <!-- Card de Relatório 5 -->
                 <div class="report-card">
                     <img src="https://via.placeholder.com/180x120?text=Relatorio+5" alt="Imagem Relatório 5">
                     <h3>Tendências de AI e Machine Learning</h3>
@@ -1093,6 +1264,7 @@
                         <p>Outras tendências incluem a IA embarcada (Edge AI), que executa algoritmos diretamente em dispositivos, e o uso de IA para otimizar operações de TI (AIOps). Esses avanços prometem maior automação, personalização e eficiência em uma vasta gama de aplicações, desde carros autônomos até a descoberta científica.</p>
                     ">Ver Relatório</a>
                 </div>
+                <!-- Card de Relatório 6 (duplicado para preenchimento) -->
                  <div class="report-card">
                     <img src="https://via.placeholder.com/180x120?text=Relatorio+5" alt="Imagem Relatório 5">
                     <h3>Tendências de AI e Machine Learning</h3>
@@ -1100,20 +1272,23 @@
                     <a href="#" class="open-content-modal" data-title="Tendências de AI e Machine Learning" data-image="https://via.placeholder.com/600x400?text=AI+ML" data-content="
                         <p>A inteligência artificial (IA) e o aprendizado de máquina (Machine Learning - ML) continuam a evoluir rapidamente, com novas tendências moldando o futuro da tecnologia. O aprendizado de máquina federado, que permite treinar modelos sem centralizar os dados, está ganhando destaque para aplicações que exigem privacidade, como saúde e finanças.</p>
                         <p>A IA generativa, capaz de criar textos, imagens e até códigos, está revolucionando setores como design, marketing e desenvolvimento de software. A IA explicável (XAI) também é uma área crescente, focada em tornar os modelos de IA mais transparentes e compreensíveis, o que é crucial para aplicações críticas.</p>
-                        <p>Outras tendências incluem a IA embarcada (Edge AI), que executa algoritmos diretamente em dispositivos, e o uso de IA para otimizar operações de TI (AIOps). Esses avanços prometem maior automação, personalização e eficiência em uma vasta gama de aplicações, desde carros autônomos até a descoberta científica.</p>
+                        <p>Outras tendências incluem a IA embarcada (Edge AI), que executa algoritmos diretamente em dispositivos, e o uso de IA para otimizar operações de TI (AIOps). Esses avanços prometem maior automação, personalização e eficiência em uma vasta gama de aplicações, desde carros autônomos até o descoberta científica.</p>
                     ">Ver Relatório</a>
                 </div>
             </div>
+            <!-- Botão para mostrar mais relatórios -->
             <button class="show-more-btn" id="show-more-reports">Mostrar Mais Relatórios</button>
-            </section>
+        </section>
 
+        <!-- Seção de Artigos -->
         <section id="articles-section" class="content-section">
             <div class="section-heading-wrapper">
                 <h2 class="section-heading"><strong>Artigos em construção</strong></h2>
             </div>
                             
-                 <div class="news-cards-container">
-                 <div class="news-card">
+            <div class="news-cards-container">
+                <!-- Card de Artigo 1 -->
+                <div class="news-card">
                     <img src="https://via.placeholder.com/180x120?text=Artigo+1" alt="Imagem Artigo 1">
                     <h3>Impacto da IA na Educação</h3>
                     <p>Como a inteligência artificial está transformando o aprendizado e o ensino.</p>
@@ -1123,7 +1298,8 @@
                         <p>No entanto, a integração da IA na educação também levanta questões sobre a privacidade dos dados dos alunos, o viés algorítmico e a necessidade de garantir que a tecnologia complemente, em vez de substituir, o papel humano no processo educacional. O futuro da educação com IA promete ser mais eficiente, inclusivo e adaptativo.</p>
                     ">Ler Artigo</a>
                 </div>
-                     <div class="article-card">
+                <!-- Card de Artigo 2 -->
+                <div class="article-card">
                     <img src="https://via.placeholder.com/180x120?text=Artigo+2" alt="Imagem Artigo 2">
                     <h3>A Revolução do 5G e IoT</h3>
                     <p>Descubra o potencial da conectividade de próxima geração para as cidades inteligentes.</p>
@@ -1133,6 +1309,7 @@
                         <p>Na indústria, o 5G e a IoT facilitam a Indústria 4.0, com fábricas conectadas, robôs autônomos e manutenção preditiva. O agronegócio também se beneficia, com monitoramento de plantações e rebanhos. Essa revolução da conectividade promete maior eficiência, segurança e novas oportunidades de negócios em todos os setores.</p>
                     ">Ler Artigo</a>
                 </div>
+                <!-- Card de Artigo 3 -->
                 <div class="article-card">
                     <img src="https://via.placeholder.com/180x120?text=Artigo+3" alt="Imagem Artigo 3">
                     <h3>Desafios da Cibersegurança Corporativa</h3>
@@ -1140,9 +1317,10 @@
                     <a href="#" class="open-content-modal" data-title="Desafios da Cibersegurança Corporativa" data-image="https://via.placeholder.com/600x400?text=Ciberseguranca+Corporativa" data-content="
                         <p>A cibersegurança corporativa enfrenta um cenário de ameaças cada vez mais complexo. Os principais desafios incluem ataques de ransomware, que criptografam dados e exigem resgate; ataques de phishing e engenharia social, que visam enganar funcionários; e ameaças internas, seja por negligência ou intenção maliciosa.</p>
                         <p>As estratégias de defesa eficazes envolvem uma abordagem multicamadas. Isso inclui a implementação de firewalls robustos, sistemas de detecção de intrusão, criptografia de dados, autenticação multifator e backups regulares e isolados. Além da tecnologia, o fator humano é crucial: treinamentos contínuos para os funcionários são essenciais para reconhecer e evitar armadilhas cibernéticas.</p>
-                        <p>A conformidade com regulamentações como a LGPD (no Brasil) e a GDPR (na Europa) também é um desafio, exigindo que as empresas garantam a proteção dos dados pessoais de seus clientes e colaboradores. A resiliência cibernética e a capacidade de resposta a incidentes tornaram-se prioridades estratégicas para qualquer organização.</p>
+                        <p>A conformidade com regulamentações como a LGPD (no Brasil) e a GDPR (no Europa) também é um desafio, exigindo que as empresas garantam a proteção dos dados pessoais de seus clientes e colaboradores. A resiliência cibernética e a capacidade de resposta a incidentes tornaram-se prioridades estratégicas para qualquer organização.</p>
                     ">Ler Artigo</a>
                 </div>
+                <!-- Card de Artigo 4 -->
                 <div class="article-card">
                     <img src="https://via.placeholder.com/180x120?text=Artigo+4" alt="Imagem Artigo 4">
                     <h3>O Crescimento do E-commerce no Brasil</h3>
@@ -1153,8 +1331,7 @@
                         <p>As perspectivas para o futuro indicam a continuidade do crescimento, com foco em nichos de mercado, personalização da experiência de compra e a integração entre o online e o offline (omnichannel). A sustentabilidade e a conveniência também são fatores-chave que moldarão o setor, com empresas investindo em entregas mais rápidas e opções de pagamento inovadoras.</p>
                   ">Ler Artigo</a>
                 </div>             
-            
-            
+                <!-- Card de Artigo 5 -->
                  <div class="article-card">
                     <img src="https://via.placeholder.com/180x120?text=Artigo+5" alt="Imagem Artigo 5">
                     <h3>Realidade Virtual e Aumentada</h3>
@@ -1163,19 +1340,20 @@
                         <p>A Realidade Virtual (RV) e a Realidade Aumentada (RA) estão no limiar de transformar a forma como interagimos com a tecnologia e o mundo. Enquanto a RV imerge o usuário em um ambiente completamente digital, a RA sobrepõe informações digitais ao mundo real, enriquecendo a percepção.</p>
                         <p>As aplicações de RV e RA já são vastas: na educação, simulações imersivas; na medicina, treinamentos cirúrgicos e terapias; no entretenimento, jogos e experiências interativas; e no varejo, provadores virtuais. O Metaverso, um conceito de mundos virtuais interconectados, é um dos grandes catalisadores do desenvolvimento dessas tecnologias.</p>
                         <p>Com o avanço de hardwares mais leves e acessíveis, e a melhoria da qualidade gráfica, espera-se que RV e RA se tornem cada vez mais presentes em nosso cotidiano. As oportunidades de mercado são enormes, desde o desenvolvimento de software e hardware até a criação de conteúdo e a integração dessas tecnologias em diversas indústrias.</p>
-                    ">Ler Artigo</a>
-                
+                    ">Ler Imagem</a>
                </div>
-                  </div>
-             <button class="show-more-btn" id="show-more-news">Mostrar Mais</button>
-            </section>
+            </div>
+            <!-- Botão para mostrar mais artigos -->
+             <button class="show-more-btn" id="show-more-articles">Mostrar Mais Artigos</button>
+        </section>
 
-
+        <!-- Seção de Galeria de Fotos -->
         <section id="photo-gallery-section" class="content-section">
             <div class="section-heading-wrapper">
                 <h2 class="section-heading">Galeria de Fotos em construção</h2>
             </div>
             <div class="gallery-cards-container">
+                <!-- Card de Imagem 1 -->
                 <div class="gallery-card">
                     <img src="https://via.placeholder.com/200x150?text=Imagem+1" alt="Galeria Imagem 1">
                     <h3>Inovação em Ação</h3>
@@ -1185,6 +1363,7 @@
                         <p>Desde a inteligência artificial otimizando processos produtivos até a biotecnologia revolucionando a medicina, a busca por novas e melhores maneiras de fazer as coisas é contínua. Essa foto simboliza o dinamismo e a energia por trás das descobertas que moldarão o nosso futuro.</p>
                     ">Ver Imagem</a>
                 </div>
+                <!-- Card de Imagem 2 -->
                 <div class="gallery-card">
                     <img src="https://via.placeholder.com/200x150?text=Imagem+3" alt="Galeria Imagem 3">
                     <h3>Robótica Avançada</h3>
@@ -1195,6 +1374,7 @@
                         <p>O futuro da robótica promete soluções para desafios em áreas como saúde, logística, agricultura e exploração de ambientes extremos, transformando a maneira como trabalhamos e vivemos.</p>
                     ">Ver Imagem</a>
                 </div>
+                <!-- Card de Imagem 3 (duplicado para preenchimento) -->
                 <div class="gallery-card">
                     <img src="https://via.placeholder.com/200x150?text=Imagem+3" alt="Galeria Imagem 3">
                     <h3>Robótica Avançada</h3>
@@ -1205,6 +1385,7 @@
                         <p>O futuro da robótica promete soluções para desafios em áreas como saúde, logística, agricultura e exploração de ambientes extremos, transformando a maneira como trabalhamos e vivemos.</p>
                     ">Ver Imagem</a>
                 </div>
+                <!-- Card de Imagem 4 -->
                 <div class="gallery-card">
                     <img src="https://via.placeholder.com/200x150?text=Imagem+4" alt="Galeria Imagem 4">
                     <h3>Beleza da Ciência</h3>
@@ -1214,6 +1395,7 @@
                         <p>A ciência não é apenas sobre números e fórmulas; é também sobre a descoberta da beleza inerente ao universo, desde a complexidade de uma célula viva até as interconexões cósmicas. Essa foto celebra a curiosidade humana e a capacidade de desvendar os mistérios do mundo através da pesquisa e da inovação.</p>
                     ">Ver Imagem</a>
                 </div>
+                <!-- Card de Imagem 5 -->
                  <div class="gallery-card">
                     <img src="https://via.placeholder.com/200x150?text=Imagem+5" alt="Galeria Imagem 5">
                     <h3>Design e Tecnologia</h3>
@@ -1223,6 +1405,7 @@
                         <p>Desde smartphones com interfaces elegantes até dispositivos domésticos inteligentes que se integram perfeitamente ao ambiente, o design é crucial para o sucesso da tecnologia. Essa simbiose entre a criatividade do design e a funcionalidade da engenharia é o que torna as inovações tecnológicas verdadeiramente impactantes e desejáveis no cotidiano das pessoas.</p>
                     ">Ver Imagem</a>
                 </div>
+                <!-- Card de Imagem 6 (duplicado para preenchimento) -->
                  <div class="gallery-card">
                     <img src="https://via.placeholder.com/200x150?text=Imagem+5" alt="Galeria Imagem 5">
                     <h3>Design e Tecnologia</h3>
@@ -1233,11 +1416,13 @@
                     ">Ver Imagem</a>
                 </div>
             </div>
+            <!-- Botão para mostrar mais imagens da galeria -->
             <button class="show-more-btn" id="show-more-gallery">Mostrar Mais Imagens</button>
-            </section>
+        </section>
 
-        </main>
+    </main>
 
+    <!-- Modal de Leitura de Conteúdo (para Notícias, Artigos, Relatórios, Galeria) -->
     <div id="read-modal" class="modal">
         <div class="modal-content">
             <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
@@ -1245,11 +1430,13 @@
                 <img id="modal-image" src="" alt="Conteúdo da Seção">
             </div>
             <div id="modal-text-content">
-                </div>
+                <!-- Conteúdo do modal será inserido aqui pelo JavaScript -->
+            </div>
             <button class="modal-bottom-close-btn">Fechar</button>
         </div>
     </div>
 
+    <!-- Modal de Política de Privacidade -->
     <div id="privacy-modal" class="modal">
         <div class="modal-content">
             <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
@@ -1264,6 +1451,7 @@
         </div>
     </div>
 
+    <!-- Modal de Termos de Uso -->
     <div id="terms-modal" class="modal">
         <div class="modal-content">
             <button class="close-btn" aria-label="Fechar modal"><i class="fas fa-times"></i></button>
@@ -1302,11 +1490,13 @@
         </div>
     </div>
 
+    <!-- Rodapé da página -->
     <footer>
-    <p><strong>© 2025 From Codify World. Todos os direitos reservados.</strong></p>
-    <p>Proibida a reprodução total ou parcial sem autorização expressa.</p>
+        <p><strong>© 2025 From Codify World. Todos os direitos reservados.</strong></p>
+        <p>Proibida a reprodução total ou parcial sem autorização expressa.</p>
     </footer>
 
+    <!-- Navegação inferior móvel -->
     <nav id="mobile-bottom-nav">
         <button class="scroll-to-section-btn" data-section-id="news-section">
             <i class="fas fa-newspaper"></i>
@@ -1326,12 +1516,12 @@
         </button>
     </nav>
 
-
+    <!-- Script JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Seleção de elementos do DOM
             const menuToggle = document.querySelector('.menu-toggle');
             const sidebarNav = document.getElementById('sidebar-nav');
-            // Removed closeSidebarBtn as per user request
             const openModalBtns = document.querySelectorAll('.open-modal-btn');
             const scrollBtns = document.querySelectorAll('.scroll-to-section-btn');
             const readModal = document.getElementById('read-modal');
@@ -1340,53 +1530,46 @@
             const modalCloseBtns = document.querySelectorAll('.modal .close-btn, .modal .modal-bottom-close-btn');
             const modalImage = document.getElementById('modal-image');
             const modalTextContent = document.getElementById('modal-text-content');
-            const cryptocurrencyContainer = document.querySelector('.cryptocurrency-container');
             
-            // New button for dark mode
             const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const refreshMobileBtn = document.getElementById('refresh-mobile-btn'); // Botão de atualização
 
-            // Select all content modal openers
-            const openContentModalLinks = document.querySelectorAll('.open-content-modal');
-
-
-            // --- PWA Installation Prompt (moved to About Us content) ---
+            // --- Prompt de Instalação PWA (movido para o conteúdo "Sobre Nós") ---
             let deferredPrompt;
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                // The install link will be inserted directly into 'About Us' modal content
             });
 
-            // --- Sidebar Toggles ---
+            // --- Funções de Alternância da Barra Lateral (Sidebar) ---
             menuToggle.addEventListener('click', () => {
-                sidebarNav.classList.add('open');
+                sidebarNav.classList.add('open'); // Abre a barra lateral
             });
-
-            // Removed closeSidebarBtn.addEventListener as per user request
             
+            // Fecha a barra lateral ao clicar fora dela
             document.addEventListener('click', (event) => {
                 if (!sidebarNav.contains(event.target) && !menuToggle.contains(event.target) && sidebarNav.classList.contains('open')) {
                     sidebarNav.classList.remove('open');
                 }
             });
 
-            // --- Section Scrolling ---
+            // --- Rolagem Suave para Seções ---
             scrollBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     const sectionId = button.dataset.sectionId;
                     const section = document.getElementById(sectionId);
                     if (section) {
-                        section.scrollIntoView({ behavior: 'smooth' });
-                        sidebarNav.classList.remove('open'); // Close sidebar after clicking
+                        section.scrollIntoView({ behavior: 'smooth' }); // Rola para a seção
+                        sidebarNav.classList.remove('open'); // Fecha a barra lateral após clicar
                     }
                 });
             });
 
-            // --- Main Modal Handling (for About Us, Premium, etc.) ---
+            // --- Manipulação de Modais Principais (Sobre Nós, Premium, etc.) ---
             openModalBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     const modalId = button.dataset.modalId;
-                    sidebarNav.classList.remove('open'); // Close sidebar when opening a modal
+                    sidebarNav.classList.remove('open'); // Fecha a barra lateral ao abrir um modal
 
                     switch (modalId) {
                         case 'about-us':
@@ -1394,7 +1577,6 @@
                                 <h2>Sobre Nós</h2>
                                 <p>Na <strong>Codify World</strong>, nossa missão é desmistificar o mundo complexo da economia, tecnologia e software. Somos uma equipe de analistas e jornalistas comprometidos em fornecer informações precisas, aprofundadas e isentas de viés ideológico.</p>
                                 <p>Acreditamos que o conhecimento é a chave para o empoderamento. Por isso, dedicamo-nos a pesquisar, analisar e reportar os fatos, não versões. Nosso foco está em tendências globais, inovações disruptivas e o impacto desses fatores no seu dia a dia e no futuro do mercado.</p>
-                                <p>Com uma abordagem multissetorial, cobrimos desde os avanços mais recentes em inteligência artificial e blockchain até as dinâmicas do mercado financeiro e as estratégias das grandes corporações tecnológicas. Nosso compromisso é com a verdade e a clareza, para que você possa tomar decisões informadas e entender verdadeiramente o cenário global de 2025 e além.</p>
                                 <p>Seja bem-vindo à sua fonte confiável de inteligência e análise.</p>
                                 <hr class="my-4">
                                 <p class="text-center mt-2">
@@ -1410,12 +1592,13 @@
                                 <p class="text-center"><a href="https://www.codifyworld.com.br" target="_blank" class="text-blue-700 underline">https://www.codifyworld.com.br</a></p>
                             `);
                             readModal.style.display = 'flex';
-                            // Add event listener for PWA install link inside the modal
-                            setTimeout(() => { // Use setTimeout to ensure the element is in DOM
+                            // Adiciona listener para o link de instalação PWA dentro do modal
+                            setTimeout(() => { // Usa setTimeout para garantir que o elemento esteja no DOM
                                 const installAppInModalLink = document.getElementById('installAppInModalLink');
                                 if (installAppInModalLink) {
+                                    // Esconde o link se o app já estiver instalado (modo standalone)
                                     if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-                                        installAppInModalLink.style.display = 'none'; // Hide if already installed
+                                        installAppInModalLink.style.display = 'none';
                                     } else {
                                         installAppInModalLink.style.display = 'block';
                                     }
@@ -1447,7 +1630,7 @@
                             `);
                             readModal.style.display = 'flex';
                             break;
-                            case 'premium-subscription':
+                        case 'premium-subscription':
                             loadContentIntoModal('Assinatura Premium', 'img/premium.jpg', `
                                 <h2>Assinatura Premium</h2>
                                 <p>Torne-se um assinante Premium da Codify Nexo e tenha acesso exclusivo a conteúdo aprofundado, análises avançadas e relatórios de mercado antecipados. Nossos assinantes recebem:</p>
@@ -1460,23 +1643,17 @@
                                 </ul>
                                 <p class="text-center mt-4">Invista no seu conhecimento e fique à frente no mercado.</p>
                                 <p class="text-center mt-2 font-bold text-xl text-primary-blue">Comece sua Assinatura Premium hoje!</p> 
-
-                                
                                 <div class="relative w-full h-auto max-h-[70vh] overflow-y-auto overflow-x-hidden border border-gray-300 rounded-lg bg-white p-2">
-                                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhv8GQdg/viewform?embedded=true"
-                                frameborder="0" 
-                                 marginheight="0" 
-                                 marginwidth="0"
-                                allowfullscreen 
-                                class="w-full h-full min-h-[600px]">
-                                 Carregando…
-                               </iframe>
-                                     </div>
-                               
-                              
-
-
-                             `);
+                                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfSX0my_7vpvqKdfkkqCjXKGQaLeMDKB8veUUuanOuhvGQdg/viewform?embedded=true"
+                                            frameborder="0" 
+                                            marginheight="0" 
+                                            marginwidth="0"
+                                            allowfullscreen 
+                                            class="w-full h-full min-h-[600px]">
+                                            Carregando…
+                                    </iframe>
+                                </div>
+                            `);
                             readModal.style.display = 'flex';
                             break;
                         case 'privacy-policy':
@@ -1489,10 +1666,11 @@
                 });
             });
 
-            // --- Content Modal Handling (for News, Articles, Reports, Gallery) ---
+            // --- Manipulação de Modais de Conteúdo (para Notícias, Artigos, Relatórios, Galeria) ---
+            const openContentModalLinks = document.querySelectorAll('.open-content-modal');
             openContentModalLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
-                    event.preventDefault(); // Prevent default link behavior
+                    event.preventDefault(); // Previne o comportamento padrão do link
                     const title = link.dataset.title;
                     const image = link.dataset.image;
                     const content = link.dataset.content;
@@ -1502,23 +1680,25 @@
                 });
             });
 
-
+            // Função para carregar conteúdo em um modal genérico
             function loadContentIntoModal(title, imageUrl, contentHtml) {
                 modalImage.src = imageUrl;
                 modalImage.alt = title;
-                modalImage.style.display = imageUrl ? 'block' : 'none'; // Only show image if URL provided
+                modalImage.style.display = imageUrl ? 'block' : 'none'; // Mostra a imagem apenas se a URL for fornecida
                 modalTextContent.innerHTML = contentHtml;
             }
 
+            // Fecha todos os modais
             modalCloseBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     readModal.style.display = 'none';
                     privacyModal.style.display = 'none';
                     termsModal.style.display = 'none';
-                    modalImage.style.display = 'block'; // Reset display for next modal
+                    modalImage.style.display = 'block'; // Reseta a exibição da imagem para o próximo modal
                 });
             });
 
+            // Fecha modais ao clicar fora deles
             window.addEventListener('click', (event) => {
                 if (event.target === readModal) {
                     readModal.style.display = 'none';
@@ -1532,21 +1712,25 @@
                 }
             });
 
-            // --- Show More / Less Logic for Sections ---
-            const hiddenCardClass = 'hidden-card';
+            // --- Lógica de "Mostrar Mais / Menos" para Seções ---
+            const hiddenCardClass = 'hidden-card'; // Classe CSS para esconder cards
 
+            // Função para configurar o comportamento de "Mostrar Mais/Menos"
             function setupShowMore(containerSelector, buttonId, initialCount) {
                 const container = document.querySelector(containerSelector);
-                const cards = container ? Array.from(container.children) : [];
+                // Filtra apenas os elementos que são cards (para evitar outros elementos no container)
+                const cards = container ? Array.from(container.children).filter(child => child.classList.contains('cryptocurrency-card') || child.classList.contains('b3-card') || child.classList.contains('news-card') || child.classList.contains('article-card') || child.classList.contains('report-card') || child.classList.contains('gallery-card')) : [];
                 const toggleBtn = document.getElementById(buttonId);
 
+                // Se o container ou botão não existirem, ou não houver cards, esconde o botão
                 if (!container || !toggleBtn || cards.length === 0) {
                     if (toggleBtn) toggleBtn.style.display = 'none';
                     return;
                 }
 
-                let showingAll = false;
+                let showingAll = false; // Estado para controlar se todos os cards estão sendo mostrados
 
+                // Atualiza a visibilidade dos cards
                 function updateVisibility() {
                     cards.forEach((card, index) => {
                         if (showingAll || index < initialCount) {
@@ -1556,18 +1740,21 @@
                         }
                     });
 
+                    // Atualiza o texto e a visibilidade do botão "Mostrar Mais"
                     if (cards.length > initialCount) {
                         toggleBtn.style.display = 'block';
                         toggleBtn.textContent = showingAll ? 'Mostrar Menos' : 'Mostrar Mais';
                     } else {
-                        toggleBtn.style.display = 'none';
+                        toggleBtn.style.display = 'none'; // Esconde o botão se não houver mais cards para mostrar
                     }
                 }
 
+                // Adiciona listener de clique ao botão "Mostrar Mais"
                 toggleBtn.addEventListener('click', () => {
-                    showingAll = !showingAll;
-                    updateVisibility();
-                    if (!showingAll) { // Scroll to top of section when showing less
+                    showingAll = !showingAll; // Inverte o estado
+                    updateVisibility(); // Atualiza a visibilidade
+                    // Rola para o topo da seção se estiver mostrando menos
+                    if (!showingAll) {
                         const section = toggleBtn.closest('.content-section');
                         if (section) {
                             section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1575,34 +1762,28 @@
                     }
                 });
 
-                // Initial setup call
-                updateVisibility();
+                updateVisibility(); // Chama a função na inicialização para definir o estado inicial
             }
 
-
-            // Function to fetch detailed cryptocurrency data and display in modal
+            // Função para buscar detalhes de criptomoedas e exibir no modal
             async function fetchCryptoDetails(coinId) {
                 const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
                 try {
                     const response = await fetch(url);
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        throw new Error(`Erro HTTP! status: ${response.status}`);
                     }
                     const data = await response.json();
 
-                    // Get description, prefer Portuguese if available, otherwise English
                     let description = data.description.pt || data.description.en || 'Descrição não disponível.';
-                    
-                    // Truncate description if too long
-                    const maxLength = 800; // Max characters for a "brief summary"
+                    const maxLength = 800; // Limite de caracteres para a descrição
                     if (description.length > maxLength) {
                         description = description.substring(0, maxLength) + '... (Leia mais no CoinGecko)';
                     }
 
-
                     loadContentIntoModal(
                         data.name,
-                        data.image.large, // Use large image for modal
+                        data.image.large,
                         `
                         <h2>${data.name} (${data.symbol.toUpperCase()})</h2>
                         <p><strong>Rank:</strong> #${data.market_cap_rank || 'N/A'}</p>
@@ -1612,8 +1793,7 @@
                         <p class="text-center mt-4 text-sm text-gray-500">Dados fornecidos por <a href="https://www.coingecko.com/" target="_blank" class="text-blue-700 underline">CoinGecko</a>.</p>
                         `
                     );
-                    readModal.style.display = 'flex';
-
+                    readModal.style.display = 'flex'; // Exibe o modal
                 } catch (error) {
                     console.error(`Erro ao buscar detalhes da criptomoeda ${coinId}:`, error);
                     loadContentIntoModal(
@@ -1625,18 +1805,23 @@
                 }
             }
 
-
-            // Function to fetch and display cryptocurrency market data
+            // Função para buscar e exibir dados do mercado de criptomoedas
             async function fetchCryptoData() {
+                const container = document.querySelector('.cryptocurrency-container');
+                const loading = document.getElementById('loading-crypto');
+                const erro = document.getElementById('erro-crypto');
+
+                container.innerHTML = ''; // Limpa o container antes de carregar novos dados
+                loading.classList.remove('hidden'); // Mostra o spinner de carregamento
+                erro.classList.add('hidden'); // Esconde mensagens de erro anteriores
+
                 const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=50&page=1&sparkline=false';
                 try {
                     const response = await fetch(url);
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        throw new Error(`Erro HTTP! status: ${response.status}`);
                     }
                     const data = await response.json();
-
-                    cryptocurrencyContainer.innerHTML = ''; // Clear existing content
 
                     data.forEach(coin => {
                         const changeClass = coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative';
@@ -1650,10 +1835,10 @@
                             <p class="marketcap">📊 Market Cap: R$ ${coin.market_cap.toLocaleString('pt-BR')}</p>
                             <button class="view-crypto-details-btn" data-coin-id="${coin.id}">Ver Cotação</button>
                         `;
-                        cryptocurrencyContainer.appendChild(card);
+                        container.appendChild(card);
                     });
 
-                    // Add event listeners to newly created "Ver Cotação" buttons
+                    // Adiciona listeners para os botões "Ver Cotação" de cada card
                     document.querySelectorAll('.view-crypto-details-btn').forEach(button => {
                         button.addEventListener('click', (event) => {
                             const coinId = event.target.dataset.coinId;
@@ -1661,98 +1846,143 @@
                         });
                     });
 
+                    // Configura a funcionalidade "Mostrar Mais/Menos" para criptomoedas
+                    setupShowMore('.cryptocurrency-container', 'show-more-crypto', 9);
                     
-                    // After loading, apply the show more/less logic
-                    setupShowMore('.cryptocurrency-container', 'show-more-crypto', 10); // Changed to 20 initial coins
+                    // Adiciona um pequeno atraso para fins estéticos antes de esconder a mensagem de carregamento
+                    await new Promise(resolve => setTimeout(resolve, 1500)); 
 
                 } catch (error) {
                     console.error('Erro ao buscar dados de criptomoedas:', error);
-                    cryptocurrencyContainer.innerHTML = '<p class="text-center text-red-500">Não foi possível carregar os dados de criptomoedas no momento. Por favor, tente novamente mais tarde.</p>';
-                    document.getElementById('show-more-crypto').style.display = 'none'; // Hide button on error
+                    erro.textContent = `Não foi possível carregar os dados de criptomoedas no momento: ${error.message}. Por favor, tente novamente mais tarde.`;
+                    erro.classList.remove('hidden');
+                    document.getElementById('show-more-crypto').style.display = 'none'; // Esconde o botão se houver erro
+                } finally {
+                    loading.classList.add('hidden'); // Sempre esconde o spinner de carregamento
                 }
             }
 
+            fetchCryptoData(); // Chama a função para carregar os dados de criptomoedas na inicialização
 
-            // Call API function on page load
-            fetchCryptoData();
+            // --- Busca de Dados do Mercado B3 ---
+            async function fetchB3Data() {
+                const token = "3c9Lnw6kEuPjPVxzzXJPdH"; // Token de acesso à API Brapi.dev
+                const container = document.getElementById('b3-container');
+                const loading = document.getElementById('loading-b3');
+                const erro = document.getElementById('erro-b3');
 
-            
-           // b3333333333333333333333
-              document.addEventListener("DOMContentLoaded", () => {
-  // Lista unificada e sem duplicatas
-  const ativosAtualizados = [
-    'VALE3', 'PETR4', 'ITUB4', 'BBDC4', 'WEGE3', 'BBAS3', 'MGLU3', 'RENT3', 'B3SA3', 'ABEV3',
-    'LREN3', 'GGBR4', 'ELET3', 'HAPV3', 'SBSP3', 'BRFS3', 'RADL3', 'CSAN3', 'HYPE3', 'CMIG4',
-    'NTCO3', 'VIVT3', 'PRIO3', 'EGIE3', 'TAEE11', 'SUZB3', 'TIMS3', 'PETR3', 'EMBR3', 'UGPA3',
-    'AMER3', 'JBSS3'
-  ];
+                const ativos = [
+                    "PETR4","VALE3","ITUB4","BBDC4","ABEV3",
+                    "WEGE3","BBAS3","B3SA3","GGBR4","MGLU3",
+                    "LREN3","ELET3","USIM5","RENT3","EMBR3",
+                    "SBSP3","RDOR3","BBSE3","CPFE3",
+                    "IRBR3","PRIO3","UGPA3","ITSA4","PSSA3"
+                ];
 
-  // Monta a URL com ativos separados por vírgula
-  const url = ``;
+                container.innerHTML = ""; // Limpa o container
+                loading.classList.remove('hidden'); // Mostra o spinner de carregamento
+                erro.classList.add('hidden'); // Esconde mensagens de erro anteriores
 
-  // Faz a requisição com o token na header
-  fetch(url, {
-    headers: { 'x-api-key': '' }
-  })
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById('b3-container');
-    if (!container || !data.results) return;
+                try {
+                    const allB3Cards = []; // Array para armazenar os cards da B3
 
-    data.results.forEach(acao => {
-      const isAlta = acao.change >= 0;
-      const cor = isAlta ? 'text-green-500' : 'text-red-500';
-      const simbolo = isAlta ? '▲' : '▼';
+                    // Itera sobre cada ativo para buscar os dados
+                    for(let i = 0; i < ativos.length; i++) {
+                        const simbolo = ativos[i];
+                        const url = `https://brapi.dev/api/quote/${simbolo}?token=${token}`;
 
-      const card = document.createElement('div');
-      card.className = 'bg-white rounded-xl shadow-md p-5 hover:shadow-2xl transition duration-300';
+                        const res = await fetch(url);
+                        if (!res.ok) {
+                            const textoErro = await res.text();
+                            console.error(`Erro HTTP ${res.status} - ${textoErro} para o ativo ${simbolo}`);
+                            // Cria um card de erro se a requisição falhar
+                            const errorCard = document.createElement('div');
+                            errorCard.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative b3-card';
+                            errorCard.innerHTML = `
+                                <h3 class="font-bold">${simbolo}</h3>
+                                <p>Erro ao carregar dados.</p>
+                            `;
+                            allB3Cards.push(errorCard);
+                            continue; // Pula para o próximo ativo
+                        }
 
-      card.innerHTML = `
-        <h3 class="text-lg font-bold text-gray-800">${acao.stock}</h3>
-        <p class="text-gray-700">🏷️ Nome: ${acao.longName || 'Não disponível'}</p>
-        <p class="text-gray-700">💰 Preço: R$ ${acao.regularMarketPrice?.toFixed(2) || 'N/A'}</p>
-        <p class="text-gray-700">📈 Variação: <span class="${cor}">${simbolo} ${acao.change?.toFixed(2) || 0}%</span></p>
-        <p class="text-gray-700">📊 Market Cap: R$ ${acao.marketCap?.toLocaleString('pt-BR') || 'N/A'}</p>
-        <p class="text-gray-700">📉 Mín/Máx: R$ ${acao.regularMarketDayLow?.toFixed(2) || '-'} / R$ ${acao.regularMarketDayHigh?.toFixed(2) || '-'}</p>
-      `;
+                        const data = await res.json();
 
-      container.appendChild(card);
-    });
-  })
-  .catch(err => {
-    console.error("Erro ao buscar dados da B3:", err);
-    const container = document.getElementById('b3-container');
-    if (container) {
-      container.innerHTML = `<p class="text-red-500 text-center">Erro ao carregar dados da B3.</p>`;
-    }
-  });
-});          
-            
-            // Setup for News (e.g., show 5 initially)
-            setupShowMore('.news-cards-container', 'show-more-news', 5); // Changed to 5 initial news
-            // Setup for Articles (e.g., show 5 initially)
-            setupShowMore('.articles-cards-container', 'show-more-articles', 5); // Changed to 5 initial articles
-            // Setup for Reports (e.g., show 5 initially)
-            setupShowMore('.reports-cards-container', 'show-more-reports', 5); // Changed to 5 initial reports
-            // Setup for Gallery (e.g., show 5 initially)
-            setupShowMore('.gallery-cards-container', 'show-more-gallery', 5); // Changed to 5 initial gallery
+                        if (!data.results || data.results.length === 0) {
+                            console.warn(`Sem dados para o ativo ${simbolo}`);
+                            // Cria um card de "sem dados" se a API não retornar resultados
+                            const noDataCard = document.createElement('div');
+                            noDataCard.className = 'bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative b3-card';
+                            noDataCard.innerHTML = `
+                                <h3 class="font-bold">${simbolo}</h3>
+                                <p>Nenhum dado disponível.</p>
+                            `;
+                            allB3Cards.push(noDataCard);
+                            continue; // Pula para o próximo ativo
+                        }
 
+                        const acao = data.results[0];
+                        const isAlta = acao.regularMarketChangePercent >= 0;
+                        const classe = isAlta ? 'text-green-500' : 'text-red-500';
+                        const simboloSeta = isAlta ? '▲' : '▼';
 
-            // --- Dark Mode Toggle ---
-            const body = document.body;
-            const darkModeKey = 'darkModeEnabled';
+                        // Cria o card HTML para o ativo
+                        const card = document.createElement('div');
+                        card.className = 'bg-white rounded-xl shadow-md p-5 hover:shadow-2xl transition duration-300 flex flex-col items-center b3-card';
 
-            // Check localStorage for dark mode preference on load
-            if (localStorage.getItem(darkModeKey) === 'true') {
-                body.classList.add('dark-mode');
-                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela'; // Change icon and text
+                        card.innerHTML = `
+                            <img src="${acao.logourl}" alt="${acao.symbol}" class="w-16 h-16 mb-3" onerror="this.onerror=null;this.src='https://placehold.co/64x64/cccccc/000000?text=${acao.symbol}'"/>
+                            <h3 class="text-xl font-bold text-gray-800">${acao.symbol}</h3>
+                            <p class="text-gray-700 text-center">${acao.shortName}</p>
+                            <p class="text-gray-700 mt-2">💰 Preço: R$ ${acao.regularMarketPrice.toFixed(2)}</p>
+                            <p class="text-gray-700">📈 Variação: <span class="${classe}">${simboloSeta} ${acao.regularMarketChangePercent.toFixed(2)}%</span></p>
+                            <p class="text-700">📊 Market Cap: R$ ${acao.marketCap.toLocaleString('pt-BR')}</p>
+                        `;
+                        allB3Cards.push(card);
+
+                        await new Promise(r => setTimeout(r, 1200)); // Pequeno delay entre as requisições para evitar sobrecarga da API
+                    }
+
+                    allB3Cards.forEach(card => container.appendChild(card)); // Adiciona todos os cards ao container
+
+                    setupShowMore('#b3-container', 'show-more-b3', 9); // Configura "Mostrar Mais/Menos" para B3
+
+                } catch (error) {
+                    console.error('Erro geral ao carregar dados da B3:', error);
+                    erro.textContent = `Erro ao carregar dados da API da B3: ${error.message}. Verifique a sua conexão ou a chave da API.`;
+                    erro.classList.remove('hidden');
+                    document.getElementById('show-more-b3').style.display = 'none'; // Esconde o botão se houver erro
+                } finally {
+                    loading.classList.add('hidden'); // Sempre esconde o spinner de carregamento
+                }
             }
 
-            darkModeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark-mode');
-                const isDarkMode = body.classList.contains('dark-mode');
-                localStorage.setItem(darkModeKey, isDarkMode); // Save preference
+            fetchB3Data(); // Chama a função para carregar os dados da B3 na inicialização
+            
+            // Configura "Mostrar Mais/Menos" para outras seções
+            setupShowMore('.news-cards-container', 'show-more-news', 9);
+            setupShowMore('.articles-cards-container', 'show-more-articles', 9);
+            setupShowMore('.reports-cards-container', 'show-more-reports', 9);
+            setupShowMore('.gallery-cards-container', 'show-more-gallery', 9);
 
+
+            // --- Lógica de Alternância de Modo Escuro ---
+            const body = document.body;
+            const darkModeKey = 'darkModeEnabled'; // Chave para armazenar a preferência no localStorage
+
+            // Verifica a preferência do usuário no localStorage na inicialização
+            if (localStorage.getItem(darkModeKey) === 'true') {
+                body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela'; // Altera o texto do botão
+            }
+
+            // Adiciona listener de clique para alternar o modo escuro
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode'); // Alterna a classe 'dark-mode' no body
+                const isDarkMode = body.classList.contains('dark-mode');
+                localStorage.setItem(darkModeKey, isDarkMode); // Salva a preferência no localStorage
+
+                // Atualiza o texto e ícone do botão
                 if (isDarkMode) {
                     darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela';
                 } else {
@@ -1760,37 +1990,50 @@
                 }
             });
 
+            // --- Lógica do Botão de Atualização (Mobile) ---
+            if (refreshMobileBtn) {
+                refreshMobileBtn.addEventListener('click', async () => {
+                    refreshMobileBtn.disabled = true; // Desabilita o botão durante a atualização
+                    refreshMobileBtn.innerHTML = '<i class="fas fa-sync-alt animate-spin"></i> Atualizando...'; // Mostra spinner e texto
 
+                    // Dispara as buscas de dados para cripto e B3
+                    await fetchCryptoData();
+                    await fetchB3Data();
 
+                    refreshMobileBtn.disabled = false; // Reabilita o botão
+                    refreshMobileBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar'; // Reseta o texto
+                });
+            }
 
-  // Desativa o menu de contexto (botão direito do mouse)
-        document.addEventListener('contextmenu', event => event.preventDefault());
+            // --- Desativação de Funções do Navegador para Segurança/Experiência ---
+            // Desativa o menu de contexto (botão direito do mouse)
+            document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Desabilita atalhos como F12, Ctrl+Shift+I, Ctrl+U, etc.
-        document.addEventListener('keydown', event => {
-            // F12
-            if (event.keyCode == 123) {
-                event.preventDefault();
-            }
-            // Ctrl+Shift+I (ou Cmd+Option+I para Mac)
-            if (event.ctrlKey && event.shiftKey && event.keyCode == 'I'.charCodeAt(0)) {
-                event.preventDefault();
-            }
-            // Ctrl+Shift+J (ou Cmd+Option+J para Mac)
-            if (event.ctrlKey && event.shiftKey && event.keyCode == 'J'.charCodeAt(0)) {
-                event.preventDefault();
-            }
-            // Ctrl+U (ou Cmd+Option+U para Mac) - Ver código fonte
-            if (event.ctrlKey && event.keyCode == 'U'.charCodeAt(0)) {
-                event.preventDefault();
-            }
-            // Ctrl+S (ou Cmd+S para Mac) - Salvar página
-            if (event.ctrlKey && event.keyCode == 'S'.charCodeAt(0)) {
-                event.preventDefault();
-            }
-        });
+            // Desabilita atalhos de teclado como F12, Ctrl+Shift+I, Ctrl+U, etc.
+            document.addEventListener('keydown', event => {
+                // F12 (Ferramentas de Desenvolvedor)
+                if (event.keyCode == 123) {
+                    event.preventDefault();
+                }
+                // Ctrl+Shift+I (ou Cmd+Option+I para Mac) - Ferramentas de Desenvolvedor
+                if (event.ctrlKey && event.shiftKey && event.keyCode == 'I'.charCodeAt(0)) {
+                    event.preventDefault();
+                }
+                // Ctrl+Shift+J (ou Cmd+Option+J para Mac) - Console
+                if (event.ctrlKey && event.shiftKey && event.keyCode == 'J'.charCodeAt(0)) {
+                    event.preventDefault();
+                }
+                // Ctrl+U (ou Cmd+Option+U para Mac) - Ver código fonte
+                if (event.ctrlKey && event.keyCode == 'U'.charCodeAt(0)) {
+                    event.preventDefault();
+                }
+                // Ctrl+S (ou Cmd+S para Mac) - Salvar página
+                if (event.ctrlKey && event.keyCode == 'S'.charCodeAt(0)) {
+                    event.preventDefault();
+                }
+            });
 
-        });
+        }); // Fim do DOMContentLoaded
     </script>
 </body>
 </html>

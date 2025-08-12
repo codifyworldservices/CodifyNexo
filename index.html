@@ -86,7 +86,6 @@
         }
         body.dark-mode #desktop-top-nav button {
             color: #f0f0f0; /* Texto claro no modo escuro */
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); REMOVIDO */
         }
         body.dark-mode #desktop-top-nav button:hover {
             color: #BBDDFF;
@@ -113,12 +112,12 @@
             border-bottom-color: #0055A4; /* Borda mais escura para títulos */
         }
         
-        /* Modo escuro para o título da seção hero (Bem-vindo) */
         body.dark-mode #hero h2 {
-            color: var(--primary-blue); /* Mantém azul no modo escuro conforme solicitado */
+            color: var(--primary-blue);
         }
 
         /* Estilos de cards no modo escuro */
+        body.dark-mode .market-card,
         body.dark-mode .cryptocurrency-card,
         body.dark-mode .news-card,
         body.dark-mode .article-card,
@@ -131,6 +130,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
+        body.dark-mode .market-card h3,
         body.dark-mode .cryptocurrency-card h3,
         body.dark-mode .news-card h3,
         body.dark-mode .article-card h3,
@@ -141,6 +141,7 @@
             color: #BBDDFF; /* Azul mais claro para títulos de cards */
         }
 
+        body.dark-mode .market-card p,
         body.dark-mode .cryptocurrency-card p,
         body.dark-mode .news-card p,
         body.dark-mode .article-card p,
@@ -210,7 +211,6 @@
         }
         body.dark-mode #mobile-bottom-nav button {
             color: #f0f0f0;
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); REMOVIDO */
         }
         body.dark-mode #mobile-bottom-nav button:hover {
             color: #BBDDFF;
@@ -296,7 +296,6 @@
             padding: 5px 8px; /* Preenchimento para botões desktop */
             cursor: pointer;
             transition: color 0.2s ease;
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); REMOVIDO */
             border-radius: 5px; /* Arredonda as bordas para a sombra */
         }
 
@@ -305,42 +304,6 @@
             font-size: 1.1rem; /* Tamanho do ícone para botões desktop */
             margin-bottom: 3px;
         }
-
-        /* Estilos do novo botão de atualização */
-        .refresh-btn {
-            display: none; /* Escondido por padrão para desktop */
-            background-color: var(--primary-blue);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            align-items: center; /* Para alinhamento de ícone e texto */
-            justify-content: center;
-            gap: 5px; /* Espaço entre ícone e texto */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao botão de atualização */
-        }
-
-        .refresh-btn:hover {
-            background-color: var(--secondary-blue);
-        }
-
-        .refresh-btn i {
-            font-size: 1rem;
-        }
-
-        /* Modo escuro para o botão de atualização */
-        body.dark-mode .refresh-btn {
-            background-color: #004488;
-            color: #f0f0f0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra mais escura para o modo escuro */
-        }
-        body.dark-mode .refresh-btn:hover {
-            background-color: #0055AA;
-        }
-
 
         /* ------------------------------------------------------------- */
         /* Navegação da Barra Lateral */
@@ -449,9 +412,8 @@
         }
         
         /* Estilos de grade gerais para todos os containers de cards */
-        .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+        .card-grid, .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
             display: grid;
-            /* Padrão para telas muito pequenas, ajustará dinamicamente para 2 ou 3 colunas */
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 15px; /* Espaçamento ligeiramente reduzido */
             justify-content: center;
@@ -460,7 +422,7 @@
         }
 
         /* Estilos base para todos os cards */
-        .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card, .indicador {
+        .market-card, .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card, .indicador {
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -469,22 +431,27 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             box-sizing: border-box; /* Inclui preenchimento/borda na largura */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         /* Efeito de hover para todos os cards */
-        .cryptocurrency-card:hover, .news-card:hover, .article-card:hover, .report-card:hover, .gallery-card:hover, .b3-card:hover, .indicador:hover {
+        .market-card:hover, .cryptocurrency-card:hover, .news-card:hover, .article-card:hover, .report-card:hover, .gallery-card:hover, .b3-card:hover, .indicador:hover {
             transform: translateY(-5px);
         }
 
         /* Estilos específicos para imagens dentro de cards */
-        .cryptocurrency-card img {
-            width: 75px; /* Aumentado em 50% (original 50px) */
-            height: 75px; /* Aumentado em 50% (original 50px) */
-            margin-bottom: 10px;
+        .market-card img, .cryptocurrency-card img, .b3-card img {
+            width: 75px; 
+            height: 75px;
+            margin: 0 auto 10px auto;
+            object-fit: contain;
         }
+        
         .news-card img, .article-card img, .report-card img, .gallery-card img {
             width: 100%;
-            height: 180px; /* Aumentado em 50% (original 120px) */
+            height: 180px; 
             object-fit: cover;
             border-radius: 4px;
             margin-bottom: 10px;
@@ -496,7 +463,7 @@
         }
 
         /* Estilos para títulos de cards */
-        .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3, .indicador h2 {
+        .market-card h3, .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3, .indicador h2 {
             font-family: var(--font-heading);
             font-size: 1.2rem;
             margin-bottom: 5px;
@@ -509,7 +476,7 @@
         }
 
         /* Estilos para parágrafos de cards */
-        .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p, .indicador p {
+        .market-card p, .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p, .indicador p {
             font-size: 0.9rem;
             color: var(--dark-gray);
             margin-bottom: 5px;
@@ -521,8 +488,8 @@
             margin-top: 8px;
             color: #555;
         }
-        .cryptocurrency-card p.positive { color: green; font-weight: bold; }
-        .cryptocurrency-card p.negative { color: red; font-weight: bold; }
+        .positive { color: green; font-weight: bold; }
+        .negative { color: red; font-weight: bold; }
 
         /* Botão para ver detalhes da criptomoeda */
         .cryptocurrency-card button.view-crypto-details-btn {
@@ -766,10 +733,8 @@
 
         /* Cores específicas para ícones sociais e efeitos de destaque */
         #sidebar-social-links a[aria-label="Instagram"] { color: #E4405F; }
-        /* GitHub, TikTok, X com sombra preta para destaque */
         #sidebar-social-links a[aria-label="GitHub"] { color: #FFFFFF; text-shadow: 1px 1px 2px #000; }
         #sidebar-social-links a[aria-label="Site Oficial"] { color: #FFFFFF; }
-        /* LinkedIn com cor invertida (azul para contraste) e sombra preta */
         #sidebar-social-links a[aria-label="LinkedIn"] { color: var(--secondary-blue); text-shadow: 1px 1px 2px #000; }
         #sidebar-social-links a[aria-label="TikTok"] { color: #FFFFFF; text-shadow: 1px 1px 2px #000; }
         #sidebar-social-links a[aria-label="X (Twitter)"] { color: #FFFFFF; text-shadow: 1px 1px 2px #000; }
@@ -807,7 +772,6 @@
             padding: 5px;
             cursor: pointer;
             transition: color 0.2s ease;
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); REMOVIDO */
             border-radius: 5px; /* Arredonda as bordas para a sombra */
         }
 
@@ -872,10 +836,6 @@
                 flex-grow: 1; /* Permite ocupar espaço disponível */
                 margin-right: 10px; /* Pequena margem do botão de atualização */
             }
-            #refresh-mobile-btn {
-                display: flex; /* Mostra o botão de atualização em mobile */
-                order: 3; /* Mais à direita */
-            }
         }
 
         @media (min-width: 769px) { /* Estilos para Tablet e Desktop */
@@ -906,73 +866,61 @@
             header {
                 padding: 10px 20px;
             }
-
-            #refresh-mobile-btn {
-                display: none; /* Esconde o botão de atualização no desktop */
-            }
         }
 
         /* Media query específica para 3 colunas na maioria das telas mobile */
         @media (max-width: 767px) {
-            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+            .card-grid, .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
                 grid-template-columns: repeat(3, 1fr); /* 3 colunas fixas para mobile */
                 gap: 10px; /* Espaçamento reduzido para melhor ajuste */
             }
-            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card {
+            .market-card, .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card {
                 padding: 8px; /* Preenchimento reduzido */
             }
-            .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3 {
+            .market-card h3, .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3 {
                 font-size: 1rem; /* Fonte do título menor */
             }
-            .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
+            .market-card p, .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
                 font-size: 0.75rem; /* Fonte do parágrafo menor */
             }
-            .cryptocurrency-card img {
-                width: 75px; /* Aumentado em 50% (original 50px) */
-                height: 75px; /* Aumentado em 50% (original 50px) */
+            .market-card img, .cryptocurrency-card img, .b3-card img {
+                width: 75px; 
+                height: 75px;
             }
             .news-card img, .article-card img, .report-card img, .gallery-card img {
                 width: 100%; /* Mantém 100% para preencher o card */
-                height: 60px; /* Aumentado em 50% (original 40px) */
-            }
-            .b3-card img {
-                width: 96px; /* Aumentado em 50% (original 64px) */
-                height: 96px; /* Aumentado em 50% (original 64px) */
+                height: 60px;
             }
         }
 
         /* Para telas muito pequenas (abaixo de 480px), permite 2 colunas se 3 for muito apertado */
         @media (max-width: 479px) {
-            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+            .card-grid, .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
                 grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas muito pequenas para melhor legibilidade */
                 gap: 10px;
             }
-            .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card {
+            .market-card, .cryptocurrency-card, .news-card, .article-card, .report-card, .gallery-card, .b3-card {
                 padding: 6px;
             }
-            .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3 {
+            .market-card h3, .cryptocurrency-card h3, .news-card h3, .article-card h3, .report-card h3, .gallery-card h3, .b3-card h3 {
                 font-size: 0.9rem;
             }
-            .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
+            .market-card p, .cryptocurrency-card p, .news-card p, .article-card p, .report-card p, .gallery-card p, .b3-card p {
                 font-size: 0.7rem;
             }
-            .cryptocurrency-card img {
-                width: 75px; /* Mantém o tamanho maior */
-                height: 75px; /* Mantém o tamanho maior */
+            .market-card img, .cryptocurrency-card img, .b3-card img {
+                width: 75px; 
+                height: 75px;
             }
             .news-card img, .article-card img, .report-card img, .gallery-card img {
                 width: 100%; /* Mantém 100% para preencher o card */
-                height: 52px; /* Aumentado em 50% (original 35px, arredondado) */
-            }
-            .b3-card img {
-                width: 96px; /* Mantém o tamanho maior */
-                height: 96px; /* Mantém o tamanho maior */
+                height: 52px;
             }
         }
 
         /* Tablet (768px a 991px) */
         @media (min-width: 768px) and (max-width: 991px) {
-            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+            .card-grid, .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
                 grid-template-columns: repeat(4, 1fr); /* 4 colunas para tablets */
                 gap: 20px;
             }
@@ -980,7 +928,7 @@
 
         /* Desktop (992px e acima) */
         @media (min-width: 992px) {
-            .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
+            .card-grid, .cryptocurrency-container, .news-cards-container, .articles-cards-container, .reports-cards-container, .gallery-cards-container, #b3-container {
                 grid-template-columns: repeat(5, 1fr); /* 5 colunas para telas maiores */
                 gap: 20px;
             }
@@ -999,11 +947,6 @@
                 <img src="img/logo_codi.png" alt="Codify Nexo Logo" class="logo">
                 <h1 class="site-title">Codify Nexo</h1>
             </div>
-            <!-- Novo botão de atualização para mobile (visível apenas em telas menores) -->
-            <button id="refresh-mobile-btn" class="refresh-btn" aria-label="Atualizar dados">
-                <i class="fas fa-sync-alt"></i>
-                <span>Atualizar ações</span>
-            </button>
             <!-- Navegação superior para desktop -->
             <nav id="desktop-top-nav">
                 <button class="scroll-to-section-btn" data-section-id="news-section">
@@ -1033,6 +976,8 @@
             <li><button class="scroll-to-section-btn" data-section-id="articles-section">Artigos</button></li>
             <li><button class="scroll-to-section-btn" data-section-id="cryptocurrency-section">Mercado Cripto</button></li>
             <li><button class="scroll-to-section-btn" data-section-id="b3-section">Mercado B3</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="dfm-section">Dubai Finance</button></li>
+            <li><button class="scroll-to-section-btn" data-section-id="euronext-section">Europa</button></li>
             <li><button class="scroll-to-section-btn" data-section-id="reports-section">Relatórios de Mercado</button></li>
             <li><button class="scroll-to-section-btn" data-section-id="photo-gallery-section">Galeria de Fotos</button></li>
             <li><button class="open-modal-btn" data-modal-id="not-versions">Fatos, não versões</button></li>
@@ -1183,7 +1128,7 @@
                 <p class="text-gray-600 mt-2">Carregando dados de criptomoedas via API...</p>
             </div>
             <!-- Mensagem de erro para dados de criptomoedas -->
-            <div id="erro-crypto" class="hidden text-center text-red-500 font-semibold mt-4"></div>
+            <div id="error-crypto" class="hidden text-center text-red-500 font-semibold mt-4"></div>
             <div class="cryptocurrency-container">
                 <!-- Criptomoedas serão carregadas aqui via JavaScript -->
             </div>
@@ -1206,9 +1151,9 @@
             </div>
 
             <!-- Mensagem de erro para dados da B3 -->
-            <div id="erro-b3" class="hidden text-center text-red-500 font-semibold mt-4"></div>
+            <div id="error-b3" class="hidden text-center text-red-500 font-semibold mt-4"></div>
 
-            <div id="b3-container">
+            <div id="b3-container" class="card-grid">
                 <!-- Ativos da B3 serão carregados aqui via JavaScript -->
             </div>
             <!-- Botão para mostrar mais ativos da B3 -->
@@ -1219,6 +1164,40 @@
             </p>
         </section>
         
+        <!-- Seção Dubai Financial Market (DFM) -->
+        <section class="content-section" id="dfm-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Dubai Finance</h2>
+            </div>
+             <div id="loading-dfm" class="text-center mb-4">
+                <div class="spinner mx-auto w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-gray-600 mt-2">Carregando dados do DFM...</p>
+            </div>
+            <div id="error-dfm" class="hidden text-center text-red-500 font-semibold mt-4"></div>
+            <div class="card-grid" id="dfm-cards"></div>
+            <button class="show-more-btn" id="show-more-dfm">Mostrar Mais Ativos</button>
+            <p class="text-center mt-8 text-sm text-gray-500">
+                Fonte dos dados: <a class="underline" href="https://marketstack.com/" target="_blank" rel="noopener noreferrer">marketstack</a>
+            </p>
+        </section>
+
+        <!-- Seção Euronext -->
+        <section class="content-section" id="euronext-section">
+            <div class="section-heading-wrapper">
+                <h2 class="section-heading">Europa</h2>
+            </div>
+            <div id="loading-euronext" class="text-center mb-4">
+                <div class="spinner mx-auto w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-gray-600 mt-2">Carregando dados da Euronext...</p>
+            </div>
+            <div id="error-euronext" class="hidden text-center text-red-500 font-semibold mt-4"></div>
+            <div class="card-grid" id="euronext-cards"></div>
+            <button class="show-more-btn" id="show-more-euronext">Mostrar Mais Ativos</button>
+            <p class="text-center mt-8 text-sm text-gray-500">
+                Fonte dos dados: <a class="underline" href="https://marketstack.com/" target="_blank" rel="noopener noreferrer">marketstack</a>
+            </p>
+        </section>
+
         <!-- Seção de Relatórios de Mercado -->
         <section id="reports-section" class="content-section">
             <div class="section-heading-wrapper">
@@ -1227,10 +1206,10 @@
             <div class="reports-cards-container">
                 <!-- Card de Relatório 1 -->
                 <div class="report-card">
-                    <img src="https://via.placeholder.com/180x120?text=Relatorio+1" alt="Imagem Relatório 1">
+                    <img src="https://placehold.co/180x120/0055A4/white?text=Relatorio+1" alt="Imagem Relatório 1">
                     <h3>Perspectivas do Mercado de Fintechs</h3>
                     <p>Análise do crescimento e inovações no setor de tecnologia financeira.</p>
-                    <a href="#" class="open-content-modal" data-title="Perspectivas do Mercado de Fintechs" data-image="https://via.placeholder.com/600x400?text=Fintechs" data-content="
+                    <a href="#" class="open-content-modal" data-title="Perspectivas do Mercado de Fintechs" data-image="https://placehold.co/600x400/0055A4/white?text=Fintechs" data-content="
                         <p>O mercado de fintechs (tecnologias financeiras) continua em franca expansão globalmente, impulsionado pela digitalização dos serviços financeiros, a demanda por conveniência e a inclusão financeira. No Brasil, o setor é um dos mais dinâmicos, com a proliferação de bancos digitais, plataformas de pagamento, empresas de crédito e insurtechs.</p>
                         <p>As inovações incluem o Open Banking (e futuramente Open Finance), que permite o compartilhamento seguro de dados financeiros entre instituições, e o PIX, que revolucionou os pagamentos no país. Essas tecnologias estão democratizando o acesso a serviços financeiros e aumentando a concorrência.</p>
                         <p>As perspectivas para o mercado de fintechs são altamente positivas, com projeções de crescimento contínuo e a consolidação de novos modelos de negócio. O desafio será a adaptação às regulamentações e a garantia da segurança dos dados dos usuários em um ambiente cada vez mais digital e interconectado.</p>
@@ -1238,10 +1217,10 @@
                 </div>
                 <!-- Card de Relatório 2 -->
                 <div class="report-card">
-                    <img src="https://via.placeholder.com/180x120?text=Relatorio+2" alt="Imagem Relatório 2">
+                    <img src="https://placehold.co/180x120/007ACC/white?text=Relatorio+2" alt="Imagem Relatório 2">
                     <h3>Setor de Energias Renováveis 2025</h3>
                     <p>Projeções e oportunidades de investimento em energias limpas.</p>
-                    <a href="#" class="open-content-modal" data-title="Setor de Energias Renováveis 2025" data-image="https://via.placeholder.com/600x400?text=Renovaveis+2025" data-content="
+                    <a href="#" class="open-content-modal" data-title="Setor de Energias Renováveis 2025" data-image="https://placehold.co/600x400/007ACC/white?text=Renovaveis+2025" data-content="
                         <p>O setor de energias renováveis está posicionado para um crescimento robusto em 2025 e nos anos seguintes, impulsionado por metas globais de descarbonização e pela busca por maior segurança energética. A Agência Internacional de Energia (AIE) prevê que a capacidade global de energia renovável continuará a crescer significativamente, com a solar fotovoltaica e a eólica liderando a expansão.</p>
                         <p>Oportunidades de investimento se abrem em áreas como armazenamento de energia (baterias), hidrogênio verde, biocombustíveis avançados e tecnologias de rede inteligente para integrar a geração renovável intermitente. Países estão oferecendo incentivos fiscais e subsídios para atrair investimentos no setor.</p>
                         <p>No Brasil, a vasta disponibilidade de recursos naturais favoráveis às renováveis, juntamente com uma matriz energética já majoritariamente limpa, cria um ambiente promissor para projetos de grande escala e para a exportação de energia verde. O cenário é de otimismo para quem busca investir em um futuro sustentável.</p>
@@ -1249,10 +1228,10 @@
                 </div>
                 <!-- Card de Relatório 3 -->
                 <div class="report-card">
-                    <img src="https://via.placeholder.com/180x120?text=Relatorio+3" alt="Imagem Relatório 3">
+                    <img src="https://placehold.co/180x120/BBDDFF/black?text=Relatorio+3" alt="Imagem Relatório 3">
                     <h3>Relatório Global de Cibersegurança</h3>
                     <p>Dados e tendências sobre as ameaças e defesas mais recentes.</p>
-                    <a href="#" class="open-content-modal" data-title="Relatório Global de Cibersegurança" data-image="https://via.placeholder.com/600x400?text=Global+Ciberseguranca" data-content="
+                    <a href="#" class="open-content-modal" data-title="Relatório Global de Cibersegurança" data-image="https://placehold.co/600x400/BBDDFF/black?text=Global+Ciberseguranca" data-content="
                         <p>O Relatório Global de Cibersegurança de 2024-2025 aponta para um aumento alarmante no volume e na sofisticação dos ataques cibernéticos. O custo médio de uma violação de dados atingiu novas máximas, e o ransomware continua sendo uma das maiores preocupações para empresas e governos em todo o mundo.</p>
                         <p>As tendências observadas incluem o uso crescente de inteligência artificial por parte dos atacantes para criar ataques mais personalizados e eficientes, e a exploração de vulnerabilidades em softwares de terceiros e cadeias de suprimentos. A escassez de profissionais qualificados em cibersegurança agrava o problema.</p>
                         <p>Em resposta, há um foco maior em segurança de identidade, com a adoção de Zero Trust e autenticação multifator, além de investimentos em inteligência de ameaças para antecipar ataques. A colaboração internacional e a conscientização dos usuários são cruciais para construir um ambiente digital mais resiliente.</p>
@@ -1260,10 +1239,10 @@
                 </div>
                 <!-- Card de Relatório 4 -->
                 <div class="report-card">
-                    <img src="https://via.placeholder.com/180x120?text=Relatorio+4" alt="Imagem Relatório 4">
+                    <img src="https://placehold.co/180x120/333333/white?text=Relatorio+4" alt="Imagem Relatório 4">
                     <h3>Mercado de Saúde Digital: Crescimento</h3>
                     <p>Como a tecnologia está remodelando a saúde e o bem-estar.</p>
-                    <a href="#" class="open-content-modal" data-title="Mercado de Saúde Digital: Crescimento" data-image="https://via.placeholder.com/600x400?text=Saude+Digital" data-content="
+                    <a href="#" class="open-content-modal" data-title="Mercado de Saúde Digital: Crescimento" data-image="https://placehold.co/600x400/333333/white?text=Saude+Digital" data-content="
                         <p>O mercado de saúde digital está em plena ascensão, impulsionado pela busca por maior eficiência, acessibilidade e personalização nos cuidados de saúde. A pandemia acelerou a adoção de tecnologias como a telemedicina, que permite consultas e monitoramento remoto, e dispositivos vestíveis (wearables) que coletam dados de saúde em tempo real.</p>
                         <p>Inovações incluem aplicativos de bem-estar, plataformas de gestão de doenças crônicas, inteligência artificial para diagnóstico e descoberta de medicamentos, e robótica para cirurgias. Essas tecnologias visam melhorar a experiência do paciente, otimizar os recursos dos sistemas de saúde e promover a medicina preventiva.</p>
                         <p>Ainda existem desafios regulatórios e de privacidade de dados, mas o potencial de transformação é imenso. A saúde digital promete tornar os serviços de saúde mais acessíveis, eficientes e centrados no paciente, com um impacto positivo na qualidade de vida de milhões de pessoas em todo o mundo.</p>
@@ -1271,10 +1250,10 @@
                 </div>
                 <!-- Card de Relatório 5 -->
                 <div class="report-card">
-                    <img src="https://via.placeholder.com/180x120?text=Relatorio+5" alt="Imagem Relatório 5">
+                    <img src="https://placehold.co/180x120/0055A4/white?text=Relatorio+5" alt="Imagem Relatório 5">
                     <h3>Tendências de AI e Machine Learning</h3>
                     <p>Novos avanços em inteligência artificial e aprendizado de máquina.</p>
-                    <a href="#" class="open-content-modal" data-title="Tendências de AI e Machine Learning" data-image="https://via.placeholder.com/600x400?text=AI+ML" data-content="
+                    <a href="#" class="open-content-modal" data-title="Tendências de AI e Machine Learning" data-image="https://placehold.co/600x400/0055A4/white?text=AI+ML" data-content="
                         <p>A inteligência artificial (IA) e o aprendizado de máquina (Machine Learning - ML) continuam a evoluir rapidamente, com novas tendências moldando o futuro da tecnologia. O aprendizado de máquina federado, que permite treinar modelos sem centralizar os dados, está ganhando destaque para aplicações que exigem privacidade, como saúde e finanças.</p>
                         <p>A IA generativa, capaz de criar textos, imagens e até códigos, está revolucionando setores como design, marketing e desenvolvimento de software. A IA explicável (XAI) também é uma área crescente, focada em tornar os modelos de IA mais transparentes e compreensíveis, o que é crucial para aplicações críticas.</p>
                         <p>Outras tendências incluem a IA embarcada (Edge AI), que executa algoritmos diretamente em dispositivos, e o uso de IA para otimizar operações de TI (AIOps). Esses avanços prometem maior automação, personalização e eficiência em uma vasta gama de aplicações, desde carros autônomos até a descoberta científica.</p>
@@ -1282,10 +1261,10 @@
                 </div>
                 <!-- Card de Relatório 6 (duplicado para preenchimento) -->
                  <div class="report-card">
-                    <img src="https://via.placeholder.com/180x120?text=Relatorio+5" alt="Imagem Relatório 5">
+                    <img src="https://placehold.co/180x120/007ACC/white?text=Relatorio+6" alt="Imagem Relatório 6">
                     <h3>Tendências de AI e Machine Learning</h3>
                     <p>Novos avanços em inteligência artificial e aprendizado de máquina.</p>
-                    <a href="#" class="open-content-modal" data-title="Tendências de AI e Machine Learning" data-image="https://via.placeholder.com/600x400?text=AI+ML" data-content="
+                    <a href="#" class="open-content-modal" data-title="Tendências de AI e Machine Learning" data-image="https://placehold.co/600x400/007ACC/white?text=AI+ML" data-content="
                         <p>A inteligência artificial (IA) e o aprendizado de máquina (Machine Learning - ML) continuam a evoluir rapidamente, com novas tendências moldando o futuro da tecnologia. O aprendizado de máquina federado, que permite treinar modelos sem centralizar os dados, está ganhando destaque para aplicações que exigem privacidade, como saúde e finanças.</p>
                         <p>A IA generativa, capaz de criar textos, imagens e até códigos, está revolucionando setores como design, marketing e desenvolvimento de software. A IA explicável (XAI) também é uma área crescente, focada em tornar os modelos de IA mais transparentes e compreensíveis, o que é crucial para aplicações críticas.</p>
                         <p>Outras tendências incluem a IA embarcada (Edge AI), que executa algoritmos diretamente em dispositivos, e o uso de IA para otimizar operações de TI (AIOps). Esses avanços prometem maior automação, personalização e eficiência em uma vasta gama de aplicações, desde carros autônomos até o descoberta científica.</p>
@@ -1302,13 +1281,13 @@
                 <h2 class="section-heading"><strong>Artigos em construção</strong></h2>
             </div>
                             
-            <div class="news-cards-container">
+            <div class="articles-cards-container">
                 <!-- Card de Artigo 1 -->
-                <div class="news-card">
-                    <img src="https://via.placeholder.com/180x120?text=Artigo+1" alt="Imagem Artigo 1">
+                <div class="article-card">
+                    <img src="https://placehold.co/180x120/0055A4/white?text=Artigo+1" alt="Imagem Artigo 1">
                     <h3>Impacto da IA na Educação</h3>
                     <p>Como a inteligência artificial está transformando o aprendizado e o ensino.</p>
-                    <a href="#" class="open-content-modal" data-title="Impacto da IA na Educação" data-image="https://via.placeholder.com/600x400?text=IA+Educacao" data-content="
+                    <a href="#" class="open-content-modal" data-title="Impacto da IA na Educação" data-image="https://placehold.co/600x400/0055A4/white?text=IA+Educacao" data-content="
                         <p>A inteligência artificial está remodelando a educação, oferecendo novas ferramentas para alunos e educadores. Plataformas de IA podem personalizar o aprendizado, adaptando o conteúdo e o ritmo às necessidades individuais de cada estudante, identificando lacunas de conhecimento e recomendando materiais de estudo específicos.</p>
                         <p>Para os professores, a IA pode automatizar tarefas administrativas, como correção de provas e planejamento de aulas, liberando mais tempo para interações significativas com os alunos. Ferramentas de tutoria baseadas em IA também fornecem suporte 24 horas por dia, 7 dias por semana, tornando o aprendizado mais acessível.</p>
                         <p>No entanto, a integração da IA na educação também levanta questões sobre a privacidade dos dados dos alunos, o viés algorítmico e a necessidade de garantir que a tecnologia complemente, em vez de substituir, o papel humano no processo educacional. O futuro da educação com IA promete ser mais eficiente, inclusivo e adaptativo.</p>
@@ -1316,10 +1295,10 @@
                 </div>
                 <!-- Card de Artigo 2 -->
                 <div class="article-card">
-                    <img src="https://via.placeholder.com/180x120?text=Artigo+2" alt="Imagem Artigo 2">
+                    <img src="https://placehold.co/180x120/007ACC/white?text=Artigo+2" alt="Imagem Artigo 2">
                     <h3>A Revolução do 5G e IoT</h3>
                     <p>Descubra o potencial da conectividade de próxima geração para as cidades inteligentes.</p>
-                    <a href="#" class="open-content-modal" data-title="A Revolução do 5G e IoT" data-image="https://via.placeholder.com/600x400?text=5G+IoT" data-content="
+                    <a href="#" class="open-content-modal" data-title="A Revolução do 5G e IoT" data-image="https://placehold.co/600x400/007ACC/white?text=5G+IoT" data-content="
                         <p>A combinação do 5G e da Internet das Coisas (IoT) está pavimentando o caminho para uma nova era de conectividade e inovação. O 5G, com sua velocidade ultrarrápida, baixa latência e capacidade massiva de conexão, é a espinha dorsal necessária para o pleno potencial da IoT.</p>
                         <p>Em cidades inteligentes, essa sinergia permite o funcionamento de semáforos inteligentes, sensores de qualidade do ar em tempo real, sistemas de gerenciamento de resíduos otimizados e veículos autônomos. A IoT, por sua vez, gera uma quantidade imensa de dados que, impulsionados pelo 5G, podem ser processados e analisados instantaneamente para tomar decisões.</p>
                         <p>Na indústria, o 5G e a IoT facilitam a Indústria 4.0, com fábricas conectadas, robôs autônomos e manutenção preditiva. O agronegócio também se beneficia, com monitoramento de plantações e rebanhos. Essa revolução da conectividade promete maior eficiência, segurança e novas oportunidades de negócios em todos os setores.</p>
@@ -1327,10 +1306,10 @@
                 </div>
                 <!-- Card de Artigo 3 -->
                 <div class="article-card">
-                    <img src="https://via.placeholder.com/180x120?text=Artigo+3" alt="Imagem Artigo 3">
+                    <img src="https://placehold.co/180x120/BBDDFF/black?text=Artigo+3" alt="Imagem Artigo 3">
                     <h3>Desafios da Cibersegurança Corporativa</h3>
                     <p>Análise das principais ameaças e estratégias de defesa para empresas.</p>
-                    <a href="#" class="open-content-modal" data-title="Desafios da Cibersegurança Corporativa" data-image="https://via.placeholder.com/600x400?text=Ciberseguranca+Corporativa" data-content="
+                    <a href="#" class="open-content-modal" data-title="Desafios da Cibersegurança Corporativa" data-image="https://placehold.co/600x400/BBDDFF/black?text=Ciberseguranca+Corporativa" data-content="
                         <p>A cibersegurança corporativa enfrenta um cenário de ameaças cada vez mais complexo. Os principais desafios incluem ataques de ransomware, que criptografam dados e exigem resgate; ataques de phishing e engenharia social, que visam enganar funcionários; e ameaças internas, seja por negligência ou intenção maliciosa.</p>
                         <p>As estratégias de defesa eficazes envolvem uma abordagem multicamadas. Isso inclui a implementação de firewalls robustos, sistemas de detecção de intrusão, criptografia de dados, autenticação multifator e backups regulares e isolados. Além da tecnologia, o fator humano é crucial: treinamentos contínuos para os funcionários são essenciais para reconhecer e evitar armadilhas cibernéticas.</p>
                         <p>A conformidade com regulamentações como a LGPD (no Brasil) e a GDPR (no Europa) também é um desafio, exigindo que as empresas garantam a proteção dos dados pessoais de seus clientes e colaboradores. A resiliência cibernética e a capacidade de resposta a incidentes tornaram-se prioridades estratégicas para qualquer organização.</p>
@@ -1338,10 +1317,10 @@
                 </div>
                 <!-- Card de Artigo 4 -->
                 <div class="article-card">
-                    <img src="https://via.placeholder.com/180x120?text=Artigo+4" alt="Imagem Artigo 4">
+                    <img src="https://placehold.co/180x120/333333/white?text=Artigo+4" alt="Imagem Artigo 4">
                     <h3>O Crescimento do E-commerce no Brasil</h3>
                     <p>Tendências e perspectivas para o comércio eletrônico no cenário nacional.</p>
-                    <a href="#" class="open-content-modal" data-title="O Crescimento do E-commerce no Brasil" data-image="https://via.placeholder.com/600x400?text=Ecommerce+Brasil" data-content="
+                    <a href="#" class="open-content-modal" data-title="O Crescimento do E-commerce no Brasil" data-image="https://placehold.co/600x400/333333/white?text=Ecommerce+Brasil" data-content="
                         <p>O e-commerce no Brasil tem apresentado um crescimento exponencial nos últimos anos, impulsionado pela digitalização, maior acesso à internet e mudanças nos hábitos de consumo, especialmente após a pandemia. O país se consolidou como um dos maiores mercados de comércio eletrônico da América Latina.</p>
                         <p>As principais tendências incluem a ascensão do mobile commerce (m-commerce), com a maioria das compras realizadas via smartphones, e a popularização de marketplaces, que oferecem uma vasta gama de produtos. A logística e os pagamentos digitais também se desenvolveram para suportar essa expansão.</p>
                         <p>As perspectivas para o futuro indicam a continuidade do crescimento, com foco em nichos de mercado, personalização da experiência de compra e a integração entre o online e o offline (omnichannel). A sustentabilidade e a conveniência também são fatores-chave que moldarão o setor, com empresas investindo em entregas mais rápidas e opções de pagamento inovadoras.</p>
@@ -1349,10 +1328,10 @@
                 </div>             
                 <!-- Card de Artigo 5 -->
                  <div class="article-card">
-                    <img src="https://via.placeholder.com/180x120?text=Artigo+5" alt="Imagem Artigo 5">
+                    <img src="https://placehold.co/180x120/0055A4/white?text=Artigo+5" alt="Imagem Artigo 5">
                     <h3>Realidade Virtual e Aumentada</h3>
                     <p>O futuro da interação e novas oportunidades de mercado.</p>
-                    <a href="#" class="open-content-modal" data-title="Realidade Virtual e Aumentada" data-image="https://via.placeholder.com/600x400?text=RV+RA" data-content="
+                    <a href="#" class="open-content-modal" data-title="Realidade Virtual e Aumentada" data-image="https://placehold.co/600x400/0055A4/white?text=RV+RA" data-content="
                         <p>A Realidade Virtual (RV) e a Realidade Aumentada (RA) estão no limiar de transformar a forma como interagimos com a tecnologia e o mundo. Enquanto a RV imerge o usuário em um ambiente completamente digital, a RA sobrepõe informações digitais ao mundo real, enriquecendo a percepção.</p>
                         <p>As aplicações de RV e RA já são vastas: na educação, simulações imersivas; na medicina, treinamentos cirúrgicos e terapias; no entretenimento, jogos e experiências interativas; e no varejo, provadores virtuais. O Metaverso, um conceito de mundos virtuais interconectados, é um dos grandes catalisadores do desenvolvimento dessas tecnologias.</p>
                         <p>Com o avanço de hardwares mais leves e acessíveis, e a melhoria da qualidade gráfica, espera-se que RV e RA se tornem cada vez mais presentes em nosso cotidiano. As oportunidades de mercado são enormes, desde o desenvolvimento de software e hardware até a criação de conteúdo e a integração dessas tecnologias em diversas indústrias.</p>
@@ -1371,20 +1350,20 @@
             <div class="gallery-cards-container">
                 <!-- Card de Imagem 1 -->
                 <div class="gallery-card">
-                    <img src="https://via.placeholder.com/200x150?text=Imagem+1" alt="Galeria Imagem 1">
+                    <img src="https://placehold.co/200x150/0055A4/white?text=Imagem+1" alt="Galeria Imagem 1">
                     <h3>Inovação em Ação</h3>
                     <p>Tecnologia transformando indústrias.</p>
-                    <a href="#" class="open-content-modal" data-title="Inovação em Ação" data-image="https://via.placeholder.com/600x400?text=Inovacao+Acao" data-content="
+                    <a href="#" class="open-content-modal" data-title="Inovação em Ação" data-image="https://placehold.co/600x400/0055A4/white?text=Inovacao+Acao" data-content="
                         <p>Esta imagem representa a inovação tecnológica em plena atividade. Em laboratórios e centros de pesquisa ao redor do mundo, cientistas e engenheiros trabalham incansavelmente para desenvolver soluções que transformam indústrias e a vida cotidiana. A inovação em ação é o motor do progresso, impulsionando a eficiência, a sustentabilidade e a criação de novas oportunidades de mercado.</p>
                         <p>Desde a inteligência artificial otimizando processos produtivos até a biotecnologia revolucionando a medicina, a busca por novas e melhores maneiras de fazer as coisas é contínua. Essa foto simboliza o dinamismo e a energia por trás das descobertas que moldarão o nosso futuro.</p>
                     ">Ver Imagem</a>
                 </div>
                 <!-- Card de Imagem 2 -->
                 <div class="gallery-card">
-                    <img src="https://via.placeholder.com/200x150?text=Imagem+3" alt="Galeria Imagem 3">
+                    <img src="https://placehold.co/200x150/007ACC/white?text=Imagem+2" alt="Galeria Imagem 2">
                     <h3>Robótica Avançada</h3>
                     <p>Novos horizontes da automação.</p>
-                    <a href="#" class="open-content-modal" data-title="Robótica Avançada" data-image="https://via.placeholder.com/600x400?text=Robotica+Avancada" data-content="
+                    <a href="#" class="open-content-modal" data-title="Robótica Avançada" data-image="https://placehold.co/600x400/007ACC/white?text=Robotica+Avancada" data-content="
                         <p>A robótica avançada, como ilustrada nesta imagem, está expandindo os horizontes da automação muito além das linhas de montagem tradicionais. Robôs colaborativos (cobots) trabalham lado a lado com humanos, aumentando a produtividade e a segurança em ambientes industriais e até mesmo em serviços.</p>
                         <p>Robôs autônomos de entrega, drones para inspeções e robôs cirúrgicos de alta precisão são exemplos da diversidade de aplicações. O desenvolvimento em inteligência artificial e aprendizado de máquina permite que esses robôs aprendam, se adaptem e realizem tarefas complexas com crescente autonomia.</p>
                         <p>O futuro da robótica promete soluções para desafios em áreas como saúde, logística, agricultura e exploração de ambientes extremos, transformando a maneira como trabalhamos e vivemos.</p>
@@ -1392,10 +1371,10 @@
                 </div>
                 <!-- Card de Imagem 3 (duplicado para preenchimento) -->
                 <div class="gallery-card">
-                    <img src="https://via.placeholder.com/200x150?text=Imagem+3" alt="Galeria Imagem 3">
+                    <img src="https://placehold.co/200x150/BBDDFF/black?text=Imagem+3" alt="Galeria Imagem 3">
                     <h3>Robótica Avançada</h3>
                     <p>Novos horizontes da automação.</p>
-                    <a href="#" class="open-content-modal" data-title="Robótica Avançada" data-image="https://via.placeholder.com/600x400?text=Robotica+Avancada" data-content="
+                    <a href="#" class="open-content-modal" data-title="Robótica Avançada" data-image="https://placehold.co/600x400/BBDDFF/black?text=Robotica+Avancada" data-content="
                         <p>A robótica avançada, como ilustrada nesta imagem, está expandindo os horizontes da automação muito além das linhas de montagem tradicionais. Robôs colaborativos (cobots) trabalham lado a lado com humanos, aumentando a produtividade e a segurança em ambientes industriais e até mesmo em serviços.</p>
                         <p>Robôs autônomos de entrega, drones para inspeções e robôs cirúrgicos de alta precisão são exemplos da diversidade de aplicações. O desenvolvimento em inteligência artificial e aprendizado de máquina permite que esses robôs aprendam, se adaptem e realizem tarefas complexas com crescente autonomia.</p>
                         <p>O futuro da robótica promete soluções para desafios em áreas como saúde, logística, agricultura e exploração de ambientes extremos, transformando a maneira como trabalhamos e vivemos.</p>
@@ -1403,30 +1382,30 @@
                 </div>
                 <!-- Card de Imagem 4 -->
                 <div class="gallery-card">
-                    <img src="https://via.placeholder.com/200x150?text=Imagem+4" alt="Galeria Imagem 4">
+                    <img src="https://placehold.co/200x150/333333/white?text=Imagem+4" alt="Galeria Imagem 4">
                     <h3>Beleza da Ciência</h3>
                     <p>Microcosmos e nanotecnologia.</p>
-                    <a href="#" class="open-content-modal" data-title="Beleza da Ciência" data-image="https://via.placeholder.com/600x400?text=Beleza+Ciencia" data-content="
+                    <a href="#" class="open-content-modal" data-title="Beleza da Ciência" data-image="https://placehold.co/600x400/333333/white?text=Beleza+Ciencia" data-content="
                         <p>Esta imagem evoca a intrínseca beleza da ciência, muitas vezes oculta a olho nu. Ela nos convida a explorar o microcosmos, onde estruturas complexas e padrões fascinantes são revelados através da microscopia avançada. A nanotecnologia, por exemplo, manipula a matéria em escala atômica e molecular, abrindo caminho para novos materiais, medicamentos e dispositivos minúsculos.</p>
                         <p>A ciência não é apenas sobre números e fórmulas; é também sobre a descoberta da beleza inerente ao universo, desde a complexidade de uma célula viva até as interconexões cósmicas. Essa foto celebra a curiosidade humana e a capacidade de desvendar os mistérios do mundo através da pesquisa e da inovação.</p>
                     ">Ver Imagem</a>
                 </div>
                 <!-- Card de Imagem 5 -->
                  <div class="gallery-card">
-                    <img src="https://via.placeholder.com/200x150?text=Imagem+5" alt="Galeria Imagem 5">
+                    <img src="https://placehold.co/200x150/0055A4/white?text=Imagem+5" alt="Galeria Imagem 5">
                     <h3>Design e Tecnologia</h3>
                     <p>A fusão da arte com a inovação.</p>
-                    <a href="#" class="open-content-modal" data-title="Design e Tecnologia" data-image="https://via.placeholder.com/600x400?text=Design+Tecnologia" data-content="
+                    <a href="#" class="open-content-modal" data-title="Design e Tecnologia" data-image="https://placehold.co/600x400/0055A4/white?text=Design+Tecnologia" data-content="
                         <p>Esta imagem ilustra a poderosa fusão entre design e tecnologia. Não basta apenas criar tecnologias avançadas; é preciso que elas sejam intuitivas, esteticamente agradáveis e eficientes para o usuário. O design, nesse contexto, vai além da aparência, englobando a experiência do usuário (UX) e a interface do usuário (UI), garantindo que a inovação seja acessível e útil.</p>
                         <p>Desde smartphones com interfaces elegantes até dispositivos domésticos inteligentes que se integram perfeitamente ao ambiente, o design é crucial para o sucesso da tecnologia. Essa simbiose entre a criatividade do design e a funcionalidade da engenharia é o que torna as inovações tecnológicas verdadeiramente impactantes e desejáveis no cotidiano das pessoas.</p>
                     ">Ver Imagem</a>
                 </div>
                 <!-- Card de Imagem 6 (duplicado para preenchimento) -->
                  <div class="gallery-card">
-                    <img src="https://via.placeholder.com/200x150?text=Imagem+5" alt="Galeria Imagem 5">
+                    <img src="https://placehold.co/200x150/007ACC/white?text=Imagem+6" alt="Galeria Imagem 6">
                     <h3>Design e Tecnologia</h3>
                     <p>A fusão da arte com a inovação.</p>
-                    <a href="#" class="open-content-modal" data-title="Design e Tecnologia" data-image="https://via.placeholder.com/600x400?text=Design+Tecnologia" data-content="
+                    <a href="#" class="open-content-modal" data-title="Design e Tecnologia" data-image="https://placehold.co/600x400/007ACC/white?text=Design+Tecnologia" data-content="
                         <p>Esta imagem ilustra a poderosa fusão entre design e tecnologia. Não basta apenas criar tecnologias avançadas; é preciso que elas sejam intuitivas, esteticamente agradáveis e eficientes para o usuário. O design, nesse contexto, vai além da aparência, englobando a experiência do usuário (UX) e a interface do usuário (UI), garantindo que a inovação seja acessível e útil.</p>
                         <p>Desde smartphones com interfaces elegantes até dispositivos domésticos inteligentes que se integram perfeitamente ao ambiente, o design é crucial para o sucesso da tecnologia. Essa simbiose entre a criatividade do design e a funcionalidade da engenharia é o que torna as inovações tecnológicas verdadeiramente impactantes e desejáveis no cotidiano das pessoas.</p>
                     ">Ver Imagem</a>
@@ -1548,9 +1527,8 @@
             const modalTextContent = document.getElementById('modal-text-content');
             
             const darkModeToggle = document.getElementById('dark-mode-toggle');
-            const refreshMobileBtn = document.getElementById('refresh-mobile-btn'); // Botão de atualização
 
-            // --- Prompt de Instalação PWA (movido para o conteúdo "Sobre Nós") ---
+            // --- Prompt de Instalação PWA ---
             let deferredPrompt;
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
@@ -1559,10 +1537,9 @@
 
             // --- Funções de Alternância da Barra Lateral (Sidebar) ---
             menuToggle.addEventListener('click', () => {
-                sidebarNav.classList.add('open'); // Abre a barra lateral
+                sidebarNav.classList.add('open');
             });
             
-            // Fecha a barra lateral ao clicar fora dela
             document.addEventListener('click', (event) => {
                 if (!sidebarNav.contains(event.target) && !menuToggle.contains(event.target) && sidebarNav.classList.contains('open')) {
                     sidebarNav.classList.remove('open');
@@ -1575,8 +1552,8 @@
                     const sectionId = button.dataset.sectionId;
                     const section = document.getElementById(sectionId);
                     if (section) {
-                        section.scrollIntoView({ behavior: 'smooth' }); // Rola para a seção
-                        sidebarNav.classList.remove('open'); // Fecha a barra lateral após clicar
+                        section.scrollIntoView({ behavior: 'smooth' });
+                        sidebarNav.classList.remove('open');
                     }
                 });
             });
@@ -1585,7 +1562,7 @@
             openModalBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     const modalId = button.dataset.modalId;
-                    sidebarNav.classList.remove('open'); // Fecha a barra lateral ao abrir um modal
+                    sidebarNav.classList.remove('open');
 
                     switch (modalId) {
                         case 'about-us':
@@ -1608,11 +1585,9 @@
                                 <p class="text-center"><a href="https://www.codifyworld.com.br" target="_blank" class="text-blue-700 underline">https://www.codifyworld.com.br</a></p>
                             `);
                             readModal.style.display = 'flex';
-                            // Adiciona listener para o link de instalação PWA dentro do modal
-                            setTimeout(() => { // Usa setTimeout para garantir que o elemento esteja no DOM
+                            setTimeout(() => {
                                 const installAppInModalLink = document.getElementById('installAppInModalLink');
                                 if (installAppInModalLink) {
-                                    // Esconde o link se o app já estiver instalado (modo standalone)
                                     if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
                                         installAppInModalLink.style.display = 'none';
                                     } else {
@@ -1682,11 +1657,11 @@
                 });
             });
 
-            // --- Manipulação de Modais de Conteúdo (para Notícias, Artigos, Relatórios, Galeria) ---
+            // --- Manipulação de Modais de Conteúdo (para Notícias, Artigos, etc.) ---
             const openContentModalLinks = document.querySelectorAll('.open-content-modal');
             openContentModalLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
-                    event.preventDefault(); // Previne o comportamento padrão do link
+                    event.preventDefault();
                     const title = link.dataset.title;
                     const image = link.dataset.image;
                     const content = link.dataset.content;
@@ -1696,25 +1671,22 @@
                 });
             });
 
-            // Função para carregar conteúdo em um modal genérico
             function loadContentIntoModal(title, imageUrl, contentHtml) {
                 modalImage.src = imageUrl;
                 modalImage.alt = title;
-                modalImage.style.display = imageUrl ? 'block' : 'none'; // Mostra a imagem apenas se a URL for fornecida
+                modalImage.style.display = imageUrl ? 'block' : 'none';
                 modalTextContent.innerHTML = contentHtml;
             }
 
-            // Fecha todos os modais
             modalCloseBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     readModal.style.display = 'none';
                     privacyModal.style.display = 'none';
                     termsModal.style.display = 'none';
-                    modalImage.style.display = 'block'; // Reseta a exibição da imagem para o próximo modal
+                    modalImage.style.display = 'block';
                 });
             });
 
-            // Fecha modais ao clicar fora deles
             window.addEventListener('click', (event) => {
                 if (event.target === readModal) {
                     readModal.style.display = 'none';
@@ -1728,25 +1700,21 @@
                 }
             });
 
-            // --- Lógica de "Mostrar Mais / Menos" para Seções ---
-            const hiddenCardClass = 'hidden-card'; // Classe CSS para esconder cards
+            // --- Lógica de "Mostrar Mais / Menos" ---
+            const hiddenCardClass = 'hidden-card';
 
-            // Função para configurar o comportamento de "Mostrar Mais/Menos"
             function setupShowMore(containerSelector, buttonId, initialCount) {
                 const container = document.querySelector(containerSelector);
-                // Filtra apenas os elementos que são cards (para evitar outros elementos no container)
-                const cards = container ? Array.from(container.children).filter(child => child.classList.contains('cryptocurrency-card') || child.classList.contains('b3-card') || child.classList.contains('news-card') || child.classList.contains('article-card') || child.classList.contains('report-card') || child.classList.contains('gallery-card')) : [];
+                const cards = container ? Array.from(container.children).filter(child => child.tagName === 'DIV' && (child.classList.contains('market-card') || child.classList.contains('cryptocurrency-card') || child.classList.contains('b3-card') || child.classList.contains('news-card') || child.classList.contains('article-card') || child.classList.contains('report-card') || child.classList.contains('gallery-card'))) : [];
                 const toggleBtn = document.getElementById(buttonId);
 
-                // Se o container ou botão não existirem, ou não houver cards, esconde o botão
                 if (!container || !toggleBtn || cards.length === 0) {
                     if (toggleBtn) toggleBtn.style.display = 'none';
                     return;
                 }
 
-                let showingAll = false; // Estado para controlar se todos os cards estão sendo mostrados
+                let showingAll = false;
 
-                // Atualiza a visibilidade dos cards
                 function updateVisibility() {
                     cards.forEach((card, index) => {
                         if (showingAll || index < initialCount) {
@@ -1756,20 +1724,17 @@
                         }
                     });
 
-                    // Atualiza o texto e a visibilidade do botão "Mostrar Mais"
                     if (cards.length > initialCount) {
                         toggleBtn.style.display = 'block';
                         toggleBtn.textContent = showingAll ? 'Mostrar Menos' : 'Mostrar Mais';
                     } else {
-                        toggleBtn.style.display = 'none'; // Esconde o botão se não houver mais cards para mostrar
+                        toggleBtn.style.display = 'none';
                     }
                 }
 
-                // Adiciona listener de clique ao botão "Mostrar Mais"
                 toggleBtn.addEventListener('click', () => {
-                    showingAll = !showingAll; // Inverte o estado
-                    updateVisibility(); // Atualiza a visibilidade
-                    // Rola para o topo da seção se estiver mostrando menos
+                    showingAll = !showingAll;
+                    updateVisibility();
                     if (!showingAll) {
                         const section = toggleBtn.closest('.content-section');
                         if (section) {
@@ -1778,21 +1743,18 @@
                     }
                 });
 
-                updateVisibility(); // Chama a função na inicialização para definir o estado inicial
+                updateVisibility();
             }
 
-            // Função para buscar detalhes de criptomoedas e exibir no modal
             async function fetchCryptoDetails(coinId) {
                 const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
                 try {
                     const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`Erro HTTP! status: ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
                     const data = await response.json();
 
                     let description = data.description.pt || data.description.en || 'Descrição não disponível.';
-                    const maxLength = 800; // Limite de caracteres para a descrição
+                    const maxLength = 800;
                     if (description.length > maxLength) {
                         description = description.substring(0, maxLength) + '... (Leia mais no CoinGecko)';
                     }
@@ -1809,7 +1771,7 @@
                         <p class="text-center mt-4 text-sm text-gray-500">Dados fornecidos por <a href="https://www.coingecko.com/" target="_blank" class="text-blue-700 underline">CoinGecko</a>.</p>
                         `
                     );
-                    readModal.style.display = 'flex'; // Exibe o modal
+                    readModal.style.display = 'flex';
                 } catch (error) {
                     console.error(`Erro ao buscar detalhes da criptomoeda ${coinId}:`, error);
                     loadContentIntoModal(
@@ -1821,235 +1783,217 @@
                 }
             }
 
-            // Função para buscar e exibir dados do mercado de criptomoedas
             async function fetchCryptoData() {
                 const container = document.querySelector('.cryptocurrency-container');
                 const loading = document.getElementById('loading-crypto');
-                const erro = document.getElementById('erro-crypto');
+                const erro = document.getElementById('error-crypto');
 
-                container.innerHTML = ''; // Limpa o container antes de carregar novos dados
-                loading.classList.remove('hidden'); // Mostra o spinner de carregamento
-                erro.classList.add('hidden'); // Esconde mensagens de erro anteriores
+                container.innerHTML = '';
+                loading.classList.remove('hidden');
+                erro.classList.add('hidden');
 
                 const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=brl&order=market_cap_desc&per_page=50&page=1&sparkline=false';
                 try {
                     const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`Erro HTTP! status: ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`Erro HTTP! status: ${response.status}`);
                     const data = await response.json();
 
-                    data.forEach(coin => {
+                    for (const coin of data) {
                         const changeClass = coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative';
+                        const simboloSeta = coin.price_change_percentage_24h >= 0 ? '▲' : '▼';
                         const card = document.createElement('div');
                         card.className = 'cryptocurrency-card';
                         card.innerHTML = `
                             <img src="${coin.image}" alt="${coin.name} Logo">
                             <h3>${coin.name} (${coin.symbol.toUpperCase()})</h3>
-                            <p class="${changeClass}">📈 Variação 24h: ${coin.price_change_percentage_24h.toFixed(2)}%</p>
-                            <p class="price">💰 Preço: R$ ${coin.current_price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 10 })}</p>
-                            <p class="marketcap">📊 Market Cap: R$ ${coin.market_cap.toLocaleString('pt-BR')}</p>
-                            <button class="view-crypto-details-btn" data-coin-id="${coin.id}">Ver Cotação</button>
+                            <p class="price">💰 R$ ${coin.current_price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 10 })}</p>
+                            <p class="${changeClass}">${simboloSeta} ${coin.price_change_percentage_24h.toFixed(2)}% (24h)</p>
+                            <p class="text-xs text-gray-500">Vol: ${coin.total_volume.toLocaleString('pt-BR')}</p>
+                            <button class="view-crypto-details-btn" data-coin-id="${coin.id}">Ver Detalhes</button>
                         `;
                         container.appendChild(card);
-                    });
+                        await new Promise(resolve => setTimeout(resolve, 100)); // Pequeno delay para efeito visual
+                    }
 
-                    // Adiciona listeners para os botões "Ver Cotação" de cada card
+
                     document.querySelectorAll('.view-crypto-details-btn').forEach(button => {
                         button.addEventListener('click', (event) => {
-                            const coinId = event.target.dataset.coinId;
-                            fetchCryptoDetails(coinId);
+                            fetchCryptoDetails(event.target.dataset.coinId);
                         });
                     });
 
-                    // Configura a funcionalidade "Mostrar Mais/Menos" para criptomoedas
                     setupShowMore('.cryptocurrency-container', 'show-more-crypto', 9);
-                    
-                    // Adiciona um pequeno atraso para fins estéticos antes de esconder a mensagem de carregamento
-                    await new Promise(resolve => setTimeout(resolve, 1500)); 
-
                 } catch (error) {
                     console.error('Erro ao buscar dados de criptomoedas:', error);
-                    erro.textContent = `Não foi possível carregar os dados de criptomoedas no momento: ${error.message}. Por favor, tente novamente mais tarde.`;
+                    erro.textContent = `Não foi possível carregar os dados de criptomoedas: ${error.message}.`;
                     erro.classList.remove('hidden');
-                    document.getElementById('show-more-crypto').style.display = 'none'; // Esconde o botão se houver erro
+                    document.getElementById('show-more-crypto').style.display = 'none';
                 } finally {
-                    loading.classList.add('hidden'); // Sempre esconde o spinner de carregamento
+                    loading.classList.add('hidden');
                 }
             }
 
-            fetchCryptoData(); // Chama a função para carregar os dados de criptomoedas na inicialização
-
             // --- Busca de Dados do Mercado B3 ---
             async function fetchB3Data() {
-                const token = "3c9Lnw6kEuPjPVxzzXJPdH"; // Token de acesso à API Brapi.dev
+                const token = "3c9Lnw6kEuPjPVxzzXJPdH";
                 const container = document.getElementById('b3-container');
                 const loading = document.getElementById('loading-b3');
-                const erro = document.getElementById('erro-b3');
+                const erro = document.getElementById('error-b3');
 
-                const ativos = [
-                    "PETR4","VALE3","ITUB4","BBDC4","ABEV3",
-                    "WEGE3","BBAS3","B3SA3","GGBR4","MGLU3",
-                    "LREN3","ELET3","USIM5","RENT3","EMBR3",
-                    "SBSP3","RDOR3","BBSE3","CPFE3",
-                    "IRBR3","PRIO3","UGPA3","ITSA4","PSSA3"
-                ];
+                const ativos = ["PETR4","VALE3","ITUB4","BBDC4","ABEV3","WEGE3","BBAS3","B3SA3","GGBR4","MGLU3","LREN3","ELET3","USIM5","RENT3","EMBR3","SBSP3","RDOR3","BBSE3","CPFE3","IRBR3","PRIO3","UGPA3","ITSA4","PSSA3"];
 
-                container.innerHTML = ""; // Limpa o container
-                loading.classList.remove('hidden'); // Mostra o spinner de carregamento
-                erro.classList.add('hidden'); // Esconde mensagens de erro anteriores
+                container.innerHTML = "";
+                loading.classList.remove('hidden');
+                erro.classList.add('hidden');
 
                 try {
-                    const allB3Cards = []; // Array para armazenar os cards da B3
-
-                    // Itera sobre cada ativo para buscar os dados
-                    for(let i = 0; i < ativos.length; i++) {
-                        const simbolo = ativos[i];
-                        const url = `https://brapi.dev/api/quote/${simbolo}?token=${token}`;
-
-                        const res = await fetch(url);
+                    for (const simbolo of ativos) {
+                        const res = await fetch(`https://brapi.dev/api/quote/${simbolo}?token=${token}`);
                         if (!res.ok) {
-                            const textoErro = await res.text();
-                            console.error(`Erro HTTP ${res.status} - ${textoErro} para o ativo ${simbolo}`);
-                            // Cria um card de erro se a requisição falhar
-                            const errorCard = document.createElement('div');
-                            errorCard.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative b3-card';
-                            errorCard.innerHTML = `
-                                <h3 class="font-bold">${simbolo}</h3>
-                                <p>Erro ao carregar dados.</p>
-                            `;
-                            allB3Cards.push(errorCard);
-                            continue; // Pula para o próximo ativo
+                             console.warn(`Erro ao buscar dados para ${simbolo}`);
+                             continue;
                         }
-
                         const data = await res.json();
-
-                        if (!data.results || data.results.length === 0) {
+                        
+                        if (!data || !data.results || data.results.length === 0) {
                             console.warn(`Sem dados para o ativo ${simbolo}`);
-                            // Cria um card de "sem dados" se a API não retornar resultados
-                            const noDataCard = document.createElement('div');
-                            noDataCard.className = 'bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative b3-card';
-                            noDataCard.innerHTML = `
-                                <h3 class="font-bold">${simbolo}</h3>
-                                <p>Nenhum dado disponível.</p>
-                            `;
-                            allB3Cards.push(noDataCard);
-                            continue; // Pula para o próximo ativo
+                            continue;
                         }
 
                         const acao = data.results[0];
                         const isAlta = acao.regularMarketChangePercent >= 0;
-                        const classe = isAlta ? 'text-green-500' : 'text-red-500';
+                        const classe = isAlta ? 'positive' : 'negative';
                         const simboloSeta = isAlta ? '▲' : '▼';
 
-                        // Cria o card HTML para o ativo
                         const card = document.createElement('div');
-                        card.className = 'bg-white rounded-xl shadow-md p-5 hover:shadow-2xl transition duration-300 flex flex-col items-center b3-card';
-
+                        card.className = 'b3-card';
                         card.innerHTML = `
-                            <img src="${acao.logourl}" alt="${acao.symbol}" class="w-16 h-16 mb-3" onerror="this.onerror=null;this.src='https://placehold.co/64x64/cccccc/000000?text=${acao.symbol}'"/>
-                            <h3 class="text-xl font-bold text-gray-800">${acao.symbol}</h3>
-                            <p class="text-gray-700 text-center">${acao.shortName}</p>
-                            <p class="text-gray-700 mt-2">💰 Preço: R$ ${acao.regularMarketPrice.toFixed(2)}</p>
-                            <p class="text-gray-700">📈 Variação: <span class="${classe}">${simboloSeta} ${acao.regularMarketChangePercent.toFixed(2)}%</span></p>
-                            <p class="text-700">📊 Market Cap: R$ ${acao.marketCap.toLocaleString('pt-BR')}</p>
+                            <img src="${acao.logourl}" alt="${acao.symbol}" onerror="this.onerror=null;this.src='https://placehold.co/75x75/cccccc/000000?text=${acao.symbol}'"/>
+                            <h3>${acao.symbol}</h3>
+                            <p class="text-xs text-gray-500">${(acao.shortName || acao.longName).substring(0,25)}</p>
+                            <p class="font-bold">💰 R$ ${acao.regularMarketPrice.toFixed(2)}</p>
+                            <p class="${classe}">${simboloSeta} ${acao.regularMarketChangePercent.toFixed(2)}%</p>
+                            <p class="text-xs text-gray-500">Vol: ${acao.regularMarketVolume.toLocaleString('pt-BR')}</p>
                         `;
-                        allB3Cards.push(card);
-
-                        await new Promise(r => setTimeout(r, 1200)); // Pequeno delay entre as requisições para evitar sobrecarga da API
+                        container.appendChild(card);
+                        await new Promise(resolve => setTimeout(resolve, 300)); // Delay
                     }
 
-                    allB3Cards.forEach(card => container.appendChild(card)); // Adiciona todos os cards ao container
-
-                    setupShowMore('#b3-container', 'show-more-b3', 9); // Configura "Mostrar Mais/Menos" para B3
-
+                    setupShowMore('#b3-container', 'show-more-b3', 9);
                 } catch (error) {
                     console.error('Erro geral ao carregar dados da B3:', error);
-                    erro.textContent = `Erro ao carregar dados da API da B3: ${error.message}. Verifique a sua conexão ou a chave da API.`;
+                    erro.textContent = `Erro ao carregar dados da API da B3: ${error.message}.`;
                     erro.classList.remove('hidden');
-                    document.getElementById('show-more-b3').style.display = 'none'; // Esconde o botão se houver erro
+                    document.getElementById('show-more-b3').style.display = 'none';
                 } finally {
-                    loading.classList.add('hidden'); // Sempre esconde o spinner de carregamento
+                    loading.classList.add('hidden');
                 }
             }
 
-            fetchB3Data(); // Chama a função para carregar os dados da B3 na inicialização
+            // --- Funções para DFM e Euronext (Marketstack) ---
+            const MARKETSTACK_KEY = '7b337d56b95bf59d588b68ce6863cc6b';
+
+            async function fetchMarketstackData(symbols, containerId, loadingId, errorId, showMoreBtnId) {
+                const container = document.getElementById(containerId);
+                const loading = document.getElementById(loadingId);
+                const errorEl = document.getElementById(errorId);
+
+                container.innerHTML = "";
+                loading.classList.remove('hidden');
+                errorEl.classList.add('hidden');
+
+                try {
+                    for (const symbol of symbols) {
+                        const url = `https://api.marketstack.com/v1/eod/latest?access_key=${MARKETSTACK_KEY}&symbols=${symbol}`;
+                        const response = await fetch(url);
+                        const data = await response.json();
+
+                        if (data.error || !data.data || data.data.length === 0) {
+                            console.warn(`Erro ou sem dados para ${symbol}:`, data.error ? data.error.message : "Resposta vazia");
+                            await new Promise(resolve => setTimeout(resolve, 250)); // Delay mesmo em caso de erro para não sobrecarregar
+                            continue; // Pula para o próximo símbolo
+                        }
+
+                        const stock = data.data[0];
+                        const change = stock.close - stock.open;
+                        const changePercent = stock.open !== 0 ? (change / stock.open) * 100 : 0;
+                        const isAlta = change >= 0;
+                        const classe = isAlta ? 'positive' : 'negative';
+                        const simboloSeta = isAlta ? '▲' : '▼';
+
+                        const card = document.createElement('div');
+                        card.className = 'market-card';
+                        card.innerHTML = `
+                            <img src="https://placehold.co/75x75/EBF4FF/0055A4?text=${stock.symbol}" alt="${stock.symbol} Logo" class="w-16 h-16 mb-3 rounded-full mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/75x75/cccccc/000000?text=??'"/>
+                            <h3>${stock.symbol}</h3>
+                            <p class="text-xs text-gray-500">${stock.exchange}</p>
+                            <p class="font-bold">💰 ${stock.close.toFixed(2)}</p>
+                            <p class="${classe}">${simboloSeta} ${changePercent.toFixed(2)}%</p>
+                            <p class="text-xs text-gray-500">Vol: ${stock.volume.toLocaleString('pt-BR')}</p>
+                        `;
+                        container.appendChild(card);
+                        
+                        await new Promise(resolve => setTimeout(resolve, 300)); 
+                    }
+                    
+                    setupShowMore(`#${containerId}`, showMoreBtnId, 9);
+
+                } catch (error) {
+                    console.error(`Erro geral ao buscar dados para ${containerId}:`, error);
+                    errorEl.textContent = `Erro ao carregar dados: ${error.message}. Verifique a chave da API ou o plano de assinatura.`;
+                    errorEl.classList.remove('hidden');
+                    document.getElementById(showMoreBtnId).style.display = 'none';
+                } finally {
+                    loading.classList.add('hidden');
+                }
+            }
+
+            function fetchDfmData() {
+                const symbols = ['DFM', 'EMAAR', 'DIB', 'ENBD', 'SALIK', 'DEWA', 'AIRARABIA', 'DAMAC', 'TABREED', 'ARMX', 'GFH', 'UPP', 'GULFNAV'];
+                fetchMarketstackData(symbols, 'dfm-cards', 'loading-dfm', 'error-dfm', 'show-more-dfm');
+            }
+
+            function fetchEuronextData() {
+                const symbols = ['ENX.XPAR', 'AIR.XPAR', 'TTE.XPAR', 'MC.XPAR', 'SAN.XPAR', 'KER.XPAR', 'BNP.XPAR', 'ABI.XBRU', 'INGA.XAMS', 'PHIA.XAMS', 'OR.XPAR', 'ASML.XAMS', 'PRX.XAMS', 'ADYEN.XAMS'];
+                fetchMarketstackData(symbols, 'euronext-cards', 'loading-euronext', 'error-euronext', 'show-more-euronext');
+            }
+
+            // --- Chamadas Iniciais e Configurações ---
+            fetchCryptoData();
+            fetchB3Data();
+            fetchDfmData();
+            fetchEuronextData();
             
-            // Configura "Mostrar Mais/Menos" para outras seções
             setupShowMore('.news-cards-container', 'show-more-news', 9);
             setupShowMore('.articles-cards-container', 'show-more-articles', 9);
             setupShowMore('.reports-cards-container', 'show-more-reports', 9);
             setupShowMore('.gallery-cards-container', 'show-more-gallery', 9);
 
-
             // --- Lógica de Alternância de Modo Escuro ---
             const body = document.body;
-            const darkModeKey = 'darkModeEnabled'; // Chave para armazenar a preferência no localStorage
+            const darkModeKey = 'darkModeEnabled';
 
-            // Verifica a preferência do usuário no localStorage na inicialização
             if (localStorage.getItem(darkModeKey) === 'true') {
                 body.classList.add('dark-mode');
-                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela'; // Altera o texto do botão
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela';
             }
 
-            // Adiciona listener de clique para alternar o modo escuro
             darkModeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark-mode'); // Alterna a classe 'dark-mode' no body
+                body.classList.toggle('dark-mode');
                 const isDarkMode = body.classList.contains('dark-mode');
-                localStorage.setItem(darkModeKey, isDarkMode); // Salva a preferência no localStorage
-
-                // Atualiza o texto e ícone do botão
-                if (isDarkMode) {
-                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Clarear Tela';
-                } else {
-                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Escurecer Tela';
-                }
+                localStorage.setItem(darkModeKey, isDarkMode);
+                darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i> Clarear Tela' : '<i class="fas fa-moon"></i> Escurecer Tela';
             });
 
-            // --- Lógica do Botão de Atualização (Mobile) ---
-            if (refreshMobileBtn) {
-                refreshMobileBtn.addEventListener('click', async () => {
-                    refreshMobileBtn.disabled = true; // Desabilita o botão durante a atualização
-                    refreshMobileBtn.innerHTML = '<i class="fas fa-sync-alt animate-spin"></i> Atualizando...'; // Mostra spinner e texto
-
-                    // Dispara as buscas de dados para cripto e B3
-                    await fetchCryptoData();
-                    await fetchB3Data();
-
-                    refreshMobileBtn.disabled = false; // Reabilita o botão
-                    refreshMobileBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar'; // Reseta o texto
-                });
-            }
-
-            // --- Desativação de Funções do Navegador para Segurança/Experiência ---
-            // Desativa o menu de contexto (botão direito do mouse)
+            // --- Desativação de Funções do Navegador ---
             document.addEventListener('contextmenu', event => event.preventDefault());
-
-            // Desabilita atalhos de teclado como F12, Ctrl+Shift+I, Ctrl+U, etc.
             document.addEventListener('keydown', event => {
-                // F12 (Ferramentas de Desenvolvedor)
-                if (event.keyCode == 123) {
-                    event.preventDefault();
-                }
-                // Ctrl+Shift+I (ou Cmd+Option+I para Mac) - Ferramentas de Desenvolvedor
-                if (event.ctrlKey && event.shiftKey && event.keyCode == 'I'.charCodeAt(0)) {
-                    event.preventDefault();
-                }
-                // Ctrl+Shift+J (ou Cmd+Option+J para Mac) - Console
-                if (event.ctrlKey && event.shiftKey && event.keyCode == 'J'.charCodeAt(0)) {
-                    event.preventDefault();
-                }
-                // Ctrl+U (ou Cmd+Option+U para Mac) - Ver código fonte
-                if (event.ctrlKey && event.keyCode == 'U'.charCodeAt(0)) {
-                    event.preventDefault();
-                }
-                // Ctrl+S (ou Cmd+S para Mac) - Salvar página
-                if (event.ctrlKey && event.keyCode == 'S'.charCodeAt(0)) {
+                if (event.keyCode == 123 || (event.ctrlKey && event.shiftKey && (event.keyCode == 'I'.charCodeAt(0) || event.keyCode == 'J'.charCodeAt(0))) || (event.ctrlKey && event.keyCode == 'U'.charCodeAt(0)) || (event.ctrlKey && event.keyCode == 'S'.charCodeAt(0))) {
                     event.preventDefault();
                 }
             });
 
-        }); // Fim do DOMContentLoaded
+        });
     </script>
 </body>
 </html>

@@ -1,168 +1,504 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Relatório Completo - Situação Atual do Brasil</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Codify Nexo — Codify World (Manutenção)</title>
 
-<!-- Favicon e ícones de atalho para diferentes dispositivos -->
-    <link rel="icon" href="img/logo_codi.png" type="image/png">
-    <link rel="shortcut icon" href="img/logo_codi.png" type="image/png">
+<link rel="icon" href="https://raw.githubusercontent.com/codifyworldservices/CodifyNexo/main/img/logo_codi.png" type="image/png">
 
-    <!-- Metadados Open Graph para compartilhamento em redes sociais -->
-    <meta property="og:title" content="Rede Social Codify Nexo ">
-    <meta property="og:description" content="Economia | Tecnologia | Software">
-    <meta property="og:image" content="https://codifyworldservices.github.io/CodifyNexo/img/logo_codi.png">
-    <meta property="og:url" content="https://codifyworldservices.github.io/CodifyNexo/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content=" From Codify World | Tech Labs">
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- html2canvas (para export/print) -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-    <!-- Metadados para Apple iOS (PWA) -->
-    <link rel="apple-touch-icon" href="img/logo_codi.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="CodifyNexo">
-    <meta name="theme-color" content="#0055A4">
 <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        background-color: #f7f9fc;
-        color: #222;
-        user-select: none; /* Bloqueia seleção */
-        -webkit-user-select: none;
-        -moz-user-select: none;
-    }
-    header { background-color: #003366; color: #fff; padding: 30px 20px; text-align: center; }
-    header h1 { margin: 0; font-size: 2em; }
-    header p { margin: 5px 0 0 0; font-size: 1em; color: #cce0ff; }
-    section { margin: 20px; padding: 25px; background-color: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
-    h2 { color: #0059b3; margin-top: 0; font-size: 1.5em; }
-    h3 { color: #003366; margin-top: 15px; font-size: 1.2em; }
-    p, li { font-size: 0.95em; }
-    .highlight { background-color: #e6f2ff; padding: 15px; border-left: 6px solid #0059b3; margin: 20px 0; border-radius: 6px; }
-    ul, ol { margin-left: 20px; }
-    .timeline { border-left: 3px solid #0059b3; margin: 20px 0; padding-left: 20px; }
-    .timeline-item { margin-bottom: 15px; position: relative; }
-    .timeline-item::before {
-        content: '';
-        position: absolute;
-        left: -12px;
-        top: 5px;
-        width: 14px;
-        height: 14px;
-        background-color: #0059b3;
-        border-radius: 50%;
-    }
-    .graph-placeholder { height: 220px; background: linear-gradient(to right, #cce0ff, #0059b3); color: white; text-align: center; line-height: 220px; border-radius: 10px; margin: 15px 0; font-weight: bold; font-size: 1.2em; }
-    footer { background-color: #003366; color: #fff; text-align: center; padding: 30px; border-top: 5px solid #0059b3; }
+  :root{
+    --brand-900:#002546;
+    --brand-700:#004a87;
+    --accent:#0b5cff;
+    --bg:#f6f9fc;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --footer-bg:#021627; /* darker, higher contrast */
+    --footer-text:#F8FAFC; /* light text */
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;background:var(--bg);color:#111;-webkit-font-smoothing:antialiased}
+  .topbar{background:linear-gradient(90deg,var(--brand-900),var(--brand-700));color:white;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:50}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{width:220px;height:72px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.08)}
+  .brand h1{margin:0;font-size:18px}
+  nav a{color:rgba(255,255,255,0.95);text-decoration:none;margin-left:14px;font-weight:600;font-size:14px;cursor:pointer}
+  .container{max-width:1100px;margin:26px auto;padding:0 20px}
+  .hero{display:flex;gap:20px;align-items:stretch}
+  .hero-card{background:var(--card);border-radius:14px;padding:22px;box-shadow:0 10px 30px rgba(10,20,60,0.06);flex:1}
+  .aside-card{width:320px;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 8px 20px rgba(10,20,60,0.05)}
+
+  /* modal / relatório window */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px}
+  .modal{width:100%;max-width:1100px;height:86vh;background:linear-gradient(180deg,#ffffff,#fbfdff);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(2,6,23,0.45)}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #eef6ff;background:linear-gradient(90deg,#f8fbff,#ffffff)}
+  .modal-body{padding:18px 22px;overflow:auto}
+  .modal-footer{padding:12px 22px;border-top:1px solid #eef6ff;background:#f7fbff;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+  .close-btn{background:#f1f5f9;border:0;padding:8px 10px;border-radius:8px;cursor:pointer}
+
+  /* services & contact small modal */
+  .small-modal{width:100%;max-width:820px;background:var(--card);border-radius:12px;padding:18px;box-shadow:0 18px 50px rgba(2,6,23,0.35)}
+  .grid-2{display:grid;grid-template-columns:1fr 320px;gap:20px}
+
+  section.report-section{margin-bottom:18px;padding:16px;border-radius:10px;background:linear-gradient(180deg,#ffffff,#fbfdff);box-shadow:0 6px 18px rgba(10,20,60,0.04)}
+  h2{color:var(--brand-700);margin:0 0 8px 0}
+  h3{color:var(--brand-900);margin:12px 0 6px 0}
+  p,li{font-size:0.95em;color:#123}
+  .highlight{background:#e6f2ff;padding:12px;border-left:6px solid var(--brand-700);border-radius:8px;margin:12px 0}
+  .timeline{padding-left:18px;border-left:3px solid var(--brand-700)}
+  .timeline-item{margin-bottom:10px;padding-left:10px}
+  .graph{height:240px;border-radius:8px;display:grid;place-items:center;color:#063a6b;font-weight:700;margin:12px 0}
+  .graph canvas{width:100%!important;height:240px!important}
+  .social-row{margin-top:12px;display:flex;gap:10px;align-items:center}
+  .like{background:transparent;border:1px solid #e6f2ff;padding:8px 10px;border-radius:8px;color:var(--brand-700);cursor:pointer;font-weight:700}
+  .comment-input{display:flex;gap:8px;margin-top:10px}
+  .comment-input input{flex:1;padding:8px;border-radius:8px;border:1px solid #e8eefc}
+  .comment-input button{background:var(--brand-700);color:white;padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+  .comments-list{margin-top:10px;max-height:140px;overflow:auto;padding:6px}
+  .comment-item{background:#f1f7ff;padding:8px;border-radius:8px;margin-bottom:8px;border-left:3px solid #dbeeff}
+  .meta-small{font-size:12px;color:var(--muted)}
+  .export-btn{background:#fff;border:1px solid #e6f2ff;padding:8px 12px;border-radius:8px;cursor:pointer}
+
+  /* contact modal */
+  .contact-row{display:flex;flex-direction:column;gap:8px}
+  .contact-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;background:#fbfdff;border:1px solid #eef6ff}
+
+
+  footer.site-footer{
+    margin-top:36px;
+    background:var(--footer-bg);
+    color:var(--footer-text);
+    padding:28px 18px;
+  }
+  .footer-inner{
+    max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;
+  }
+  .footer-brand{display:flex;gap:12px;align-items:center}
+  .footer-brand img{width:px;height:84px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
+  .footer-right{text-align:right}
+  .footer-right a{color:var(--footer-text);text-decoration:underline}
+  .copyright{margin-top:8px;font-size:13px;color:rgba(255,255,255,0.85)}
+
+  @media (max-width:800px){
+    .hero{flex-direction:column}
+    .aside-card{width:100%}
+    .modal{height:92vh}
+    .grid-2{grid-template-columns:1fr}
+    .footer-right{text-align:left}
+  }
 </style>
 </head>
 <body>
 
-<header>
-    <h1>Relatório Completo (Bloqueado) - Situação Atual do Brasil</h1>
-    <p>Publicado em 22 de setembro de 2025 - Codify Nexo</p>
-</header>
+<!-- topbar -->
+<div class="topbar">
+  <div class="brand">
+    <img src="https://raw.githubusercontent.com/codifyworldservices/CodifyNexo/main/img/logo_codi.png" alt="Codify World">
+    <div>
+      <h1>Codify World</h1>
+      <div style="font-size:12px;color:rgba(255,255,255,0.85)">Economia Tecnologia Software</div>
+    </div>
+  </div>
 
-<section>
+  <nav aria-label="Main navigation">
+    <a onclick="openReport()"><button>Relatórios</button></a>
+    <a onclick="openServices()"><button>Serviços</button></a>
+    <a onclick="openContact()"><button>Contato</button></a>
+  </nav>
+</div>
+
+<!-- main -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-card">
+      <h2 style="margin-top:0">Relatórios Inteligentes — Situação Atual do Brasil</h2>
+      <!-- INTRO curta do relatório (home) -->
+      <p style="color:var(--muted);margin-top:8px">
+        Relatório interativo sobre Drex, sanções internacionais, a Lei da Reciprocidade Econômica e impactos macroeconômicos de 2025.
+        Aqui você encontra análise geopolítica, implicações para tecnologia e finanças, e recomendações práticas para empresas de software e serviços.
+      </p>
+
+      <!-- Resumo do relatório na home (mais curto) -->
+      <div style="margin-top:12px;padding:12px;border-radius:10px;background:#fbfdff;border:1px solid #eaf4ff">
+        <strong>Resumo:</strong>
+        <p style="margin:8px 0 0 0;color:#123;font-size:0.95em">
+          Drex adiado para 2026; sanções Magnitsky com efeitos locais; tarifas comerciais elevadas; oportunidades em SaaS e serviços de compliance.
+        </p>
+      </div>
+
+      <!-- Resumo dos serviços na home -->
+      <div style="margin-top:14px">
+        <h4 style="margin:8px 0 6px 0">Serviços — visão rápida</h4>
+        <ul style="margin:0;padding-left:18px;color:#123">
+          <li>Soluções SaaS personalizadas e apps prontos para mercado</li>
+          <li>Consultoria em TI, suporte e manutenção</li>
+          <li>Gestão de dados, hospedagem e portais online</li>
+          <li>Organização de eventos e relatórios sob demanda</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:18px;color:var(--muted);font-size:13px">
+        O site está em manutenção — use o menu para acessar serviços, contato e o relatório completo (janela).
+      </div>
+    </div>
+
+    <div class="aside-card">
+      <h3 style="margin-top:0">Resumo Rápido</h3>
+      <p class="meta-small">Insights práticos para clientes B2B: compliance, roadmap de produto e oportunidades em digitalização.</p>
+      <div style="margin-top:12px">
+        <button class="export-btn" onclick="openServices()">Ver Serviços</button>
+        <button class="export-btn" style="margin-left:6px" onclick="openContact()">Contato</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal / Janela do relatório -->
+<div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal" role="document" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div>
+        <strong id="modalTitle">Relatório Completo (Bloqueado)</strong>
+        <div class="meta-small">Publicado em 22 de setembro de 2025 — Codify Nexo</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="export-btn" onclick="downloadSnapshot()">Exportar PNG</button>
+        <button class="close-btn" onclick="closeReport()" aria-label="Fechar">Fechar</button>
+      </div>
+    </div>
+
+    <div id="reportContent" class="modal-body">
+      <!-- RELATÓRIO COMPLETO (conteúdo atualizado mantido) - injetado por script -->
+    </div>
+
+    <div class="modal-footer">
+      <div>
+        <div class="meta-small">Codify World — Codify Nexo</div>
+        <div class="meta-small">Registro do Documento: CODIFY-625423</div>
+      </div>
+      <div style="text-align:right">
+        <div class="meta-small" id="hashDisplay">Hash SHA-256: calculando...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Services modal -->
+<div id="servicesBackdrop" class="modal-backdrop" style="display:none;padding:20px;align-items:flex-start">
+  <div class="small-modal" role="dialog" aria-modal="true" aria-labelledby="servicesTitle">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h3 id="servicesTitle" style="margin:0">Serviços — Codify World</h3>
+        <div class="meta-small">Produção, consultoria e suporte em software e infraestrutura</div>
+      </div>
+      <div>
+        <button class="close-btn" onclick="closeServices()">Fechar</button>
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <div style="max-height:62vh;overflow:auto;padding-right:6px">
+        <h4>Produção e Comercialização de Software SaaS e Apps</h4>
+
+        <h5>Soluções SaaS Personalizadas</h5>
+        <p>Desenvolvemos e comercializamos plataformas SaaS que se adaptam perfeitamente ao seu dia a dia, otimizando processos e crescendo junto com sua empresa. Ideal para quem busca ferramentas acessíveis via nuvem, com atualizações automáticas e escalabilidade ilimitada.</p>
+        <p><strong>Benefícios:</strong> Reduza custos operacionais e aumente a produtividade com software pronto para usar em qualquer dispositivo.</p>
+
+        <h5>Apps Customizáveis e Prontos para Mercado</h5>
+        <p>Criamos aplicativos mobile e web sob medida ou padronizados, prontos para licenciamento e distribuição. Focamos em experiências intuitivas que resolvem problemas reais, como automação de tarefas ou integração com sistemas existentes.</p>
+        <p><strong>Benefícios:</strong> Lance produtos inovadores rapidamente, com suporte para monetização via assinaturas ou vendas diretas.</p>
+
+        <hr>
+
+        <h4>Consultoria e Suporte em TI para o Seu Sucesso</h4>
+        <h5>Consultoria em Tecnologia da Informação</h5>
+        <p>Nossa equipe de especialistas analisa suas necessidades e propõe soluções integradas, como otimização de sistemas, atualizações de sites e orientação para escolha de ferramentas digitais.</p>
+        <p><strong>Benefícios:</strong> Tome decisões assertivas que cortam despesas desnecessárias e impulsionam resultados reais.</p>
+
+        <h5>Suporte Técnico e Manutenção</h5>
+        <p>Estamos sempre à disposição para resolver questões técnicas, com help-desk ágil, instalação de ferramentas e monitoramento contínuo de sistemas. Seja remoto ou presencial, garantimos que tudo funcione sem paradas.</p>
+        <p><strong>Benefícios:</strong> Tranquilidade total com assistência 24/7, evitando downtime e mantendo sua operação fluida.</p>
+
+        <hr>
+
+        <h4>Gestão de Dados e Presença Online</h4>
+        <h5>Tratamento de Dados e Hospedagem</h5>
+        <p>Cuidamos da organização e segurança dos seus dados, oferecendo hospedagem na nuvem, gerenciamento de bancos de dados e serviços de aplicações web.</p>
+        <p><strong>Benefícios:</strong> Acesse insights valiosos de forma rápida e segura, impulsionando decisões baseadas em dados concretos.</p>
+
+        <h5>Portais e Conteúdo Online</h5>
+        <p>Construímos e gerenciamos portais digitais, ferramentas de busca e perfis em redes sociais, incluindo certificação digital para maior credibilidade.</p>
+        <p><strong>Benefícios:</strong> Amplie sua presença online, engajando clientes com conteúdos relevantes e interativos.</p>
+
+        <h5>Outros Serviços de Informação</h5>
+        <p>Fornecemos soluções variadas, como relatórios personalizados, clipping de notícias e consultas rápidas por telefone ou online.</p>
+        <p><strong>Benefícios:</strong> Mantenha-se atualizado e à frente do mercado com informações sob medida.</p>
+
+        <hr>
+
+        <h4>Organização de Eventos que Conectam</h4>
+        <p>Planejamos e executamos feiras, congressos, exposições e festas, cuidando de todos os detalhes para criar experiências impactantes.</p>
+        <p><strong>Benefícios:</strong> Fortaleça sua marca com eventos memoráveis que geram networking e novas oportunidades.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact modal -->
+<div id="contactBackdrop" class="modal-backdrop" style="display:none;padding:20px;align-items:flex-start">
+  <div class="small-modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h3 id="contactTitle" style="margin:0">Contato — Codify World</h3>
+        <div class="meta-small">Fale com nossa equipe</div>
+      </div>
+      <div>
+        <button class="close-btn" onclick="closeContact()">Fechar</button>
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <div class="contact-row">
+        <div class="contact-item"><strong>WhatsApp:</strong>&nbsp;<a href="https://wa.me/5522997323458" target="_blank">+55 22 99732-3458</a></div>
+        <div class="contact-item"><strong>Escritório:</strong>&nbsp;Rio de Janeiro — Macaé</div>
+        <div class="contact-item"><strong>Email:</strong>&nbsp;<a href="mailto:Codifyworldservices@gmail.com">Codifyworldservices@gmail.com</a></div>
+        <div class="contact-item"><strong>Instagram:</strong>&nbsp;<a href="https://instagram.com/codifyworldtechlabs" target="_blank">@codifyworldtechlabs</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL REPORT CONTENT (injected via JavaScript for clarity) -->
+<script>
+/* Full report HTML (keeps content you approved + updates) */
+const reportHtml = `
+  <section id="sec-intro" class="report-section">
     <h2>Introdução</h2>
     <p>Este relatório apresenta uma análise detalhada e expandida sobre a situação atual do Brasil, focando em temas como o Drex (moeda digital do Banco Central), sanções internacionais aplicadas sob a Lei Magnitsky, a recém-sancionada Lei da Reciprocidade Econômica e impactos em setores estratégicos como financeiro e tecnológico. Com base em dados atualizados de fontes oficiais e análises econômicas recentes, este documento explora os desafios geopolíticos, econômicos e inovadores enfrentados pelo país em 2025. O relatório é protegido contra cópia e edição, visando preservar a integridade das informações sensíveis aqui compiladas.</p>
     <p>Em meio a tensões comerciais globais, incluindo tarifas impostas pelos EUA e respostas brasileiras, o Brasil navega por um cenário de incertezas que afetam investimentos estrangeiros, inovação tecnológica e estabilidade financeira. Este relatório incorpora dados volumosos de relatórios do Banco Central do Brasil (BCB), Departamento do Tesouro dos EUA e análises de think tanks internacionais para fornecer uma visão abrangente. As sanções recentes, incluindo a expansão para familiares de autoridades judiciais, destacam o impacto nas relações bilaterais, com comércio anual EUA-Brasil estimado em US$100 bilhões ameaçado por escaladas.</p>
-</section>
 
-<section>
-    <h2>Contexto Histórico e Linha do Tempo</h2>
-    <div class="timeline">
-        <div class="timeline-item"><strong>2009:</strong> Morte de Sergei Magnitsky na Rússia, inspirando a legislação Magnitsky nos EUA.</div>
-        <div class="timeline-item"><strong>2012:</strong> Sancionada a Lei Magnitsky nos EUA, inicialmente focada na Rússia.</div>
-        <div class="timeline-item"><strong>2016:</strong> Expansão global da Lei Magnitsky.</div>
-        <div class="timeline-item"><strong>2017:</strong> Executive Order 13818 implementa versão global da Magnitsky Act.</div>
-        <div class="timeline-item"><strong>2023:</strong> Início do piloto do Drex pelo BCB.</div>
-        <div class="timeline-item"><strong>2024:</strong> Testes abertos do Drex focando eficiência financeira.</div>
-        <div class="timeline-item"><strong>2025, Fevereiro:</strong> Relatório fase um Drex destaca dificuldades em privacidade de dados.</div>
-        <div class="timeline-item"><strong>2025, Abril:</strong> Sancionada Lei da Reciprocidade Econômica (Lei n° 15.122).</div>
-        <div class="timeline-item"><strong>2025, Julho:</strong> Ministro do STF Alexandre de Moraes sancionado sob Magnitsky Act.</div>
-        <div class="timeline-item"><strong>2025, Julho:</strong> Regulamentação da Lei da Reciprocidade Econômica (Decreto No. 12.551).</div>
-        <div class="timeline-item"><strong>2025, Agosto:</strong> Banco Central abandona blockchain para Drex; foco em versão restrita.</div>
-        <div class="timeline-item"><strong>2025, Setembro:</strong> Sanções estendidas à esposa do ministro e ao Instituto Lex.</div>
-        <div class="timeline-item"><strong>2025, Setembro:</strong> Drex adiado para 2026, versão restrita planejada.</div>
-        <div class="timeline-item"><strong>2025, Setembro:</strong> EUA impõem tarifas de 50% sobre bens brasileiros; Brasil analisa aplicação da Lei da Reciprocidade.</div>
+    <div class="social-row">
+      <button class="like" data-section="sec-intro" onclick="toggleLike('sec-intro')">👍 Curtir (<span id="likes-sec-intro">0</span>)</button>
+      <div class="meta-small" style="margin-left:8px">Interaja: comentários e curtidas ficam no seu navegador.</div>
     </div>
-</section>
 
-<section>
+    <div class="comment-input" style="margin-top:8px">
+      <input id="input-sec-intro" placeholder="Comente sobre a introdução..." aria-label="Comentar introdução">
+      <button onclick="addComment('sec-intro')">Enviar</button>
+    </div>
+    <div id="comments-sec-intro" class="comments-list" aria-live="polite"></div>
+  </section>
+
+  <section id="sec-timeline" class="report-section">
+    <h2>Contexto Histórico e Linha do Tempo</h2>
+    <div class="timeline" aria-hidden="false">
+      <div class="timeline-item"><strong>2009:</strong> Morte de Sergei Magnitsky na Rússia, inspirando a legislação Magnitsky nos EUA.</div>
+      <div class="timeline-item"><strong>2012:</strong> Sancionada a Lei Magnitsky nos EUA, inicialmente focada na Rússia.</div>
+      <div class="timeline-item"><strong>2016:</strong> Expansão global da Lei Magnitsky.</div>
+      <div class="timeline-item"><strong>2017:</strong> Executive Order 13818 implementa versão global da Magnitsky Act.</div>
+      <div class="timeline-item"><strong>2023:</strong> Início do piloto do Drex pelo BCB.</div>
+      <div class="timeline-item"><strong>2024:</strong> Testes abertos do Drex focando eficiência financeira.</div>
+      <div class="timeline-item"><strong>2025, Fevereiro:</strong> Relatório fase um Drex destaca dificuldades em privacidade de dados.</div>
+      <div class="timeline-item"><strong>2025, Abril:</strong> Sancionada Lei da Reciprocidade Econômica (Lei n° 15.122).</div>
+      <div class="timeline-item"><strong>2025, Julho:</strong> Ministro do STF Alexandre de Moraes sancionado sob Magnitsky Act.</div>
+      <div class="timeline-item"><strong>2025, Julho:</strong> Regulamentação da Lei da Reciprocidade Econômica (Decreto No. 12.551).</div>
+      <div class="timeline-item"><strong>2025, Agosto:</strong> Banco Central abandona blockchain para Drex; foco em versão restrita.</div>
+      <div class="timeline-item"><strong>2025, Setembro:</strong> Sanções estendidas à esposa do ministro e ao Instituto Lex.</div>
+      <div class="timeline-item"><strong>2025, Setembro:</strong> Drex adiado para 2026, versão restrita planejada.</div>
+      <div class="timeline-item"><strong>2025, Setembro:</strong> EUA impõem tarifas de 50% sobre bens brasileiros; Brasil analisa aplicação da Lei da Reciprocidade.</div>
+    </div>
+
+    <div class="social-row" style="margin-top:10px">
+      <button class="like" data-section="sec-timeline" onclick="toggleLike('sec-timeline')">👍 Curtir (<span id="likes-sec-timeline">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-timeline" placeholder="Comente a linha do tempo...">
+      <button onclick="addComment('sec-timeline')">Enviar</button>
+    </div>
+    <div id="comments-sec-timeline" class="comments-list"></div>
+  </section>
+
+  <section id="sec-magnitsky" class="report-section">
     <h2>Lei Magnitsky: Explicação Detalhada</h2>
     <div class="highlight">
-        <p><strong>Resumo:</strong> Permite sancionar indivíduos estrangeiros por corrupção ou violações de direitos humanos, incluindo congelamento de ativos, restrição de entrada e bloqueio de transações financeiras.</p>
+      <p><strong>Resumo:</strong> Permite sancionar indivíduos estrangeiros por corrupção ou violações de direitos humanos, incluindo congelamento de ativos, restrição de entrada e bloqueio de transações financeiras.</p>
     </div>
     <p>Historicamente aplicada em Rússia, Belarus, Nicarágua, Venezuela e países africanos. No Brasil, 2025 marca primeira aplicação a autoridades de alto escalão. Expansão inclui familiares e entidades ligadas. Impactos incluem:</p>
     <ul>
-        <li>Congelamento de bens e contas bancárias nos EUA e aliados;</li>
-        <li>Cancelamento de vistos e revogação para familiares imediatos;</li>
-        <li>Bloqueio de transações internacionais envolvendo instituições financeiras americanas;</li>
-        <li>Risco reputacional em contratos e investimentos globais;</li>
-        <li>Relatórios anuais ao Congresso dos EUA sobre designações;</li>
-        <li>Possíveis penalidades civis ou criminais para violadores.</li>
+      <li>Congelamento de bens e contas bancárias nos EUA e aliados;</li>
+      <li>Cancelamento de vistos e revogação para familiares imediatos;</li>
+      <li>Bloqueio de transações internacionais envolvendo instituições financeiras americanas;</li>
+      <li>Risco reputacional em contratos e investimentos globais;</li>
+      <li>Relatórios anuais ao Congresso dos EUA sobre designações;</li>
+      <li>Possíveis penalidades civis ou criminais para violadores.</li>
     </ul>
-</section>
 
-<section>
+    <div class="social-row">
+      <button class="like" data-section="sec-magnitsky" onclick="toggleLike('sec-magnitsky')">👍 Curtir (<span id="likes-sec-magnitsky">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-magnitsky" placeholder="Comentário sobre a Magnitsky...">
+      <button onclick="addComment('sec-magnitsky')">Enviar</button>
+    </div>
+    <div id="comments-sec-magnitsky" class="comments-list"></div>
+  </section>
+
+  <section id="sec-reciprocity" class="report-section">
     <h2>Lei da Reciprocidade Econômica</h2>
     <div class="highlight">
-        <p><strong>Resumo:</strong> Permite ao Brasil adotar contramedidas econômicas contra países que prejudicam competitividade, incluindo suspensão de concessões, investimentos e direitos de propriedade intelectual.</p>
+      <p><strong>Resumo:</strong> Permite ao Brasil adotar contramedidas econômicas contra países que prejudicam competitividade, incluindo suspensão de concessões, investimentos e direitos de propriedade intelectual.</p>
     </div>
     <ul>
-        <li>Suspensão temporária de royalties internacionais;</li>
-        <li>Revisão de contratos de tecnologia;</li>
-        <li>Bloqueio parcial de transferência de propriedade intelectual;</li>
-        <li>Análise de tarifas retaliatórias;</li>
-        <li>Proteção a setores estratégicos;</li>
-        <li>Critérios para suspensão de concessões comerciais e benefícios de investimento.</li>
+      <li>Suspensão temporária de royalties internacionais;</li>
+      <li>Revisão de contratos de tecnologia;</li>
+      <li>Bloqueio parcial de transferência de propriedade intelectual;</li>
+      <li>Análise de tarifas retaliatórias;</li>
+      <li>Proteção a setores estratégicos;</li>
+      <li>Critérios para suspensão de concessões comerciais e benefícios de investimento.</li>
     </ul>
-</section>
 
-<section>
+    <div class="social-row">
+      <button class="like" data-section="sec-reciprocity" onclick="toggleLike('sec-reciprocity')">👍 Curtir (<span id="likes-sec-reciprocity">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-reciprocity" placeholder="Comentário sobre a lei...">
+      <button onclick="addComment('sec-reciprocity')">Enviar</button>
+    </div>
+    <div id="comments-sec-reciprocity" class="comments-list"></div>
+  </section>
+
+  <section id="sec-gaza" class="report-section">
+    <h2>Desenvolvimentos Recentes no Conflito Israel–Hamas</h2>
+    <p>Em fins de setembro de 2025 um novo plano de paz em 20 pontos, promovido com liderança política dos EUA e endossos de atores regionais, propõe um cessar-fogo imediato, uma troca faseada de prisioneiros/humanos detidos, desmilitarização de facções e um mecanismo de governança transitória supervisionado por atores internacionais. O plano prevê medidas sequenciadas — inclusive retirada parcial de forças israelenses e programas de reconstrução — condicionadas à aceitação dos termos por todas as partes envolvidas.</p>
+
+    <p>Fontes de mediação indicaram nas últimas 24–48 horas que o Hamas está inclinando-se a aceitar o pacote com condições, enquanto delegações do Catar e do Egito atuam como interlocutoras para ajustar garantias de segurança e cronogramas de libertação de detidos. A aceitação parcial do plano poderia levar a cessar-fogo rápido, mas a implementação prática ainda depende de garantias logísticas e de fiscalização internacional.</p>
+
+    <p>Implicações práticas — para o Brasil e para nossos clientes: uma trégua duradoura reduziria imediatamente o risco geopolítico ligado a cadeias de suprimento no Mediterrâneo e no Mar Vermelho, reaqueceria fluxos de ajuda e investimentos em reconstrução (abrindo oportunidades para serviços de software para logística, compliance e gestão de projetos) e tenderia a normalizar mercados regionais que hoje geram spikes de volatilidade. Em contrapartida, um acordo mal calibrado pode gerar ondas de choque político-diplomáticas que afetem preços de commodities e prioridades de financiamento público/privado.</p>
+
+    <div class="social-row">
+      <button class="like" data-section="sec-gaza" onclick="toggleLike('sec-gaza')">👍 Curtir (<span id="likes-sec-gaza">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-gaza" placeholder="Comentário sobre os desenvolvimentos...">
+      <button onclick="addComment('sec-gaza')">Enviar</button>
+    </div>
+    <div id="comments-sec-gaza" class="comments-list"></div>
+  </section>
+
+  <section id="sec-sanctions-updates" class="report-section">
+    <h2>Sanções, Entidades e Novos Registros (Brasil)</h2>
+    <p>Em setembro de 2025 os EUA anunciaram sanções direcionadas a uma rede de apoio ligada a um ministro do STF brasileiro, incluindo medidas contra Viviane Barci de Moraes, citada como responsável por uma organização denominada Lex Institute. As sanções incluem congelamento de ativos e restrições transacionais em jurisdições alinhadas às medidas, além da revogação de vistos para indivíduos designados. Essas penalidades intensificaram uma crise diplomática e elevaram o risco reputacional para entidades associadas.</p>
+
+    <p>Nos dias seguintes à designação, registros públicos noticiaram que a mesma pessoa passou a constituir um novo CNPJ/empresa — passo que analistas apontam como tentativa de reorganizar atividades sob uma nova entidade jurídica, embora sanções secundárias possam alcançar entidades ligadas. Essas movimentações corporativas têm sido acompanhadas por bloqueios de domínios e restrições de provedores de infraestrutura em alguns casos.</p>
+
+    <p>Impacto prático para a Codify Nexo: a conjuntura exige fortalecer nossos controles AML/KYC e políticas de 'counterparty-risk' — especialmente para produtos financeiros, wallets e integração de APIs que trocam fundos entre jurisdições. Recomendamos revisar imediatamente contratos com parceiros que podem ter exposição a bloqueios internacionais e criar um mecanismo rápido de due diligence para novos clientes corporativos.</p>
+
+    <div class="social-row">
+      <button class="like" data-section="sec-sanctions-updates" onclick="toggleLike('sec-sanctions-updates')">👍 Curtir (<span id="likes-sec-sanctions-updates">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-sanctions-updates" placeholder="Comentário sobre sanções...">
+      <button onclick="addComment('sec-sanctions-updates')">Enviar</button>
+    </div>
+    <div id="comments-sec-sanctions-updates" class="comments-list"></div>
+  </section>
+
+  <section id="sec-tariffs" class="report-section">
+    <h2>Tarifas Comerciais e Efeitos Macroeconômicos</h2>
+    <p>Ao longo de 2025 houve medidas tarifárias direcionadas ao Brasil que elevaram taxas sobre uma gama ampla de produtos — medidas que chegaram a ser reportadas publicamente com picos de 40–50% para muitos setores. Essas tarifas têm efeito direto sobre exportadores, balança comercial e sobre cadeias de valor integradas ao mercado americano, aumentando risco de retração em setores industrial e de commodities e pressionando o câmbio e o custo do crédito.</p>
+
+    <p>Para uma empresa de software e serviços como a Codify World, o choque tarifário se manifesta indiretamente: redução de demanda em clientes exportadores, adiamento de projetos de transformação digital que dependam de capital externo e maior cautela por parte de investidores estrangeiros. Em contrapartida, empresas focadas em serviços (SaaS, consultoria digital, produtos de eficiência operacional) tendem a receber atenção de empresas que buscam cortar custos e digitalizar operações, abrindo janelas de vendas B2B focadas em redução de OPEX.</p>
+
+    <div class="social-row">
+      <button class="like" data-section="sec-tariffs" onclick="toggleLike('sec-tariffs')">👍 Curtir (<span id="likes-sec-tariffs">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-tariffs" placeholder="Comentário sobre tarifas...">
+      <button onclick="addComment('sec-tariffs')">Enviar</button>
+    </div>
+    <div id="comments-sec-tariffs" class="comments-list"></div>
+  </section>
+
+  <section id="sec-drex" class="report-section">
     <h2>O Drex: Avanços e Desafios</h2>
     <div class="highlight">
-        <p><strong>Resumo:</strong> Drex adiado para 2026, versão restrita, sem blockchain e limitado a instituições financeiras.</p>
+      <p><strong>Resumo:</strong> Drex adiado para 2026, versão restrita, sem blockchain e limitado a instituições financeiras.</p>
     </div>
     <h3>O que é o Drex?</h3>
     <p>Moeda digital do BCB, 1:1 com o real, visando eficiência, redução de custos e novos modelos de crédito tokenizado.</p>
     <h3>Limitações e Desafios</h3>
     <ul>
-        <li>Uso restrito a bancos, cartórios e corretoras;</li>
-        <li>Abandono de blockchain em agosto de 2025;</li>
-        <li>Integração limitada com blockchain;</li>
-        <li>Segurança cibernética e privacidade em destaque;</li>
-        <li>Desafios regulatórios com cryptoassets;</li>
-        <li>Rollout acelerado para 2026 com funcionalidades reduzidas;</li>
-        <li>Dificuldades em criar privacidade em transações.</li>
+      <li>Uso restrito a bancos, cartórios e corretoras;</li>
+      <li>Abandono de blockchain em agosto de 2025;</li>
+      <li>Integração limitada com blockchain;</li>
+      <li>Segurança cibernética e privacidade em destaque;</li>
+      <li>Desafios regulatórios com cryptoassets;</li>
+      <li>Rollout acelerado para 2026 com funcionalidades reduzidas;</li>
+      <li>Dificuldades em criar privacidade em transações.</li>
     </ul>
-    <div class="graph-placeholder">Simulação de Impacto Econômico do Drex</div>
-</section>
 
-<section>
+    <div class="graph">
+      <canvas id="chartDrex"></canvas>
+    </div>
+
+    <div class="social-row">
+      <button class="like" data-section="sec-drex" onclick="toggleLike('sec-drex')">👍 Curtir (<span id="likes-sec-drex">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-drex" placeholder="Comentário sobre o Drex...">
+      <button onclick="addComment('sec-drex')">Enviar</button>
+    </div>
+    <div id="comments-sec-drex" class="comments-list"></div>
+  </section>
+
+  <section id="sec-impact" class="report-section">
     <h2>Impactos Econômicos e de Mercado</h2>
     <p>Entre julho e setembro de 2025, saída líquida de R$6,37 bilhões de investidores estrangeiros da B3, agravada por sanções Magnitsky e tarifas de 50% dos EUA. Quedas de 2-8% em ações principais. Sanções e Drex restrito geram incerteza e volatilidade.</p>
-    <div class="graph-placeholder">Simulação de Impacto Econômico Geral</div>
-</section>
 
-<section>
+    <div class="graph">
+      <canvas id="chartImpact"></canvas>
+    </div>
+
+    <div class="social-row">
+      <button class="like" data-section="sec-impact" onclick="toggleLike('sec-impact')">👍 Curtir (<span id="likes-sec-impact">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-impact" placeholder="Comentário sobre impacto econômico...">
+      <button onclick="addComment('sec-impact')">Enviar</button>
+    </div>
+    <div id="comments-sec-impact" class="comments-list"></div>
+  </section>
+
+  <section id="sec-finance" class="report-section">
     <h2>Setor Financeiro</h2>
     <ul>
-        <li>Compliance intensificado;</li>
-        <li>Gestão de riscos entre sanções e legislação local;</li>
-        <li>Proteção de ativos digitais com AML/KYC;</li>
-        <li>Impacto em reputação e relações comerciais;</li>
-        <li>Desafios operacionais entre Magnitsky e STF;</li>
-        <li>Integração com Drex;</li>
-        <li>Implicações para empresas dependentes de trade bilateral.</li>
+      <li>Compliance intensificado;</li>
+      <li>Gestão de riscos entre sanções e legislação local;</li>
+      <li>Proteção de ativos digitais com AML/KYC;</li>
+      <li>Impacto em reputação e relações comerciais;</li>
+      <li>Desafios operacionais entre Magnitsky e STF;</li>
+      <li>Integração com Drex;</li>
+      <li>Implicações para empresas dependentes de trade bilateral.</li>
     </ul>
-</section>
 
-<section>
+    <div class="social-row">
+      <button class="like" data-section="sec-finance" onclick="toggleLike('sec-finance')">👍 Curtir (<span id="likes-sec-finance">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-finance" placeholder="Comentário sobre setor financeiro...">
+      <button onclick="addComment('sec-finance')">Enviar</button>
+    </div>
+    <div id="comments-sec-finance" class="comments-list"></div>
+  </section>
+
+  <section id="sec-tech" class="report-section">
     <h2>Setor Tecnológico: Investimentos, Inovação e Propriedade Intelectual</h2>
     <p>O setor tecnológico enfrenta desafios estratégicos devido ao Drex e sanções internacionais. Brasil lidera ecossistema de startups na América Latina (12.000+ startups), com investimentos de US$2.14 bilhões em 2024 (+13.83% vs 2023).</p>
     <h3>Investimentos e Estratégias de Mercado</h3>
@@ -171,51 +507,230 @@
     <p>Proteção de softwares, algoritmos e dados é crucial. Medidas de segurança cibernética e compliance tecnológico são essenciais para reduzir riscos financeiros e preservar reputação.</p>
     <h3>Panorama Estratégico</h3>
     <p>Inovação, finanças e estratégia geopolítica se cruzam. Empresas bem preparadas ganham vantagem competitiva; despreparadas enfrentam riscos severos. Brasil ranqueado 47-52 no Global Innovation Index 2024.</p>
-</section>
 
-<section>
+    <div class="social-row">
+      <button class="like" data-section="sec-tech" onclick="toggleLike('sec-tech')">👍 Curtir (<span id="likes-sec-tech">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-tech" placeholder="Comentário sobre tecnologia...">
+      <button onclick="addComment('sec-tech')">Enviar</button>
+    </div>
+    <div id="comments-sec-tech" class="comments-list"></div>
+  </section>
+
+  <section id="sec-reco" class="report-section">
     <h2>Recomendações Estratégicas</h2>
     <ol>
-        <li>Monitoramento contínuo do Drex e sanções;</li>
-        <li>Avaliação de riscos em projetos tecnológicos;</li>
-        <li>Fortalecimento de compliance interno e governança;</li>
-        <li>Adaptação de estratégias financeiras e tecnológicas;</li>
-        <li>Planos de mitigação de riscos financeiros e reputacionais;</li>
-        <li>Parcerias com BRICS para inovação inclusiva;</li>
-        <li>Investimento em políticas STI de longo prazo;</li>
-        <li>Monitoramento de impactos de sanções em trade bilateral.</li>
+      <li>Monitoramento contínuo do Drex e sanções;</li>
+      <li>Avaliação de riscos em projetos tecnológicos;</li>
+      <li>Fortalecimento de compliance interno e governança;</li>
+      <li>Adaptação de estratégias financeiras e tecnológicas;</li>
+      <li>Planos de mitigação de riscos financeiros e reputacionais;</li>
+      <li>Parcerias com BRICS para inovação inclusiva;</li>
+      <li>Investimento em políticas STI de longo prazo;</li>
+      <li>Monitoramento de impactos de sanções em trade bilateral.</li>
     </ol>
-</section>
 
-<section>
+    <div class="social-row">
+      <button class="like" data-section="sec-reco" onclick="toggleLike('sec-reco')">👍 Curtir (<span id="likes-sec-reco">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-reco" placeholder="Comentário sobre recomendações...">
+      <button onclick="addComment('sec-reco')">Enviar</button>
+    </div>
+    <div id="comments-sec-reco" class="comments-list"></div>
+  </section>
+
+  <section id="sec-conclusion" class="report-section">
     <h2>Conclusão</h2>
     <p>Brasil enfrenta sanções internacionais, contramedidas nacionais e desafios tecnológicos do Drex. Estratégias fundamentadas são essenciais para proteção de ativos e competitividade. Investimentos em AI e transformação digital oferecem caminhos para resiliência econômica.</p>
-</section>
 
-<footer>
-    <p>Weslei Romano – CEO Codify World | Assinatura Eletrônica Intransferível</p>
-    <p>Registro do Documento: CODIFY-625423 | Hash SHA-256: 0004DB42EF059600CE1E48C93FB5FCF823836C832ACB807AD60FFBB6F48F5E04</p>
-</footer>
+    <div class="social-row">
+      <button class="like" data-section="sec-conclusion" onclick="toggleLike('sec-conclusion')">👍 Curtir (<span id="likes-sec-conclusion">0</span>)</button>
+    </div>
+    <div class="comment-input">
+      <input id="input-sec-conclusion" placeholder="Comentário final...">
+      <button onclick="addComment('sec-conclusion')">Enviar</button>
+    </div>
+    <div id="comments-sec-conclusion" class="comments-list"></div>
+  </section>
+`;
 
-<script>
-    // Bloqueio de teclado e mouse
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey || e.metaKey) e.preventDefault();
-        if (['c','x','a','s','v'].includes(e.key.toLowerCase())) e.preventDefault();
+/* Inject report after DOM ready and initialize UI */
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('reportContent').innerHTML = reportHtml;
+});
+
+/* ---------- Behavior: open/close modal / services / contact ---------- */
+const modalBackdrop = document.getElementById('modalBackdrop');
+const servicesBackdrop = document.getElementById('servicesBackdrop');
+const contactBackdrop = document.getElementById('contactBackdrop');
+
+function openReport(){
+  modalBackdrop.style.display='flex';
+  modalBackdrop.setAttribute('aria-hidden','false');
+  initSocial();
+  initCharts();
+  calcAndShowHash();
+}
+function closeReport(){ modalBackdrop.style.display='none'; modalBackdrop.setAttribute('aria-hidden','true'); }
+
+function openServices(){ servicesBackdrop.style.display='flex'; servicesBackdrop.setAttribute('aria-hidden','false'); }
+function closeServices(){ servicesBackdrop.style.display='none'; servicesBackdrop.setAttribute('aria-hidden','true'); }
+
+function openContact(){ contactBackdrop.style.display='flex'; contactBackdrop.setAttribute('aria-hidden','false'); }
+function closeContact(){ contactBackdrop.style.display='none'; contactBackdrop.setAttribute('aria-hidden','true'); }
+
+/* ---------- Prevent copy/context menu (kept as requested) ---------- */
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey || e.metaKey) e.preventDefault();
+    if (['c','x','a','s','v'].includes(e.key?.toLowerCase?.())) e.preventDefault();
+});
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+
+/* ---------- LocalStorage social (likes + comments) ---------- */
+const sections = [
+  'sec-intro','sec-timeline','sec-magnitsky','sec-reciprocity',
+  'sec-gaza','sec-sanctions-updates','sec-tariffs','sec-drex',
+  'sec-impact','sec-finance','sec-tech','sec-reco','sec-conclusion'
+];
+
+function initSocial(){
+  sections.forEach(id=>{
+    const keyLike = 'likes_'+id;
+    const likes = parseInt(localStorage.getItem(keyLike) || '0');
+    const el = document.getElementById('likes-'+id);
+    if(el) el.innerText = likes;
+    renderComments(id);
+  });
+}
+
+function toggleLike(sectionId){
+  const key = 'likes_'+sectionId;
+  const current = parseInt(localStorage.getItem(key) || '0') + 1;
+  localStorage.setItem(key, current);
+  const el = document.getElementById('likes-'+sectionId);
+  if(el) el.innerText = current;
+  calcAndShowHash();
+}
+
+function addComment(sectionId){
+  const input = document.getElementById('input-'+sectionId);
+  if(!input) return;
+  const v = input.value.trim();
+  if(!v) return;
+  const key = 'comments_'+sectionId;
+  const arr = JSON.parse(localStorage.getItem(key) || '[]');
+  arr.push({text:v,ts:Date.now()});
+  localStorage.setItem(key, JSON.stringify(arr));
+  input.value='';
+  renderComments(sectionId);
+  calcAndShowHash();
+}
+
+function renderComments(sectionId){
+  const key = 'comments_'+sectionId;
+  const arr = JSON.parse(localStorage.getItem(key) || '[]');
+  const container = document.getElementById('comments-'+sectionId);
+  if(!container) return;
+  container.innerHTML = '';
+  arr.forEach(c=>{
+    const div = document.createElement('div');
+    div.className='comment-item';
+    const d = new Date(c.ts);
+    div.innerHTML = `<div style="font-size:12px;color:var(--muted);margin-bottom:6px">${d.toLocaleString()}</div><div>${escapeHtml(c.text)}</div>`;
+    container.appendChild(div);
+  });
+}
+
+/* ---------- Simple escape for comments ---------- */
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------- Charts (Chart.js) ---------- */
+let drexChart=null, impactChart=null;
+function initCharts(){
+  const ctxDrex = document.getElementById('chartDrex');
+  if(ctxDrex && !drexChart){
+    drexChart = new Chart(ctxDrex.getContext('2d'), {
+      type:'bar',
+      data:{
+        labels:['Investimento','Custo','Transações','Privacidade'],
+        datasets:[{label:'Indicador Drex 2025',data:[60,40,75,30],backgroundColor:'#0059b3'}]
+      },
+      options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}
     });
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('copy', e => e.preventDefault());
-    document.addEventListener('cut', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-
-    // Leitura lenta
-    let elems = document.querySelectorAll('p, li, h2, h3');
-    elems.forEach(el => {
-        el.style.opacity = 0;
-        let delay = Math.random() * 2000 + 1000;
-        setTimeout(() => { el.style.transition = 'opacity 1.5s'; el.style.opacity = 1; }, delay);
+  }
+  const ctxImpact = document.getElementById('chartImpact');
+  if(ctxImpact && !impactChart){
+    impactChart = new Chart(ctxImpact.getContext('2d'), {
+      type:'line',
+      data:{
+        labels:['Jul','Aug','Sep'],
+        datasets:[{label:'Saída líquida (R$ bi)',data:[2.1,1.9,2.37],fill:true,tension:0.3,backgroundColor:'rgba(11,92,255,0.08)',borderColor:'#0b5cff'}]
+      },
+      options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}
     });
+  }
+}
+
+/* ---------- Hash SHA-256 of report content (dynamic) ---------- */
+async function calcAndShowHash(){
+  const reportEl = document.getElementById('reportContent');
+  if(!reportEl) return;
+  const text = reportEl.innerText.trim();
+  const state = {};
+  sections.forEach(s=>{ state[s] = {likes: localStorage.getItem('likes_'+s) || 0, comments: JSON.parse(localStorage.getItem('comments_'+s) || '[]')}});
+  const payload = JSON.stringify({text, state});
+  const enc = new TextEncoder();
+  const data = enc.encode(payload);
+  const buf = await crypto.subtle.digest('SHA-256', data);
+  const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
+  const disp = document.getElementById('hashDisplay');
+  if(disp) disp.innerText = 'Hash SHA-256: ' + hex;
+}
+
+/* recalc hash when modal is open periodically (or after interactions) */
+setInterval(()=>{ if(modalBackdrop.style.display==='flex') calcAndShowHash(); }, 4000);
+
+/* ---------- Export snapshot (html2canvas) ---------- */
+function downloadSnapshot(){
+  const modal = document.querySelector('.modal');
+  if(!modal) return alert('Abra o relatório primeiro.');
+  html2canvas(modal, {scale:1.4, useCORS:true}).then(canvas=>{
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = 'codifynexo_relatorio_snapshot.png';
+    a.click();
+  }).catch(err=>{ console.error(err); alert('Erro ao gerar snapshot'); });
+}
 </script>
+
+<!-- Footer with contact data and larger logo (not cut) -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://raw.githubusercontent.com/codifyworldservices/CodifyNexo/main/img/logo_codi.png" alt="Codify World logo">
+      <div>
+        <div style="font-weight:700">Codify World — Codify Nexo</div>
+        <div class="meta-small" style="color:rgba(255,255,255,0.85)">Produção de software, consultoria, hospedagem e eventos</div>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <div style="font-weight:700">Contatos</div>
+      <div class="meta-small" style="margin-top:6px">
+        WhatsApp: <a href="https://wa.me/5522997323458" target="_blank">+55 22 99732-3458</a><br>
+        Escritório: Rio de Janeiro — Macaé<br>
+        Email: <a href="mailto:Codifyworldservices@gmail.com">Codifyworldservices@gmail.com</a><br>
+        Instagram: <a href="https://instagram.com/codifyworldtechlabs" target="_blank">@codifyworldtechlabs</a>
+      </div>
+      <div class="copyright">© Codify World — Todos os direitos reservados</div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>

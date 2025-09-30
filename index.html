@@ -778,173 +778,189 @@ function downloadSnapshot(){
 
 
 
-<!-- ===== News widget script (busca API) ===== -->
+<!-- ===== News widget script (corrigido) ===== -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-      const NEWS_API_KEY = 'pub_84609aa69252426cab12dcb4a75aff3a';
-      const BASE_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&size=10&language=pt`;
-      const TARGET_PER_THEME = 5;
-      const CACHE_KEY = 'newsdata_cache';
-      const CACHE_DURATION = 60 * 60 * 1000; // 1 hora
+  const NEWS_API_KEY = 'pub_84609aa69252426cab12dcb4a75aff3a';
+  // recomendo reduzir size enquanto testa (evita limites)
+  const BASE_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&language=pt`;
+  const TARGET_PER_THEME = 5; // menor pra teste; aumente depois
+  const CACHE_KEY = 'newsdata_cache_v2';
+  // 2 horas em ms
+  const CACHE_DURATION = 2 * 60 * 60 * 1000;
 
-      const THEMES = {
-        'Economia': 'economia brasil OR inflação OR pib OR mercado financeiro',
-        'Tecnologia': 'tecnologia brasil OR inovação OR ia OR startups',
-        'Brasil': 'notícias brasil OR política brasil OR saúde brasil',
-        'Notícias': 'manchetes brasil OR atualidades brasil OR cotidiano brasil',
-        'STF': 'stf OR "supremo tribunal federal" OR fachin OR moraes'
-      };
+  const THEMES = {
+    'Economia': 'economia brasil OR inflação OR pib OR mercado financeiro',
+    'Tecnologia': 'tecnologia brasil OR inovação OR ia OR startups',
+    'Brasil': 'notícias brasil OR política brasil OR saúde brasil',
+    'Manchetes': 'manchetes brasil OR atualidades brasil OR cotidiano brasil',
+    'STF': 'stf OR "supremo tribunal federal" OR fachin OR moraes'
+  };
 
-      const feedEl = document.getElementById('news-feed');
-      if (!feedEl) {
-        console.error('Elemento #news-feed não encontrado.');
-        return;
+  const feedEl = document.getElementById('news-feed');
+  if (!feedEl) {
+    console.error('Elemento #news-feed não encontrado.');
+    return;
+  }
+
+  // timeout helper
+  function fetchWithTimeout(url, opts = {}, timeout = 8000) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    return fetch(url, { ...opts, signal: controller.signal })
+      .finally(() => clearTimeout(id));
+  }
+
+  function getCachedNews() {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_DURATION) return data;
       }
+    } catch (e) { /* ignore parse errors and force refresh */ }
+    return null;
+  }
 
-      async function fetchNews(query) {
-        try {
-          const url = `${BASE_URL}&q=${encodeURIComponent(query)}`;
-          console.log(`NewsData: ${url}`);
-          const resp = await fetch(url);
-          if (!resp.ok) {
-            if (resp.status === 422) {
-              throw new Error('Parâmetros inválidos (422). Verifique filtros.');
-            }
-            if (resp.status === 429) {
-              throw new Error('Limite de requisições excedido (429). Use cache ou espere.');
-            }
-            throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
-          }
-          const data = await resp.json();
-          return data.results || [];
-        } catch (err) {
-          console.error(`Erro NewsData (${query}):`, err.message);
-          return [];
-        }
+  function setCachedNews(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
+    } catch (e) { console.warn('Não foi possível gravar cache (storage cheio?).'); }
+  }
+
+  async function fetchNews(query) {
+    try {
+      const url = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(query)}`;
+      const resp = await fetchWithTimeout(url, {}, 9000);
+      if (!resp.ok) {
+        if (resp.status === 422) throw new Error('Parâmetros inválidos (422).');
+        if (resp.status === 429) throw new Error('Limite de requisições excedido (429).');
+        throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
       }
+      const data = await resp.json();
+      return (data.results || []).map(item => ({
+        title: item.title || '',
+        link: item.link || '',
+        description: item.description || '',
+        image: item.image_url || 'https://via.placeholder.com/400x240?text=Sem+Imagem',
+        source_name: item.source_id || item.source_name || 'Fonte Desconhecida',
+        pubDate: item.pubDate || item.pubDate_utc || ''
+      }));
+    } catch (err) {
+      console.error(`Erro ao buscar (${query}):`, err.message);
+      return { error: err.message, items: [] };
+    }
+  }
 
-      function getCachedNews() {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < CACHE_DURATION) {
-            console.log('Usando cache para notícias.');
-            return data;
-          }
-        }
-        return null;
-      }
+  async function fetchAllNews() {
+    feedEl.innerHTML = '<div style="font-size:13px;color:#666;margin-top:8px;text-align:center;">Carregando notícias via NewsData.io...</div>';
 
-      function setCachedNews(data) {
-        localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
-      }
-
-      async function fetchAllNews() {
-        feedEl.innerHTML = '<div style="font-size:13px;color:#666;margin-top:8px;text-align:center;">Carregando notícias via NewsData.io...</div>';
-        let totalNews = 0;
-        let allItemsByTheme = getCachedNews() || {};
-
-        if (!Object.keys(allItemsByTheme).length) {
-          console.log('Cache inválido. Fazendo novas requisições (cuidado com limite gratuito).');
-          for (const [theme, query] of Object.entries(THEMES)) {
-            const items = await fetchNews(query);
-            allItemsByTheme[theme] = items
-              .filter(item => item.title && item.link)
-              .slice(0, TARGET_PER_THEME)
-              .map(item => ({
-                ...item,
-                image: item.image_url || 'https://via.placeholder.com/400x240?text=Sem+Imagem'
-              }));
-            console.log(`${theme}: ${allItemsByTheme[theme].length} itens (imagens: ${allItemsByTheme[theme].filter(i => i.image !== 'https://via.placeholder.com/400x240?text=Sem+Imagem').length})`);
-          }
-          setCachedNews(allItemsByTheme);
-        }
-
-        feedEl.innerHTML = '';
-        feedEl.style.cssText = 'max-width:1200px;margin:0 auto;font-family:Arial,sans-serif;padding:20px;background-color:#f5f5f5;color:#333;';
-
-        for (const [theme, items] of Object.entries(allItemsByTheme)) {
-          if (items.length === 0) {
-            console.log(`Sem notícias para ${theme}.`);
-            continue;
-          }
-          const header = document.createElement('h3');
-          header.style.cssText = 'font-size:18px;color:#1a73e8;margin:20px 0 10px;border-bottom:1px solid #e0e0e0;padding-bottom:5px;';
-          header.textContent = theme; // Removido "(${items.length} notícias)"
-          feedEl.appendChild(header);
-
-          items.forEach(item => {
-            const a = document.createElement('a');
-            a.className = 'news-card';
-            a.href = item.link || '#';
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.style.cssText = 'display:flex;gap:10px;margin-bottom:15px;text-decoration:none;color:#333;border:1px solid #e0e0e0;border-radius:8px;padding:10px;background-color:#fff;transition:box-shadow 0.2s;';
-            a.onmouseover = () => a.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-            a.onmouseout = () => a.style.boxShadow = 'none';
-
-            const img = document.createElement('img');
-            img.className = 'thumb';
-            img.alt = item.title || 'Imagem';
-            img.src = item.image;
-            img.style.cssText = 'width:100px;height:60px;object-fit:cover;border-radius:4px;flex-shrink:0;';
-            img.onerror = () => { img.src = 'https://via.placeholder.com/400x240?text=Erro+Imagem'; };
-
-            const info = document.createElement('div');
-            info.className = 'info';
-            info.style.cssText = 'flex:1;';
-
-            const title = document.createElement('div');
-            title.className = 'title';
-            title.style.cssText = 'font-size:14px;font-weight:bold;margin-bottom:5px;';
-            title.textContent = item.title || 'Sem título';
-
-            const desc = document.createElement('div');
-            desc.className = 'desc';
-            desc.style.cssText = 'font-size:12px;color:#666;margin-bottom:5px;';
-            desc.textContent = (item.description || '').length > 140 ? (item.description || '').substring(0, 137) + '...' : (item.description || '');
-
-            const meta = document.createElement('div');
-            meta.className = 'meta';
-            meta.style.cssText = 'font-size:11px;color:#999;';
-            const date = item.pubDate ? new Date(item.pubDate).toLocaleString('pt-BR') : '';
-            meta.innerHTML = `<span>${item.source_name || 'Fonte Desconhecida'}</span> - <span>${date}</span>`;
-
-            info.appendChild(title);
-            if (desc.textContent) info.appendChild(desc);
-            info.appendChild(meta);
-
-            a.appendChild(img);
-            a.appendChild(info);
-            feedEl.appendChild(a);
-            totalNews++;
-          });
-        }
-
-        if (totalNews === 0) {
-          feedEl.innerHTML = '<div style="font-size:13px;color:#b00;margin-top:8px;text-align:center;">Nenhuma notícia encontrada. Limitação do plano gratuito da NewsData.io (poucos resultados em PT-BR).</div>';
+    let allItemsByTheme = getCachedNews();
+    if (!allItemsByTheme) {
+      allItemsByTheme = {};
+      for (const [theme, query] of Object.entries(THEMES)) {
+        const res = await fetchNews(query);
+        if (res && res.error) {
+          // registre o erro e continue sem travar a interface
+          allItemsByTheme[theme] = { items: [], error: res.error };
         } else {
-          const footer = document.createElement('div');
-          footer.style.cssText = 'font-size:11px;color:#666;margin-top:20px;padding:10px;border-top:1px solid #e0e0e0;text-align:center;';
-          footer.textContent = `Total: ${totalNews} notícias principais do Brasil via NewsData.io. Atualização: ${new Date().toLocaleString('pt-BR')}.`;
-          feedEl.appendChild(footer);
+          allItemsByTheme[theme] = { items: (res || []).slice(0, TARGET_PER_THEME), error: null };
         }
+      }
+      setCachedNews(allItemsByTheme);
+    }
 
-        // Responsividade inline
-        const style = document.createElement('style');
-        style.textContent = `
-          @media (max-width: 600px) {
-            .news-card { flex-direction: column; }
-            .thumb { width: 100%; height: 120px; }
-          }
-        `;
-        document.head.appendChild(style);
+    // montar UI
+    feedEl.innerHTML = '';
+    let totalNews = 0;
+    for (const [theme, payload] of Object.entries(allItemsByTheme)) {
+      const items = payload.items || [];
+      const err = payload.error || null;
+      const header = document.createElement('h3');
+      header.style.cssText = 'font-size:18px;color:#1a73e8;margin:12px 0 8px;padding-bottom:4px;border-bottom:1px solid #eaeaea;';
+      header.textContent = theme;
+      feedEl.appendChild(header);
+
+      if (err) {
+        const errMsg = document.createElement('div');
+        errMsg.style.cssText = 'font-size:13px;color:#b00;margin-bottom:10px';
+        errMsg.textContent = `Erro ao carregar este tema: ${err}`;
+        feedEl.appendChild(errMsg);
+        continue;
       }
 
-      fetchAllNews();
-      setInterval(fetchAllNews, 60 * 60 * 1000); // 1 hora
-    });
-  </script>
+      if (items.length === 0) {
+        const none = document.createElement('div');
+        none.style.cssText = 'font-size:13px;color:#666;margin-bottom:12px';
+        none.textContent = 'Nenhuma notícia encontrada para este tema.';
+        feedEl.appendChild(none);
+        continue;
+      }
+
+      items.forEach(item => {
+        const a = document.createElement('a');
+        a.className = 'news-card';
+        a.href = item.link || '#';
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.style.cssText = 'display:flex;gap:10px;margin-bottom:12px;text-decoration:none;color:#333;border:1px solid #eef4ff;border-radius:8px;padding:10px;background-color:#fff;';
+
+        const img = document.createElement('img');
+        img.className = 'thumb';
+        img.alt = item.title || 'Imagem';
+        img.src = item.image;
+        img.style.cssText = 'width:100px;height:60px;object-fit:cover;border-radius:4px;flex-shrink:0;';
+        img.onerror = () => { img.src = 'https://via.placeholder.com/400x240?text=Sem+Imagem'; };
+
+        const info = document.createElement('div');
+        info.className = 'info';
+        info.style.cssText = 'flex:1;';
+
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.style.cssText = 'font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.15;';
+        title.textContent = item.title || 'Sem título';
+
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.style.cssText = 'font-size:12px;color:#555;margin-bottom:6px;';
+        desc.textContent = (item.description || '').length > 140 ? item.description.substring(0,137) + '...' : (item.description || '');
+
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.style.cssText = 'font-size:11px;color:#999;text-align:right;';
+        const date = item.pubDate ? new Date(item.pubDate).toLocaleString('pt-BR') : '';
+        meta.innerHTML = `<span>${item.source_name}</span>${date ? ' - <span>' + date + '</span>' : ''}`;
+
+        info.appendChild(title);
+        if (desc.textContent) info.appendChild(desc);
+        info.appendChild(meta);
+
+        a.appendChild(img);
+        a.appendChild(info);
+        feedEl.appendChild(a);
+        totalNews++;
+      });
+    }
+
+    if (totalNews === 0) {
+      feedEl.innerHTML = '<div style="font-size:13px;color:#b00;margin-top:8px;text-align:center;">Nenhuma notícia encontrada. Verifique chave/API, CORS ou limite do serviço.</div>';
+    } else {
+      const footer = document.createElement('div');
+      footer.style.cssText = 'font-size:11px;color:#666;margin-top:12px;padding:10px;border-top:1px solid #eef4ff;text-align:center;';
+      footer.textContent = `Total: ${totalNews} notícias. Atualizado: ${new Date().toLocaleString('pt-BR')}.`;
+      feedEl.appendChild(footer);
+    }
+  }
+
+  // primeira carga
+  fetchAllNews();
+
+  // intervalo (1 hora)
+  setInterval(fetchAllNews, 60 * 60 * 1000);
+});
+</script>
+
 
 
 

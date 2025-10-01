@@ -69,7 +69,7 @@
   .container{max-width:1100px;margin:26px auto;padding:0 20px}
   .hero{display:flex;gap:20px;align-items:stretch}
   .hero-card{background:var(--card);border-radius:14px;padding:22px;box-shadow:0 10px 30px rgba(10,20,60,0.06);flex:1}
-  .aside-card{width:320px;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 8px 20px rgba(10,20,60,0.05)}
+  .aside-card{width:auo ;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 8px 20px rgba(10,20,60,0.05)}
 
   /* modal / relatório window */
   .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px}
@@ -106,7 +106,6 @@
   .contact-row{display:flex;flex-direction:column;gap:8px}
   .contact-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;background:#fbfdff;border:1px solid #eef6ff}
 
-
   footer.site-footer{
     margin-top:36px;
     background:var(--footer-bg);
@@ -122,28 +121,206 @@
   .footer-right a{color:var(--footer-text);text-decoration:underline}
   .copyright{margin-top:8px;font-size:13px;color:rgba(255,255,255,0.85)}
 
-/* ====== NEWS WIDGET (adicionado) ====== */
-.news-widget { display:flex;flex-direction:column;gap:10px; }
-.news-header { font-weight:700;color:var(--brand-700);font-size:18px }
-#news-feed { display:flex;flex-direction:column;gap:10px; max-height:420px; overflow:auto; padding-right:6px; }
-.news-card { display:flex;gap:10px; align-items:flex-start; background:#fbfdff; border-radius:10px; padding:8px; border:1px solid #eef4ff; text-decoration:none; color:inherit; }
-.news-card .thumb { width:88px; height:64px; border-radius:8px; object-fit:cover; flex-shrink:0; background:#e9eefc; }
-.news-card .info { flex:1; }
-.news-card .title { font-size:14px; font-weight:700; margin-bottom:6px; color:#123; line-height:1.1; }
-.news-card .desc { font-size:13px; color:#555; display:block; max-height:44px; overflow:hidden; text-overflow:ellipsis; }
-.news-card .meta { font-size:11px; color:var(--muted); margin-top:6px; text-align:right; }
+/* ====== NEWS WIDGET (corrigido: evita coluna estreita) ====== */
 
-/* mobile tweaks */
+/* garante que pais não limitem largura do widget */
+.news-widget,
+#news-feed,
+.news-card {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* se o widget estiver dentro de um grid/aside que define colunas,
+   força o widget a ocupar todas as colunas (override) */
+.news-widget {
+  grid-column: 1 / -1 !important;
+  display: block;
+  margin: 0 0 12px 0; /* remove margens indesejadas e separa do conteúdo */
+}
+
+/* container do feed: lista de cards (vertical) */
+#news-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 900px;
+  overflow: auto;
+  padding-right: 8px;
+  width: 100% !important;
+}
+
+/* ----- CARD (HORIZONTAL no desktop) ----- */
+.news-card {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100% !important;
+  background: #fbfdff;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #eef4ff;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* thumbnail fixa no lado esquerdo (desktop) */
+.news-card .thumb {
+  flex: 0 0 120px;     /* aumentar largura da thumb para mais destaque */
+  width: 120px;
+  height: 84px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #e9eefc;
+  display: block;
+}
+
+/* area de texto: ocupa o resto do espaço */
+.news-card .info {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* título e descrição */
+.news-card .title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #123;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-card .desc {
+  font-size: 13px;
+  color: #555;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* meta alinhado à direita no desktop */
+.news-card .meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ================= MOBILE (coluna) ================= */
+@media (max-width: 400px) {
+  .news-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .news-card .thumb {
+    width: 100%;
+    height: 160px;
+    flex: 0 0 auto;
+    margin-bottom: 8px;
+  }
+
+  .news-card .title {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #news-feed { max-height: 360px; padding-right: 4px; }
+}
+
+/* Full-bleed helper (opcional): aplica se quiser o widget estender até as bordas da viewport */
+.news-widget.full-bleed {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  max-width: 100vw;
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+@media (max-width: 1000px){
+  /* evita efeitos estranhos em telas pequenas */
+  .news-widget.full-bleed { left:0; right:0; margin:0; width:auto; max-width:100%; padding-left:0; padding-right:0; }
+}
+
+</style>
+
+<!-- RESPONSIVE OVERRIDES (injetado automaticamente) -->
+<style>
+/* Geral: melhorar espaçamento em containers */
+@media (max-width:1100px){
+  .container{padding-left:14px;padding-right:14px;}
+  .hero{flex-direction:column;gap:16px;}
+  .aside-card{width:100%;}
+  .hero-card{width:100%;}
+}
+
+/* Nav buttons - visual mais leve e 'descolado' no mobile */
+nav .export-btn,
+.topbar .export-btn {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight:700;
+  cursor:pointer;
+  transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+}
+nav .export-btn:hover,
+.topbar .export-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 18px rgba(2,6,23,0.18); }
+
+/* Mobile: borda mais fina e espaçamento maior para 'descolar' */
 @media (max-width:800px){
-  .hero{flex-direction:column}
-  .aside-card{width:100%}
-  .modal{height:92vh}
-  .grid-2{grid-template-columns:1fr}
-  .footer-right{text-align:left}
-  /* reduce news feed max-height on mobile */
-  #news-feed { max-height:320px; }
-  .news-card { padding:10px; }
-  .news-card .thumb { width:92px; height:72px; }
+  nav .export-btn,
+  .topbar .export-btn {
+    border-color: rgba(255,255,255,0.08);
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin-left:8px;
+    box-shadow: none;
+    background: rgba(255,255,255,0.03);
+  }
+
+  /* reduzir o tamanho de links e garantir legibilidade */
+  nav a{font-size:13px; margin-left:8px;}
+  .topbar{padding:10px 12px;}
+  .brand img{width:160px;height:auto;}
+}
+
+/* News widget: garantir full width e prevenir colunas estreitas */
+.news-widget, #news-feed, .news-card {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+#news-feed { padding-right:8px !important; }
+.news-card .info { min-width:0 !important; }
+
+/* Small visual polish for buttons */
+button.export-btn{border-width:1px;border-style:solid;border-color:rgba(0,74,135,0.08);background:white;color:var(--brand-700)}
+@media (max-width:800px){
+  button.export-btn{border-color:rgba(0,74,135,0.05);background:#fff;border-width:1px;opacity:0.95}
 }
 </style>
 </head>
@@ -153,10 +330,8 @@
 <div class="topbar">
   <div class="brand">
     <img src="https://raw.githubusercontent.com/codifyworldservices/CodifyNexo/main/img/logo_codi.png" alt="Codify World">
-    <div>
-      <h1>From Codify World</h1>
-      <div style="font-size:12px;color:rgba(255,255,255,0.85)">Economia Tecnologia Software</div>
-    </div>
+    <h1 style="font-size:16px;color:rgba(255,255,255,0.85)">Economia Tecnologia Software</h1>
+  
   </div>
 
   <nav aria-label="Main navigation">
@@ -174,36 +349,22 @@
       <h2 style="margin-top:0">Relatórios Inteligentes — Situação Atual do Brasil</h2>
       <!-- INTRO curta do relatório (home) -->
       <p style="color:var(--muted);margin-top:8px">
-        Relatório interativo sobre Drex, sanções internacionais, a Lei da Reciprocidade Econômica e impactos macroeconômicos de 2025.
-        Aqui você encontra análise geopolítica, implicações para tecnologia e finanças, e recomendações práticas para empresas de software e serviços.
-      </p>
+        Recomendações práticas para empresas de software e serviços.
+             </p>
 
       <!-- Resumo do relatório na home (mais curto) -->
       <div style="margin-top:12px;padding:12px;border-radius:10px;background:#fbfdff;border:1px solid #eaf4ff">
         <strong>Resumo:</strong>
         <p style="margin:8px 0 0 0;color:#123;font-size:0.95em">
           Drex adiado para 2026; sanções Magnitsky com efeitos locais; tarifas comerciais elevadas; Sanções estendidas à esposa do ministro e ao Instituto Lex; oportunidades em SaaS e serviços de compliance
-        </p>
+        </p><br>
+        <button class="export-btn" onclick="openReport()">Relatórios</button>
       </div>
 
-      <div style="margin-top:14px">
-        <h4 style="margin:8px 0 6px 0">Serviços — visão rápida</h4>
-        <ul style="margin:0;padding-left:18px;color:#123">
-          <li>Soluções SaaS personalizadas e apps prontos para mercado</li>
-          <li>Consultoria em TI, suporte e manutenção</li>
-          <li>Gestão de dados, hospedagem e portais online</li>
-          <li>Organização de eventos e relatórios sob demanda</li>
-        </ul>
-      </div>
-
-      <div style="margin-top:18px;color:var(--muted);font-size:13px">
-        O site está em manutenção — use o menu para acessar serviços, contato e o relatório completo (janela).
-      </div>
-    </div>
 
     <!-- === AQUI O RESUMO RÁPIDO FOI SUBSTITUÍDO PELO WIDGET DE NOTÍCIAS === -->
     <div class="aside-card">
-      <h3 style="margin-top:0">Resumo Rápido</h3>
+      
 
       <!-- NEWS WIDGET START -->
       <div id="news-widget" class="news-widget" aria-live="polite">
@@ -213,16 +374,32 @@
           <div style="font-size:13px;color:var(--muted);margin-top:8px">Carregando notícias...</div>
         </div>
 
-        <div style="margin-top:12px">
-          <button class="export-btn" onclick="openServices()">Ver Serviços</button>
-          <button class="export-btn" style="margin-left:6px" onclick="openContact()">Contato</button>
-        </div>
-      </div>
+           </div>
       <!-- NEWS WIDGET END -->
 
     </div>
   </div>
 </div>
+
+
+      <div style="margin-top:14px">
+        <h4 style="margin:8px 0 6px 0">Serviços Codify — visão rápida</h4>
+        <ul style="margin:0;padding-left:18px;color:#123">
+          <li>Soluções SaaS personalizadas e apps prontos para mercado</li>
+          <li>Consultoria em TI, suporte e manutenção</li>
+          <li>Gestão de dados, hospedagem e portais online</li>
+          <li>Organização de eventos e relatórios sob demanda</li>
+        </ul>
+          <div style="margin-top:12px">
+          <button class="export-btn" onclick="openServices()">Ver Serviços</button>
+          <button class="export-btn" style="margin-left:6px" onclick="openContact()">Contato</button>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;color:var(--muted);font-size:13px">
+        O site Oficial da Company está em manutenção.<br>Use o menu para acessar serviços, contato.
+      </div>
+    </div>
 
 <!-- Modal / Janela do relatório -->
 <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
@@ -1023,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="footer-brand">
       
       <div>
-        <div style="font-weight:700">Codify Nexo <strong>From Codify World Tech Labs Ltda — </strong></div>
+        <div style="font-weight:700"> Rede Social Codify Nexo <strong>From Codify World Tech Labs</strong></div>
         <div class="meta-small" style="color:rgba(255,255,255,0.85)">Produção de software, consultoria, hospedagem e eventos</div>
       </div>
     </div>

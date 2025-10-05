@@ -233,13 +233,28 @@
 
   .news-card .title {
     white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block; /* Mudei para block para permitir texto completo sem clamp */
+    overflow: visible; /* Permite overflow full */
+    -webkit-line-clamp: unset; /* Remove limite de linhas no título também, se quiser full */
+    -webkit-box-orient: unset;
+    font-size: 16px; /* Opcional: Aumenta para melhor legibilidade */
+    line-height: 1.3;
   }
 
-  #news-feed { max-height: 360px; padding-right: 4px; }
+  #news-feed { 
+    max-height: 500px; /* Aumentei para mais scroll, já que resumos full podem alongar os cards */
+    padding-right: 4px; 
+  }
+
+  .news-card .desc {
+    -webkit-line-clamp: unset; /* Remove o limite de linhas */
+    overflow: visible; /* Permite overflow completo */
+    white-space: normal; /* Texto flui naturalmente */
+    display: block; /* Garante exibição em bloco */
+    font-size: 14px; /* Aumenta um pouco para legibilidade (opcional) */
+    line-height: 1.4; /* Espaçamento melhor */
+    margin-bottom: 12px; /* Mais espaço abaixo */
+  }
 }
 
 /* Full-bleed helper (opcional): aplica se quiser o widget estender até as bordas da viewport */
@@ -962,7 +977,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const NEWS_API_KEY = 'pub_84609aa69252426cab12dcb4a75aff3a';
   // recomendo reduzir size enquanto testa (evita limites)
   const BASE_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&language=pt`;
-  const TARGET_PER_THEME = 10; // menor pra teste; aumente depois
+  const TARGET_PER_THEME = 5; // menor pra teste; aumente depois
   const CACHE_KEY = 'newsdata_cache_v2';
   // 2 horas em ms
   const CACHE_DURATION = 2 * 60 * 60 * 1000;
@@ -1151,10 +1166,14 @@ document.addEventListener('DOMContentLoaded', () => {
         title.style.cssText = 'font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.15;';
         title.textContent = item.title || 'Sem título';
 
-        const desc = document.createElement('div');
-        desc.className = 'desc';
-        desc.style.cssText = 'font-size:12px;color:#555;margin-bottom:6px;';
-        desc.textContent = (item.description || '').length > 140 ? item.description.substring(0,137) + '...' : (item.description || '');
+        // Nova lógica: Detecta se é mobile e exibe resumo completo se for tela menor
+       const desc = document.createElement('div');
+          desc.className = 'desc';
+           desc.style.cssText = 'font-size:12px;color:#555;margin-bottom:6px;';
+         
+         const isMobile = window.matchMedia("(max-width: 400px)").matches;
+         desc.textContent = isMobile ? (item.description || '') :  // Full no mobile
+           ((item.description || '').length > 140 ? (item.description || '').substring(0, 137) + '...' : (item.description || ''));  // Truncado no desktop (ajustei limite para 140, mas mude se quiser)
 
         const meta = document.createElement('div');
         meta.className = 'meta';
@@ -1186,7 +1205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // primeira carga
   fetchAllNews();
 
-  // intervalo (1 hora)
+  // intervalo (8 hora)
   setInterval(fetchAllNews, 60 * 60 * 1000);
 });
 </script>

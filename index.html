@@ -1429,73 +1429,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ==== FUNÇÃO fetchNews (declarada ANTES de fetchAllNews) ====
-    async function fetchNews(query) {
-        try {
-            const raw = String(query || '').trim();
-            if (!raw) return [];
+    
+   // === fetchNews usando AllOrigins (cliente-only) ===
+async function fetchNews(query) {
+  try {
+    const raw = String(query || '').trim();
+    if (!raw) return [];
 
-            // proteção para queries muito longas (evita URL gigante)
-            const ABS_MAX_LEN = 900;
-            let safeQuery = raw;
-            if (safeQuery.length > ABS_MAX_LEN) {
-                const parts = safeQuery.split(/\s+OR\s+/i).map(s => s.trim()).filter(Boolean);
-                const MAX_PARTS = 12;
-                if (parts.length > MAX_PARTS) {
-                    safeQuery = parts.slice(0, MAX_PARTS).join(' OR ');
-                    console.warn('[NewsData] Query muito longa — truncada para primeiros termos');
-                } else {
-                    safeQuery = safeQuery.slice(0, ABS_MAX_LEN);
-                    console.warn('[NewsData] Query muito longa — truncada por tamanho');
-                }
-            }
-            safeQuery = safeQuery.replace(/\s{2,}/g, ' ').trim();
-
-            const url = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(safeQuery)}`;
-            console.log('[NewsData] Request URL (preview):', url.length > 300 ? url.slice(0,300) + '... (len:' + url.length + ')' : url);
-
-            const resp = await fetchWithTimeout(url, {}, 12000);
-            console.log('[NewsData] HTTP status:', resp.status, resp.statusText);
-
-            const bodyText = await resp.text();
-            console.log('[NewsData] Raw response preview (200 chars):', bodyText ? bodyText.slice(0,200) : '(empty)');
-
-            if (!resp.ok) {
-                if (resp.status === 422) return { error: 'Parâmetros inválidos (422).', items: [] };
-                if (resp.status === 429) return { error: 'Limite de requisições excedido (429).', items: [] };
-                return { error: `HTTP ${resp.status}: ${resp.statusText}`, items: [] };
-            }
-
-            let data = null;
-            try { data = bodyText ? JSON.parse(bodyText) : null; }
-            catch (e) {
-                console.error('[NewsData] Falha ao parsear JSON:', e);
-                return { error: 'Resposta não-JSON recebida da API (ver console).', items: [] };
-            }
-
-            const results = (Array.isArray(data.results) && data.results.length) ? data.results
-                : (Array.isArray(data.data) && data.data.length) ? data.data
-                : (Array.isArray(data.articles) && data.articles.length) ? data.articles
-                : [];
-
-            if (!results || results.length === 0) {
-                console.info('[NewsData] Sem itens encontrados para query:', safeQuery);
-                return [];
-            }
-
-            return results.map(item => ({
-                title: item.title || item.headline || '',
-                link: item.link || item.url || item.source_url || item.guid || '',
-                description: item.description || item.summary || item.content || '',
-                image: item.image_url || item.image || 'https://via.placeholder.com/400x240?text=Sem+Imagem',
-                source_name: item.source_id || item.source_name || (item.source && (item.source.name || '')) || 'Fonte Desconhecida',
-                pubDate: item.pubDate || item.pubDate_utc || item.pubDate_local || item.pub_date || ''
-            }));
-        } catch (err) {
-            console.error('[NewsData] Erro ao executar fetchNews:', err);
-            return { error: err && err.message ? err.message : String(err), items: [] };
-        }
+    // proteção contra queries gigantes
+    const ABS_MAX_LEN = 900;
+    let safeQuery = raw;
+    if (safeQuery.length > ABS_MAX_LEN) {
+      const parts = safeQuery.split(/\s+OR\s+/i).map(s => s.trim()).filter(Boolean);
+      safeQuery = parts.slice(0, 12).join(' OR ');
+      console.warn('[NewsData] Query muito longa — truncada para primeiros termos');
     }
+    safeQuery = safeQuery.replace(/\s{2,}/g, ' ').trim();
+
+    const newsUrl = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(safeQuery)}`;
+    // Passa pelo proxy AllOrigins para burlar CORS
+    const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(newsUrl);
+    console.log('[NewsData -> proxy] Request (preview):', proxyUrl.length > 300 ? proxyUrl.slice(0,300) + '...':'', newsUrl);
+
+    const resp = await fetchWithTimeout(proxyUrl, {}, 15000);
+    console.log('[NewsData -> proxy] HTTP status:', resp.status, resp.statusText);
+
+    if (!resp.ok) {
+      // se o proxy devolve erro, tenta ler corpo para ver mensagem
+      const txtErr = await resp.text().catch(()=> '');
+      console.warn('[NewsData -> proxy] resposta não OK:', resp.status, txtErr.slice(0,200));
+      return { error: `Proxy/HTTP ${resp.status}`, items: [] };
+    }
+
+    const text = await resp.text();
+    // tenta parse JSON (alguns proxies devolvem o body tal qual)
+    let data = null;
+    try { data = text ? JSON.parse(text) : null; }
+    catch(e) {
+      console.error('[NewsData -> proxy] Falha parse JSON:', e, 'Preview:', text ? text.slice(0,300) : '(empty)');
+      return { error: 'Resposta não-JSON (ver console).', items: [] };
+    }
+
+    const results = (Array.isArray(data.results) && data.results.length) ? data.results
+                 : (Array.isArray(data.data) && data.data.length) ? data.data
+                 : (Array.isArray(data.articles) && data.articles.length) ? data.articles
+                 : [];
+
+    if (!results || results.length === 0) {
+      console.info('[NewsData] Sem itens encontrados para query:', safeQuery);
+      return [];
+    }
+
+    return results.map(item => ({
+      title: item.title || item.headline || '',
+      link: item.link || item.url || item.source_url || item.guid || '',
+      description: item.description || item.summary || item.content || '',
+      image: item.image_url || item.image || 'https://via.placeholder.com/400x240?text=Sem+Imagem',
+      source_name: item.source_id || item.source_name || (item.source && (item.source.name || '')) || 'Fonte Desconhecida',
+      pubDate: item.pubDate || item.pubDate_utc || item.pubDate_local || item.pub_date || ''
+    }));
+  } catch (err) {
+    console.error('[NewsData -> proxy] Erro fetchNews:', err);
+    return { error: err && err.message ? err.message : String(err), items: [] };
+  }
+}
+
+    // ==== FUNÇÃO fetchNews (declarada ANTES de fetchAllNews) ====
+
+
+
+    
     // ==== FIM fetchNews ====
 
     // Função original (mantive quase igual) que consome fetchNews

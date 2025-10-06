@@ -1423,29 +1423,119 @@ white-space: normal;
                     console.warn('Não foi possível gravar cache (storage cheio?).');
                 }
             }
-            async function fetchNews(query) {
-                try {
-                    const url = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(query)}`;
-                    const resp = await fetchWithTimeout(url, {}, 9000);
-                    if (!resp.ok) {
-                        if (resp.status === 422) throw new Error('Parâmetros inválidos (422).');
-                        if (resp.status === 429) throw new Error('Limite de requisições excedido (429).');
-                        throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
-                    }
-                    const data = await resp.json();
-                    return (data.results || []).map(item => ({
-                        title: item.title || '',
-                        link: item.link || '',
-                        description: item.description || '',
-                        image: item.image_url || 'https://via.placeholder.com/400x240?text=Sem+Imagem',
-                        source_name: item.source_id || item.source_name || 'Fonte Desconhecida',
-                        pubDate: item.pubDate || item.pubDate_utc || ''
-                    }));
-                } catch (err) {
-                    console.error(`Erro ao buscar (${query}):`, err.message);
-                    return { error: err.message, items: [] };
-                }
+
+
+
+
+
+            
+// --- teste
+            
+async function fetchNews(query) {
+    try {
+        // --- prepara query segura (mantém sua estrutura original se possível) ---
+        const raw = String(query || '').trim();
+        // se muito curta, usa como está
+        if (!raw) return [];
+        // limite absoluto de caracteres para a q (evita URLs gigantes)
+        const ABS_MAX_LEN = 900;
+        let safeQuery = raw;
+        if (safeQuery.length > ABS_MAX_LEN) {
+            // tenta quebrar por " OR " e pegar os primeiros N termos
+            const parts = safeQuery.split(/\s+OR\s+/i).map(s => s.trim()).filter(Boolean);
+            const MAX_PARTS = 12; // número de termos OR a manter
+            if (parts.length > MAX_PARTS) {
+                safeQuery = parts.slice(0, MAX_PARTS).join(' OR ');
+                console.warn('[NewsData] Query muito longa — truncada para primeiros termos:', safeQuery);
+            } else {
+                // se não tem OR suficientes, simplesmente trunca caracteres (fallback)
+                safeQuery = safeQuery.slice(0, ABS_MAX_LEN);
+                console.warn('[NewsData] Query muito longa — truncada por tamanho:', safeQuery);
             }
+        }
+
+        // segurança extra: remove espaços duplicados
+        safeQuery = safeQuery.replace(/\s{2,}/g, ' ').trim();
+
+        // monta URL (mantendo BASE_URL e TARGET_PER_THEME do seu script)
+        const url = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(safeQuery)}`;
+        console.log('[NewsData] Request URL (encurtada p/ debug):', url.length > 300 ? url.slice(0, 300) + '... (len:' + url.length + ')' : url);
+
+        // faz fetch com timeout (usa sua função fetchWithTimeout)
+        const resp = await fetchWithTimeout(url, {}, 12000);
+        console.log('[NewsData] HTTP status:', resp.status, resp.statusText);
+
+        // lê corpo como text para permitir debug caso venha HTML ou mensagem não-JSON
+        const bodyText = await resp.text();
+        console.log('[NewsData] Raw response preview (200 chars):', bodyText ? bodyText.slice(0, 200) : '(empty)');
+
+        // se status não ok, retorna objeto de erro (compatível com seu código)
+        if (!resp.ok) {
+            if (resp.status === 422) return { error: 'Parâmetros inválidos (422).', items: [] };
+            if (resp.status === 429) return { error: 'Limite de requisições excedido (429).', items: [] };
+            return { error: `HTTP ${resp.status}: ${resp.statusText}`, items: [] };
+        }
+
+        // tenta parse JSON (se falhar, devolve erro claro)
+        let data = null;
+        try { data = bodyText ? JSON.parse(bodyText) : null; }
+        catch (e) {
+            console.error('[NewsData] Falha ao parsear JSON:', e);
+            return { error: 'Resposta não-JSON recebida da API (ver console).', items: [] };
+        }
+
+        // normaliza vários formatos possíveis da API
+        const results = (Array.isArray(data.results) && data.results.length) ? data.results
+                      : (Array.isArray(data.data) && data.data.length) ? data.data
+                      : (Array.isArray(data.articles) && data.articles.length) ? data.articles
+                      : [];
+
+        if (!results || results.length === 0) {
+            console.info('[NewsData] Sem itens encontrados para query:', safeQuery);
+            // retorna array vazio (fetchAllNews trata como "nenhuma notícia")
+            return [];
+        }
+
+        // mapeia para o formato que seu widget usa
+        const mapped = results.map(item => ({
+            title: item.title || item.headline || item.heading || '',
+            link: item.link || item.url || item.source_url || item.guid || '',
+            description: item.description || item.summary || item.content || '',
+            image: item.image_url || item.image || '',
+            source_name: item.source_id || item.source_name || (item.source && (item.source.name || '')) || 'Fonte Desconhecida',
+            pubDate: item.pubDate || item.pubDate_utc || item.pubDate_local || item.pubDate_time || item.pubDateTimestamp || item.pub_date || ''
+        }));
+
+        return mapped;
+    } catch (err) {
+        console.error('[NewsData] Erro ao executar fetchNews:', err);
+        // mantém formato compatível com seu fetchAllNews
+        return { error: err && err.message ? err.message : String(err), items: [] };
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+           
             async function fetchAllNews() {
                 feedEl.innerHTML = '<div style="font-size:13px;color:#666;margin-top:8px;text-align:center;">Carregando notícias via NewsData.io...</div>';
                 let allItemsByTheme = getCachedNews();

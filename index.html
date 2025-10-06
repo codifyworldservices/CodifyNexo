@@ -1387,14 +1387,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const BASE_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&language=pt`;
     const TARGET_PER_THEME = 10; // reduzir para testes
 
-    const THEMES = {
-        'Economia': '(economia brasil) OR (inflação OR pib OR "mercado financeiro" OR bolsa OR ações OR juros OR selic OR câmbio OR dólar OR investimentos OR ibovespa)',
-        'Tecnologia': '(tecnologia brasil) OR (inovação OR ia OR "inteligência artificial" OR startups OR fintech OR blockchain OR criptomoedas OR cibersegurança OR dev OR software OR cloud OR 5G OR iot)',
-        'Brasil': '(notícias brasil) OR ("política brasil" OR governo OR presidente OR eleições OR saúde OR educação OR segurança OR meio-ambiente OR infraestrutura)',
-        'Manchetes': '(manchetes brasil) OR ("últimas notícias" OR atualidades OR destaque OR entretenimento OR esportes OR cultura OR celebridades)',
-        'STF': '(stf) OR ("supremo tribunal federal") OR (ministro OR ministros OR julgamento OR "decisão do STF" OR "habeas corpus")'
-    };
-
+    
+        const THEMES = {
+    'Economia': 'economia brasil OR pib OR selic',
+    'Tecnologia': 'tecnologia brasil OR ia OR startups',
+    'Brasil': 'notícias brasil OR política',
+    'Manchetes': 'manchetes brasil OR últimas notícias',
+    'STF': 'stf OR "supremo tribunal federal" OR ministro'
+};
     const feedEl = document.getElementById('news-feed');
     if (!feedEl) {
         console.error('Elemento #news-feed não encontrado.');

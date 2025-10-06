@@ -1576,7 +1576,7 @@ async function fetchNews(query) {
                 desc.className = 'desc';
                 desc.style.cssText = 'font-size:12px;color:#555;margin-bottom:6px;';
                 const isMobile = window.matchMedia("(max-width: 400px)").matches;
-                desc.textContent = isMobile ? (item.description || '') : ((item.description || '').length > 140 ? (item.description || '').substring(0, 337) + '...' : (item.description || ''));
+                desc.textContent = isMobile ? (item.description || '') : ((item.description || '').length > 200 ? (item.description || '').substring(0, 420) + '...' : (item.description || ''));
                 const meta = document.createElement('div');
                 meta.className = 'meta';
                 meta.style.cssText = 'font-size:11px;color:#999;text-align:right;';
@@ -1593,7 +1593,7 @@ async function fetchNews(query) {
         }
 
         if (totalNews === 0) {
-            feedEl.innerHTML = '<div style="font-size:13px;color:#b00;margin-top:8px;text-align:center;">Nenhuma notícia encontrada. Verifique chave/API, CORS ou limite do serviço.</div>';
+            feedEl.innerHTML = '<div style="font-size:13px;color:#b00;margin-top:8px;text-align:center;">Nenhuma notícia encontrada atualizada sobre tema".</div>';
         } else {
             const footer = document.createElement('div');
             footer.style.cssText = 'font-size:11px;color:#666;margin-top:12px;padding:10px;border-top:1px solid #eef4ff;text-align:center;';

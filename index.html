@@ -1383,16 +1383,16 @@ white-space: normal;
    <!-- ===== News widget script (corrigido - cole por cima do seu script atual) ===== -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    const NEWS_API_KEY = 'pub_c18c65ee34734414b09e0de7bf86d0c1';
+    const BASE_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&language=pt`;
     const TARGET_PER_THEME = 10; // reduzir para testes
-    const CACHE_KEY = 'newsdata_cache_v2';
-    const CACHE_DURATION = 2 * 60 * 60 * 1000;
 
     const THEMES = {
-        'Economia': 'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdBU0FtVnVHZ0pWVXlnQVZfb0U?hl=pt-BR&gl=BR&ceid=BR:pt-419',
-        'Tecnologia': 'https://news.google.com/rss/topics/CAAqKAgKIiJDQkFTRmdvS0wyMHZNR3B1YXpBU0JYcG9MVlJYS0JBUVYyaG8?hl=pt-BR&gl=BR&ceid=BR:pt-419',
-        'Brasil': 'https://news.google.com/rss/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNR3QwTlRFU0JYcG9MVlJYS0JBUVYyaG8?hl=pt-BR&gl=BR&ceid=BR:pt-419',
-        'Manchetes': 'https://news.google.com/rss?hl=pt-BR&gl=BR&ceid=BR:pt-419',
-        'STF': 'https://news.google.com/rss/search?q=stf+OR+%22supremo+tribunal+federal%22&hl=pt-BR&gl=BR&ceid=BR:pt-419'
+        'Economia': '(economia brasil) OR (inflação OR pib OR "mercado financeiro" OR bolsa OR ações OR juros OR selic OR câmbio OR dólar OR investimentos OR ibovespa)',
+        'Tecnologia': '(tecnologia brasil) OR (inovação OR ia OR "inteligência artificial" OR startups OR fintech OR blockchain OR criptomoedas OR cibersegurança OR dev OR software OR cloud OR 5G OR iot)',
+        'Brasil': '(notícias brasil) OR ("política brasil" OR governo OR presidente OR eleições OR saúde OR educação OR segurança OR meio-ambiente OR infraestrutura)',
+        'Manchetes': '(manchetes brasil) OR ("últimas notícias" OR atualidades OR destaque OR entretenimento OR esportes OR cultura OR celebridades)',
+        'STF': '(stf) OR ("supremo tribunal federal") OR (ministro OR ministros OR julgamento OR "decisão do STF" OR "habeas corpus")'
     };
 
     const feedEl = document.getElementById('news-feed');
@@ -1409,88 +1409,89 @@ document.addEventListener('DOMContentLoaded', () => {
             .finally(() => clearTimeout(id));
     }
 
-    function getCachedNews() {
-        try {
-            const cached = localStorage.getItem(CACHE_KEY);
-            if (cached) {
-                const { data, timestamp } = JSON.parse(cached);
-                if (Date.now() - timestamp < CACHE_DURATION) return data;
-            }
-        } catch (e) { /* ignore parse errors and force refresh */ }
-        return null;
-    }
-    function setCachedNews(data) {
-        try {
-            localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
-        } catch (e) {
-            console.warn('Não foi possível gravar cache (storage cheio?).');
-        }
-    }
-
     
    // === fetchNews usando AllOrigins (cliente-only) ===
-async function fetchNews(rssUrl) {
+async function fetchNews(query) {
   try {
+    const raw = String(query || '').trim();
+    if (!raw) return [];
+
+    // proteção contra queries gigantes
+    const ABS_MAX_LEN = 900;
+    let safeQuery = raw;
+    if (safeQuery.length > ABS_MAX_LEN) {
+      const parts = safeQuery.split(/\s+OR\s+/i).map(s => s.trim()).filter(Boolean);
+      safeQuery = parts.slice(0, 12).join(' OR ');
+      console.warn('[NewsData] Query muito longa — truncada para primeiros termos');
+    }
+    safeQuery = safeQuery.replace(/\s{2,}/g, ' ').trim();
+
+    const newsUrl = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(safeQuery)}`;
     // Passa pelo proxy AllOrigins para burlar CORS
-    const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl);
-    console.log('[RSS -> proxy] Request (preview):', proxyUrl.length > 300 ? proxyUrl.slice(0,300) + '...':'', rssUrl);
+    const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(newsUrl);
+    console.log('[NewsData -> proxy] Request (preview):', proxyUrl.length > 300 ? proxyUrl.slice(0,300) + '...':'', newsUrl);
 
     const resp = await fetchWithTimeout(proxyUrl, {}, 15000);
-    console.log('[RSS -> proxy] HTTP status:', resp.status, resp.statusText);
+    console.log('[NewsData -> proxy] HTTP status:', resp.status, resp.statusText);
 
     if (!resp.ok) {
       // se o proxy devolve erro, tenta ler corpo para ver mensagem
       const txtErr = await resp.text().catch(()=> '');
-      console.warn('[RSS -> proxy] resposta não OK:', resp.status, txtErr.slice(0,200));
+      console.warn('[NewsData -> proxy] resposta não OK:', resp.status, txtErr.slice(0,200));
       return { error: `Proxy/HTTP ${resp.status}`, items: [] };
     }
 
     const text = await resp.text();
-    // Parse XML
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, 'text/xml');
-    const items = xml.querySelectorAll('item');
-    if (!items.length) {
-      console.info('[RSS] Sem itens encontrados para URL:', rssUrl);
+    // tenta parse JSON (alguns proxies devolvem o body tal qual)
+    let data = null;
+    try { data = text ? JSON.parse(text) : null; }
+    catch(e) {
+      console.error('[NewsData -> proxy] Falha parse JSON:', e, 'Preview:', text ? text.slice(0,300) : '(empty)');
+      return { error: 'Resposta não-JSON (ver console).', items: [] };
+    }
+
+    const results = (Array.isArray(data.results) && data.results.length) ? data.results
+                 : (Array.isArray(data.data) && data.data.length) ? data.data
+                 : (Array.isArray(data.articles) && data.articles.length) ? data.articles
+                 : [];
+
+    if (!results || results.length === 0) {
+      console.info('[NewsData] Sem itens encontrados para query:', safeQuery);
       return [];
     }
 
-    return Array.from(items).slice(0, TARGET_PER_THEME).map(item => {
-      const title = item.querySelector('title')?.textContent || 'Sem título';
-      const link = item.querySelector('link')?.textContent || '#';
-      const pubDate = item.querySelector('pubDate')?.textContent || '';
-      const source = item.querySelector('source')?.textContent || 'Fonte Desconhecida';
-      const descriptionEl = item.querySelector('description');
-      const description = descriptionEl ? descriptionEl.textContent.replace(/<[^>]*>/g, '').trim() : '';
-      let image = 'https://via.placeholder.com/400x240?text=Sem+Imagem';
-      if (descriptionEl) {
-        const descHtml = parser.parseFromString(descriptionEl.textContent, 'text/html');
-        const imgTag = descHtml.querySelector('img');
-        if (imgTag && imgTag.src) image = imgTag.src;
-      }
-      return { title, link, description, image, source_name: source, pubDate };
-    });
+    return results.map(item => ({
+      title: item.title || item.headline || '',
+      link: item.link || item.url || item.source_url || item.guid || '',
+      description: item.description || item.summary || item.content || '',
+      image: item.image_url || item.image || 'https://via.placeholder.com/400x240?text=Sem+Imagem',
+      source_name: item.source_id || item.source_name || (item.source && (item.source.name || '')) || 'Fonte Desconhecida',
+      pubDate: item.pubDate || item.pubDate_utc || item.pubDate_local || item.pub_date || ''
+    }));
   } catch (err) {
-    console.error('[RSS -> proxy] Erro fetchNews:', err);
+    console.error('[NewsData -> proxy] Erro fetchNews:', err);
     return { error: err && err.message ? err.message : String(err), items: [] };
   }
 }
 
+    // ==== FUNÇÃO fetchNews (declarada ANTES de fetchAllNews) ====
+
+
+
+    
+    // ==== FIM fetchNews ====
+
     // Função original (mantive quase igual) que consome fetchNews
     async function fetchAllNews() {
-        feedEl.innerHTML = '<div style="font-size:13px;color:#666;margin-top:8px;text-align:center;">Carregando notícias via RSS...</div>';
-        let allItemsByTheme = getCachedNews();
-        if (!allItemsByTheme) {
-            allItemsByTheme = {};
-            for (const [theme, rssUrl] of Object.entries(THEMES)) {
-                const res = await fetchNews(rssUrl);
-                if (res && res.error) {
-                    allItemsByTheme[theme] = { items: [], error: res.error };
-                } else {
-                    allItemsByTheme[theme] = { items: (res || []).slice(0, TARGET_PER_THEME), error: null };
-                }
+        feedEl.innerHTML = '<div style="font-size:13px;color:#666;margin-top:8px;text-align:center;">Carregando notícias via NewsData.io...</div>';
+        let allItemsByTheme = {};
+        for (const [theme, query] of Object.entries(THEMES)) {
+            const res = await fetchNews(query);
+            if (res && res.error) {
+                allItemsByTheme[theme] = { items: [], error: res.error };
+            } else {
+                allItemsByTheme[theme] = { items: (res || []).slice(0, TARGET_PER_THEME), error: null };
             }
-            setCachedNews(allItemsByTheme);
         }
         // montar UI
         feedEl.innerHTML = '';

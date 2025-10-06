@@ -1380,304 +1380,256 @@ white-space: normal;
         }
     </script>
     <!-- ===== News widget script (corrigido) ===== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const NEWS_API_KEY = 'pub_78512b7fc52a4d5db3278ed0f5c28d7e'; // recomendo reduzir size enquanto testa (evita limites)
-            const BASE_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&language=pt`;
-            const TARGET_PER_THEME = 1; // menor pra teste; aumente depois
-            const CACHE_KEY = 'newsdata_cache_v2'; // 2 horas em ms
-            const CACHE_DURATION = 2 * 60 * 60 * 1000;
-             const THEMES = {
-    'Economia': '(economia brasil) OR (inflação OR pib OR "mercado financeiro" OR bolsa OR ações OR "mercado de capitais" OR juros OR selic OR câmbio OR dólar OR euro OR "taxa de juros" OR crédito OR inadimplência OR bancos OR "mercado imobiliário" OR consumo OR desemprego OR renda OR investimentos OR fundos OR "bolsa de valores" OR ibovespa OR "finanças pessoais" OR "investidor")',
-    'Tecnologia': '(tecnologia brasil) OR (inovação OR ia OR "inteligência artificial" OR "ia generativa" OR "machine learning" OR "deep learning" OR startups OR fintech OR blockchain OR criptomoedas OR "cibersegurança" OR "segurança cibernética" OR dev OR desenvolvimento OR software OR hardware OR semicondutor OR chip OR "open source" OR cloud OR "computação em nuvem" OR 5G OR telecom OR "internet das coisas" OR IOT OR "realidade aumentada" OR "realidade virtual" OR "autônomos" OR automação)',
-    'Brasil': '(notícias brasil) OR ("política brasil" OR governo OR presidente OR ministério OR congresso OR senado OR câmara OR eleições OR saúde OR educação OR segurança OR violência OR "meio ambiente" OR "saneamento básico" OR transportes OR infraestrutura OR municípios OR estados OR "direitos humanos" OR sociedade OR cultura OR economia_local)',
-    'Manchetes': '(manchetes brasil) OR (atualidades OR "últimas notícias" OR "breaking news" OR destaque OR capa OR "principal notícia" OR entretenimento OR cultura OR cinema OR música OR celebridades OR esportes OR "resultados" OR "crônica" OR "reportagem especial")',
-    'STF': '(stf) OR ("supremo tribunal federal") OR (stj OR "tribunal superior" OR ministro OR ministros OR julgamento OR "decisão do STF" OR "recurso extraordinário" OR "habeas corpus" OR ADI OR ADPF OR RE OR "repercussão geral" OR "súmula vinculante")'
-};
-            const feedEl = document.getElementById('news-feed');
-            if (!feedEl) {
-                console.error('Elemento #news-feed não encontrado.');
-                return;
-            }
-            // timeout helper
-            function fetchWithTimeout(url, opts = {}, timeout = 8000) {
-                const controller = new AbortController();
-                const id = setTimeout(() => controller.abort(), timeout);
-                return fetch(url, { ...opts, signal: controller.signal })
-                    .finally(() => clearTimeout(id));
-            }
-            function getCachedNews() {
-                try {
-                    const cached = localStorage.getItem(CACHE_KEY);
-                    if (cached) {
-                        const { data, timestamp } = JSON.parse(cached);
-                        if (Date.now() - timestamp < CACHE_DURATION) return data;
-                    }
-                } catch (e) { /* ignore parse errors and force refresh */ }
-                return null;
-            }
-            function setCachedNews(data) {
-                try {
-                    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
-                } catch (e) {
-                    console.warn('Não foi possível gravar cache (storage cheio?).');
-                }
-            }
+   <!-- ===== News widget script (corrigido - cole por cima do seu script atual) ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const NEWS_API_KEY = 'pub_78512b7fc52a4d5db3278ed0f5c28d7e';
+    const BASE_URL = `https://newsdata.io/api/1/news?apikey=${NEWS_API_KEY}&language=pt`;
+    const TARGET_PER_THEME = 10; // reduzir para testes
+    const CACHE_KEY = 'newsdata_cache_v2';
+    const CACHE_DURATION = 2 * 60 * 60 * 1000;
 
+    const THEMES = {
+        'Economia': '(economia brasil) OR (inflação OR pib OR "mercado financeiro" OR bolsa OR ações OR juros OR selic OR câmbio OR dólar OR investimentos OR ibovespa)',
+        'Tecnologia': '(tecnologia brasil) OR (inovação OR ia OR "inteligência artificial" OR startups OR fintech OR blockchain OR criptomoedas OR cibersegurança OR dev OR software OR cloud OR 5G OR iot)',
+        'Brasil': '(notícias brasil) OR ("política brasil" OR governo OR presidente OR eleições OR saúde OR educação OR segurança OR meio-ambiente OR infraestrutura)',
+        'Manchetes': '(manchetes brasil) OR ("últimas notícias" OR atualidades OR destaque OR entretenimento OR esportes OR cultura OR celebridades)',
+        'STF': '(stf) OR ("supremo tribunal federal") OR (ministro OR ministros OR julgamento OR "decisão do STF" OR "habeas corpus")'
+    };
 
-
-
-
-            
-// --- teste
-            
-async function fetchNews(query) {
-    try {
-        // --- prepara query segura (mantém sua estrutura original se possível) ---
-        const raw = String(query || '').trim();
-        // se muito curta, usa como está
-        if (!raw) return [];
-        // limite absoluto de caracteres para a q (evita URLs gigantes)
-        const ABS_MAX_LEN = 900;
-        let safeQuery = raw;
-        if (safeQuery.length > ABS_MAX_LEN) {
-            // tenta quebrar por " OR " e pegar os primeiros N termos
-            const parts = safeQuery.split(/\s+OR\s+/i).map(s => s.trim()).filter(Boolean);
-            const MAX_PARTS = 12; // número de termos OR a manter
-            if (parts.length > MAX_PARTS) {
-                safeQuery = parts.slice(0, MAX_PARTS).join(' OR ');
-                console.warn('[NewsData] Query muito longa — truncada para primeiros termos:', safeQuery);
-            } else {
-                // se não tem OR suficientes, simplesmente trunca caracteres (fallback)
-                safeQuery = safeQuery.slice(0, ABS_MAX_LEN);
-                console.warn('[NewsData] Query muito longa — truncada por tamanho:', safeQuery);
-            }
-        }
-
-        // segurança extra: remove espaços duplicados
-        safeQuery = safeQuery.replace(/\s{2,}/g, ' ').trim();
-
-        // monta URL (mantendo BASE_URL e TARGET_PER_THEME do seu script)
-        const url = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(safeQuery)}`;
-        console.log('[NewsData] Request URL (encurtada p/ debug):', url.length > 300 ? url.slice(0, 300) + '... (len:' + url.length + ')' : url);
-
-        // faz fetch com timeout (usa sua função fetchWithTimeout)
-        const resp = await fetchWithTimeout(url, {}, 12000);
-        console.log('[NewsData] HTTP status:', resp.status, resp.statusText);
-
-        // lê corpo como text para permitir debug caso venha HTML ou mensagem não-JSON
-        const bodyText = await resp.text();
-        console.log('[NewsData] Raw response preview (200 chars):', bodyText ? bodyText.slice(0, 200) : '(empty)');
-
-        // se status não ok, retorna objeto de erro (compatível com seu código)
-        if (!resp.ok) {
-            if (resp.status === 422) return { error: 'Parâmetros inválidos (422).', items: [] };
-            if (resp.status === 429) return { error: 'Limite de requisições excedido (429).', items: [] };
-            return { error: `HTTP ${resp.status}: ${resp.statusText}`, items: [] };
-        }
-
-        // tenta parse JSON (se falhar, devolve erro claro)
-        let data = null;
-        try { data = bodyText ? JSON.parse(bodyText) : null; }
-        catch (e) {
-            console.error('[NewsData] Falha ao parsear JSON:', e);
-            return { error: 'Resposta não-JSON recebida da API (ver console).', items: [] };
-        }
-
-        // normaliza vários formatos possíveis da API
-        const results = (Array.isArray(data.results) && data.results.length) ? data.results
-                      : (Array.isArray(data.data) && data.data.length) ? data.data
-                      : (Array.isArray(data.articles) && data.articles.length) ? data.articles
-                      : [];
-
-        if (!results || results.length === 0) {
-            console.info('[NewsData] Sem itens encontrados para query:', safeQuery);
-            // retorna array vazio (fetchAllNews trata como "nenhuma notícia")
-            return [];
-        }
-
-        // mapeia para o formato que seu widget usa
-        const mapped = results.map(item => ({
-            title: item.title || item.headline || item.heading || '',
-            link: item.link || item.url || item.source_url || item.guid || '',
-            description: item.description || item.summary || item.content || '',
-            image: item.image_url || item.image || '',
-            source_name: item.source_id || item.source_name || (item.source && (item.source.name || '')) || 'Fonte Desconhecida',
-            pubDate: item.pubDate || item.pubDate_utc || item.pubDate_local || item.pubDate_time || item.pubDateTimestamp || item.pub_date || ''
-        }));
-
-        return mapped;
-    } catch (err) {
-        console.error('[NewsData] Erro ao executar fetchNews:', err);
-        // mantém formato compatível com seu fetchAllNews
-        return { error: err && err.message ? err.message : String(err), items: [] };
+    const feedEl = document.getElementById('news-feed');
+    if (!feedEl) {
+        console.error('Elemento #news-feed não encontrado.');
+        return;
     }
-}
 
+    // timeout helper (mantive sua versão)
+    function fetchWithTimeout(url, opts = {}, timeout = 8000) {
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        return fetch(url, { ...opts, signal: controller.signal })
+            .finally(() => clearTimeout(id));
+    }
 
+    function getCachedNews() {
+        try {
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp < CACHE_DURATION) return data;
+            }
+        } catch (e) { /* ignore parse errors and force refresh */ }
+        return null;
+    }
+    function setCachedNews(data) {
+        try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
+        } catch (e) {
+            console.warn('Não foi possível gravar cache (storage cheio?).');
+        }
+    }
 
+    // ==== FUNÇÃO fetchNews (declarada ANTES de fetchAllNews) ====
+    async function fetchNews(query) {
+        try {
+            const raw = String(query || '').trim();
+            if (!raw) return [];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-           
-            async function fetchAllNews() {
-                feedEl.innerHTML = '<div style="font-size:13px;color:#666;margin-top:8px;text-align:center;">Carregando notícias via NewsData.io...</div>';
-                let allItemsByTheme = getCachedNews();
-                if (!allItemsByTheme) {
-                    allItemsByTheme = {};
-                    for (const [theme, query] of Object.entries(THEMES)) {
-                        const res = await fetchNews(query);
-                        if (res && res.error) {
-                            // registre o erro e continue sem travar a interface
-                            allItemsByTheme[theme] = { items: [], error: res.error };
-                        } else {
-                            allItemsByTheme[theme] = { items: (res || []).slice(0, TARGET_PER_THEME), error: null };
-                        }
-                    }
-                    setCachedNews(allItemsByTheme);
-                }
-                // montar UI
-                feedEl.innerHTML = '';
-                let totalNews = 0;
-                for (const [theme, payload] of Object.entries(allItemsByTheme)) {
-                    const items = payload.items || [];
-                    const err = payload.error || null;
-                    const header = document.createElement('h3');
-                    header.style.cssText = 'font-size:18px;color:#1a73e8;margin:12px 0 8px;padding-bottom:4px;border-bottom:1px solid #eaeaea;';
-                    header.textContent = theme;
-                    feedEl.appendChild(header);
-                    if (err) {
-                        const errMsg = document.createElement('div');
-                        errMsg.style.cssText = 'font-size:13px;color:#b00;margin-bottom:10px';
-                        errMsg.textContent = `Erro ao carregar este tema: ${err}`;
-                        feedEl.appendChild(errMsg);
-                        continue;
-                    }
-                    if (items.length === 0) {
-                        const none = document.createElement('div');
-                        none.style.cssText = 'font-size:13px;color:#666;margin-bottom:12px';
-                        none.textContent = 'Nenhuma notícia encontrada para este tema.';
-                        feedEl.appendChild(none);
-                        continue;
-                    }
-                    items.forEach(item => {
-                        const a = document.createElement('a');
-                        a.className = 'news-card';
-                        a.href = item.link || '#';
-                        a.target = '_blank';
-                        a.rel = 'noopener noreferrer';
-                        a.style.cssText = 'display:flex;gap:10px;margin-bottom:12px;text-decoration:none;color:#333;border:1px solid #eef4ff;border-radius:8px;padding:10px;background-color:#fff;';
-                        const img = document.createElement('img');
-                        img.className = 'thumb';
-                        img.alt = item.title || 'Imagem';
-                        img.src = item.image;
-                        img.style.cssText = 'width:100px;height:60px;object-fit:cover;border-radius:4px;flex-shrink:0;';
-                        img.onerror = function thumbErrorHandler() {
-                            try {
-                                // contador de tentativas (prevenção de loop)
-                                const attempts = parseInt(img.dataset.fbAttempts || '0', 10);
-                                if (attempts >= 2) {
-                                    // placeholder SVG embutido — não depende de DNS/SSL externos
-                                    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'>
- <rect width='100%' height='100%' fill='#f5f7fb'/>
- <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial, Helvetica, sans-serif' font-size='20' fill='#9aa4b2'>Sem imagem</text>
- </svg>`;
-                                    // uso seguro para caracteres UTF:
-                                    const base64 = btoa(unescape(encodeURIComponent(svg)));
-                                    img.src = 'data:image/svg+xml;base64,' + base64;
-                                    img.onerror = null; // garante que não reentre
-                                    img.dataset.fbAttempts = String(attempts + 1);
-                                    return;
-                                }
-                                img.dataset.fbAttempts = String(attempts + 1);
-                                // tentativa 1: se veio com http, tenta https
-                                try {
-                                    const url = new URL(img.src, location.href);
-                                    if (url.protocol === 'http:') {
-                                        url.protocol = 'https:';
-                                        img.src = url.toString();
-                                        return;
-                                    }
-                                } catch (e) { // URL inválida — pula para placeholder final
-                                }
-                                // tentativa 2 (opcional): usar um CDN alternativo.
-                                // Se sua audiência tiver DNS restrito, comente esta linha.
-                                // img.src = 'https://placehold.co/400x240?text=Sem+Imagem';
-                                // return;
-                                // fallback definitivo: placeholder embutido
-                                const svg2 = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'>
- <rect width='100%' height='100%' fill='#f5f7fb'/>
- <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial, Helvetica, sans-serif' font-size='20' fill='#9aa4b2'>Sem imagem</text>
- </svg>`;
-                                img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg2)));
-                                img.onerror = null;
-                            } catch (err) {
-                                console.error('Erro no handler de thumb:', err);
-                                // garantia final
-                                img.onerror = null;
-                                const svgFail = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'><rect width='100%' height='100%' fill='#f5f7fb'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='#9aa4b2'>Sem imagem</text></svg>`;
-                                img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFail)));
-                            }
-                        };
-                        const info = document.createElement('div');
-                        info.className = 'info';
-                        info.style.cssText = 'flex:1;';
-                        const title = document.createElement('div');
-                        title.className = 'title';
-                        title.style.cssText = 'font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.15;';
-                        title.textContent = item.title || 'Sem título';
-                        const desc = document.createElement('div');
-                        desc.className = 'desc';
-                        desc.style.cssText = 'font-size:12px;color:#555;margin-bottom:6px;';
-                        // Nova lógica: Detecta se é mobile e exibe resumo completo se for tela menor
-                        const isMobile = window.matchMedia("(max-width: 400px)").matches;
-                        desc.textContent = isMobile ? (item.description || '') :  // Full no mobile
-                            ((item.description || '').length > 140 ? (item.description || '').substring(0, 337) + '...' : (item.description || ''));  // Truncado no desktop
-                        const meta = document.createElement('div');
-                        meta.className = 'meta';
-                        meta.style.cssText = 'font-size:11px;color:#999;text-align:right;';
-                        const date = item.pubDate ? new Date(item.pubDate).toLocaleString('pt-BR') : '';
-                        meta.innerHTML = `<span>${item.source_name}</span>${date ? ' - <span>' + date + '</span>' : ''}`;
-                        info.appendChild(title);
-                        if (desc.textContent) info.appendChild(desc);
-                        info.appendChild(meta);
-                        a.appendChild(img);
-                        a.appendChild(info);
-                        feedEl.appendChild(a);
-                        totalNews++;
-                    });
-                }
-                if (totalNews === 0) {
-                    feedEl.innerHTML = '<div style="font-size:13px;color:#b00;margin-top:8px;text-align:center;">Nenhuma notícia encontrada. Verifique chave/API, CORS ou limite do serviço.</div>';
+            // proteção para queries muito longas (evita URL gigante)
+            const ABS_MAX_LEN = 900;
+            let safeQuery = raw;
+            if (safeQuery.length > ABS_MAX_LEN) {
+                const parts = safeQuery.split(/\s+OR\s+/i).map(s => s.trim()).filter(Boolean);
+                const MAX_PARTS = 12;
+                if (parts.length > MAX_PARTS) {
+                    safeQuery = parts.slice(0, MAX_PARTS).join(' OR ');
+                    console.warn('[NewsData] Query muito longa — truncada para primeiros termos');
                 } else {
-                    const footer = document.createElement('div');
-                    footer.style.cssText = 'font-size:11px;color:#666;margin-top:12px;padding:10px;border-top:1px solid #eef4ff;text-align:center;';
-                    footer.textContent = `Total: ${totalNews} notícias. Atualizado: ${new Date().toLocaleString('pt-BR')}.`;
-                    feedEl.appendChild(footer);
+                    safeQuery = safeQuery.slice(0, ABS_MAX_LEN);
+                    console.warn('[NewsData] Query muito longa — truncada por tamanho');
                 }
             }
-            // primeira carga
-            fetchAllNews();
-            // intervalo (1 hora)
-            setInterval(fetchAllNews, 60 * 60 * 1000);
-        });
-    </script>
+            safeQuery = safeQuery.replace(/\s{2,}/g, ' ').trim();
+
+            const url = `${BASE_URL}&size=${TARGET_PER_THEME}&q=${encodeURIComponent(safeQuery)}`;
+            console.log('[NewsData] Request URL (preview):', url.length > 300 ? url.slice(0,300) + '... (len:' + url.length + ')' : url);
+
+            const resp = await fetchWithTimeout(url, {}, 12000);
+            console.log('[NewsData] HTTP status:', resp.status, resp.statusText);
+
+            const bodyText = await resp.text();
+            console.log('[NewsData] Raw response preview (200 chars):', bodyText ? bodyText.slice(0,200) : '(empty)');
+
+            if (!resp.ok) {
+                if (resp.status === 422) return { error: 'Parâmetros inválidos (422).', items: [] };
+                if (resp.status === 429) return { error: 'Limite de requisições excedido (429).', items: [] };
+                return { error: `HTTP ${resp.status}: ${resp.statusText}`, items: [] };
+            }
+
+            let data = null;
+            try { data = bodyText ? JSON.parse(bodyText) : null; }
+            catch (e) {
+                console.error('[NewsData] Falha ao parsear JSON:', e);
+                return { error: 'Resposta não-JSON recebida da API (ver console).', items: [] };
+            }
+
+            const results = (Array.isArray(data.results) && data.results.length) ? data.results
+                : (Array.isArray(data.data) && data.data.length) ? data.data
+                : (Array.isArray(data.articles) && data.articles.length) ? data.articles
+                : [];
+
+            if (!results || results.length === 0) {
+                console.info('[NewsData] Sem itens encontrados para query:', safeQuery);
+                return [];
+            }
+
+            return results.map(item => ({
+                title: item.title || item.headline || '',
+                link: item.link || item.url || item.source_url || item.guid || '',
+                description: item.description || item.summary || item.content || '',
+                image: item.image_url || item.image || 'https://via.placeholder.com/400x240?text=Sem+Imagem',
+                source_name: item.source_id || item.source_name || (item.source && (item.source.name || '')) || 'Fonte Desconhecida',
+                pubDate: item.pubDate || item.pubDate_utc || item.pubDate_local || item.pub_date || ''
+            }));
+        } catch (err) {
+            console.error('[NewsData] Erro ao executar fetchNews:', err);
+            return { error: err && err.message ? err.message : String(err), items: [] };
+        }
+    }
+    // ==== FIM fetchNews ====
+
+    // Função original (mantive quase igual) que consome fetchNews
+    async function fetchAllNews() {
+        feedEl.innerHTML = '<div style="font-size:13px;color:#666;margin-top:8px;text-align:center;">Carregando notícias via NewsData.io...</div>';
+        let allItemsByTheme = getCachedNews();
+        if (!allItemsByTheme) {
+            allItemsByTheme = {};
+            for (const [theme, query] of Object.entries(THEMES)) {
+                const res = await fetchNews(query);
+                if (res && res.error) {
+                    allItemsByTheme[theme] = { items: [], error: res.error };
+                } else {
+                    allItemsByTheme[theme] = { items: (res || []).slice(0, TARGET_PER_THEME), error: null };
+                }
+            }
+            setCachedNews(allItemsByTheme);
+        }
+        // montar UI
+        feedEl.innerHTML = '';
+        let totalNews = 0;
+        for (const [theme, payload] of Object.entries(allItemsByTheme)) {
+            const items = payload.items || [];
+            const err = payload.error || null;
+            const header = document.createElement('h3');
+            header.style.cssText = 'font-size:18px;color:#1a73e8;margin:12px 0 8px;padding-bottom:4px;border-bottom:1px solid #eaeaea;';
+            header.textContent = theme;
+            feedEl.appendChild(header);
+            if (err) {
+                const errMsg = document.createElement('div');
+                errMsg.style.cssText = 'font-size:13px;color:#b00;margin-bottom:10px';
+                errMsg.textContent = `Erro ao carregar este tema: ${err}`;
+                feedEl.appendChild(errMsg);
+                continue;
+            }
+            if (items.length === 0) {
+                const none = document.createElement('div');
+                none.style.cssText = 'font-size:13px;color:#666;margin-bottom:12px';
+                none.textContent = 'Nenhuma notícia encontrada para este tema.';
+                feedEl.appendChild(none);
+                continue;
+            }
+            items.forEach(item => {
+                const a = document.createElement('a');
+                a.className = 'news-card';
+                a.href = item.link || '#';
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.style.cssText = 'display:flex;gap:10px;margin-bottom:12px;text-decoration:none;color:#333;border:1px solid #eef4ff;border-radius:8px;padding:10px;background-color:#fff;';
+                const img = document.createElement('img');
+                img.className = 'thumb';
+                img.alt = item.title || 'Imagem';
+                img.src = item.image;
+                img.style.cssText = 'width:100px;height:60px;object-fit:cover;border-radius:4px;flex-shrink:0;';
+                img.onerror = function thumbErrorHandler() {
+                    try {
+                        const attempts = parseInt(img.dataset.fbAttempts || '0', 10);
+                        if (attempts >= 2) {
+                            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'>
+ <rect width='100%' height='100%' fill='#f5f7fb'/>
+ <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial, Helvetica, sans-serif' font-size='20' fill='#9aa4b2'>Sem imagem</text>
+ </svg>`;
+                            const base64 = btoa(unescape(encodeURIComponent(svg)));
+                            img.src = 'data:image/svg+xml;base64,' + base64;
+                            img.onerror = null;
+                            img.dataset.fbAttempts = String(attempts + 1);
+                            return;
+                        }
+                        img.dataset.fbAttempts = String(attempts + 1);
+                        try {
+                            const url = new URL(img.src, location.href);
+                            if (url.protocol === 'http:') {
+                                url.protocol = 'https:';
+                                img.src = url.toString();
+                                return;
+                            }
+                        } catch (e) {}
+                        const svg2 = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'>
+ <rect width='100%' height='100%' fill='#f5f7fb'/>
+ <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial, Helvetica, sans-serif' font-size='20' fill='#9aa4b2'>Sem imagem</text>
+ </svg>`;
+                        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg2)));
+                        img.onerror = null;
+                    } catch (err) {
+                        console.error('Erro no handler de thumb:', err);
+                        img.onerror = null;
+                        const svgFail = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'><rect width='100%' height='100%' fill='#f5f7fb'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='#9aa4b2'>Sem imagem</text></svg>`;
+                        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgFail)));
+                    }
+                };
+                const info = document.createElement('div');
+                info.className = 'info';
+                info.style.cssText = 'flex:1;';
+                const title = document.createElement('div');
+                title.className = 'title';
+                title.style.cssText = 'font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.15;';
+                title.textContent = item.title || 'Sem título';
+                const desc = document.createElement('div');
+                desc.className = 'desc';
+                desc.style.cssText = 'font-size:12px;color:#555;margin-bottom:6px;';
+                const isMobile = window.matchMedia("(max-width: 400px)").matches;
+                desc.textContent = isMobile ? (item.description || '') : ((item.description || '').length > 140 ? (item.description || '').substring(0, 337) + '...' : (item.description || ''));
+                const meta = document.createElement('div');
+                meta.className = 'meta';
+                meta.style.cssText = 'font-size:11px;color:#999;text-align:right;';
+                const date = item.pubDate ? new Date(item.pubDate).toLocaleString('pt-BR') : '';
+                meta.innerHTML = `<span>${item.source_name}</span>${date ? ' - <span>' + date + '</span>' : ''}`;
+                info.appendChild(title);
+                if (desc.textContent) info.appendChild(desc);
+                info.appendChild(meta);
+                a.appendChild(img);
+                a.appendChild(info);
+                feedEl.appendChild(a);
+                totalNews++;
+            });
+        }
+
+        if (totalNews === 0) {
+            feedEl.innerHTML = '<div style="font-size:13px;color:#b00;margin-top:8px;text-align:center;">Nenhuma notícia encontrada. Verifique chave/API, CORS ou limite do serviço.</div>';
+        } else {
+            const footer = document.createElement('div');
+            footer.style.cssText = 'font-size:11px;color:#666;margin-top:12px;padding:10px;border-top:1px solid #eef4ff;text-align:center;';
+            footer.textContent = `Total: ${totalNews} notícias. Atualizado: ${new Date().toLocaleString('pt-BR')}.`;
+            feedEl.appendChild(footer);
+        }
+    }
+
+    // primeira carga
+    fetchAllNews();
+    // intervalo (1 hora)
+    setInterval(fetchAllNews, 60 * 60 * 1000);
+});
+</script>
+
     <!-- Footer with contact data and larger logo (not cut) -->
     <footer class="site-footer" role="contentinfo">
         <div class="footer-inner">

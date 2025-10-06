@@ -1387,13 +1387,13 @@ white-space: normal;
             const TARGET_PER_THEME = 50; // menor pra teste; aumente depois
             const CACHE_KEY = 'newsdata_cache_v2'; // 2 horas em ms
             const CACHE_DURATION = 2 * 60 * 60 * 1000;
-            const THEMES = {
-                'Economia': 'economia brasil OR inflação OR pib OR mercado financeiro',
-                'Tecnologia': 'tecnologia brasil OR inovação OR ia OR startups',
-                'Brasil': 'notícias brasil OR política brasil OR saúde brasil',
-                'Manchetes': 'manchetes brasil OR atualidades brasil OR cotidiano brasil',
-                'STF': 'stf OR "supremo tribunal federal" OR fachin OR moraes'
-            };
+             const THEMES = {
+    'Economia': '(economia brasil) OR (inflação OR pib OR "mercado financeiro" OR bolsa OR ações OR "mercado de capitais" OR juros OR selic OR câmbio OR dólar OR euro OR "taxa de juros" OR crédito OR inadimplência OR bancos OR "mercado imobiliário" OR consumo OR desemprego OR renda OR investimentos OR fundos OR "bolsa de valores" OR ibovespa OR "finanças pessoais" OR "investidor")',
+    'Tecnologia': '(tecnologia brasil) OR (inovação OR ia OR "inteligência artificial" OR "ia generativa" OR "machine learning" OR "deep learning" OR startups OR fintech OR blockchain OR criptomoedas OR "cibersegurança" OR "segurança cibernética" OR dev OR desenvolvimento OR software OR hardware OR semicondutor OR chip OR "open source" OR cloud OR "computação em nuvem" OR 5G OR telecom OR "internet das coisas" OR IOT OR "realidade aumentada" OR "realidade virtual" OR "autônomos" OR automação)',
+    'Brasil': '(notícias brasil) OR ("política brasil" OR governo OR presidente OR ministério OR congresso OR senado OR câmara OR eleições OR saúde OR educação OR segurança OR violência OR "meio ambiente" OR "saneamento básico" OR transportes OR infraestrutura OR municípios OR estados OR "direitos humanos" OR sociedade OR cultura OR economia_local)',
+    'Manchetes': '(manchetes brasil) OR (atualidades OR "últimas notícias" OR "breaking news" OR destaque OR capa OR "principal notícia" OR entretenimento OR cultura OR cinema OR música OR celebridades OR esportes OR "resultados" OR "crônica" OR "reportagem especial")',
+    'STF': '(stf) OR ("supremo tribunal federal") OR (stj OR "tribunal superior" OR ministro OR ministros OR julgamento OR "decisão do STF" OR "recurso extraordinário" OR "habeas corpus" OR ADI OR ADPF OR RE OR "repercussão geral" OR "súmula vinculante")'
+};
             const feedEl = document.getElementById('news-feed');
             if (!feedEl) {
                 console.error('Elemento #news-feed não encontrado.');
